@@ -32,7 +32,6 @@ CREATE TABLE `agente_de_saude` (
   `senha` varchar(250) DEFAULT NULL,
   `codigo_equipe` int(11) NOT NULL,
   PRIMARY KEY (`id_agente`),
-  KEY `fk_agente_microarea` (`id_microarea`),
   CONSTRAINT `fk_agente_microarea` FOREIGN KEY (`id_microarea`) REFERENCES `micro_area` (`id_microarea`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
