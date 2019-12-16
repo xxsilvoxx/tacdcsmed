@@ -1,0 +1,94 @@
+CREATE TABLE causa (
+	id_causa BIGINT(20) AUTO_INCREMENT PRIMARY KEY,
+	nome VARCHAR(250) NOT NULL
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE familia (
+	id_familia BIGINT(20) AUTO_INCREMENT PRIMARY KEY,
+	nome VARCHAR(250) NOT NULL
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE pessoa (
+	id_pessoa BIGINT(20) AUTO_INCREMENT PRIMARY KEY,
+	id_familia BIGINT(20) NOT NULL,
+	nome VARCHAR (250) NOT NULL,
+	responsavel_familiar BOOLEAN,
+	cpf_cnpj VARCHAR(15) NOT NULL,
+	data_nascimento DATE NOT NULL,
+	sexo CHAR(1) NOT NULL,
+	nacionalidade VARCHAR(250) NOT NULL,
+	telefone VARCHAR(20),
+	celular VARCHAR(20),
+	email VARCHAR(250)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE causa_pessoa (
+	id_causa_pessoa BIGINT(20) AUTO_INCREMENT PRIMARY KEY,
+	id_causa BIGINT(20) NOT NULL,
+	id_pessoa BIGINT(20) NOT NULL
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE residencia (
+	id_residencia BIGINT(20) AUTO_INCREMENT PRIMARY KEY,
+	id_familia BIGINT(20) NOT NULL,
+	id_micro_area BIGINT(20) NOT NULL,
+	logradouro VARCHAR(250) NOT NULL,
+	nr_logradouro BIGINT(20) NOT NULL,
+	bairro VARCHAR(250) NOT NULL,
+	cep VARCHAR(9) NOT NULL,
+	local_referencia TEXT,
+	cor VARCHAR(250),
+	complemento TEXT
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE estado(
+	id_estado BIGINT(20) AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(250)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE cidade(
+	id_cidade BIGINT(20) AUTO_INCREMENT PRIMARY KEY,
+    id_estado INT NOT NULL,
+    nome VARCHAR(250)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE bairro(
+	id_bairro BIGINT(20) AUTO_INCREMENT PRIMARY KEY,
+    id_cidade INT NOT NULL,
+    nome VARCHAR(250),
+    cep VARCHAR(20)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE micro_area(
+	id_micro_area BIGINT(20) AUTO_INCREMENT PRIMARY KEY,
+    id_bairro INT NOT NULL,
+    ubs VARCHAR(250)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE agente_de_saude(
+	id_agente_de_saude BIGINT(20) AUTO_INCREMENT PRIMARY KEY,
+    id_micro_area INT NOT NULL,
+    nome VARCHAR(250),
+    login VARCHAR(50),
+    senha VARCHAR(250),
+    cod_equipe INT NOT NULL
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+ALTER TABLE `FAMILIA` ADD CONSTRAINT  FOREIGN KEY(id_familia) REFERENCES familia(id_familia);
+ALTER TABLE `FAMILIA` ADD CONSTRAINT FOREIGN KEY(id_familia) REFERENCES familia(id_familia);
+ALTER TABLE `CAUSA` ADD CONSTRAINT FOREIGN KEY(id_causa) REFERENCES causa(id_causa);
+ALTER TABLE `PESSOA` ADD CONSTRAINT FOREIGN KEY(id_pessoa) REFERENCES pessoa(id_pessoa);
+ALTER TABLE `MICRO_AREA` ADD CONSTRAINT  FOREIGN KEY (id_bairro) REFERENCES bairro(id_bairro);
+ALTER TABLE `BAIRRO` ADD CONSTRAINT  FOREIGN KEY (id_cidade) REFERENCES cidade(id_cidade);
+ALTER TABLE `CIDADE` ADD CONSTRAINT  FOREIGN KEY (id_estado) REFERENCES estado(id_estado);	
+ALTER TABLE `AGENTE_DE_SAUDE` ADD CONSTRAINT  FOREIGN KEY (id_micro_area) REFERENCES micro_area(id_micro_area);
