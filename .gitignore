@@ -1,5 +1,5 @@
 .dist/
 BackEnd/.metadata/
 BackEnd/medicina/.metadata/
-BackEnd/medicina/src/resources/application.properties
+BackEnd/medicina/src/main/resources/application.properties
 /.metadata/
