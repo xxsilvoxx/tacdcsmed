@@ -2,6 +2,7 @@ package fadep.medicina.resource;
 
 import fadep.medicina.model.AgenteDeSaude;
 import fadep.medicina.repository.AgenteDeSaudeRepository;
+import fadep.medicina.service.AgenteDeSaudeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,9 @@ public class AgenteDeSaudeResource {
     @Autowired
     public AgenteDeSaudeRepository agenteDeSaudeRepository;
 
+    @Autowired
+    public AgenteDeSaudeService agenteDeSaudeService;
+
     @GetMapping
     public List<AgenteDeSaude> listarTodos() {
         return agenteDeSaudeRepository.findAll();
@@ -33,14 +37,12 @@ public class AgenteDeSaudeResource {
 
     @PutMapping("/{codigo}")
     public ResponseEntity<AgenteDeSaude> alterar(@Valid @RequestBody AgenteDeSaude pessoa, @PathVariable("codigo") Long codigo) {
-        // Ainda falta a implementação do service pra implementar o método
-        return null;
+        return agenteDeSaudeService.atualizar(pessoa, codigo);
     }
 
     @DeleteMapping("/{codigo}")
     public ResponseEntity<AgenteDeSaude> remover(@PathVariable("codigo") Long codigo) {
-        agenteDeSaudeRepository.deleteById(codigo);
-        return ResponseEntity.noContent().build();
+        return agenteDeSaudeService.remover(codigo);
     }
 
 }
