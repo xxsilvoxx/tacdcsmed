@@ -12,7 +12,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/causa")
+@RequestMapping("/causas")
 public class CausaResource {
 
     @Autowired

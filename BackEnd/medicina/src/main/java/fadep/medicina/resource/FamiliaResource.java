@@ -12,7 +12,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/familia")
+@RequestMapping("/familias")
 public class FamiliaResource {
 
     @Autowired
