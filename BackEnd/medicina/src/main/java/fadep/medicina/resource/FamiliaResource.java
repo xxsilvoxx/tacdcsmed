@@ -19,7 +19,7 @@ public class FamiliaResource {
     public FamiliaRepository familiaRepository;
 
     @GetMapping
-    public List<Familia> listarTodos() {
+    public List<Familia> listarTodas() {
         return familiaRepository.findAll();
     }
 

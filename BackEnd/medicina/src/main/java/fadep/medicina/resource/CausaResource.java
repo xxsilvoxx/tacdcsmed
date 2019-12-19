@@ -19,7 +19,7 @@ public class CausaResource {
     public CausaRepository causaRepository;
 
     @GetMapping
-    public List<Causa> listarTodos() {
+    public List<Causa> listarTodas() {
         return causaRepository.findAll();
     }
 

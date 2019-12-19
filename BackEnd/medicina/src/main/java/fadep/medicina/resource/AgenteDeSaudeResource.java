@@ -26,7 +26,7 @@ public class AgenteDeSaudeResource {
     @PostMapping
     public ResponseEntity<AgenteDeSaude> cadastrar(@Valid @RequestBody AgenteDeSaude agenteDeSaude, HttpServletResponse response) {
         AgenteDeSaude agenteDeSaudeSalvo = agenteDeSaudeRepository.save(agenteDeSaude);
-        return (agenteDeSaude != null)
+        return (agenteDeSaudeSalvo != null)
                 ?(ResponseEntity.status(HttpStatus.CREATED).body(agenteDeSaude))
                 :(ResponseEntity.badRequest().build());
     }
