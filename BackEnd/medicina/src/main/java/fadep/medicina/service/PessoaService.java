@@ -18,7 +18,7 @@ public class PessoaService {
     public ResponseEntity<Pessoa> atualizar(Pessoa pessoa, Long codigo) {
         Pessoa pessoaSalva = buscarPorCodigo(codigo);
         if (pessoaSalva != null) {
-            BeanUtils.copyProperties(pessoa, pessoaSalva, "id_pessoa");
+            BeanUtils.copyProperties(pessoa, pessoaSalva, "idPessoa");
             pessoaRepository.save(pessoaSalva);
             return ResponseEntity.ok(pessoaSalva);
         } else {

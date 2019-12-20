@@ -2,6 +2,7 @@ package fadep.medicina.resource;
 
 import fadep.medicina.model.Estado;
 import fadep.medicina.repository.EstadoRepository;
+import fadep.medicina.service.EstadoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,9 @@ public class EstadoResource {
     @Autowired
     public EstadoRepository estadoRepository;
 
+    @Autowired
+    public EstadoService estadoService;
+
     @GetMapping
     public List<Estado> listarTodos() {
         return estadoRepository.findAll();
@@ -33,14 +37,12 @@ public class EstadoResource {
 
     @PutMapping("/{codigo}")
     public ResponseEntity<Estado> alterar(@Valid @RequestBody Estado estado, @PathVariable("codigo") Long codigo) {
-        // Ainda falta a implementação do service pra implementar o método
-        return null;
+        return estadoService.atualizar(estado, codigo);
     }
 
     @DeleteMapping("/{codigo}")
     public ResponseEntity<Estado> remover(@PathVariable("codigo") Long codigo) {
-        estadoRepository.deleteById(codigo);
-        return ResponseEntity.noContent().build();
+        return estadoService.remover(codigo);
     }
 
 }

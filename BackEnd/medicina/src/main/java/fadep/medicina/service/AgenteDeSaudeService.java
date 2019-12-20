@@ -18,7 +18,7 @@ public class AgenteDeSaudeService {
     public ResponseEntity<AgenteDeSaude> atualizar(AgenteDeSaude agenteDeSaude, Long codigo) {
         AgenteDeSaude agenteDeSaudeSalva = buscarPorCodigo(codigo);
         if (agenteDeSaudeSalva != null) {
-            BeanUtils.copyProperties(agenteDeSaude, agenteDeSaudeSalva, "id_agente");
+            BeanUtils.copyProperties(agenteDeSaude, agenteDeSaudeSalva, "idAgente");
             agenteDeSaudeRepository.save(agenteDeSaudeSalva);
             return ResponseEntity.ok(agenteDeSaudeSalva);
         } else {

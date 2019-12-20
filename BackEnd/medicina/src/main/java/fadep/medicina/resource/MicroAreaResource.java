@@ -2,6 +2,7 @@ package fadep.medicina.resource;
 
 import fadep.medicina.model.MicroArea;
 import fadep.medicina.repository.MicroAreaRepository;
+import fadep.medicina.service.MicroAreaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,9 @@ public class MicroAreaResource {
     @Autowired
     public MicroAreaRepository microAreaRepository;
 
+    @Autowired
+    public MicroAreaService microAreaService;
+
     @GetMapping
     public List<MicroArea> listarTodas() {
         return microAreaRepository.findAll();
@@ -33,14 +37,12 @@ public class MicroAreaResource {
 
     @PutMapping("/{codigo}")
     public ResponseEntity<MicroArea> alterar(@Valid @RequestBody MicroArea microArea, @PathVariable("codigo") Long codigo) {
-        // Ainda falta a implementação do service pra implementar o método
-        return null;
+        return microAreaService.atualizar(microArea, codigo);
     }
 
     @DeleteMapping("/{codigo}")
     public ResponseEntity<MicroArea> remover(@PathVariable("codigo") Long codigo) {
-        microAreaRepository.deleteById(codigo);
-        return ResponseEntity.noContent().build();
+        return microAreaService.remover(codigo);
     }
 
 }

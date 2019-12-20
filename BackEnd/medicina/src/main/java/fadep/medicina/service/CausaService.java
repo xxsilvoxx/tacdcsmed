@@ -18,7 +18,7 @@ public class CausaService {
     public ResponseEntity<Causa> atualizar(Causa causa, Long codigo) {
         Causa causaSalva = buscarPorCodigo(codigo);
         if (causaSalva != null) {
-            BeanUtils.copyProperties(causa, causaSalva, "id_causa");
+            BeanUtils.copyProperties(causa, causaSalva, "idCausa");
             causaRepository.save(causaSalva);
             return ResponseEntity.ok(causaSalva);
         } else {

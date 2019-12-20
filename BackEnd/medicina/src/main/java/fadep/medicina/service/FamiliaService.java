@@ -18,7 +18,7 @@ public class FamiliaService {
     public ResponseEntity<Familia> atualizar(Familia familia, Long codigo) {
         Familia familiaSalva = buscarPorCodigo(codigo);
         if (familiaSalva != null) {
-            BeanUtils.copyProperties(familia, familiaSalva, "id_familia");
+            BeanUtils.copyProperties(familia, familiaSalva, "idFamilia");
             familiaRepository.save(familiaSalva);
             return ResponseEntity.ok(familiaSalva);
         } else {

@@ -2,6 +2,7 @@ package fadep.medicina.resource;
 
 import fadep.medicina.model.Bairro;
 import fadep.medicina.repository.BairroRepository;
+import fadep.medicina.service.BairroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,9 @@ public class BairroResource {
     @Autowired
     public BairroRepository bairroRepository;
 
+    @Autowired
+    public BairroService bairroService;
+
     @GetMapping
     public List<Bairro> listarTodos() {
         return bairroRepository.findAll();
@@ -33,14 +37,12 @@ public class BairroResource {
 
     @PutMapping("/{codigo}")
     public ResponseEntity<Bairro> alterar(@Valid @RequestBody Bairro bairro, @PathVariable("codigo") Long codigo) {
-        // Ainda falta a implementação do service pra implementar o método
-        return null;
+        return bairroService.atualizar(bairro, codigo);
     }
 
     @DeleteMapping("/{codigo}")
     public ResponseEntity<Bairro> remover(@PathVariable("codigo") Long codigo) {
-        bairroRepository.deleteById(codigo);
-        return ResponseEntity.noContent().build();
+        return bairroService.remover(codigo);
     }
 
 }
