@@ -16,11 +16,11 @@ public class AgenteDeSaude {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id_agente")
+	@Column(name="id_agente_de_saude")
 	private Long idAgente;
 	
 	@ManyToOne
-	@JoinColumn(name="id_microarea")
+	@JoinColumn(name="id_micro_area")
 	private MicroArea microArea;
 	
 	@Column(name="nome")
@@ -33,7 +33,7 @@ public class AgenteDeSaude {
 	@Column(name="senha")
 	private String senha;
 	
-	@Column(name="codigo_equipe")
+	@Column(name="cod_equipe")
 	private Long codEquipe;
 
 	public Long getIdAgente() {
