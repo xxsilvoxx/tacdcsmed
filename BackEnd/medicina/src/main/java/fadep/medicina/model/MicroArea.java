@@ -15,7 +15,7 @@ public class MicroArea {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_microarea")
+	@Column(name="id_micro_area")
 	private Long idMicroArea;
 	
 	@ManyToOne
