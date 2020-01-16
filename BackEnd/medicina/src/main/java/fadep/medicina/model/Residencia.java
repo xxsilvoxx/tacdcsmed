@@ -27,7 +27,7 @@ public class Residencia {
 	
 	@NotNull
 	@ManyToOne
-	@JoinColumn(name="id_microarea")
+	@JoinColumn(name="id_micro_area")
 	private MicroArea microArea;
 	
 	@NotNull
