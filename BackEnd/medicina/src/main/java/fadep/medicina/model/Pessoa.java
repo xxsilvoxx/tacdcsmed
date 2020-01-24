@@ -32,7 +32,7 @@ public class Pessoa {
 	private String nome;
 	
 	@Column(name="responsavel_familiar")
-	private Boolean responsavel_familiar;
+	private Boolean responsavelFamiliar;
 	
 	@NotNull
 	@Size(min=10, max=15)
@@ -87,12 +87,12 @@ public class Pessoa {
 		this.nome = nome;
 	}
 
-	public Boolean getResponsavel_familiar() {
-		return responsavel_familiar;
+	public Boolean getResponsavelFamiliar() {
+		return responsavelFamiliar;
 	}
 
-	public void setResponsavel_familiar(Boolean responsavel_familiar) {
-		this.responsavel_familiar = responsavel_familiar;
+	public void setResponsavelFamiliar(Boolean responsavelFamiliar) {
+		this.responsavelFamiliar = responsavelFamiliar;
 	}
 
 	public String getCpfCnpj() {
