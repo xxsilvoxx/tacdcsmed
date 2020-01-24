@@ -34,9 +34,10 @@ public class Residencia {
 	@Column(name="logradouro")
 	private String logradouro;
 	
+	
 	@NotNull
-	@Column(name="nr_logradouro")
-	private Integer nrLogradouro;
+	@Column(name="numero")
+	private Integer numero;
 	
 	@Column(name="bairro")
 	private String bairro;
@@ -85,13 +86,14 @@ public class Residencia {
 	public void setLogradouro(String logradouro) {
 		this.logradouro = logradouro;
 	}
-
-	public Integer getNrLogradouro() {
-		return nrLogradouro;
+	
+	
+	public Integer getNumero() {
+		return numero;
 	}
 
-	public void setNrLogradouro(Integer nrLogradouro) {
-		this.nrLogradouro = nrLogradouro;
+	public void setNumero(Integer numero) {
+		this.numero = numero;
 	}
 
 	public String getBairro() {
