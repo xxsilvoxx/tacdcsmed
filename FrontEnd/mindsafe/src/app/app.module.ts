@@ -6,10 +6,12 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { VisitasComponent } from './visitas/visitas.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    VisitasComponent
   ],
   imports: [
     BrowserModule,
