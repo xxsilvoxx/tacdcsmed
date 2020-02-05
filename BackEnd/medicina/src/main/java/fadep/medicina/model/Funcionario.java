@@ -1,23 +1,17 @@
 package fadep.medicina.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.Objects;
 
 @Entity
-@Table(name="agente_de_saude")
-public class AgenteDeSaude {
+@Table(name="funcionario")
+public class Funcionario {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id_agente_de_saude")
-	private Long idAgente;
+	@Column(name="id_funcionario")
+	private Long idFuncionario;
 	
 	@ManyToOne
 	@JoinColumn(name="id_micro_area")
@@ -36,12 +30,16 @@ public class AgenteDeSaude {
 	@Column(name="cod_equipe")
 	private Long codEquipe;
 
+	@Column(name="funcao")
+	@Enumerated(EnumType.STRING)
+	private FuncionarioFuncaoEnum funcao;
+
 	public Long getIdAgente() {
-		return idAgente;
+		return idFuncionario;
 	}
 
-	public void setIdAgente(Long idAgente) {
-		this.idAgente = idAgente;
+	public void setIdAgente(Long idFuncionario) {
+		this.idFuncionario = idFuncionario;
 	}
 
 	public MicroArea getMicroArea() {
@@ -84,29 +82,24 @@ public class AgenteDeSaude {
 		this.codEquipe = codEquipe;
 	}
 
+	public FuncionarioFuncaoEnum getFuncao() {
+		return funcao;
+	}
+
+	public void setFuncao(FuncionarioFuncaoEnum funcao) {
+		this.funcao = funcao;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Funcionario that = (Funcionario) o;
+		return Objects.equals(idFuncionario, that.idFuncionario);
+	}
+
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((idAgente == null) ? 0 : idAgente.hashCode());
-		return result;
+		return Objects.hash(idFuncionario);
 	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		AgenteDeSaude other = (AgenteDeSaude) obj;
-		if (idAgente == null) {
-			if (other.idAgente != null)
-				return false;
-		} else if (!idAgente.equals(other.idAgente))
-			return false;
-		return true;
-	}
-
 }

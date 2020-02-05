@@ -1,8 +1,8 @@
 package fadep.medicina.resource;
 
-import fadep.medicina.model.AgenteDeSaude;
-import fadep.medicina.repository.AgenteDeSaudeRepository;
-import fadep.medicina.service.AgenteDeSaudeService;
+import fadep.medicina.model.Funcionario;
+import fadep.medicina.repository.FuncionarioRepository;
+import fadep.medicina.service.FuncionarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,36 +13,36 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/agentesDeSaude")
+@RequestMapping("/funcionarios")
 public class AgenteDeSaudeResource {
 
     @Autowired
-    public AgenteDeSaudeRepository agenteDeSaudeRepository;
+    public FuncionarioRepository funcionarioRepository;
 
     @Autowired
-    public AgenteDeSaudeService agenteDeSaudeService;
+    public FuncionarioService funcionarioService;
 
     @GetMapping
-    public List<AgenteDeSaude> listarTodos() {
-        return agenteDeSaudeRepository.findAll();
+    public List<Funcionario> listarTodos() {
+        return funcionarioRepository.findAll();
     }
 
     @PostMapping
-    public ResponseEntity<AgenteDeSaude> cadastrar(@Valid @RequestBody AgenteDeSaude agenteDeSaude, HttpServletResponse response) {
-        AgenteDeSaude agenteDeSaudeSalvo = agenteDeSaudeRepository.save(agenteDeSaude);
-        return (agenteDeSaudeSalvo != null)
-                ?(ResponseEntity.status(HttpStatus.CREATED).body(agenteDeSaude))
+    public ResponseEntity<Funcionario> cadastrar(@Valid @RequestBody Funcionario funcionario, HttpServletResponse response) {
+        Funcionario funcionarioSalvo = funcionarioRepository.save(funcionario);
+        return (funcionarioSalvo != null)
+                ?(ResponseEntity.status(HttpStatus.CREATED).body(funcionarioSalvo))
                 :(ResponseEntity.badRequest().build());
     }
 
     @PutMapping("/{codigo}")
-    public ResponseEntity<AgenteDeSaude> alterar(@Valid @RequestBody AgenteDeSaude pessoa, @PathVariable("codigo") Long codigo) {
-        return agenteDeSaudeService.atualizar(pessoa, codigo);
+    public ResponseEntity<Funcionario> alterar(@Valid @RequestBody Funcionario funcionario, @PathVariable("codigo") Long codigo) {
+        return funcionarioService.atualizar(funcionario, codigo);
     }
 
     @DeleteMapping("/{codigo}")
-    public ResponseEntity<AgenteDeSaude> remover(@PathVariable("codigo") Long codigo) {
-        return agenteDeSaudeService.remover(codigo);
+    public ResponseEntity<Funcionario> remover(@PathVariable("codigo") Long codigo) {
+        return funcionarioService.remover(codigo);
     }
 
 }
