@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/funcionarios")
-public class AgenteDeSaudeResource {
+public class FuncionarioResource {
 
     @Autowired
     public FuncionarioRepository funcionarioRepository;
