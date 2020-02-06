@@ -1,12 +1,16 @@
 <div class="bg-login"></div>
-<div fxLayout="row">
 
-  <mat-form-field>
-    <input matInput placeholder="Login" type="text">
-  </mat-form-field>
+<mat-form-field>
+  <input matInput placeholder="Login" type="text" [(ngModel)]="funcionario.login">
+</mat-form-field>
 
-  <mat-form-field>
-    <input matInput placeholder="Senha" type="text">
-  </mat-form-field>
+<mat-form-field>
+  <input matInput placeholder="Senha" type="password" maxlength="8" [(ngModel)]="funcionario.senha" #senha>
+  <mat-hint align="end">
+    {{ senha?.value.length }} / 8
+  </mat-hint>
+</mat-form-field>
 
-</div>
+<button mat-raised-button color="primary" [disabled]="funcionario.login == null || (funcionario.senha == null || funcionario.senha.length < 2) ">Logar <i class="material-icons">send</i></button>
+
+

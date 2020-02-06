@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 
 import { LoginComponent } from './login.component';
+import { LoginService } from '../services/login.service';
 
 @NgModule({
   declarations: [
