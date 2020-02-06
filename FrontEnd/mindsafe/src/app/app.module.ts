@@ -6,18 +6,20 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { VisitasComponent } from './visitas/visitas.component';
+import { LoginModule } from './login/login.module';
+import { VisitasModule } from './visitas/visitas.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    VisitasComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    LoginModule,
+    VisitasModule
   ],
   providers: [],
   bootstrap: [AppComponent]
