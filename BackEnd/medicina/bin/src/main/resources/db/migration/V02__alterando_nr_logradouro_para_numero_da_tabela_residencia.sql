@@ -1,1 +1,0 @@
-alter table residencia change   nr_logradouro numero BIGINT
