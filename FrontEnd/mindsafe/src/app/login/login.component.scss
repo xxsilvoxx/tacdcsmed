@@ -1,6 +1,6 @@
 .bg-login {
   background: grey;
-  height: 434px;
+  height: 300px;
   width: 100%;
 }
 
@@ -9,5 +9,14 @@ mat-form-field {
 }
 
 button {
+  margin-top: 20px;
   width: 100%;
+}
+
+header {
+  margin-top: 40px;
+  margin-bottom: 80px;
+  text-align: center;
+  font-size: 40pt;
+  color: #565656;
 }

@@ -9,6 +9,7 @@ import { LoginService } from '../services/login.service';
 })
 export class LoginComponent implements OnInit {
 
+  senhaViziveu = false;
   funcionario: Funcionario = new Funcionario();
 
   constructor(
@@ -16,6 +17,10 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+  }
+
+  vizualizarSenha() {
+    this.senhaViziveu = !this.senhaViziveu;
   }
 
   logar() {
