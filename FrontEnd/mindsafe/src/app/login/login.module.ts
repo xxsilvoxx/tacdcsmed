@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 
 import { LoginComponent } from './login.component';
 import { MatIconModule } from '@angular/material/icon';
+import { LoginRoutingModule } from './login-routing.module';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatFormFieldModule,
     MatButtonModule,
     FormsModule,
-    MatIconModule
+    MatIconModule,
+    LoginRoutingModule
   ]
 })
 export class LoginModule { }

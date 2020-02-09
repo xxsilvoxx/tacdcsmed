@@ -4,7 +4,7 @@ import { LoginComponent } from './login/login.component';
 
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent },
+  { path: 'login', loadChildren: 'src/app/login/login.module#LoginModule' },
   { path: 'visitas', loadChildren: 'src/app/visitas/visitas.module#VisitasModule' },
 ];
 

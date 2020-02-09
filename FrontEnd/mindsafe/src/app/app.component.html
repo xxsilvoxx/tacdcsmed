@@ -1,8 +1,18 @@
+<mat-toolbar color="warn">
+  <button mat-icon-button>
+    <mat-icon class="material-icons">menu</mat-icon>
+  </button>
+  <div style="margin: auto;">
+    <!-- Aqui vai a logo -->
+    <span>MindSafe</span>
+  </div>
+</mat-toolbar>
+
 <ul>
   <a [routerLink]="['/login']">Login</a>
   <br>
   <a [routerLink]="['/visitas']">Visitas</a>
 </ul>
-<div style="margin: 40px;">
+<div style="margin-left: 56px; margin-right: 56px;">
   <router-outlet></router-outlet>
 </div>
