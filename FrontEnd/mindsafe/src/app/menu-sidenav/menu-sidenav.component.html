@@ -2,9 +2,9 @@
   <button mat-icon-button (click)="snav.toggle()">
     <mat-icon class="material-icons">menu</mat-icon>
   </button>
-  <div style="margin: auto;">
-    <!-- Aqui vai a logo -->
-    <h1>MindSafe</h1>
+  <div class="logo-page">
+    <div class="logo"></div>
+    <h1 style="margin-left: 10px;">MindSafe</h1>
   </div>
 </mat-toolbar>
 <mat-sidenav-container>
@@ -45,9 +45,7 @@
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <div style="margin: 20px">
-      <router-outlet></router-outlet>
-    </div>
+    <router-outlet></router-outlet>
   </mat-sidenav-content>
 
 </mat-sidenav-container>
