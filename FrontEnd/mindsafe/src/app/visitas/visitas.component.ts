@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VisitasComponent implements OnInit {
 
+  msg = '17 visitas a serem feitas'
+
   constructor() { }
 
   ngOnInit() {
