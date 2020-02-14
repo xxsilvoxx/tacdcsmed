@@ -35,11 +35,11 @@
         <mat-divider></mat-divider>
         <a mat-list-item>RESIDÊNCIAS</a>
         <a mat-list-item>FAMÍLIAS</a>
-        <a mat-list-item>PACIENTES</a>
+        <a mat-list-item [routerLink]="['/pacientes']">PACIENTES</a>
         <a mat-list-item>CONTROLE</a>
         <a mat-list-item [routerLink]="['/visitas']">VISITAS</a>
         <div class="divisor-white"></div>
-        <a mat-list-item style="align-content: center;">SAIR <i class="material-icons">exit_to_app</i></a>
+        <a mat-list-item>SAIR <i class="material-icons">exit_to_app</i></a>
       </mat-nav-list>
     </div>
   </mat-sidenav>

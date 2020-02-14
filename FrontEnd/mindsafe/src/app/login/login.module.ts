@@ -6,9 +6,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 
-import { LoginComponent } from './login.component';
 import { MatIconModule } from '@angular/material/icon';
 import { LoginRoutingModule } from './login-routing.module';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [

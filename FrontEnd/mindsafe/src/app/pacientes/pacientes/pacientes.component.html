@@ -1,0 +1,53 @@
+<div class=""></div>
+<div class="bg-pacientes">
+  <h3 class="titulo">Pacientes</h3>
+</div>
+
+<div style="padding: 0 20px;" fxLayout="row" fxLayout.xs="column" fxLayoutGap="0.5%" fxLayoutAlign="center">
+
+  <div fxFlex="60%">
+
+    <mat-form-field>
+      <input matInput placeholder="Filtro" type="text">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Filtro Selecionado</mat-label>
+      <mat-select>
+        <mat-option>
+          Valor 1
+        </mat-option>
+        <mat-option>
+          Valor 2
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div fxFlex="40%">
+    <mat-card style="margin-top: 40px;">
+      <button mat-icon-button [disabled]="'true'">
+        <mat-icon class="material-icons">search</mat-icon>
+      </button>
+      <button mat-icon-button [disabled]="'true'">
+        <mat-icon class="material-icons">edit</mat-icon>
+      </button>
+      <button mat-icon-button [disabled]="'true'">
+        <mat-icon class="material-icons">delete</mat-icon>
+      </button>
+      <button mat-icon-button [disabled]="'true'">
+        <mat-icon class="material-icons">perm_media</mat-icon>
+      </button>
+      <button mat-icon-button [disabled]="'false'">
+        <mat-icon class="material-icons">add</mat-icon>
+      </button>
+    </mat-card>
+  </div>
+
+</div>
+
+<div>
+  <mat-list>
+    <mat-list-item *ngFor="let paciente of pacientes">{{ paciente.nome }}</mat-list-item>
+  </mat-list>
+</div>
