@@ -3,9 +3,9 @@
   <h3 class="titulo">Pacientes</h3>
 </div>
 
-<div style="padding: 0 20px;" fxLayout="row" fxLayout.xs="column" fxLayoutGap="0.5%" fxLayoutAlign="center">
+<div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0.5%" fxLayoutAlign="center center" ngClass.xs="espaco-lateral">
 
-  <div fxFlex="60%">
+  <div fxFlex="70%" fxFlex.md="60%" fxFlex.sm="50%">
 
     <mat-form-field>
       <input matInput placeholder="Filtro" type="text">
@@ -22,10 +22,11 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
+
   </div>
 
-  <div fxFlex="40%">
-    <mat-card style="margin-top: 40px;">
+  <div fxFlex="20%" fxFlex.md="25%" fxFlex.sm="35%">
+    <mat-card>
       <button mat-icon-button [disabled]="'true'">
         <mat-icon class="material-icons">search</mat-icon>
       </button>
@@ -46,8 +47,10 @@
 
 </div>
 
-<div>
-  <mat-list>
-    <mat-list-item *ngFor="let paciente of pacientes">{{ paciente.nome }}</mat-list-item>
-  </mat-list>
+<div style="margin-top: 10px;">
+  <mat-card>
+    <mat-list>
+      <mat-list-item *ngFor="let paciente of pacientes">{{ paciente.codigo }} - {{ paciente.nome }} - {{ paciente.familia }} - {{ paciente.cpfCnpj }}</mat-list-item>
+    </mat-list>
+  </mat-card>
 </div>

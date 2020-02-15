@@ -5,7 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 
 import { VisitasRoutingModule } from './visitas-routing.module';
-import { VisitasComponent } from './visitas.component';
+import { VisitasComponent } from './visitas/visitas.component';
 
 
 @NgModule({
