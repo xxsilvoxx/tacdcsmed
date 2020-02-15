@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Visitas } from '../models/visitas.model';
 
 @Component({
   selector: 'app-visitas',
@@ -8,6 +9,12 @@ import { Component, OnInit } from '@angular/core';
 export class VisitasComponent implements OnInit {
 
   msg = '17 visitas a serem feitas'
+
+  visitas: Visitas [
+
+    { codigo: 1, paciente: {nome: 'João'}, dataVisita: new Date(), status: true };
+    
+  ];
 
   constructor() { }
 

@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 
 import { VisitasRoutingModule } from './visitas-routing.module';
 import { VisitasComponent } from './visitas.component';
+import {MatListModule} from '@angular/material/list';
 
 
 @NgModule({
@@ -17,7 +18,9 @@ import { VisitasComponent } from './visitas.component';
     VisitasRoutingModule,
     MatCardModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    MatListModule
+    
   ],
   exports: [
     VisitasRoutingModule
