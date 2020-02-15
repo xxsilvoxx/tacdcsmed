@@ -5,30 +5,25 @@
             <h2>{{ msg }}</h2>
         </mat-card-content>
         <mat-card-actions>
-            <button color="primary" mat-raised-button>Continuar Visistas <i class="material-icons">send</i></button>
+            <button class="full-size" color="primary" mat-raised-button>Continuar Visistas <i class="material-icons">send</i></button>
         </mat-card-actions>
     </mat-card>
 </div>
 
-
-
-
 <h2>Pacientes Visitados</h2>
 
-<div style="padding-left: 15px; padding-right: 15px;">
+<div>
 
     <mat-card>
         <mat-list>
             <mat-list-item *ngFor="let visita of visitas">
-                <strong>{{ visita.pessoa.nome }}</strong>
-                {{ visita.dataVisita | date }} 
+                {{ visita.pessoa.nome }} - {{ visita.dataVisita | date }} 
                 <mat-icon class="material-icons" *ngIf="visita.codigo != null">done</mat-icon> 
-                <button mat-icon-button color="primary">
+                <button mat-fab color="primary">
                     <i class="material-icons">search</i>
                 </button>
             </mat-list-item>
         </mat-list>
-
     </mat-card>
     
 </div>

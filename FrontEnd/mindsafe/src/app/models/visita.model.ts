@@ -1,9 +1,7 @@
 import { Paciente } from './paciente.model';
 
-export class Visitas {
+export class Visita {
     codigo: number;
     paciente: Paciente;
     dataVisita: Date;
-    status: boolean
-
 }

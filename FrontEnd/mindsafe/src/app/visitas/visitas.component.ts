@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Visitas } from '../models/visitas.model';
+import { Visita } from '../models/visita.model';
 
 @Component({
   selector: 'app-visitas',
@@ -10,10 +10,9 @@ export class VisitasComponent implements OnInit {
 
   msg = '17 visitas a serem feitas'
 
-  visitas: Visitas [
-
-    { codigo: 1, paciente: {nome: 'João'}, dataVisita: new Date(), status: true };
-    
+  visitas = [
+    { codigo: 1, pessoa: { nome: 'João da Silva' }, dataVisita: new Date() },
+    { codigo: 2, pessoa: { nome: 'Fernando da Silva' }, dataVisita: new Date() }
   ];
 
   constructor() { }
