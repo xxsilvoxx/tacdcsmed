@@ -8,6 +8,9 @@ import { AppComponent } from './app.component';
 import { LoginModule } from './login/login.module';
 import { VisitasModule } from './visitas/visitas.module';
 import { MenuSidenavModule } from './menu-sidenav/menu-sidenav.module';
+
+
+
 @NgModule({
   declarations: [
     AppComponent
@@ -20,6 +23,8 @@ import { MenuSidenavModule } from './menu-sidenav/menu-sidenav.module';
     MenuSidenavModule,
     LoginModule,
     VisitasModule
+    
+
   ],
   providers: [],
   bootstrap: [AppComponent]
