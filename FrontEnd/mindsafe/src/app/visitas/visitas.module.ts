@@ -7,6 +7,11 @@ import { MatListModule } from '@angular/material/list';
 
 import { VisitasRoutingModule } from './visitas-routing.module';
 import { VisitasComponent } from './visitas.component';
+<<<<<<< HEAD
+=======
+import {MatListModule} from '@angular/material/list';
+
+>>>>>>> 547a5288182441c4a8a51f94e4135ce0aef01c2c
 
 @NgModule({
   declarations: [
