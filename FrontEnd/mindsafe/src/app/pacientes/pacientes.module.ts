@@ -6,12 +6,16 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
-
-import { PacientesRoutingModule } from './pacientes-routing.module';
-import { PacientesComponent } from './pacientes/pacientes.component';
+import { MatTableModule}  from '@angular/material/table';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
+
+import { PacientesRoutingModule } from './pacientes-routing.module';
+import { PacientesComponent } from './pacientes/pacientes.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +31,9 @@ import { MatListModule } from '@angular/material/list';
     MatCardModule,
     MatSelectModule,
     MatListModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatCheckboxModule,
     FlexLayoutModule
   ]
 })
