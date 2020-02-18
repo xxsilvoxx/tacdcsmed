@@ -16,6 +16,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { PacientesRoutingModule } from './pacientes-routing.module';
 import { PacientesComponent } from './pacientes/pacientes.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { PacientesComponent } from './pacientes/pacientes.component';
     MatTableModule,
     MatPaginatorModule,
     MatCheckboxModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    SharedModule
   ]
 })
 export class PacientesModule { }
