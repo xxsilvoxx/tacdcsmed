@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>{{ data.titulo }}</h1>
+<div mat-dialog-content>
+  <p style="text-align: center;">{{ data.texto }}</p>
+</div>
+<div fxLayout="column">
+  <div mat-dialog-actions>
+    <button fxFlex="45%" fxFlex.xs="100%" mat-raised-button color="primary" (click)="onConfirm()">Confirmar</button><br>
+    <button fxFlex="45%" fxFlex.xs="100%" mat-raised-button color="warn" (click)="onDecline()">Cancelar</button>
+  </div>
+</div>
+

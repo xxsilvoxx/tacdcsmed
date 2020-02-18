@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { LoginModule } from './login/login.module';
 import { VisitasModule } from './visitas/visitas.module';
 import { MenuSidenavModule } from './menu-sidenav/menu-sidenav.module';
+import { SharedModule } from './shared/shared.module';
 
 
 
@@ -20,11 +21,10 @@ import { MenuSidenavModule } from './menu-sidenav/menu-sidenav.module';
     AppRoutingModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
+    SharedModule,
     MenuSidenavModule,
     LoginModule,
     VisitasModule
-    
-
   ],
   providers: [],
   bootstrap: [AppComponent]
