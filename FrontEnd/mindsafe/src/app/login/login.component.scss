@@ -1,0 +1,56 @@
+/* Classes */
+
+.titulo {
+  display: block;
+  text-align: center;
+  font-size: 32pt;
+  margin-top: 10px;
+  font-weight: 400;
+  color: white;
+
+}
+
+.logo {
+  margin: auto;
+  background-image: url('../../assets/logo-tcc.png');
+  background-size: cover;
+  width: 250px;
+  height: 200px;
+}
+
+.bg-login {
+  background-image: url('../../assets/cats.jpg');
+  background-size: cover;
+  height: 400px;
+  width: 100%;
+
+}
+
+/* Tags */
+
+mat-form-field {
+  width: 100%;
+}
+
+button {
+  margin-top: 20px;
+  width: 100%;
+}
+
+header {
+  margin-top: 40px;
+  margin-bottom: 80px;
+  text-align: center;
+  font-size: 40pt;
+  color: #565656;
+}
+
+a {
+  text-decoration: none;
+  color: rgb(133, 133, 133);
+  font-weight: 500;
+  font-size: 11pt;
+  margin-top: 30px;
+  display: block;
+  float: right;
+}

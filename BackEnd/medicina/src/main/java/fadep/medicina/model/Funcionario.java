@@ -1,6 +1,7 @@
 package fadep.medicina.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Objects;
 
@@ -17,6 +18,16 @@ public class Funcionario {
 	@JoinColumn(name="id_micro_area")
 	private MicroArea microArea;
 	
+	@NotNull
+	@ManyToOne
+	@JoinColumn(name="id_ubs")
+	private Ubs ubs;
+	
+	@NotNull
+	@ManyToOne
+	@JoinColumn(name="id_funcao")
+	private Funcao funcao;
+	
 	@Column(name="nome")
 	private String nome;
 	
@@ -29,10 +40,6 @@ public class Funcionario {
 	
 	@Column(name="cod_equipe")
 	private Long codEquipe;
-
-	@Column(name="funcao")
-	@Enumerated(EnumType.STRING)
-	private FuncionarioFuncaoEnum funcao;
 
 	public Long getIdAgente() {
 		return idFuncionario;
@@ -49,6 +56,24 @@ public class Funcionario {
 	public void setMicroArea(MicroArea microArea) {
 		this.microArea = microArea;
 	}
+	
+	public Ubs getUbs() {
+		return ubs;
+	}
+
+	public void setUbs(Ubs ubs) {
+		this.ubs = ubs;
+	}
+	
+	public Funcao getFuncao() {
+		return funcao;
+	}
+
+	public void setFuncao(Funcao funcao) {
+		this.funcao = funcao;
+	}
+
+
 
 	public String getNome() {
 		return nome;
@@ -80,14 +105,6 @@ public class Funcionario {
 
 	public void setCodEquipe(Long codEquipe) {
 		this.codEquipe = codEquipe;
-	}
-
-	public FuncionarioFuncaoEnum getFuncao() {
-		return funcao;
-	}
-
-	public void setFuncao(FuncionarioFuncaoEnum funcao) {
-		this.funcao = funcao;
 	}
 
 	@Override

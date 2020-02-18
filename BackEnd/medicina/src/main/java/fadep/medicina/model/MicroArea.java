@@ -22,8 +22,7 @@ public class MicroArea {
 	@JoinColumn(name="id_bairro")
 	private Bairro bairro;
 	
-	@Column(name="ubs")
-	private String ubs;
+	private Integer numero;
 
 	public Long getIdMicroArea() {
 		return idMicroArea;
@@ -41,12 +40,12 @@ public class MicroArea {
 		this.bairro = bairro;
 	}
 
-	public String getUbs() {
-		return ubs;
+	public Integer getNumero() {
+		return numero;
 	}
 
-	public void setUbs(String ubs) {
-		this.ubs = ubs;
+	public void setNumero(Integer numero) {
+		this.numero = numero;
 	}
 
 	@Override

@@ -8,27 +8,26 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="causa")
-public class Causa {
-	
+@Table(name = "funcao")
+public class Funcao {
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_causa")
-	private Long idCausa;
+	@Column(name="id_funcao")
+	private Long idFuncao;
 	
-	@Column(name="nome")
+	@Column(name = "nome")
 	private String nome;
 	
-	@Column(name = "risco")
-	private Integer risco;
-	
+	@Column(name = "descricao")
+	private String descricao;
 
-	public Long getIdCausa() {
-		return idCausa;
+	public Long getIdFuncao() {
+		return idFuncao;
 	}
 
-	public void setIdCausa(Long idCausa) {
-		this.idCausa = idCausa;
+	public void setIdFuncao(Long idFuncao) {
+		this.idFuncao = idFuncao;
 	}
 
 	public String getNome() {
@@ -38,20 +37,20 @@ public class Causa {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
-	public Integer getRisco() {
-		return risco;
+
+	public String getDescricao() {
+		return descricao;
 	}
-	
-	public void setRisco(Integer risco) {
-		this.risco = risco;
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((idCausa == null) ? 0 : idCausa.hashCode());
+		result = prime * result + ((idFuncao == null) ? 0 : idFuncao.hashCode());
 		return result;
 	}
 
@@ -63,13 +62,15 @@ public class Causa {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Causa other = (Causa) obj;
-		if (idCausa == null) {
-			if (other.idCausa != null)
+		Funcao other = (Funcao) obj;
+		if (idFuncao == null) {
+			if (other.idFuncao != null)
 				return false;
-		} else if (!idCausa.equals(other.idCausa))
+		} else if (!idFuncao.equals(other.idFuncao))
 			return false;
 		return true;
 	}
-
+	
+	
+	
 }

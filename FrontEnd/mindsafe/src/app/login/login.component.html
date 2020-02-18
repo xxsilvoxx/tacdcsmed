@@ -1,0 +1,32 @@
+<div class="bg-login">
+  <div style="padding-top: 100px;">
+    <div class="logo"></div>
+    <div class="titulo">MindSafe Software</div>
+  </div>
+</div>
+<div style="padding-left: 20px; padding-right: 20px;">
+  <header>
+    LOGIN
+  </header>
+
+  <mat-form-field>
+    <input matInput placeholder="Login" type="text" [(ngModel)]="funcionario.login">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Senha" [type]="senhaViziveu ? 'text' : 'password'" maxlength="10" [(ngModel)]="funcionario.senha" #senha>
+    <button mat-icon-button matSuffix (click)="vizualizarSenha()">
+      <mat-icon class="material-icons" >{{ senhaViziveu ? 'visibility' : 'visibility_off' }}</mat-icon>
+    </button>
+    <mat-hint align="end">
+      {{ senha?.value.length }} / 10
+    </mat-hint>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary"
+    [disabled]="funcionario.login == null || (funcionario.senha == null || funcionario.senha.length < 2) ">Logar <i
+      class="material-icons">send</i></button>
+
+  <a>Esqueci minha senha</a>
+</div>
+

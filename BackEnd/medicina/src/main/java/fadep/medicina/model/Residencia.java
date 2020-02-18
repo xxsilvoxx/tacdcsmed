@@ -39,13 +39,6 @@ public class Residencia {
 	@Column(name="numero")
 	private Integer numero;
 	
-	@Column(name="bairro")
-	private String bairro;
-	
-	@Size(min=9, max=9)
-	@Column(name="cep")
-	private String cep;
-	
 	@Column(name="local_referencia")
 	private String localReferencia;
 	
@@ -94,22 +87,6 @@ public class Residencia {
 
 	public void setNumero(Integer numero) {
 		this.numero = numero;
-	}
-
-	public String getBairro() {
-		return bairro;
-	}
-
-	public void setBairro(String bairro) {
-		this.bairro = bairro;
-	}
-
-	public String getCep() {
-		return cep;
-	}
-
-	public void setCep(String cep) {
-		this.cep = cep;
 	}
 
 	public String getLocalReferencia() {

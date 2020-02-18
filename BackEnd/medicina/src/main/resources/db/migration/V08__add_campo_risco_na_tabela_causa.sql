@@ -1,0 +1,1 @@
+ALTER TABLE causa ADD risco integer;
