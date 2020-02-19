@@ -1,12 +1,13 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmModalComponent } from '../../shared/confirm-modal/confirm-modal.component';
 import { MediaObserver } from '@angular/flex-layout';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
+
+import { ConfirmModalComponent } from '../../shared/confirm-modal/confirm-modal.component';
 
 
 // Interface temporária
@@ -29,13 +30,13 @@ const ELEMENT_DATA: Paciente[] = [
   templateUrl: './pacientes.component.html',
   styleUrls: ['./pacientes.component.scss']
 })
-export class PacientesComponent implements OnInit {
+export class PacientesComponent implements OnInit, OnDestroy {
 
   displayedColumns = ['codigo', 'nome', 'familia', 'cpfCnpj', 'select'];
   dataSource: MatTableDataSource<Paciente>;
   selection = new SelectionModel<Paciente>(true, []);
 
-  xsWatcherSubscription: Subscription
+  subscriptions: Subscription[] = [];
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
@@ -45,9 +46,19 @@ export class PacientesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.alterarDisplayColunas();
+    this.alterarDisplayColunasXs();
+    this.alterarDisplayColunasSm();
+    this.alterarDisplayColunasMd();
     this.dataSource = new MatTableDataSource<Paciente>(ELEMENT_DATA);
     this.dataSource.paginator = this.paginator;
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(
+      subs => {
+        console.log('MediaQuery Destruído');
+        subs.unsubscribe();
+      });
   }
 
   /**
@@ -75,8 +86,8 @@ export class PacientesComponent implements OnInit {
 
   /* ------------------------------------------------------------------------------------------ */
 
-  alterarDisplayColunas() {
-    this.media.asObservable().pipe(
+  alterarDisplayColunasXs() {
+    let subsXs = this.media.asObservable().pipe(
       filter(() => this.media.isActive('xs'))
     ).subscribe(
       res => {
@@ -84,6 +95,34 @@ export class PacientesComponent implements OnInit {
         this.displayedColumns = columns;
       }
     );
+
+    this.subscriptions.push(subsXs);
+  }
+
+  alterarDisplayColunasSm() {
+    let subsSm = this.media.asObservable().pipe(
+      filter(() => this.media.isActive('sm'))
+    ).subscribe(
+      res => {
+        const columns = ['codigo', 'nome', 'familia', 'select'];
+        this.displayedColumns = columns;
+      }
+    );
+
+    this.subscriptions.push(subsSm);
+  }
+
+  alterarDisplayColunasMd() {
+    let subsMd = this.media.asObservable().pipe(
+      filter(() => this.media.isActive('md'))
+    ).subscribe(
+      res => {
+        const columns = ['codigo', 'nome', 'familia', 'cpfCnpj', 'select'];
+        this.displayedColumns = columns;
+      }
+    );
+
+    this.subscriptions.push(subsMd);
   }
 
   onDelete() {

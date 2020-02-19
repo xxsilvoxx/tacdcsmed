@@ -17,10 +17,12 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { PacientesRoutingModule } from './pacientes-routing.module';
 import { PacientesComponent } from './pacientes/pacientes.component';
 import { SharedModule } from '../shared/shared.module';
+import { AddPacienteComponent } from './add-paciente/add-paciente.component';
 
 @NgModule({
   declarations: [
-    PacientesComponent
+    PacientesComponent,
+    AddPacienteComponent
   ],
   imports: [
     CommonModule,
