@@ -6,7 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmModalComponent } from '../../shared/confirm-modal/confirm-modal.component';
 import { MediaObserver } from '@angular/flex-layout';
 import { Subscription } from 'rxjs';
-import { take, filter } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 
 
 // Interface temporária
@@ -31,7 +31,7 @@ const ELEMENT_DATA: Paciente[] = [
 })
 export class PacientesComponent implements OnInit {
 
-  displayedColumns: string[] = ['codigo', 'nome', 'familia', 'cpfCnpj', 'select'];
+  displayedColumns = ['codigo', 'nome', 'familia', 'cpfCnpj', 'select'];
   dataSource: MatTableDataSource<Paciente>;
   selection = new SelectionModel<Paciente>(true, []);
 
@@ -45,9 +45,9 @@ export class PacientesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.alterarDisplayColunas();
     this.dataSource = new MatTableDataSource<Paciente>(ELEMENT_DATA);
     this.dataSource.paginator = this.paginator;
-    this.xsWatcherSubscription = this.media.asObservable().pipe().f
   }
 
   /**
@@ -74,6 +74,17 @@ export class PacientesComponent implements OnInit {
   }
 
   /* ------------------------------------------------------------------------------------------ */
+
+  alterarDisplayColunas() {
+    this.media.asObservable().pipe(
+      filter(() => this.media.isActive('xs'))
+    ).subscribe(
+      res => {
+        const columns = ['codigo', 'nome', 'select'];
+        this.displayedColumns = columns;
+      }
+    );
+  }
 
   onDelete() {
     let texto = 'Tem certeza que deseja remover este paciente ?';
