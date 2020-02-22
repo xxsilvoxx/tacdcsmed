@@ -60,7 +60,7 @@
 			</exclusions>
 		</dependency>
 		
-		<!-- IMPLEMENTANDO SPRING SECURITY PRIMEIRA CONFIGURAÇÃO MAVEN -->
+		<!-- IMPLEMENTANDO SPRING SECURITY PRIMEIRA CONFIGURAÇÃO MAVEN 
 		<dependency>
 		         <groupId>org.springframework.security</groupId>
 		         <artifactId>spring-security-config</artifactId>		         
@@ -73,7 +73,12 @@
 		         <groupId>org.springframework.security</groupId>
 		         <artifactId>spring-security-web</artifactId>		         
 		</dependency>
+		
+		-->
+		
+		
 	</dependencies>
+	
 
 	<build>
 		<plugins>
