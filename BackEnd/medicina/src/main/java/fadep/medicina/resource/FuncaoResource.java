@@ -22,7 +22,7 @@ import fadep.medicina.repository.FuncaoRepository;
 import fadep.medicina.service.FuncaoService;
 
 @RestController
-@RequestMapping
+@RequestMapping("/funcao")
 public class FuncaoResource {
 	
 	 @Autowired
