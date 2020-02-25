@@ -1,0 +1,78 @@
+mat-card-content {
+  text-align: center;
+}
+
+mat-card-content h2 {
+    font-size: 20pt;
+    font-weight: 600;
+    color: #b1b1b1;
+}
+
+.bg-visitas {
+  padding-top: 1px;
+  height: 300px;
+  width: 100%;
+  background-color: #cecece;
+  margin-bottom: 10px;
+}
+
+.titulo {
+  position: relative;
+  margin-top: 150px;
+  font-size: 30pt;
+  margin-left: 30px;
+  font-weight: bold;
+  color: white;
+}
+
+.cabecalho {
+  border-radius: 5px 5px 0px 0px;
+  background-color: #cecece;
+}
+
+.alinhamento {
+  display: inline;
+  width: 100%;
+}
+
+.alinhamento.esquerda {
+  text-align: left;
+}
+
+.alinhamento.centro {
+  text-align: center;
+}
+
+.alinhamento.direita {
+  text-align: right;
+}
+
+.alinhamento.justificado {
+  text-align: justify;
+}
+
+.small-size {
+  width: 30%;
+}
+
+.middle-size {
+  width: 50%;
+}
+
+.large-size {
+  width: 75%;
+}
+
+.full-size {
+  width: 100%;
+}
+
+.text-bold {
+  font-size: 14pt;
+  font-weight: 500;
+}
+
+
+#valid {
+  color: green;
+}
