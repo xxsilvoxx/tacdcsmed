@@ -8,22 +8,8 @@ import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
 import { ConfirmModalComponent } from '../../shared/confirm-modal/confirm-modal.component';
-
-
-// Interface temporária
-export interface Paciente {
-  nome: string;
-  codigo: number;
-  familia: string;
-  cpfCnpj: string;
-}
-
-const ELEMENT_DATA: Paciente[] = [
-  { codigo: 1, nome: 'Silvonei', familia: 'Langenberg', cpfCnpj: '5312312421' },
-  { codigo: 2, nome: 'Alex', familia: 'Carpenedo', cpfCnpj: '3123123123' },
-  { codigo: 3, nome: 'Fernando', familia: 'Martins', cpfCnpj: '4124124424' },
-  { codigo: 4, nome: 'Leonardo', familia: 'Candido', cpfCnpj: '3123123124' },
-];
+import { PacientesService } from '../../services/pacientes/pacientes.service';
+import { Paciente } from './../../models/paciente.model';
 
 @Component({
   selector: 'app-pacientes',
@@ -32,7 +18,25 @@ const ELEMENT_DATA: Paciente[] = [
 })
 export class PacientesComponent implements OnInit, OnDestroy {
 
-  displayedColumns = ['codigo', 'nome', 'familia', 'cpfCnpj', 'select'];
+  pacientes: Paciente[] = [];
+
+  // Colunas que serão renderizadas na data table do angular material
+  displayedColumns = ['idPessoa', 'nome', 'familia', 'cpfCnpj', 'responsavelFamiliar', 'dataNascimento', 'select'];
+  // Filtro específico pra cada classe que ele estará sendo trabalhado
+  filtroPesquisa: any = [
+    { nome: 'Código', valor: 'paciente.idPessoa', typeOnly: 'number' },
+    { nome: 'Nome', valor: 'nome', typeOnly: 'string' },
+    { nome: 'Família', valor: 'familia.nome', typeOnly: 'string' },
+    { nome: 'CPF/CNPJ', valor: 'cpfCnpj', typeOnly: 'string' },
+    { nome: 'Responsável', valor: 'responsavelFamiliar', typeOnly: 'boolean' },
+    { nome: 'Nascimento', valor: 'dataNascimento', typeOnly: 'Date' },
+    { nome: 'Sexo', valor: 'sexo', typeOnly: 'string' },
+    { nome: 'Nacionalidade', valor: 'nacionalidade', typeOnly: 'string' },
+    { nome: 'Telefone', valor: 'telefone', typeOnly: 'string' },
+    { nome: 'Celular', valor: 'celular', typeOnly: 'string' },
+    { nome: 'Email', valor: 'email', typeOnly: 'string' },
+  ];
+
   dataSource: MatTableDataSource<Paciente>;
   selection = new SelectionModel<Paciente>(true, []);
 
@@ -42,14 +46,17 @@ export class PacientesComponent implements OnInit, OnDestroy {
 
   constructor(
     public dialog: MatDialog,
-    private media: MediaObserver
+    private media: MediaObserver,
+    private service: PacientesService
   ) { }
 
   ngOnInit() {
+    this.listarTodos();
     this.alterarDisplayColunasXs();
     this.alterarDisplayColunasSm();
     this.alterarDisplayColunasMd();
-    this.dataSource = new MatTableDataSource<Paciente>(ELEMENT_DATA);
+    this.alterarDisplayColunasLg();
+    this.dataSource = new MatTableDataSource<Paciente>();
     this.dataSource.paginator = this.paginator;
   }
 
@@ -58,7 +65,8 @@ export class PacientesComponent implements OnInit, OnDestroy {
       subs => {
         console.log('MediaQuery Destruído');
         subs.unsubscribe();
-      });
+      }
+    );
   }
 
   /**
@@ -81,17 +89,17 @@ export class PacientesComponent implements OnInit, OnDestroy {
     if (!row) {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.codigo + 1}`;
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.idPessoa + 1}`;
   }
 
   /* ------------------------------------------------------------------------------------------ */
 
   alterarDisplayColunasXs() {
-    let subsXs = this.media.asObservable().pipe(
+    const subsXs = this.media.asObservable().pipe(
       filter(() => this.media.isActive('xs'))
     ).subscribe(
       res => {
-        const columns = ['codigo', 'nome', 'select'];
+        const columns = ['idPessoa', 'nome', 'select'];
         this.displayedColumns = columns;
       }
     );
@@ -100,11 +108,11 @@ export class PacientesComponent implements OnInit, OnDestroy {
   }
 
   alterarDisplayColunasSm() {
-    let subsSm = this.media.asObservable().pipe(
+    const subsSm = this.media.asObservable().pipe(
       filter(() => this.media.isActive('sm'))
     ).subscribe(
       res => {
-        const columns = ['codigo', 'nome', 'familia', 'select'];
+        const columns = ['idPessoa', 'nome', 'familia', 'select'];
         this.displayedColumns = columns;
       }
     );
@@ -113,16 +121,39 @@ export class PacientesComponent implements OnInit, OnDestroy {
   }
 
   alterarDisplayColunasMd() {
-    let subsMd = this.media.asObservable().pipe(
+    const subsMd = this.media.asObservable().pipe(
       filter(() => this.media.isActive('md'))
     ).subscribe(
       res => {
-        const columns = ['codigo', 'nome', 'familia', 'cpfCnpj', 'select'];
+        const columns = ['idPessoa', 'nome', 'familia', 'cpfCnpj', 'select'];
         this.displayedColumns = columns;
       }
     );
 
     this.subscriptions.push(subsMd);
+  }
+
+  alterarDisplayColunasLg() {
+    const subsLg = this.media.asObservable().pipe(
+      filter(() => this.media.isActive('lg'))
+    ).subscribe(
+      res => {
+        const columns = ['idPessoa', 'nome', 'familia', 'cpfCnpj', 'responsavelFamiliar', 'dataNascimento', 'nacionalidade', 'select'];
+        this.displayedColumns = columns;
+      }
+    );
+
+    this.subscriptions.push(subsLg);
+  }
+
+  listarTodos() {
+    this.service.listar().subscribe(
+      res => {
+        this.pacientes = res;
+        this.dataSource = new MatTableDataSource<Paciente>(this.pacientes);
+        this.dataSource.paginator = this.paginator;
+      }
+    );
   }
 
   onDelete() {
@@ -148,5 +179,14 @@ export class PacientesComponent implements OnInit, OnDestroy {
     )
   }
 
+  applyFilter(value: string) {
+    this.dataSource.filter = value.toLowerCase().trim();
+  }
+
+   applyFilterType(column?: string) {
+    /* this.dataSource.filterPredicate = (data: Paciente, filter: string) => {
+      data.
+    } */
+  }
 
 }

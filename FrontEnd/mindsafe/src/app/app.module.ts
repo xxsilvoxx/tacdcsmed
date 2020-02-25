@@ -9,6 +9,7 @@ import { LoginModule } from './login/login.module';
 import { VisitasModule } from './visitas/visitas.module';
 import { MenuSidenavModule } from './menu-sidenav/menu-sidenav.module';
 import { SharedModule } from './shared/shared.module';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -24,7 +25,8 @@ import { SharedModule } from './shared/shared.module';
     SharedModule,
     MenuSidenavModule,
     LoginModule,
-    VisitasModule
+    VisitasModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

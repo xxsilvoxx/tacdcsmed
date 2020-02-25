@@ -1,6 +1,4 @@
-
-
-export class Familia{
-    idFamilia: number;
-    nome: string;  
+export class Familia {
+  idFamilia: number;
+  nome: string;
 }
