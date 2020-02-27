@@ -10,6 +10,7 @@ import { MatCardModule } from '@angular/material/card';
 
 import { MenuSidenavComponent } from './menu-sidenav.component';
 import { AppRoutingModule } from '../app-routing.module';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { AppRoutingModule } from '../app-routing.module';
     MatIconModule,
     MatButtonModule,
     MatCardModule,
-    MatListModule
+    MatListModule,
+    FlexLayoutModule
   ],
   exports: [
     MenuSidenavComponent

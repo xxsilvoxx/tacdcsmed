@@ -47,6 +47,18 @@ mat-nav-list a {
   color: white;
 }
 
-mat-sidenav {
-  width: 50%;
+.sidenav-xs {
+  width: 90%;
+}
+
+.sidenav-sm {
+  width: 70%;
+}
+
+.sidenav-md {
+  width: 45%;
+}
+
+.sidenav-lg {
+  width: 30%;
 }

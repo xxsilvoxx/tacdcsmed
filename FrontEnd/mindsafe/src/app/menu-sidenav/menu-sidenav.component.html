@@ -9,7 +9,14 @@
 </mat-toolbar>
 <mat-sidenav-container>
 
-  <mat-sidenav class="sidenav" mode="over" #snav>
+  <mat-sidenav
+    ngClass.xs="sidenav-xs"
+    ngClass.sm="sidenav-sm"
+    ngClass.md="sidenav-md"
+    ngClass.lg="sidenav-lg"
+    class="sidenav"
+    mode="over"
+    #snav>
     <div class="informacoes-funcionario">
       <mat-card>
         <mat-card-header>
