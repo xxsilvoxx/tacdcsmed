@@ -1,6 +1,11 @@
 <div class=""></div>
-<div class="bg-pacientes">
-  <h3 class="titulo">Pacientes</h3>
+<div class="bg-pacientes" ngClass.xs="bg-xs">
+  <h3 class="titulo" ngClass.xs="titulo-xs">Pacientes</h3>
+  <div class="overlay" ngClass.xs="overlay-xs">
+    Photo by
+    <a href="https://unsplash.com/@lucassankey?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="blank">Lucas Sankey</a> on
+    <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="blank">Unsplash</a>
+  </div>
 </div>
 
 <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0.5%" fxLayoutAlign="center center" ngClass.xs="espaco-lateral">
@@ -84,7 +89,8 @@
 
     <ng-container matColumnDef="select">
       <th mat-header-cell *matHeaderCellDef>
-        <mat-checkbox (change)="$event ? masterToggle() : null"
+        <mat-checkbox [disabled]="pacientes.length == 0"
+                      (change)="$event ? masterToggle() : null"
                       [checked]="selection.hasValue() && isAllSelected()"
                       [indeterminate]="selection.hasValue() && !isAllSelected()"
                       [aria-label]="checkboxLabel()">
