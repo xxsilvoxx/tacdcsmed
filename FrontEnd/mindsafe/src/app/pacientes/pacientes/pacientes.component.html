@@ -1,4 +1,3 @@
-<div class=""></div>
 <div class="bg-pacientes" ngClass.xs="bg-xs">
   <h3 class="titulo" ngClass.xs="titulo-xs">Pacientes</h3>
   <div class="overlay" ngClass.xs="overlay-xs">
@@ -13,13 +12,13 @@
   <div fxFlex="75%" fxFlex.md="65%" fxFlex.sm="60%" fxFlex.xs="50%">
 
     <mat-form-field>
-      <input matInput placeholder="Filtro" type="text" #filtroTexto>
+      <input matInput placeholder="Filtro" type="string" (focus)="disabledFilter()" #filtroTexto>
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Filtro Selecionado</mat-label>
       <mat-select #filtroTipo>
-        <mat-option *ngFor="let op of filtroPesquisa" value="{{ op.valor }}" (selectionChange)="applyFilterType(op.valor)">
+        <mat-option *ngFor="let op of filtroPesquisa" value="{{ op.valor }}" #tipo>
           {{ op.nome }}
         </mat-option>
       </mat-select>

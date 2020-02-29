@@ -1,15 +1,23 @@
 /* Classes */
 
-.logo-page {
+.link-logo {
   margin: auto;
   display: flex;
   flex-direction: row;
 }
 
+.logo-page {
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  text-decoration: none;
+  color: white;
+}
+
 .logo {
   background-image: url('../../assets/logo-tcc.png');
   background-size: cover;
-  width: 35px;
+  width: 40px;
   height: 35px;
 }
 
@@ -52,7 +60,7 @@ mat-nav-list a {
 }
 
 .sidenav-sm {
-  width: 70%;
+  width: 55%;
 }
 
 .sidenav-md {

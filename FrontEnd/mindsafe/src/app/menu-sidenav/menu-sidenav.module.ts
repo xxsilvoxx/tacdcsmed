@@ -7,10 +7,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { MenuSidenavComponent } from './menu-sidenav.component';
-import { AppRoutingModule } from '../app-routing.module';
-import { FlexLayoutModule } from '@angular/flex-layout';
+import { MenuSidenavRountigModule } from './menu-sidenav-rountig.module';
+import { VisitasModule } from '../visitas/visitas.module';
+import { PacientesModule } from '../pacientes/pacientes.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
   ],
   imports: [
     CommonModule,
-    AppRoutingModule,
+    MenuSidenavRountigModule,
+    VisitasModule,
+    PacientesModule,
     MatToolbarModule,
     MatSidenavModule,
     MatIconModule,
@@ -27,7 +31,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatListModule,
     FlexLayoutModule
   ],
-  exports: [
+  entryComponents: [
     MenuSidenavComponent
   ]
 })

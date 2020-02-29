@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSidenav } from '@angular/material/sidenav';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu-sidenav',
@@ -9,15 +11,15 @@ export class MenuSidenavComponent implements OnInit {
 
   mostrarMenu = false;
 
-  constructor() { }
+  constructor(
+    private route: Router
+  ) { }
 
   ngOnInit() {
   }
 
-  isMenu() {
-    this.mostrarMenu = ! this.mostrarMenu;
-    let msg = this.mostrarMenu;
-    console.log(msg);
+  sair() {
+    this.route.navigate(['login']);
   }
 
 }

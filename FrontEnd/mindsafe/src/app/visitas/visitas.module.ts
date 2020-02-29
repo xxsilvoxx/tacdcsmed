@@ -21,9 +21,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatButtonModule,
     MatListModule,
     FlexLayoutModule
-  ],
-  exports: [
-    VisitasRoutingModule
   ]
 })
 export class VisitasModule { }

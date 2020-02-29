@@ -10,31 +10,38 @@ import { filter } from 'rxjs/operators';
 import { ConfirmModalComponent } from '../../shared/confirm-modal/confirm-modal.component';
 import { PacientesService } from '../../services/pacientes/pacientes.service';
 import { Paciente } from './../../models/paciente.model';
+import { MatSelect } from '@angular/material/select';
+
+export interface FiltroPaciente {
+  nome: string;
+  valor: string;
+}
 
 @Component({
   selector: 'app-pacientes',
   templateUrl: './pacientes.component.html',
   styleUrls: ['./pacientes.component.scss']
 })
+
+
 export class PacientesComponent implements OnInit, OnDestroy {
 
   pacientes: Paciente[] = [];
 
   // Colunas que serão renderizadas na data table do angular material
   displayedColumns = ['idPessoa', 'nome', 'familia', 'cpfCnpj', 'responsavelFamiliar', 'dataNascimento', 'select'];
+
   // Filtro específico pra cada classe que ele estará sendo trabalhado
-  filtroPesquisa: any = [
-    { nome: 'Código', valor: 'paciente.idPessoa', typeOnly: 'number' },
-    { nome: 'Nome', valor: 'nome', typeOnly: 'string' },
-    { nome: 'Família', valor: 'familia.nome', typeOnly: 'string' },
-    { nome: 'CPF/CNPJ', valor: 'cpfCnpj', typeOnly: 'string' },
-    { nome: 'Responsável', valor: 'responsavelFamiliar', typeOnly: 'boolean' },
-    { nome: 'Nascimento', valor: 'dataNascimento', typeOnly: 'Date' },
-    { nome: 'Sexo', valor: 'sexo', typeOnly: 'string' },
-    { nome: 'Nacionalidade', valor: 'nacionalidade', typeOnly: 'string' },
-    { nome: 'Telefone', valor: 'telefone', typeOnly: 'string' },
-    { nome: 'Celular', valor: 'celular', typeOnly: 'string' },
-    { nome: 'Email', valor: 'email', typeOnly: 'string' },
+  filtroPesquisa: FiltroPaciente[] = [
+    { nome: 'Código', valor: 'idPessoa' },
+    { nome: 'Nome', valor: 'nome' },
+    { nome: 'Família', valor: 'familia' },
+    { nome: 'CPF/CNPJ', valor: 'cpfCnpj' },
+    { nome: 'Nascimento', valor: 'dataNascimento' },
+    { nome: 'Nacionalidade', valor: 'nacionalidade' },
+    { nome: 'Telefone', valor: 'telefone' },
+    { nome: 'Celular', valor: 'celular' },
+    { nome: 'Email', valor: 'email' },
   ];
 
   dataSource: MatTableDataSource<Paciente>;
@@ -81,8 +88,8 @@ export class PacientesComponent implements OnInit, OnDestroy {
 
   masterToggle() {
     this.isAllSelected() ?
-        this.selection.clear() :
-        this.dataSource.data.forEach(row => this.selection.select(row));
+      this.selection.clear() :
+      this.dataSource.data.forEach(row => this.selection.select(row));
   }
 
   checkboxLabel(row?: Paciente): string {
@@ -147,13 +154,15 @@ export class PacientesComponent implements OnInit, OnDestroy {
   }
 
   listarTodos() {
-    this.service.listar().subscribe(
+    const subs = this.service.listar().subscribe(
       res => {
         this.pacientes = res;
         this.dataSource = new MatTableDataSource<Paciente>(this.pacientes);
         this.dataSource.paginator = this.paginator;
       }
     );
+
+    this.subscriptions.push(subs);
   }
 
   onDelete() {
@@ -176,17 +185,80 @@ export class PacientesComponent implements OnInit, OnDestroy {
       err => {
         console.error(err);
       }
-    )
+    );
   }
 
-  applyFilter(value: string) {
-    this.dataSource.filter = value.toLowerCase().trim();
+  /**
+   * Método responsável por trazer a lista que havia sido carregada sem nenhuma filtragem
+   */
+  disabledFilter() {
+    this.dataSource = new MatTableDataSource<Paciente>(this.pacientes);
+    this.dataSource.paginator = this.paginator;
   }
 
-   applyFilterType(column?: string) {
-    /* this.dataSource.filterPredicate = (data: Paciente, filter: string) => {
-      data.
-    } */
+  /**
+   * Método responsável por aplicar o filtro específico de arrays no javascript
+   */
+  applyFilter(value: string, coluna?) {
+    console.log(`${value} / ${coluna}`);
+    let filtrado: Paciente[] = [];
+    this.pacientes.map(
+      p => {
+        if (coluna == 'idPessoa') {
+          if (p.idPessoa == Number(value)) {
+            filtrado.push(p);
+          }
+        } else if (coluna == 'nome') {
+          // tslint:disable-next-line: max-line-length
+          if (p.nome.trim().toLowerCase().indexOf(value.trim().toLowerCase()) >= 0) {
+            filtrado.push(p);
+          }
+        } else if (coluna == 'familia') {
+          // tslint:disable-next-line: max-line-length
+          if (p.familia.nome.toLowerCase() == value.trim().toLowerCase() || p.familia.nome.trim().toLowerCase().indexOf(value.trim().toLowerCase()) >= 0) {
+            /* Pode estar ocorrendo um erro ao validar alguns caracteres */
+            filtrado.push(p);
+            console.log(filtrado);
+          }
+        } else if (coluna == 'nacionalidade') {
+          // tslint:disable-next-line: max-line-length
+          if (p.nacionalidade.trim().toLowerCase() == value.trim().toLowerCase() || p.nacionalidade.trim().toLowerCase().indexOf(value.trim().toLowerCase()) >= 0) {
+            filtrado.push(p);
+          }
+        } else if (coluna == 'cpfCnpj') {
+          if (p.cpfCnpj.trim().toLowerCase().indexOf(value.trim().toLowerCase()) >= 0) {
+            filtrado.push(p);
+          }
+        } else if (coluna == 'dataNascimento') {
+          if (p.dataNascimento.toString().indexOf(value) >= 0) {
+            filtrado.push(p);
+          }
+        } else if (coluna == 'telefone') {
+          // Colunas não obrigatórias no BD e no Backend devem ser tratadas pra evitar erros de null
+          if (p.telefone != null) {
+            if (p.telefone.indexOf(value) >= 0) {
+              filtrado.push(p);
+            }
+          }
+        } else if (coluna == 'celular') {
+          if (p.celular != null) {
+            if (p.celular.indexOf(value) >= 0) {
+              filtrado.push(p);
+            }
+          }
+        } else if (coluna == 'email') {
+          if (p.email != null) {
+            if (p.email.trim().toLowerCase().indexOf(value.trim().toLowerCase()) >= 0) {
+              filtrado.push(p);
+            }
+          }
+        }
+      }
+    );
+    this.dataSource = new MatTableDataSource<Paciente>(filtrado);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.filter = value;
+    filtrado.forEach(v => filtrado.pop());
   }
 
 }

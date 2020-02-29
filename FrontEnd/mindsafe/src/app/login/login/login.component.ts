@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Funcionario } from '../../models/funcionario.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,7 @@ export class LoginComponent implements OnInit {
   funcionario: Funcionario = new Funcionario();
 
   constructor(
-
+    private route: Router
   ) { }
 
   ngOnInit() {
@@ -24,7 +25,8 @@ export class LoginComponent implements OnInit {
   }
 
   logar() {
-
+    console.log('Efetuando login');
+    this.route.navigate(['mindsafe']);
   }
 
 }

@@ -24,7 +24,7 @@
   </mat-form-field>
 
   <button mat-raised-button color="primary"
-    [disabled]="funcionario.login == null || (funcionario.senha == null || funcionario.senha.length < 2) ">Logar <i
+    [disabled]="funcionario.login == null || (funcionario.senha == null || funcionario.senha.length < 2) " (click)="logar()">Logar <i
       class="material-icons">send</i></button>
 
   <a>Esqueci minha senha</a>

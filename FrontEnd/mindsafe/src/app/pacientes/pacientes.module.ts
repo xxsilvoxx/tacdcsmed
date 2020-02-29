@@ -17,7 +17,6 @@ import { PacientesRoutingModule } from './pacientes-routing.module';
 import { PacientesComponent } from './pacientes/pacientes.component';
 import { SharedModule } from '../shared/shared.module';
 import { AddPacienteComponent } from './add-paciente/add-paciente.component';
-import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
