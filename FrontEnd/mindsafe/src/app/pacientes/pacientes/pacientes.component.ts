@@ -11,6 +11,7 @@ import { ConfirmModalComponent } from '../../shared/confirm-modal/confirm-modal.
 import { PacientesService } from '../../services/pacientes/pacientes.service';
 import { Paciente } from './../../models/paciente.model';
 import { MatSelect } from '@angular/material/select';
+import { PacienteInfoModalComponent } from '../../shared/paciente-info-modal/paciente-info-modal.component';
 
 export interface FiltroPaciente {
   nome: string;
@@ -163,6 +164,16 @@ export class PacientesComponent implements OnInit, OnDestroy {
     );
 
     this.subscriptions.push(subs);
+  }
+
+  onInfoPaciente() {
+    const dialogRef = this.dialog.open(PacienteInfoModalComponent, {
+      height: '400px',
+      width: '700px',
+      data: {
+        paciente: this.selection.selected[0]
+      }
+    });
   }
 
   onDelete() {

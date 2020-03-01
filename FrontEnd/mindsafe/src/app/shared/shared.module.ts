@@ -6,10 +6,12 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatIconModule } from '@angular/material/icon';
 
 import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
+import { PacienteInfoModalComponent } from './paciente-info-modal/paciente-info-modal.component';
 
 @NgModule({
   declarations: [
-    ConfirmModalComponent
+    ConfirmModalComponent,
+    PacienteInfoModalComponent
   ],
   imports: [
     CommonModule,
@@ -19,7 +21,8 @@ import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
     MatIconModule
   ],
   entryComponents: [
-    ConfirmModalComponent
+    ConfirmModalComponent,
+    PacienteInfoModalComponent
   ],
   exports: [
     ConfirmModalComponent
