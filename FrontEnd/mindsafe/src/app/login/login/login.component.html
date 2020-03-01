@@ -1,10 +1,15 @@
-<div class="bg-login">
+<div class="bg-login" ngClass.xs="bg-login-xs">
   <div style="padding-top: 50px;">
-    <div class="logo"></div>
-    <div class="titulo">MindSafe Software</div>
+    <div class="logo" ngClass.xs="logo-xs"></div>
+    <div class="titulo" ngClass.xs="titulo-xs">MindSafe Software</div>
+  </div>
+  <div class="overlay" ngClass.xs="overlay-xs">
+    Photo by
+    <a href="https://unsplash.com/@jareddrice?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" class="link-overlay" target="blank">Jared Rice</a> on
+    <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" class="link-overlay" target="blank">Unsplash</a>
   </div>
 </div>
-<div style="padding-left: 20px; padding-right: 20px;">
+<div style="padding-left: 30px; padding-right: 30px;">
   <h1>
     LOGIN
   </h1>
@@ -27,6 +32,6 @@
     [disabled]="funcionario.login == null || (funcionario.senha == null || funcionario.senha.length < 2) " (click)="logar()">Logar <i
       class="material-icons">send</i></button>
 
-  <a>Esqueci minha senha</a>
+  <a class="esqueci-senha">Esqueci minha senha</a>
 </div>
 

@@ -215,14 +215,13 @@ export class PacientesComponent implements OnInit, OnDestroy {
           }
         } else if (coluna == 'familia') {
           // tslint:disable-next-line: max-line-length
-          if (p.familia.nome.toLowerCase() == value.trim().toLowerCase() || p.familia.nome.trim().toLowerCase().indexOf(value.trim().toLowerCase()) >= 0) {
+          if (p.familia.nome.trim().toLowerCase().indexOf(value.trim().toLowerCase()) >= 0) {
             /* Pode estar ocorrendo um erro ao validar alguns caracteres */
             filtrado.push(p);
-            console.log(filtrado);
           }
         } else if (coluna == 'nacionalidade') {
           // tslint:disable-next-line: max-line-length
-          if (p.nacionalidade.trim().toLowerCase() == value.trim().toLowerCase() || p.nacionalidade.trim().toLowerCase().indexOf(value.trim().toLowerCase()) >= 0) {
+          if (p.nacionalidade.trim().toLowerCase().indexOf(value.trim().toLowerCase()) >= 0) {
             filtrado.push(p);
           }
         } else if (coluna == 'cpfCnpj') {
@@ -255,10 +254,12 @@ export class PacientesComponent implements OnInit, OnDestroy {
         }
       }
     );
+    console.log(filtrado);
     this.dataSource = new MatTableDataSource<Paciente>(filtrado);
+    console.log(this.dataSource);
     this.dataSource.paginator = this.paginator;
     this.dataSource.filter = value;
-    filtrado.forEach(v => filtrado.pop());
+    // filtrado.forEach(v => filtrado.pop());
   }
 
 }

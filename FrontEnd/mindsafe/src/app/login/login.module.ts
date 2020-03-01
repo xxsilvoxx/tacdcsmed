@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login/login.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { LoginComponent } from './login/login.component';
     MatButtonModule,
     FormsModule,
     MatIconModule,
+    FlexLayoutModule,
     LoginRoutingModule
   ]
 })

@@ -1,5 +1,15 @@
 /* Classes */
 
+.esqueci-senha {
+  text-decoration: none;
+  color: rgb(133, 133, 133);
+  font-weight: 500;
+  font-size: 11pt;
+  margin-top: 30px;
+  display: block;
+  float: right;
+}
+
 .titulo {
   display: block;
   text-align: center;
@@ -10,6 +20,10 @@
 
 }
 
+.titulo-xs {
+  font-size: 25pt;
+}
+
 .logo {
   margin: auto;
   background-image: url('../../../assets/logo-tcc.png');
@@ -18,13 +32,52 @@
   height: 200px;
 }
 
+.logo-xs {
+  width: 160px;
+  height: 130px;
+}
+
 .bg-login {
-  background-image: url('../../../assets/cats.jpg');
+  background-image: url('../../../assets/imagens/login.jpg');
   background-size: cover;
   background-position: center;
   height: 400px;
   width: 100%;
 }
+
+.bg-login-xs {
+  height: 300px;
+}
+
+.overlay {
+  margin-top: 22px;
+  bottom: 0;
+  background: rgb(0, 0, 0);
+  background: #0000007e;
+  color: #f1f1f1;
+  transition: .5s ease;
+  opacity:0;
+  color: white;
+  font-size: 20px;
+  padding: 20px;
+  text-align: center;
+}
+
+.link-overlay {
+  position: relative;
+  text-decoration: none;
+  color: #969696;
+}
+
+.bg-login:hover .overlay {
+  opacity: 1;
+}
+
+.overlay-xs {
+  margin-top: 10px;
+  font-size: 15px;
+}
+
 
 /* Tags */
 
@@ -43,14 +96,4 @@ h1 {
   text-align: center;
   font-size: 40pt;
   color: #565656;
-}
-
-a {
-  text-decoration: none;
-  color: rgb(133, 133, 133);
-  font-weight: 500;
-  font-size: 11pt;
-  margin-top: 30px;
-  display: block;
-  float: right;
 }
