@@ -168,8 +168,8 @@ export class PacientesComponent implements OnInit, OnDestroy {
 
   onInfoPaciente() {
     const dialogRef = this.dialog.open(PacienteInfoModalComponent, {
-      height: '400px',
-      width: '700px',
+      height: '550px',
+      width: '900px',
       data: {
         paciente: this.selection.selected[0]
       }

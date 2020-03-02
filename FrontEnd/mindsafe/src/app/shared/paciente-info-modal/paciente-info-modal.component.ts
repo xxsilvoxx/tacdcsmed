@@ -10,12 +10,15 @@ import { Paciente } from '../../models/paciente.model';
 })
 export class PacienteInfoModalComponent implements OnInit {
 
+  pacienteSelecionado: Paciente = new Paciente();
+
   constructor(
     private modalRef: MatDialogRef<PacienteInfoModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Paciente
   ) { }
 
   ngOnInit() {
+    this.pacienteSelecionado = this.data;
   }
 
   onClose() {

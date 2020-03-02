@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { MenuSidenavComponent } from './menu-sidenav.component';
+import { MenuSidenavComponent } from '../menu-sidenav/menu-sidenav/menu-sidenav.component';
 
 const routes: Routes = [
   {

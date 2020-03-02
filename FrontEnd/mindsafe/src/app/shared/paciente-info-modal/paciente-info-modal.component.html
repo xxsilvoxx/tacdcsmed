@@ -1,1 +1,12 @@
-<p>paciente-info-modal works!</p>
+<div class="cabecalho">
+  <h1 mat-dialog-title>Informações do Paciente</h1>
+  <button mat-icon-button (click)="onClose()">
+    <mat-icon class="material-icons" style="color: #565656;">close</mat-icon>
+  </button>
+</div>
+<mat-dialog-content>
+  <div class="bg-situacao-paciente risco-medio"></div>
+  <div class="logo {{ pacienteSelecionado.sexo == 'F'  ? 'mulher' : 'homem' }}"></div>
+  {{ pacienteSelecionado | json }}
+
+</mat-dialog-content>

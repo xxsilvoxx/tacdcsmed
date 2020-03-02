@@ -15,7 +15,7 @@
 }
 
 .logo {
-  background-image: url('../../assets/logo-tcc.png');
+  background-image: url('../../../assets/logo-tcc.png');
   background-size: cover;
   width: 40px;
   height: 35px;
@@ -45,9 +45,20 @@
 
 /* Tags */
 
+mat-toolbar {
+  position: sticky;
+  position: -webkit-sticky; /* For macOS/iOS Safari */
+  top: 0; /* Sets the sticky toolbar to be on top */
+  z-index: 1000;
+}
+
+mat-sidenav-container:hover mat-toolbar {
+  position: relative;
+}
+
 mat-card {
   background-color: rgb(214, 26, 26);
-  background-image: url('../../assets/fundo-sidenav.jpg');
+  background-image: url('../../../assets/fundo-sidenav.jpg');
   background-size: cover;
 }
 

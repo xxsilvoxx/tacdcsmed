@@ -1,0 +1,45 @@
+button {
+  position: relative;
+  float: right;
+  margin-top: -55px;
+}
+
+.bg-situacao-paciente {
+  height: 180px;
+  width: 100%;
+}
+
+.sem-risco {
+  background-color: rgb(46, 46, 204);
+}
+
+.risco-medio {
+  background-color: rgb(212, 255, 0);
+}
+
+.risco-alto {
+  background-color: rgb(219, 35, 35);
+}
+
+.logo {
+  border: 8px solid #ffffff;
+  margin-left: 20px;
+  margin-top: -85px;
+  width: 160px;
+  height: 160px;
+  border-radius: 100%;
+  background-position: center;
+  background-size: cover;
+}
+
+.logo-xs {
+  margin-left: 0 auto;
+}
+
+.homem {
+  background-image: url('../../../assets/imagens/pacientes-modal-homem.png');
+}
+
+.mulher {
+  background-image: url('../../../assets/imagens/pacientes-modal-mulher.png');
+}

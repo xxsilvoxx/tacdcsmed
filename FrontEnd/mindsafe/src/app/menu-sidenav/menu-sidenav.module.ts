@@ -9,7 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
-import { MenuSidenavComponent } from './menu-sidenav.component';
+import { MenuSidenavComponent } from '../menu-sidenav/menu-sidenav/menu-sidenav.component';
 import { MenuSidenavRountigModule } from './menu-sidenav-rountig.module';
 import { VisitasModule } from '../visitas/visitas.module';
 import { PacientesModule } from '../pacientes/pacientes.module';
