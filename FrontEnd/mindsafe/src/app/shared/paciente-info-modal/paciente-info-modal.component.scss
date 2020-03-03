@@ -4,6 +4,11 @@ button {
   margin-top: -55px;
 }
 
+.button-xs {
+  margin-right: -20px;
+  margin-top: -65px;
+}
+
 .bg-situacao-paciente {
   height: 180px;
   width: 100%;
@@ -13,11 +18,15 @@ button {
   background-color: rgb(46, 46, 204);
 }
 
-.risco-medio {
-  background-color: rgb(212, 255, 0);
+.risco-baixo {
+  background-color: rgb(27, 180, 27);
 }
 
-.risco-alto {
+.risco-medio {
+  background-color: rgb(194, 191, 0);
+}
+
+.risco-grave {
   background-color: rgb(219, 35, 35);
 }
 
@@ -33,7 +42,10 @@ button {
 }
 
 .logo-xs {
-  margin-left: 0 auto;
+  width: 120px;
+  height: 120px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .homem {
@@ -50,9 +62,20 @@ button {
   font-size: 28pt;
 }
 
+.nome-usuarios-xs {
+  font-size: 25pt;
+  margin: auto;
+  text-align: center;
+}
+
 .contatos-usuario {
   margin-left: 210px;
   margin-top: -30px;
+}
+
+.contatos-usuario-xs {
+  text-align: center;
+  margin: auto;
 }
 
 .box-padrao {
@@ -85,12 +108,38 @@ button {
   width: 48%;
 }
 
+.causas-xs {
+  position: relative;
+  float: none;
+  width: 100%;
+}
+
 .medicamentos {
   position: relative;
   float: right;
   width: 48%;
 }
 
+.medicamentos-xs {
+  position: relative;
+  float: none;
+  width: 100%;
+}
+
 .adendamentos {
   width: 100%
+}
+
+.risco-texto-overlay {
+  text-align: right;
+  text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.527);
+  color: white;
+  margin: 5px;
+  font-size: 22pt;
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+.bg-situacao-paciente:hover .risco-texto-overlay {
+  opacity: 1;
 }

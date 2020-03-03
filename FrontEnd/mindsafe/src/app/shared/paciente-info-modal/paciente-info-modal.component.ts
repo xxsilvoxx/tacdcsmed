@@ -10,6 +10,8 @@ export class PacienteInfoModalComponent implements OnInit {
 
   contatos = [];
 
+  risco = 0;
+
   causas: any[] = [
     { descricao: 'Conflitos Familiares', risco: 6 },
     { descricao: 'Dificuldades Socioeconômicas', risco: 4 },
@@ -77,6 +79,20 @@ export class PacienteInfoModalComponent implements OnInit {
     }
   }
 
+  retornarDescricaoRisco(): string {
+    let texto = '';
+    if (this.risco <= 5) {
+      texto = 'Nenhum Risco';
+    } else if (this.risco <= 10) {
+      texto = 'Risco Baixo';
+    } else if (this.risco <= 15) {
+      texto = 'Risco Médio';
+    } else {
+      texto = 'Risco Grave';
+    }
+    return texto;
+  }
+
   retornarSomaRiscos() {
     let sumRisco = 0;
     this.causas.forEach(
@@ -84,6 +100,7 @@ export class PacienteInfoModalComponent implements OnInit {
         sumRisco += c.risco;
       }
     );
+    this.risco = sumRisco;
     return sumRisco;
   }
 

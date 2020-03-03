@@ -1,16 +1,24 @@
 <div class="cabecalho">
   <h1 mat-dialog-title>Informações do Paciente</h1>
-  <button mat-icon-button (click)="onClose()">
+  <button ngClass.xs="button-xs" mat-icon-button (click)="onClose()">
     <mat-icon class="material-icons" style="color: #565656;">close</mat-icon>
   </button>
 </div>
 <mat-dialog-content>
-  <div class="bg-situacao-paciente risco-medio"></div>
-  <div class="logo {{ data.paciente.sexo == 'M'  ? 'homem' : 'mulher' }}"></div>
-  <h2 class="nome-usuario">{{ data.paciente.nome }}</h2>
-  <p class="contatos-usuario">{{ contatos.join(' | ') }}</p>
+  <div [ngClass]="{
+    'bg-situacao-paciente': true,
+    'sem-risco': retornarSomaRiscos() <= 5,
+    'risco-baixo': retornarSomaRiscos() >= 6,
+    'risco-medio': retornarSomaRiscos() >= 11,
+    'risco-grave': retornarSomaRiscos() >= 16
+  }">
+    <p class="risco-texto-overlay">{{ retornarDescricaoRisco() }}</p>
+  </div>
+  <div ngClass.xs="logo-xs" class="logo {{ data.paciente.sexo == 'M'  ? 'homem' : 'mulher' }}"></div>
+  <h2 ngClass.xs="nome-usuarios-xs" class="nome-usuario">{{ data.paciente.nome }}</h2>
+  <p ngClass.xs="contatos-usuario-xs" class="contatos-usuario">{{ contatos.join(' | ') }}</p>
 
-  <div class="causas">
+  <div ngClass.xs="causas-xs" class="causas">
     <h2 class="titulo-descricao">Causas Marcadas</h2>
     <div class="box-padrao">
       <mat-list>
@@ -25,7 +33,7 @@
     </div>
   </div>
 
-  <div class="medicamentos">
+  <div ngClass.xs="medicamentos-xs" class="medicamentos">
     <h2 class="titulo-descricao">Medicamentos</h2>
     <div class="box-padrao">
       <mat-list>
