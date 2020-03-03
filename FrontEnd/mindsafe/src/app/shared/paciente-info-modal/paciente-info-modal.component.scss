@@ -43,3 +43,49 @@ button {
 .mulher {
   background-image: url('../../../assets/imagens/pacientes-modal-mulher.png');
 }
+
+.nome-usuario {
+  margin-left: 210px;
+  margin-top: -90px;
+  font-size: 28pt;
+}
+
+.contatos-usuario {
+  margin-left: 210px;
+  margin-top: -30px;
+}
+
+.box-padrao {
+  box-shadow: 1px 1px 6px #00000091;
+  margin: 0 0 5px 0;
+  height: 145px;
+  border-radius: 5px;
+  overflow-y: auto;
+}
+
+.alinhamento-esquerda {
+  position: relative;
+  float: left;
+}
+
+.alinhamento-direita {
+  position: relative;
+  float: right;
+}
+
+.titulo-descricao {
+  margin-top: 35px;
+  color: #5A5A5A;
+}
+
+.causas {
+  position: relative;
+  float: left;
+  width: 45%;
+}
+
+.medicamentos {
+  position: relative;
+  float: right;
+  width: 45%;
+}

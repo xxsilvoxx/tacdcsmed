@@ -7,6 +7,8 @@ import { MatIconModule } from '@angular/material/icon';
 
 import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 import { PacienteInfoModalComponent } from './paciente-info-modal/paciente-info-modal.component';
+import { MatListModule } from '@angular/material/list';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { PacienteInfoModalComponent } from './paciente-info-modal/paciente-info-
     MatButtonModule,
     MatDialogModule,
     FlexLayoutModule,
-    MatIconModule
+    MatIconModule,
+    MatListModule,
+    MatDividerModule
   ],
   entryComponents: [
     ConfirmModalComponent,

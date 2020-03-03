@@ -6,7 +6,39 @@
 </div>
 <mat-dialog-content>
   <div class="bg-situacao-paciente risco-medio"></div>
-  <div class="logo {{ pacienteSelecionado.sexo == 'F'  ? 'mulher' : 'homem' }}"></div>
-  {{ pacienteSelecionado | json }}
+  <div class="logo {{ data.paciente.sexo == 'M'  ? 'homem' : 'mulher' }}"></div>
+  <h2 class="nome-usuario">{{ data.paciente.nome }}</h2>
+  <p class="contatos-usuario">{{ contatos.join(' | ') }}</p>
+
+  <div class="causas">
+    <h2 class="titulo-descricao">Causas Marcadas</h2>
+    <div class="box-padrao">
+      <mat-list>
+          <mat-list-item mat-line *ngFor="let causa of causas">
+              {{ causa.descricao }}
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item>
+            <strong>Somando: {{ retornarSomaRiscos() }}</strong>
+          </mat-list-item>
+      </mat-list>
+    </div>
+  </div>
+
+  <div class="medicamentos">
+    <h2 class="titulo-descricao">Medicamentos</h2>
+    <div class="box-padrao">
+      <mat-list>
+        <mat-list-item mat-line *ngFor="let medicamento of medicamentos">
+          {{ medicamento.nome }} - {{ medicamento.horarios.join(', ') }}
+        </mat-list-item>
+      </mat-list>
+    </div>
+  </div>
+
+  <div class="adendamentos">
+
+  </div>
+
 
 </mat-dialog-content>
