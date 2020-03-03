@@ -57,7 +57,7 @@ button {
 
 .box-padrao {
   box-shadow: 1px 1px 6px #00000091;
-  margin: 0 0 5px 0;
+  margin: 5px 0 5px 0;
   height: 145px;
   border-radius: 5px;
   overflow-y: auto;
@@ -74,18 +74,23 @@ button {
 }
 
 .titulo-descricao {
-  margin-top: 35px;
+  margin-bottom: 10px;
+  margin-top: 10px;
   color: #5A5A5A;
 }
 
 .causas {
   position: relative;
   float: left;
-  width: 45%;
+  width: 48%;
 }
 
 .medicamentos {
   position: relative;
   float: right;
-  width: 45%;
+  width: 48%;
+}
+
+.adendamentos {
+  width: 100%
 }

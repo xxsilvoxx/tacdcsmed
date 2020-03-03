@@ -37,7 +37,14 @@
   </div>
 
   <div class="adendamentos">
-
+    <h2 class="titulo-descricao">Agendamentos</h2>
+    <div class="box-padrao">
+      <mat-list>
+        <mat-list-item mat-line *ngFor="let agendamento of agendamentos">
+          {{ agendamento.descricao }} - {{ agendamento.data | date }} - {{ agendamento.hora }} horas
+        </mat-list-item>
+      </mat-list>
+    </div>
   </div>
 
 

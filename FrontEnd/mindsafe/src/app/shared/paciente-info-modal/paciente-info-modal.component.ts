@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
-  selector: 'paciente-info-modal',
+  selector: 'app-paciente-info-modal',
   templateUrl: './paciente-info-modal.component.html',
   styleUrls: ['./paciente-info-modal.component.scss']
 })
@@ -27,11 +27,29 @@ export class PacienteInfoModalComponent implements OnInit {
     },
     {
       nome: 'LISOMUC',
-      horarios: ['10hrs', '20hrs',]
+      horarios: ['10hrs', '20hrs']
     },
     {
       nome: 'CONFILIFY',
       horarios: ['10hrs']
+    },
+  ];
+
+  agendamentos: any[] = [
+    {
+      descricao: 'Dra. Amélia Alves - Psicóloga',
+      data: new Date().getDate(),
+      hora: new Date().getHours()
+    },
+    {
+      descricao: 'Dr. Luiz Matarazzo - Psicólogo',
+      data: new Date().getDate(),
+      hora: new Date().getHours()
+    },
+    {
+      descricao: 'Dra. Amélia Alves - Psicóloga',
+      data: new Date().getDate(),
+      hora: new Date().getHours()
     },
   ];
 
