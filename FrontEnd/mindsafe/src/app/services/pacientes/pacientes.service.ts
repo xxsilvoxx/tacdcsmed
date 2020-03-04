@@ -4,6 +4,7 @@ import { take } from 'rxjs/operators';
 
 import { environment } from './../../../environments/environment';
 import { Paciente } from '../../models/paciente.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -18,5 +19,9 @@ export class PacientesService {
 
   listar() {
     return this.http.get<Paciente[]>(this.apiUrl).pipe(take(1));
+  }
+
+  remover(paciente: Paciente) {
+    return this.http.delete<Paciente>(`${this.apiUrl}/${paciente.idPessoa}`);
   }
 }

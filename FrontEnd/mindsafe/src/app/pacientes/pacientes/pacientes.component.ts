@@ -4,8 +4,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog } from '@angular/material/dialog';
 import { MediaObserver } from '@angular/flex-layout';
-import { Subscription } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { Subscription, EMPTY, Observable } from 'rxjs';
+import { filter, tap, switchMap, map } from 'rxjs/operators';
 
 import { ConfirmModalComponent } from '../../shared/confirm-modal/confirm-modal.component';
 import { PacientesService } from '../../services/pacientes/pacientes.service';
@@ -156,19 +156,16 @@ export class PacientesComponent implements OnInit, OnDestroy {
   }
 
   listarTodos() {
-    const subs = this.service.listar().subscribe(
+    this.service.listar().subscribe(
       res => {
         this.pacientes = res;
         this.dataSource = new MatTableDataSource<Paciente>(this.pacientes);
         this.dataSource.paginator = this.paginator;
-        this.msg.exibirMensagem('Lista carregada com sucesso', 'done');
       },
       error => {
-        this.msg.exibirMensagem('Não foi possível listar os registros', 'error', 2500);
+        this.msg.exibirMensagem('Não foi possível listar os registros', 'error');
       }
     );
-
-    this.subscriptions.push(subs);
   }
 
   onInfoPaciente() {
@@ -182,6 +179,7 @@ export class PacientesComponent implements OnInit, OnDestroy {
   }
 
   onDelete() {
+    const pacientes = this.selection.selected;
     let texto = 'Tem certeza que deseja remover este paciente ?';
     if (this.selection.selected.length > 1) {
       texto = `Tem certeza que deseja remover estes ${this.selection.selected.length} pacientes ?`;
@@ -194,12 +192,35 @@ export class PacientesComponent implements OnInit, OnDestroy {
         texto: texto
       }
     });
-    dialogRef.afterClosed().subscribe(
-      res => {
-        console.log(res ? 'Remoção Concluída' : 'Remoção Cancelada');
-      },
-      err => {
-        console.error(err);
+    this.onDeleteVerify(dialogRef.afterClosed(), pacientes);
+  }
+
+  /**
+   * Método responsável por iterar minha lista de pacientes a serem removidos, ele recebe
+   * o observable da modal de confirmação que retorna um true ou um false, se retorna false,
+   * ele apenas irá executar a primeira verificação, não haverá perda de desempenho
+   *
+   * É feito um switchMap dentro do método para trocar para o retorno do service que remove
+   * o paciente
+   *
+   * ESTÁ FUNCIONANDO
+   */
+  onDeleteVerify(subs: Observable<boolean>, pacientes: Paciente[]) {
+    console.log('Entrou');
+    pacientes.forEach(
+      p => {
+        subs.pipe(
+          switchMap((v: boolean) => v ? this.service.remover(p) : EMPTY)
+        ).subscribe(
+          success => {
+            this.msg.exibirMensagem('Removido Com Sucesso', 'done');
+            this.listarTodos();
+            this.selection.clear();
+          },
+          err => {
+            this.msg.exibirMensagem('Erro ao remover', 'error');
+          }
+        );
       }
     );
   }
