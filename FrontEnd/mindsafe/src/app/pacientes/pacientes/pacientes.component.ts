@@ -10,8 +10,8 @@ import { filter } from 'rxjs/operators';
 import { ConfirmModalComponent } from '../../shared/confirm-modal/confirm-modal.component';
 import { PacientesService } from '../../services/pacientes/pacientes.service';
 import { Paciente } from './../../models/paciente.model';
-import { MatSelect } from '@angular/material/select';
 import { PacienteInfoModalComponent } from '../../shared/paciente-info-modal/paciente-info-modal.component';
+import { MensagemService } from '../../shared/mensagem/mensagem.service';
 
 export interface FiltroPaciente {
   nome: string;
@@ -55,7 +55,8 @@ export class PacientesComponent implements OnInit, OnDestroy {
   constructor(
     public dialog: MatDialog,
     private media: MediaObserver,
-    private service: PacientesService
+    private service: PacientesService,
+    private msg: MensagemService
   ) { }
 
   ngOnInit() {
@@ -160,6 +161,10 @@ export class PacientesComponent implements OnInit, OnDestroy {
         this.pacientes = res;
         this.dataSource = new MatTableDataSource<Paciente>(this.pacientes);
         this.dataSource.paginator = this.paginator;
+        this.msg.exibirMensagem('Lista carregada com sucesso', 'done');
+      },
+      error => {
+        this.msg.exibirMensagem('Não foi possível listar os registros', 'error', 2500);
       }
     );
 
