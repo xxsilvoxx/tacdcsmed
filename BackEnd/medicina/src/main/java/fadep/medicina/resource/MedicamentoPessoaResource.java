@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import fadep.medicina.model.Medicamento;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -52,6 +53,11 @@ public class MedicamentoPessoaResource {
     @DeleteMapping("/{codigo}")
     public ResponseEntity<MedicamentoPessoa> remover(@PathVariable("codigo") Long codigo) {
         return medicamentoPessoaService.remover(codigo);
+    }
+
+    @GetMapping("/paciente/{codigo}")
+    public List<MedicamentoPessoa> listarMedicamentosPaciente(@PathVariable("codigo") Long codPaciente) {
+        return medicamentoPessoaRepository.RetornarMedicamentosPaciente(codPaciente);
     }
 
 }

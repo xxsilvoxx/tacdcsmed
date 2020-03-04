@@ -30,7 +30,7 @@ public class MedicamentoPessoa {
 	private Medicamento medicamento;
 	
 	@Column(name = "horarios")
-	private String horario;
+	private String horarios;
 
 	public Long getIdMedPessoa() {
 		return idMedPessoa;
@@ -56,12 +56,12 @@ public class MedicamentoPessoa {
 		this.medicamento = medicamento;
 	}
 
-	public String getHorario() {
-		return horario;
+	public String getHorarios() {
+		return horarios;
 	}
 
-	public void setHorario(String horario) {
-		this.horario = horario;
+	public void setHorario(String horarios) {
+		this.horarios = horarios;
 	}
 
 	@Override
