@@ -1,6 +1,5 @@
 package fadep.medicina.repository;
 
-import fadep.medicina.model.Medicamento;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import fadep.medicina.model.MedicamentoPessoa;
