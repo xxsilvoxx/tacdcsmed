@@ -11,6 +11,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 import { PacienteInfoModalComponent } from './paciente-info-modal/paciente-info-modal.component';
 import { MensagemComponent } from './mensagem/mensagem/mensagem.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { MensagemComponent } from './mensagem/mensagem/mensagem.component';
     MatIconModule,
     MatListModule,
     MatDividerModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    HttpClientModule
   ],
   entryComponents: [
     ConfirmModalComponent,

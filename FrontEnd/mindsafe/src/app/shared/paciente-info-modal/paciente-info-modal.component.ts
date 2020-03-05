@@ -1,6 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
+import { MedicamentoPessoa } from '../../models/medicamentoPessoa.model';
+import { MedicamentoPessoaService } from '../../services/medicamentoPessoa/medicamento-pessoa.service';
+import { Observable } from 'rxjs';
+
 @Component({
   selector: 'app-paciente-info-modal',
   templateUrl: './paciente-info-modal.component.html',
@@ -13,29 +17,12 @@ export class PacienteInfoModalComponent implements OnInit {
   risco = 0;
 
   causas: any[] = [
-    { descricao: 'Conflitos Familiares', risco: 6 },
-    { descricao: 'Dificuldades Socioeconômicas', risco: 4 },
-    { descricao: 'Etilismo', risco: 5 }
+    { descricao: 'Conflitos Familiares', risco: 1 },
+    { descricao: 'Dificuldades Socioeconômicas', risco: 1 },
+    { descricao: 'Etilismo', risco: 2 }
   ];
 
-  medicamentos: any[] = [
-    {
-      nome: 'ARIPIPRAZOL',
-      horarios: ['10hrs', '20hrs']
-    },
-    {
-      nome: 'BRONDYNEO',
-      horarios: ['8hrs', '16hrs', '0hr']
-    },
-    {
-      nome: 'LISOMUC',
-      horarios: ['10hrs', '20hrs']
-    },
-    {
-      nome: 'CONFILIFY',
-      horarios: ['10hrs']
-    },
-  ];
+  medicamentos$: Observable<MedicamentoPessoa[]>;
 
   agendamentos: any[] = [
     {
@@ -57,11 +44,17 @@ export class PacienteInfoModalComponent implements OnInit {
 
   constructor(
     private modalRef: MatDialogRef<PacienteInfoModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private medicamentoPessoaService: MedicamentoPessoaService
   ) { }
 
   ngOnInit() {
     this.criarContatosUsuario();
+    this.listarMedicamentos();
+  }
+
+  listarMedicamentos() {
+    this.medicamentos$ = this.medicamentoPessoaService.retornarMedicamentos(this.data.paciente);
   }
 
   criarContatosUsuario() {
