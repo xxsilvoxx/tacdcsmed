@@ -3,7 +3,11 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { MedicamentoPessoa } from '../../models/medicamentoPessoa.model';
 import { MedicamentoPessoaService } from '../../services/medicamentoPessoa/medicamento-pessoa.service';
-import { Observable } from 'rxjs';
+import { Observable, EMPTY } from 'rxjs';
+import { CausaPessoa } from '../../models/causaPessoa.model';
+import { CausaPessoaService } from '../../services/causaPessoa/causa-pessoa.service';
+import { tap, map } from 'rxjs/operators';
+import { MensagemService } from '../mensagem/mensagem.service';
 
 @Component({
   selector: 'app-paciente-info-modal',
@@ -16,11 +20,7 @@ export class PacienteInfoModalComponent implements OnInit {
 
   risco = 0;
 
-  causas: any[] = [
-    { descricao: 'Conflitos Familiares', risco: 1 },
-    { descricao: 'Dificuldades Socioeconômicas', risco: 1 },
-    { descricao: 'Etilismo', risco: 2 }
-  ];
+  causas: CausaPessoa[];
 
   medicamentos$: Observable<MedicamentoPessoa[]>;
 
@@ -45,16 +45,37 @@ export class PacienteInfoModalComponent implements OnInit {
   constructor(
     private modalRef: MatDialogRef<PacienteInfoModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private medicamentoPessoaService: MedicamentoPessoaService
+    private medicamentoPessoaService: MedicamentoPessoaService,
+    private causaPessoaService: CausaPessoaService,
+    private msgService: MensagemService
   ) { }
 
   ngOnInit() {
     this.criarContatosUsuario();
     this.listarMedicamentos();
+    this.listarCausas();
+  }
+
+  listarCausas() {
+    this.causaPessoaService.listarCausas(this.data.paciente).pipe(
+      tap(l => l.forEach(v => this.risco += v.causa.risco))
+    ).subscribe(
+      res => {
+        if (res.length == 0) {
+          this.msgService.exibirMensagem('Lista de Causas Está Vazia', 'info');
+        }
+        this.causas = res;
+      },
+      error => {
+        this.msgService.exibirMensagem('Não foi possível listar as causas', 'error');
+      }
+    );
   }
 
   listarMedicamentos() {
-    this.medicamentos$ = this.medicamentoPessoaService.retornarMedicamentos(this.data.paciente);
+    this.medicamentos$ = this.medicamentoPessoaService.retornarMedicamentos(this.data.paciente).pipe(
+      tap(v => v.length == 0 ? this.msgService.exibirMensagem('Lista de Medicamentos Vazia', 'info') : EMPTY)
+    );
   }
 
   criarContatosUsuario() {
@@ -88,11 +109,7 @@ export class PacienteInfoModalComponent implements OnInit {
 
   retornarSomaRiscos() {
     let sumRisco = 0;
-    this.causas.forEach(
-      c => {
-        sumRisco += c.risco;
-      }
-    );
+
     this.risco = sumRisco;
     return sumRisco;
   }

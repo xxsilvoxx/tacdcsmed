@@ -7,10 +7,10 @@
 <mat-dialog-content>
   <div [ngClass]="{
     'bg-situacao-paciente': true,
-    'sem-risco': retornarSomaRiscos() <= 5,
-    'risco-baixo': retornarSomaRiscos() >= 6,
-    'risco-medio': retornarSomaRiscos() >= 11,
-    'risco-grave': retornarSomaRiscos() >= 16
+    'sem-risco': risco <= 5,
+    'risco-baixo': risco >= 6,
+    'risco-medio': risco >= 11,
+    'risco-grave': risco >= 16
   }">
     <p class="risco-texto-overlay">{{ retornarDescricaoRisco() }}</p>
   </div>
@@ -22,13 +22,15 @@
     <h2 class="titulo-descricao">Causas Marcadas</h2>
     <div class="box-padrao">
       <mat-list>
-          <mat-list-item mat-line *ngFor="let causa of causas">
-              {{ causa.descricao }}
+          <mat-list-item mat-line *ngFor="let element of causas">
+              {{ element.causa.nome }}
           </mat-list-item>
-          <mat-divider></mat-divider>
-          <mat-list-item>
-            <strong>Somando: {{ retornarSomaRiscos() }}</strong>
-          </mat-list-item>
+          <div *ngIf="risco != 0">
+            <mat-divider></mat-divider>
+            <mat-list-item>
+              <strong>Somando: {{ risco }}</strong>
+            </mat-list-item>
+          </div>
       </mat-list>
     </div>
   </div>
