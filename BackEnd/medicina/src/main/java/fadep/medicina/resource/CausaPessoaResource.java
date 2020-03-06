@@ -45,4 +45,9 @@ public class CausaPessoaResource {
         return causaPessoaService.remover(codigo);
     }
 
+    @GetMapping("/paciente/{codigo}")
+    public List<CausaPessoa> listarCausasPaciente(@PathVariable("codigo") Long codPaciente) {
+        return causaPessoaRepository.listarCausas(codPaciente);
+    }
+
 }

@@ -55,6 +55,9 @@ public class MedicamentoPessoaResource {
         return medicamentoPessoaService.remover(codigo);
     }
 
+    /**
+     * Endpoint responsável por trazer os medicamentos de cada paciente
+     */
     @GetMapping("/paciente/{codigo}")
     public List<MedicamentoPessoa> listarMedicamentosPaciente(@PathVariable("codigo") Long codPaciente) {
         return medicamentoPessoaRepository.RetornarMedicamentosPaciente(codPaciente);
