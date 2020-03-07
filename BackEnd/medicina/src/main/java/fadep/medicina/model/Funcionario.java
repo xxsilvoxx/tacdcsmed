@@ -46,11 +46,11 @@ public class Funcionario {
 	@Column(name="cod_equipe")
 	private Long codEquipe;
 
-	public Long getIdAgente() {
+	public Long getIdFuncionario() {
 		return idFuncionario;
 	}
 
-	public void setIdAgente(Long idFuncionario) {
+	public void setIdFuncionario(Long idFuncionario) {
 		this.idFuncionario = idFuncionario;
 	}
 
@@ -76,6 +76,14 @@ public class Funcionario {
 
 	public void setFuncao(Funcao funcao) {
 		this.funcao = funcao;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getNome() {
@@ -113,13 +121,13 @@ public class Funcionario {
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
+		if (!(o instanceof Funcionario)) return false;
 		Funcionario that = (Funcionario) o;
-		return Objects.equals(idFuncionario, that.idFuncionario);
+		return getIdFuncionario().equals(that.getIdFuncionario());
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(idFuncionario);
+		return Objects.hash(getIdFuncionario());
 	}
 }

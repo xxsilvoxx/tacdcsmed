@@ -23,7 +23,7 @@ CREATE TABLE visita (
 	id_pessoa BIGINT(20) NOT NULL,
 	id_funcionario BIGINT(20) NOT NULL,
 	data_visita TIMESTAMP,
-	anotacoes VARCHAR(100),
+	anotacoes TEXT,
 	comparecer_ubs BOOLEAN,
 	data_comparecimento TIMESTAMP,
 	descricao_comparecimento VARCHAR(150)
