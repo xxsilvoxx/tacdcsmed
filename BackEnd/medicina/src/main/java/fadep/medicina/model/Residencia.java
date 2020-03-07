@@ -29,12 +29,16 @@ public class Residencia {
 	@ManyToOne
 	@JoinColumn(name="id_micro_area")
 	private MicroArea microArea;
+
+	@NotNull
+	@Size(max=20)
+	@Column(name="cep")
+	private String cep;
 	
 	@NotNull
 	@Column(name="logradouro")
 	private String logradouro;
-	
-	
+
 	@NotNull
 	@Column(name="numero")
 	private Integer numero;
@@ -79,8 +83,15 @@ public class Residencia {
 	public void setLogradouro(String logradouro) {
 		this.logradouro = logradouro;
 	}
-	
-	
+
+	public String getCep() {
+		return cep;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+
 	public Integer getNumero() {
 		return numero;
 	}

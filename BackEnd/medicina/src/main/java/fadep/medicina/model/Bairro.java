@@ -29,10 +29,6 @@ public class Bairro {
 	
 	@Column(name="nome")
 	private String nome;
-	
-	@Size(max=20)
-	@Column(name="cep")
-	private String cep;
 
 	public Long getIdBairro() {
 		return idBairro;
@@ -64,14 +60,6 @@ public class Bairro {
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public String getCep() {
-		return cep;
-	}
-
-	public void setCep(String cep) {
-		this.cep = cep;
 	}
 
 	@Override
