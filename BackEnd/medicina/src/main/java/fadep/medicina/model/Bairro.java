@@ -18,6 +18,10 @@ public class Bairro {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id_bairro")
 	private Long idBairro;
+
+	@ManyToOne
+	@JoinColumn(name="id_ubs")
+	private Ubs ubs;
 	
 	@ManyToOne
 	@JoinColumn(name="id_cidade")
@@ -36,6 +40,14 @@ public class Bairro {
 
 	public void setIdBairro(Long idBairro) {
 		this.idBairro = idBairro;
+	}
+
+	public Ubs getUbs() {
+		return ubs;
+	}
+
+	public void setUbs(Ubs ubs) {
+		this.ubs = ubs;
 	}
 
 	public Cidade getCidade() {
@@ -86,6 +98,4 @@ public class Bairro {
 			return false;
 		return true;
 	}
-
-	
 }

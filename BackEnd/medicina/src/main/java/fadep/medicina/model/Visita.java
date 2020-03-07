@@ -30,7 +30,8 @@ public class Visita {
 	@ManyToOne
 	@JoinColumn(name="id_funcionario")
 	private Funcionario funcionario;
-	
+
+	@NotNull
 	@Column(name = "data_visita")
 	private Timestamp dataVisita;
 	

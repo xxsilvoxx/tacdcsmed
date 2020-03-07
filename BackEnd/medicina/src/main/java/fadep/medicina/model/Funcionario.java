@@ -27,6 +27,11 @@ public class Funcionario {
 	@ManyToOne
 	@JoinColumn(name="id_funcao")
 	private Funcao funcao;
+
+	@NotNull
+	@JoinColumn(name="email")
+	@Size(min=10, max=100)
+	private String email;
 	
 	@Column(name="nome")
 	private String nome;
@@ -72,8 +77,6 @@ public class Funcionario {
 	public void setFuncao(Funcao funcao) {
 		this.funcao = funcao;
 	}
-
-
 
 	public String getNome() {
 		return nome;

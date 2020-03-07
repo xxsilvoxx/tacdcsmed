@@ -1,0 +1,3 @@
+ALTER TABLE bairro ADD COLUMN id_ubs BIGINT(20);
+
+ALTER TABLE bairro ADD CONSTRAINT fk_ubs FOREIGN KEY(id_ubs) REFERENCES ubs(id_ubs);
