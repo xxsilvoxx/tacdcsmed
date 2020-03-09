@@ -1,5 +1,7 @@
 package fadep.medicina.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
@@ -50,5 +52,16 @@ public class VisitaService {
 	        }
 	        return null;
 	    }
+
+	    public List<Visita> listarAgendamentos(Long codPaciente) {
+	    	List<Visita> visitasValid = new ArrayList<Visita>();
+	    	List<Visita> visitas = visitaRepository.listarAgendamentos(codPaciente);
+	    	for (int i = 0; i < visitas.size(); i++) {
+	    		Visita visita = visitas.get(i);
+	    		visita.setFuncionario(null);
+	    		visitasValid.add(visita);
+			}
+	    	return visitasValid;
+		}
 
 }

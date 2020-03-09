@@ -54,10 +54,12 @@ public class VisitaResource {
         return visitaService.remover(codigo);
     }
 
-    @GetMapping("/paciente/{codigo}")
+    @GetMapping("/paciente/{codigo}/agendamentos")
     public List<Visita> listarAgendamentos(@PathVariable("codigo") Long codPaciente) {
-        return visitaRepository.listarAgendamentos(codPaciente);
+        return visitaService.listarAgendamentos(codPaciente);
     }
+
+
 
 }
 
