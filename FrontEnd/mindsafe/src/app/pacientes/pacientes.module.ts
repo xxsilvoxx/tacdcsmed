@@ -16,12 +16,14 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { PacientesRoutingModule } from './pacientes-routing.module';
 import { PacientesComponent } from './pacientes/pacientes.component';
 import { SharedModule } from '../shared/shared.module';
-import { AddPacienteComponent } from './add-paciente/add-paciente.component';
+import { PacientesFormComponent } from './pacientes-form/pacientes-form.component';
+import { PacientesAlterarComponent } from './pacientes-alterar/pacientes-alterar.component';
 
 @NgModule({
   declarations: [
     PacientesComponent,
-    AddPacienteComponent
+    PacientesFormComponent,
+    PacientesAlterarComponent
   ],
   imports: [
     CommonModule,
@@ -38,6 +40,9 @@ import { AddPacienteComponent } from './add-paciente/add-paciente.component';
     MatCheckboxModule,
     FlexLayoutModule,
     SharedModule
+  ],
+  entryComponents: [
+    PacientesFormComponent
   ]
 })
 export class PacientesModule { }

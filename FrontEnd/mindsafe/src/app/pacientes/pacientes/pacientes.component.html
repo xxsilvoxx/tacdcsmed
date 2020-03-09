@@ -31,7 +31,7 @@
       <button mat-icon-button (click)="applyFilter(filtroTexto.value, filtroTipo.value)" [disabled]="(filtroTexto.value == '' || filtroTipo.value == null)">
         <mat-icon class="material-icons">search</mat-icon>
       </button>
-      <button mat-icon-button [disabled]="selection.selected.length == 0">
+      <button mat-icon-button (click)="onVerificarAcao('alterar')" [disabled]="selection.selected.length == 0">
         <mat-icon class="material-icons">edit</mat-icon>
       </button>
       <button mat-icon-button (click)="onDelete()" [disabled]="selection.selected.length == 0">
@@ -40,7 +40,7 @@
       <button mat-icon-button (click)="onInfoPaciente()" [disabled]="selection.selected.length != 1">
         <mat-icon class="material-icons">perm_media</mat-icon>
       </button>
-      <button mat-icon-button [disabled]="selection.selected.length > 0">
+      <button mat-icon-button (click)="onVerificarAcao('add')" [disabled]="selection.selected.length > 0">
         <mat-icon class="material-icons">add</mat-icon>
       </button>
     </mat-card>

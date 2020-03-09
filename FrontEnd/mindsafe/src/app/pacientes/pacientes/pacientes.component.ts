@@ -12,6 +12,8 @@ import { PacientesService } from '../../services/pacientes/pacientes.service';
 import { Paciente } from './../../models/paciente.model';
 import { PacienteInfoModalComponent } from '../../shared/paciente-info-modal/paciente-info-modal.component';
 import { MensagemService } from '../../shared/mensagem/mensagem.service';
+import { PacientesFormComponent } from '../pacientes-form/pacientes-form.component';
+import { PacientesAlterarComponent } from '../pacientes-alterar/pacientes-alterar.component';
 
 export interface FiltroPaciente {
   nome: string;
@@ -178,6 +180,37 @@ export class PacientesComponent implements OnInit, OnDestroy {
     });
   }
 
+  onVerificarAcao(acao: string) {
+    if (acao.toUpperCase() == 'ADD' || acao.toUpperCase() == 'ALTERAR') {
+      this.onFormPaciente(acao.toLowerCase());
+    } else if (acao.toUpperCase() == 'UPDATE' && this.selection.selected.length > 1) {
+      this.onAlterarPacientes();
+    }
+  }
+
+  onFormPaciente(value: string) {
+    const paciente = value == 'alterar' ? this.selection.selected[0] : null;
+    if (value) {
+      const dialogRef = this.dialog.open(PacientesFormComponent, {
+        height: '550px',
+        width: '900px',
+        data: {
+          paciente: paciente
+        }
+      });
+    }
+  }
+
+  onAlterarPacientes() {
+    const dialogRef = this.dialog.open(PacientesAlterarComponent, {
+      height: '550px',
+      width: '900px',
+      data: {
+        paciente: this.selection.selected
+      }
+    });
+  }
+
   onDelete() {
     const pacientes = this.selection.selected;
     let texto = 'Tem certeza que deseja remover este paciente ?';
@@ -206,7 +239,6 @@ export class PacientesComponent implements OnInit, OnDestroy {
    * ESTÁ FUNCIONANDO
    */
   onDeleteVerify(subs: Observable<boolean>, pacientes: Paciente[]) {
-    console.log('Entrou');
     pacientes.forEach(
       p => {
         subs.pipe(
