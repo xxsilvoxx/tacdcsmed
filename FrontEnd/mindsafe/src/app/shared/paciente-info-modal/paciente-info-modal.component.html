@@ -22,7 +22,7 @@
     <h2 class="titulo-descricao">Causas Marcadas</h2>
     <div class="box-padrao">
       <mat-list>
-          <mat-list-item mat-line *ngFor="let element of causas">
+          <mat-list-item mat-line *ngFor="let element of causas$ | async">
               {{ element.causa.nome }}
           </mat-list-item>
           <div *ngIf="risco != 0">
@@ -46,12 +46,12 @@
     </div>
   </div>
 
-  <div class="adendamentos">
+  <div class="agendamentos">
     <h2 class="titulo-descricao">Agendamentos</h2>
     <div class="box-padrao">
       <mat-list>
-        <mat-list-item mat-line *ngFor="let agendamento of agendamentos">
-          {{ agendamento.descricao }} - {{ agendamento.data | date }} - {{ agendamento.hora }} horas
+        <mat-list-item ngClass.xs="mat-list-item-xs" mat-line *ngFor="let element of agendamentos$ | async">
+          {{ element.desCompare }} - {{ element.dataCompare | date:'medium' }}
         </mat-list-item>
       </mat-list>
     </div>

@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -8,6 +8,10 @@ import { AppComponent } from './app.component';
 import { LoginModule } from './login/login.module';
 import { VisitasModule } from './visitas/visitas.module';
 import { SharedModule } from './shared/shared.module';
+import { registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
+
+registerLocaleData(localePt, 'pt');
 
 @NgModule({
   declarations: [
@@ -22,7 +26,9 @@ import { SharedModule } from './shared/shared.module';
     VisitasModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    { provide: LOCALE_ID, useValue: window.navigator.language }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

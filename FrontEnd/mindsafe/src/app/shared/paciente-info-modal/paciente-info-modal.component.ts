@@ -1,13 +1,15 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Observable, EMPTY } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 import { MedicamentoPessoa } from '../../models/medicamentoPessoa.model';
 import { MedicamentoPessoaService } from '../../services/medicamentoPessoa/medicamento-pessoa.service';
-import { Observable, EMPTY } from 'rxjs';
 import { CausaPessoa } from '../../models/causaPessoa.model';
 import { CausaPessoaService } from '../../services/causaPessoa/causa-pessoa.service';
-import { tap, map } from 'rxjs/operators';
 import { MensagemService } from '../mensagem/mensagem.service';
+import { Visita } from '../../models/visita.model';
+import { VisitaService } from '../../services/visitas/visita.service';
 
 @Component({
   selector: 'app-paciente-info-modal',
@@ -17,36 +19,18 @@ import { MensagemService } from '../mensagem/mensagem.service';
 export class PacienteInfoModalComponent implements OnInit {
 
   contatos = [];
-
   risco = 0;
 
-  causas: CausaPessoa[];
-
+  causas$: Observable<CausaPessoa[]>;
   medicamentos$: Observable<MedicamentoPessoa[]>;
-
-  agendamentos: any[] = [
-    {
-      descricao: 'Dra. Amélia Alves - Psicóloga',
-      data: new Date().getDate(),
-      hora: new Date().getHours()
-    },
-    {
-      descricao: 'Dr. Luiz Matarazzo - Psicólogo',
-      data: new Date().getDate(),
-      hora: new Date().getHours()
-    },
-    {
-      descricao: 'Dra. Amélia Alves - Psicóloga',
-      data: new Date().getDate(),
-      hora: new Date().getHours()
-    },
-  ];
+  agendamentos$: Observable<Visita[]>;
 
   constructor(
     private modalRef: MatDialogRef<PacienteInfoModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private medicamentoPessoaService: MedicamentoPessoaService,
     private causaPessoaService: CausaPessoaService,
+    private visitaService: VisitaService,
     private msgService: MensagemService
   ) { }
 
@@ -54,27 +38,25 @@ export class PacienteInfoModalComponent implements OnInit {
     this.criarContatosUsuario();
     this.listarMedicamentos();
     this.listarCausas();
+    this.listarAgendamentos();
   }
 
   listarCausas() {
-    this.causaPessoaService.listarCausas(this.data.paciente).pipe(
+    this.causas$ = this.causaPessoaService.listarCausas(this.data.paciente).pipe(
+      tap(v => v.length == 0 ? this.msgService.exibirMensagem('Lista de Causas Vazia', 'info') : EMPTY),
       tap(l => l.forEach(v => this.risco += v.causa.risco))
-    ).subscribe(
-      res => {
-        if (res.length == 0) {
-          this.msgService.exibirMensagem('Lista de Causas Está Vazia', 'info');
-        }
-        this.causas = res;
-      },
-      error => {
-        this.msgService.exibirMensagem('Não foi possível listar as causas', 'error');
-      }
     );
   }
 
   listarMedicamentos() {
     this.medicamentos$ = this.medicamentoPessoaService.retornarMedicamentos(this.data.paciente).pipe(
       tap(v => v.length == 0 ? this.msgService.exibirMensagem('Lista de Medicamentos Vazia', 'info') : EMPTY)
+    );
+  }
+
+  listarAgendamentos() {
+    this.agendamentos$ = this.visitaService.listarConsultas(this.data.paciente).pipe(
+      tap(v => v.length == 0 ? this.msgService.exibirMensagem('Lista de Agendamentos Vazia', 'info') : EMPTY)
     );
   }
 
@@ -105,13 +87,6 @@ export class PacienteInfoModalComponent implements OnInit {
       texto = 'Risco Grave';
     }
     return texto;
-  }
-
-  retornarSomaRiscos() {
-    let sumRisco = 0;
-
-    this.risco = sumRisco;
-    return sumRisco;
   }
 
   onClose() {

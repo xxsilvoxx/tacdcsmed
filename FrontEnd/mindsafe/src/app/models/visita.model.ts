@@ -1,7 +1,13 @@
 import { Paciente } from './paciente.model';
+import { Funcionario } from './funcionario.model';
 
 export class Visita {
-    codigo: number;
-    paciente: Paciente;
-    dataVisita: Date;
+  idVisita: number;
+  pessoa: Paciente;
+  funcionario: Funcionario;
+  dataVisita: Date;
+  anotacoes: string;
+  comparecerUbs: boolean;
+  dataCompare: Date;
+  desCompare: string;
 }
