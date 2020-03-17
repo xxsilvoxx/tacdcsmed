@@ -45,4 +45,10 @@ public class PessoaResource {
         return pessoaService.remover(codigo);
     }
 
+    @GetMapping("/validar")
+    @ResponseBody
+    public Boolean validarCpfCnpj(@RequestParam(name="cpfCnpj") String cpfCnpj) {
+        return pessoaService.retornarValidadeCpfCnpj(cpfCnpj);
+    }
+
 }

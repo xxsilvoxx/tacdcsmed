@@ -59,6 +59,7 @@ public class VisitaService {
 	    	for (int i = 0; i < visitas.size(); i++) {
 	    		Visita visita = visitas.get(i);
 	    		visita.setFuncionario(null);
+	    		visita.setPessoa(null);
 	    		visitasValid.add(visita);
 			}
 	    	return visitasValid;

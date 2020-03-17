@@ -56,4 +56,13 @@ public class PessoaService {
         return null;
     }
 
+    /**
+     * Se retornar false, significa que já possui esse cpf ou cnpj cadastrado
+     * Se retornar true, é validado e pode ser cadastrado.
+     */
+    public Boolean retornarValidadeCpfCnpj(String cpfCnpj) {
+        Integer registro = pessoaRepository.retornarCpfCnpjValido(cpfCnpj);
+        return (registro > 0) ? (false) : (true);
+    }
+
 }
