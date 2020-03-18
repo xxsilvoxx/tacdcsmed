@@ -35,7 +35,7 @@ public class Pessoa {
 	private Boolean responsavelFamiliar;
 	
 	@NotNull
-	@Size(min=10, max=15)
+	@Size(min=14, max=18)
 	@Column(name="cpf_cnpj")
 	private String cpfCnpj;
 	
