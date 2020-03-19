@@ -128,5 +128,8 @@
       }
     }
   },
-  "defaultProject": "mindsafe"
+  "defaultProject": "mindsafe",
+  "cli": {
+    "analytics": "1760d8c2-f946-453d-a6c8-84483e45a915"
+  }
 }
