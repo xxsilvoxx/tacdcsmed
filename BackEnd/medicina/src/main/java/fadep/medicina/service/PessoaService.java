@@ -56,6 +56,11 @@ public class PessoaService {
         return null;
     }
 
+    public ResponseEntity<Pessoa> retornarResponsavelFamiliar(Long codFamilia) {
+        Pessoa pessoa = pessoaRepository.retornarFamiliaPossuiResponsavel(codFamilia);
+        return (pessoa != null) ? (ResponseEntity.ok(pessoa)) : (null);
+    }
+
     /**
      * Se retornar false, significa que já possui esse cpf ou cnpj cadastrado
      * Se retornar true, é validado e pode ser cadastrado.

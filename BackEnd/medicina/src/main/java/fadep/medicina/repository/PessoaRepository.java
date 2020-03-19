@@ -13,4 +13,12 @@ public interface PessoaRepository extends JpaRepository<Pessoa, Long>{
      */
     @Query("SELECT COUNT(p.idPessoa) FROM Pessoa p WHERE p.cpfCnpj = ?1")
     public Integer retornarCpfCnpjValido(String cpfCnpj);
+
+    /**
+     * Válida se a fámilia já possui um responsável familiar, caso possua,
+     * retorna o paciente, mostrando que o paciente a ser caddastrado não pode ser o responsável familiar,
+     * caso retorne vazio, o paciente poderá ser o responsável familiar
+     */
+    @Query("SELECT p FROM Pessoa p WHERE p.familia.idFamilia = ?1 AND p.responsavelFamiliar = 1")
+    public Pessoa retornarFamiliaPossuiResponsavel(Long codFamilia);
 }

@@ -45,6 +45,11 @@ public class PessoaResource {
         return pessoaService.remover(codigo);
     }
 
+    @GetMapping("/familia/{codigo}/responsavel")
+    public ResponseEntity<Pessoa> retornarResponsavel(@PathVariable("codigo") Long codFamilia) {
+        return pessoaService.retornarResponsavelFamiliar(codFamilia);
+    }
+
     @GetMapping("/validar")
     @ResponseBody
     public Boolean validarCpfCnpj(@RequestParam(name="cpfCnpj") String cpfCnpj) {
