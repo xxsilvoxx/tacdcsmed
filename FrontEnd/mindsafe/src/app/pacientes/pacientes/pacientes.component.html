@@ -12,13 +12,13 @@
   <div fxFlex="75%" fxFlex.md="65%" fxFlex.sm="60%" fxFlex.xs="50%">
 
     <mat-form-field>
-      <input matInput placeholder="Filtro" type="string" (focus)="disabledFilter()" #filtroTexto>
+      <input matInput placeholder="Filtro" [type]="tipoCampo" (focus)="disabledFilter()" #filtroTexto>
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Filtro Selecionado</mat-label>
-      <mat-select #filtroTipo>
-        <mat-option *ngFor="let op of filtroPesquisa" value="{{ op.valor }}" #tipo>
+      <mat-select #filtroTipo (valueChange)="mudarTipoPesquisa(filtroTipo)">
+        <mat-option *ngFor="let op of filtroPesquisa" [value]="op">
           {{ op.nome }}
         </mat-option>
       </mat-select>
@@ -28,7 +28,7 @@
 
   <div fxFlex="20%" fxFlex.md="25%" fxFlex.sm="35%">
     <mat-card>
-      <button mat-icon-button (click)="applyFilter(filtroTexto.value, filtroTipo.value)" [disabled]="(filtroTexto.value == '' || filtroTipo.value == null)">
+      <button mat-icon-button (click)="applyFilter(filtroTexto.value, filtroTipo.value.valor)" [disabled]="(filtroTexto.value == '' || filtroTipo.value == null)">
         <mat-icon class="material-icons">search</mat-icon>
       </button>
       <button mat-icon-button (click)="onVerificarAcao('alterar')" [disabled]="selection.selected.length == 0">

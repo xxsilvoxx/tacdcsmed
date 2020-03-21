@@ -5,19 +5,20 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog } from '@angular/material/dialog';
 import { MediaObserver } from '@angular/flex-layout';
 import { Subscription, EMPTY, Observable } from 'rxjs';
-import { filter, tap, switchMap, map } from 'rxjs/operators';
+import { filter, switchMap } from 'rxjs/operators';
 
 import { ConfirmModalComponent } from '../../shared/confirm-modal/confirm-modal.component';
 import { PacientesService } from '../../services/pacientes/pacientes.service';
 import { Paciente } from './../../models/paciente.model';
 import { PacienteInfoModalComponent } from '../../shared/paciente-info-modal/paciente-info-modal.component';
 import { MensagemService } from '../../shared/mensagem/mensagem.service';
-import { PacientesFormComponent } from '../pacientes-form/pacientes-form.component';
-import { PacientesAlterarComponent } from '../pacientes-alterar/pacientes-alterar.component';
+import { PacientesFormComponent } from '../pacientes-form-modal/pacientes-form.component';
+import { PacientesAlterarComponent } from '../pacientes-alterar-modal/pacientes-alterar.component';
 
 export interface FiltroPaciente {
   nome: string;
   valor: string;
+  tipo: string;
 }
 
 @Component({
@@ -36,16 +37,18 @@ export class PacientesComponent implements OnInit, OnDestroy {
 
   // Filtro específico pra cada classe que ele estará sendo trabalhado
   filtroPesquisa: FiltroPaciente[] = [
-    { nome: 'Código', valor: 'idPessoa' },
-    { nome: 'Nome', valor: 'nome' },
-    { nome: 'Família', valor: 'familia' },
-    { nome: 'CPF/CNPJ', valor: 'cpfCnpj' },
-    { nome: 'Nascimento', valor: 'dataNascimento' },
-    { nome: 'Nacionalidade', valor: 'nacionalidade' },
-    { nome: 'Telefone', valor: 'telefone' },
-    { nome: 'Celular', valor: 'celular' },
-    { nome: 'Email', valor: 'email' },
+    { nome: 'Código', valor: 'idPessoa', tipo: 'number' },
+    { nome: 'Nome', valor: 'nome', tipo: 'text' },
+    { nome: 'Família', valor: 'familia', tipo: 'text' },
+    { nome: 'CPF/CNPJ', valor: 'cpfCnpj', tipo: 'text' },
+    { nome: 'Nascimento', valor: 'dataNascimento', tipo: 'date' },
+    { nome: 'Nacionalidade', valor: 'nacionalidade', tipo: 'text' },
+    { nome: 'Telefone', valor: 'telefone', tipo: 'text' },
+    { nome: 'Celular', valor: 'celular', tipo: 'text' },
+    { nome: 'Email', valor: 'email', tipo: 'text' },
   ];
+
+  tipoCampo = 'text';
 
   dataSource: MatTableDataSource<Paciente>;
   selection = new SelectionModel<Paciente>(true, []);
@@ -73,11 +76,12 @@ export class PacientesComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscriptions.forEach(
-      subs => {
-        console.log('MediaQuery Destruído');
-        subs.unsubscribe();
-      }
+      subs => subs.unsubscribe()
     );
+  }
+
+  mudarTipoPesquisa(filtro) {
+    this.tipoCampo = filtro.value.tipo;
   }
 
   /**
@@ -181,23 +185,29 @@ export class PacientesComponent implements OnInit, OnDestroy {
   }
 
   onVerificarAcao(acao: string) {
-    if (acao.toUpperCase() == 'ADD' || acao.toUpperCase() == 'ALTERAR') {
-      this.onFormPaciente(acao.toLowerCase());
-    } else if (acao.toUpperCase() == 'UPDATE' && this.selection.selected.length > 1) {
+    if (acao == 'alterar' && this.selection.selected.length > 1) {
       this.onAlterarPacientes();
+    } else if (acao == 'add' || acao == 'alterar') {
+      this.onFormPaciente(acao.toLowerCase());
     }
   }
 
   onFormPaciente(value: string) {
-    const paciente = value == 'alterar' ? this.selection.selected[0] : null;
+    const pacienteSelecionado = value == 'alterar' ? this.selection.selected[0] : null;
     if (value) {
       const dialogRef = this.dialog.open(PacientesFormComponent, {
         height: '550px',
         width: '900px',
         data: {
-          paciente: paciente
+          paciente: pacienteSelecionado
         }
       });
+      dialogRef.afterClosed().subscribe(
+        res => {
+          this.listarTodos();
+          this.selection.clear();
+        }
+      );
     }
   }
 
@@ -269,52 +279,48 @@ export class PacientesComponent implements OnInit, OnDestroy {
    * Método responsável por aplicar o filtro específico de arrays no javascript
    */
   applyFilter(value: string, coluna?) {
-    console.log(`${value} / ${coluna}`);
-    let filtrado: Paciente[] = [];
+    const filtrado: Paciente[] = [];
     this.pacientes.map(
       p => {
-        if (coluna == 'idPessoa') {
-          if (p.idPessoa == Number(value)) {
+        if (coluna === 'idPessoa') {
+          if (p.idPessoa === Number(value)) {
             filtrado.push(p);
           }
-        } else if (coluna == 'nome') {
-          // tslint:disable-next-line: max-line-length
+        } else if (coluna === 'nome') {
           if (p.nome.trim().toLowerCase().indexOf(value.trim().toLowerCase()) >= 0) {
             filtrado.push(p);
           }
-        } else if (coluna == 'familia') {
-          // tslint:disable-next-line: max-line-length
+        } else if (coluna === 'familia') {
           if (p.familia.nome.trim().toLowerCase().indexOf(value.trim().toLowerCase()) >= 0) {
             /* Pode estar ocorrendo um erro ao validar alguns caracteres */
             filtrado.push(p);
           }
-        } else if (coluna == 'nacionalidade') {
-          // tslint:disable-next-line: max-line-length
+        } else if (coluna === 'nacionalidade') {
           if (p.nacionalidade.trim().toLowerCase().indexOf(value.trim().toLowerCase()) >= 0) {
             filtrado.push(p);
           }
-        } else if (coluna == 'cpfCnpj') {
+        } else if (coluna === 'cpfCnpj') {
           if (p.cpfCnpj.trim().toLowerCase().indexOf(value.trim().toLowerCase()) >= 0) {
             filtrado.push(p);
           }
-        } else if (coluna == 'dataNascimento') {
+        } else if (coluna === 'dataNascimento') {
           if (p.dataNascimento.toString().indexOf(value) >= 0) {
             filtrado.push(p);
           }
-        } else if (coluna == 'telefone') {
+        } else if (coluna === 'telefone') {
           // Colunas não obrigatórias no BD e no Backend devem ser tratadas pra evitar erros de null
           if (p.telefone != null) {
             if (p.telefone.indexOf(value) >= 0) {
               filtrado.push(p);
             }
           }
-        } else if (coluna == 'celular') {
+        } else if (coluna === 'celular') {
           if (p.celular != null) {
             if (p.celular.indexOf(value) >= 0) {
               filtrado.push(p);
             }
           }
-        } else if (coluna == 'email') {
+        } else if (coluna === 'email') {
           if (p.email != null) {
             if (p.email.trim().toLowerCase().indexOf(value.trim().toLowerCase()) >= 0) {
               filtrado.push(p);

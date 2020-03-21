@@ -1,0 +1,1538 @@
+[
+  {
+    "gentilico": "afegãne",
+    "nomePais": "Afeganistão",
+    "nomePaisInternacional": "Afghanistan",
+    "sigla": "AF"
+  },
+  {
+    "gentilico": "sul-africana",
+    "nomePais": "África do Sul",
+    "nomePaisInternacional": "South Africa",
+    "sigla": "ZA"
+  },
+  {
+    "gentilico": "albanesa",
+    "nomePais": "Albânia",
+    "nomePaisInternacional": "Albania",
+    "sigla": "AL"
+  },
+  {
+    "gentilico": "alemã",
+    "nomePais": "Alemanha",
+    "nomePaisInternacional": "Germany",
+    "sigla": "DE"
+  },
+  {
+    "gentilico": "andorrana",
+    "nomePais": "Andorra",
+    "nomePaisInternacional": "Andorra",
+    "sigla": "AD"
+  },
+  {
+    "gentilico": "angolana",
+    "nomePais": "Angola",
+    "nomePaisInternacional": "Angola",
+    "sigla": "AO"
+  },
+  {
+    "gentilico": "anguillana",
+    "nomePais": "Anguilla",
+    "nomePaisInternacional": "Anguilla",
+    "sigla": "AI"
+  },
+  {
+    "gentilico": "de antártida",
+    "nomePais": "Antártida",
+    "nomePaisInternacional": "Antarctica",
+    "sigla": "AQ"
+  },
+  {
+    "gentilico": "antiguana",
+    "nomePais": "Antígua e Barbuda",
+    "nomePaisInternacional": "Antigua & Barbuda",
+    "sigla": "AG"
+  },
+  {
+    "gentilico": "saudita",
+    "nomePais": "Arábia Saudita",
+    "nomePaisInternacional": "Saudi Arabia",
+    "sigla": "SA"
+  },
+  {
+    "gentilico": "argelina",
+    "nomePais": "Argélia",
+    "nomePaisInternacional": "Algeria",
+    "sigla": "DZ"
+  },
+  {
+    "gentilico": "argentina",
+    "nomePais": "Argentina",
+    "nomePaisInternacional": "Argentina",
+    "sigla": "AR"
+  },
+  {
+    "gentilico": "armênia",
+    "nomePais": "Armênia",
+    "nomePaisInternacional": "Armenia",
+    "sigla": "AM"
+  },
+  {
+    "gentilico": "arubana",
+    "nomePais": "Aruba",
+    "nomePaisInternacional": "Aruba",
+    "sigla": "AW"
+  },
+  {
+    "gentilico": "australiana",
+    "nomePais": "Austrália",
+    "nomePaisInternacional": "Australia",
+    "sigla": "AU"
+  },
+  {
+    "gentilico": "austríaca",
+    "nomePais": "Áustria",
+    "nomePaisInternacional": "Austria",
+    "sigla": "AT"
+  },
+  {
+    "gentilico": "azerbaijano",
+    "nomePais": "Azerbaijão",
+    "nomePaisInternacional": "Azerbaijan",
+    "sigla": "AZ"
+  },
+  {
+    "gentilico": "bahamense",
+    "nomePais": "Bahamas",
+    "nomePaisInternacional": "Bahamas",
+    "sigla": "BS"
+  },
+  {
+    "gentilico": "barenita",
+    "nomePais": "Bahrein",
+    "nomePaisInternacional": "Bahrain",
+    "sigla": "BH"
+  },
+  {
+    "gentilico": "bengali",
+    "nomePais": "Bangladesh",
+    "nomePaisInternacional": "Bangladesh",
+    "sigla": "BD"
+  },
+  {
+    "gentilico": "barbadiana",
+    "nomePais": "Barbados",
+    "nomePaisInternacional": "Barbados",
+    "sigla": "BB"
+  },
+  {
+    "gentilico": "bielo-russa",
+    "nomePais": "Belarus",
+    "nomePaisInternacional": "Belarus",
+    "sigla": "BY"
+  },
+  {
+    "gentilico": "belga",
+    "nomePais": "Bélgica",
+    "nomePaisInternacional": "Belgium",
+    "sigla": "BE"
+  },
+  {
+    "gentilico": "belizenha",
+    "nomePais": "Belize",
+    "nomePaisInternacional": "Belize",
+    "sigla": "BZ"
+  },
+  {
+    "gentilico": "beninense",
+    "nomePais": "Benin",
+    "nomePaisInternacional": "Benin",
+    "sigla": "BJ"
+  },
+  {
+    "gentilico": "bermudiana",
+    "nomePais": "Bermudas",
+    "nomePaisInternacional": "Bermuda",
+    "sigla": "BM"
+  },
+  {
+    "gentilico": "boliviana",
+    "nomePais": "Bolívia",
+    "nomePaisInternacional": "Bolivia",
+    "sigla": "BO"
+  },
+  {
+    "gentilico": "bósnia",
+    "nomePais": "Bósnia-Herzegóvina",
+    "nomePaisInternacional": "Bosnia & Herzegovina",
+    "sigla": "BA"
+  },
+  {
+    "gentilico": "betchuana",
+    "nomePais": "Botsuana",
+    "nomePaisInternacional": "Botswana",
+    "sigla": "BW"
+  },
+  {
+    "gentilico": "brasileira",
+    "nomePais": "Brasil",
+    "nomePaisInternacional": "Brazil",
+    "sigla": "BR"
+  },
+  {
+    "gentilico": "bruneiana",
+    "nomePais": "Brunei",
+    "nomePaisInternacional": "Brunei",
+    "sigla": "BN"
+  },
+  {
+    "gentilico": "búlgara",
+    "nomePais": "Bulgária",
+    "nomePaisInternacional": "Bulgaria",
+    "sigla": "BG"
+  },
+  {
+    "gentilico": "burquinês",
+    "nomePais": "Burkina Fasso",
+    "nomePaisInternacional": "Burkina Faso",
+    "sigla": "BF"
+  },
+  {
+    "gentilico": "burundinesa",
+    "nomePais": "Burundi",
+    "nomePaisInternacional": "Burundi",
+    "sigla": "BI"
+  },
+  {
+    "gentilico": "butanesa",
+    "nomePais": "Butão",
+    "nomePaisInternacional": "Bhutan",
+    "sigla": "BT"
+  },
+  {
+    "gentilico": "cabo-verdiana",
+    "nomePais": "Cabo Verde",
+    "nomePaisInternacional": "Cape Verde",
+    "sigla": "CV"
+  },
+  {
+    "gentilico": "camaronesa",
+    "nomePais": "Camarões",
+    "nomePaisInternacional": "Cameroon",
+    "sigla": "CM"
+  },
+  {
+    "gentilico": "cambojana",
+    "nomePais": "Camboja",
+    "nomePaisInternacional": "Cambodia",
+    "sigla": "KH"
+  },
+  {
+    "gentilico": "canadense",
+    "nomePais": "Canadá",
+    "nomePaisInternacional": "Canada",
+    "sigla": "CA"
+  },
+  {
+    "gentilico": "canário",
+    "nomePais": "Canárias",
+    "nomePaisInternacional": "Canary Islands",
+    "sigla": "IC"
+  },
+  {
+    "gentilico": "cazaque",
+    "nomePais": "Cazaquistão",
+    "nomePaisInternacional": "Kazakhstan",
+    "sigla": "KZ"
+  },
+  {
+    "gentilico": "de ceuta e melilla",
+    "nomePais": "Ceuta e Melilla",
+    "nomePaisInternacional": "Ceuta & Melilla",
+    "sigla": "EA"
+  },
+  {
+    "gentilico": "chadiana",
+    "nomePais": "Chade",
+    "nomePaisInternacional": "Chad",
+    "sigla": "TD"
+  },
+  {
+    "gentilico": "chilena",
+    "nomePais": "Chile",
+    "nomePaisInternacional": "Chile",
+    "sigla": "CL"
+  },
+  {
+    "gentilico": "chinesa",
+    "nomePais": "China",
+    "nomePaisInternacional": "China",
+    "sigla": "CN"
+  },
+  {
+    "gentilico": "cipriota",
+    "nomePais": "Chipre",
+    "nomePaisInternacional": "Cyprus",
+    "sigla": "CY"
+  },
+  {
+    "gentilico": "cingapuriana",
+    "nomePais": "Cingapura",
+    "nomePaisInternacional": "Singapore",
+    "sigla": "SG"
+  },
+  {
+    "gentilico": "colombiana",
+    "nomePais": "Colômbia",
+    "nomePaisInternacional": "Colombia",
+    "sigla": "CO"
+  },
+  {
+    "gentilico": "comorense",
+    "nomePais": "Comores",
+    "nomePaisInternacional": "Comoros",
+    "sigla": "KM"
+  },
+  {
+    "gentilico": "congolesa",
+    "nomePais": "Congo",
+    "nomePaisInternacional": "Congo (Republic)",
+    "sigla": "CG"
+  },
+  {
+    "gentilico": "norte-coreano",
+    "nomePais": "Coréia do Norte",
+    "nomePaisInternacional": "North Korea",
+    "sigla": "KP"
+  },
+  {
+    "gentilico": "norte-coreana",
+    "nomePais": "Coréia do Sul",
+    "nomePaisInternacional": "South Korea",
+    "sigla": "KR"
+  },
+  {
+    "gentilico": "marfinense",
+    "nomePais": "Costa do Marfim",
+    "nomePaisInternacional": "Côte d¿Ivoire",
+    "sigla": "CI"
+  },
+  {
+    "gentilico": "costarriquenha",
+    "nomePais": "Costa Rica",
+    "nomePaisInternacional": "Costa Rica",
+    "sigla": "CR"
+  },
+  {
+    "gentilico": "croata",
+    "nomePais": "Croácia",
+    "nomePaisInternacional": "Croatia",
+    "sigla": "HR"
+  },
+  {
+    "gentilico": "cubana",
+    "nomePais": "Cuba",
+    "nomePaisInternacional": "Cuba",
+    "sigla": "CU"
+  },
+  {
+    "gentilico": "curaçauense",
+    "nomePais": "Curaçao",
+    "nomePaisInternacional": "Curaçao",
+    "sigla": "CW"
+  },
+  {
+    "gentilico": "chagositano",
+    "nomePais": "Diego Garcia",
+    "nomePaisInternacional": "Diego Garcia",
+    "sigla": "DG"
+  },
+  {
+    "gentilico": "dinamarquesa",
+    "nomePais": "Dinamarca",
+    "nomePaisInternacional": "Denmark",
+    "sigla": "DK"
+  },
+  {
+    "gentilico": "djibutiana",
+    "nomePais": "Djibuti",
+    "nomePaisInternacional": "Djibouti",
+    "sigla": "DJ"
+  },
+  {
+    "gentilico": "dominiquense",
+    "nomePais": "Dominica",
+    "nomePaisInternacional": "Dominica",
+    "sigla": "DM"
+  },
+  {
+    "gentilico": "egípcia",
+    "nomePais": "Egito",
+    "nomePaisInternacional": "Egypt",
+    "sigla": "EG"
+  },
+  {
+    "gentilico": "salvadorenha",
+    "nomePais": "El Salvador",
+    "nomePaisInternacional": "El Salvador",
+    "sigla": "SV"
+  },
+  {
+    "gentilico": "árabe",
+    "nomePais": "Emirados Árabes Unidos",
+    "nomePaisInternacional": "United Arab Emirates",
+    "sigla": "AE"
+  },
+  {
+    "gentilico": "equatoriana",
+    "nomePais": "Equador",
+    "nomePaisInternacional": "Ecuador",
+    "sigla": "EC"
+  },
+  {
+    "gentilico": "eritreia",
+    "nomePais": "Eritréia",
+    "nomePaisInternacional": "Eritrea",
+    "sigla": "ER"
+  },
+  {
+    "gentilico": "eslovaco",
+    "nomePais": "Eslováquia",
+    "nomePaisInternacional": "Slovakia",
+    "sigla": "SK"
+  },
+  {
+    "gentilico": "esloveno",
+    "nomePais": "Eslovênia",
+    "nomePaisInternacional": "Slovenia",
+    "sigla": "SI"
+  },
+  {
+    "gentilico": "espanhola",
+    "nomePais": "Espanha",
+    "nomePaisInternacional": "Spain",
+    "sigla": "ES"
+  },
+  {
+    "gentilico": "norte-americana",
+    "nomePais": "Estados Unidos",
+    "nomePaisInternacional": "United States",
+    "sigla": "US"
+  },
+  {
+    "gentilico": "estoniana",
+    "nomePais": "Estônia",
+    "nomePaisInternacional": "Estonia",
+    "sigla": "EE"
+  },
+  {
+    "gentilico": "etíope",
+    "nomePais": "Etiópia",
+    "nomePaisInternacional": "Ethiopia",
+    "sigla": "ET"
+  },
+  {
+    "gentilico": "fijiana",
+    "nomePais": "Fiji",
+    "nomePaisInternacional": "Fiji",
+    "sigla": "FJ"
+  },
+  {
+    "gentilico": "filipina",
+    "nomePais": "Filipinas",
+    "nomePaisInternacional": "Philippines",
+    "sigla": "PH"
+  },
+  {
+    "gentilico": "finlandesa",
+    "nomePais": "Finlândia",
+    "nomePaisInternacional": "Finland",
+    "sigla": "FI"
+  },
+  {
+    "gentilico": "francesa",
+    "nomePais": "França",
+    "nomePaisInternacional": "France",
+    "sigla": "FR"
+  },
+  {
+    "gentilico": "gabonesa",
+    "nomePais": "Gabão",
+    "nomePaisInternacional": "Gabon",
+    "sigla": "GA"
+  },
+  {
+    "gentilico": "gambiana",
+    "nomePais": "Gâmbia",
+    "nomePaisInternacional": "Gambia",
+    "sigla": "GM"
+  },
+  {
+    "gentilico": "ganense",
+    "nomePais": "Gana",
+    "nomePaisInternacional": "Ghana",
+    "sigla": "GH"
+  },
+  {
+    "gentilico": "georgiana",
+    "nomePais": "Geórgia",
+    "nomePaisInternacional": "Georgia",
+    "sigla": "GE"
+  },
+  {
+    "gentilico": "gibraltariana",
+    "nomePais": "Gibraltar",
+    "nomePaisInternacional": "Gibraltar",
+    "sigla": "GI"
+  },
+  {
+    "gentilico": "inglesa",
+    "nomePais": "Grã-Bretanha (Reino Unido, UK)",
+    "nomePaisInternacional": "United Kingdom",
+    "sigla": "GB"
+  },
+  {
+    "gentilico": "granadina",
+    "nomePais": "Granada",
+    "nomePaisInternacional": "Grenada",
+    "sigla": "GD"
+  },
+  {
+    "gentilico": "grega",
+    "nomePais": "Grécia",
+    "nomePaisInternacional": "Greece",
+    "sigla": "GR"
+  },
+  {
+    "gentilico": "groenlandesa",
+    "nomePais": "Groelândia",
+    "nomePaisInternacional": "Greenland",
+    "sigla": "GL"
+  },
+  {
+    "gentilico": "guadalupense",
+    "nomePais": "Guadalupe",
+    "nomePaisInternacional": "Guadeloupe",
+    "sigla": "GP"
+  },
+  {
+    "gentilico": "guamês",
+    "nomePais": "Guam (Território dos Estados Unidos)",
+    "nomePaisInternacional": "Guam",
+    "sigla": "GU"
+  },
+  {
+    "gentilico": "guatemalteca",
+    "nomePais": "Guatemala",
+    "nomePaisInternacional": "Guatemala",
+    "sigla": "GT"
+  },
+  {
+    "gentilico": "guernesiano",
+    "nomePais": "Guernsey",
+    "nomePaisInternacional": "Guernsey",
+    "sigla": "GG"
+  },
+  {
+    "gentilico": "guianense",
+    "nomePais": "Guiana",
+    "nomePaisInternacional": "Guyana",
+    "sigla": "GY"
+  },
+  {
+    "gentilico": "franco-guianense",
+    "nomePais": "Guiana Francesa",
+    "nomePaisInternacional": "French Guiana",
+    "sigla": "GF"
+  },
+  {
+    "gentilico": "guinéu-equatoriano ou equatoguineana",
+    "nomePais": "Guiné",
+    "nomePaisInternacional": "Guinea",
+    "sigla": "GN"
+  },
+  {
+    "gentilico": "guinéu-equatoriano",
+    "nomePais": "Guiné Equatorial",
+    "nomePaisInternacional": "Equatorial Guinea",
+    "sigla": "GQ"
+  },
+  {
+    "gentilico": "guineense",
+    "nomePais": "Guiné-Bissau",
+    "nomePaisInternacional": "Guinea-Bissau",
+    "sigla": "GW"
+  },
+  {
+    "gentilico": "haitiana",
+    "nomePais": "Haiti",
+    "nomePaisInternacional": "Haiti",
+    "sigla": "HT"
+  },
+  {
+    "gentilico": "holandês",
+    "nomePais": "Holanda",
+    "nomePaisInternacional": "Netherlands",
+    "sigla": "NL"
+  },
+  {
+    "gentilico": "hondurenha",
+    "nomePais": "Honduras",
+    "nomePaisInternacional": "Honduras",
+    "sigla": "HN"
+  },
+  {
+    "gentilico": "hong-konguiana ou chinesa",
+    "nomePais": "Hong Kong",
+    "nomePaisInternacional": "Hong Kong",
+    "sigla": "HK"
+  },
+  {
+    "gentilico": "húngara",
+    "nomePais": "Hungria",
+    "nomePaisInternacional": "Hungary",
+    "sigla": "HU"
+  },
+  {
+    "gentilico": "iemenita",
+    "nomePais": "Iêmen",
+    "nomePaisInternacional": "Yemen",
+    "sigla": "YE"
+  },
+  {
+    "gentilico": "da ilha bouvet",
+    "nomePais": "Ilha Bouvet",
+    "nomePaisInternacional": "Bouvet Island",
+    "sigla": "BV"
+  },
+  {
+    "gentilico": "da ilha de ascensão",
+    "nomePais": "Ilha de Ascensão",
+    "nomePaisInternacional": "Ascension Island",
+    "sigla": "AC"
+  },
+  {
+    "gentilico": "da ilha de clipperton",
+    "nomePais": "Ilha de Clipperton",
+    "nomePaisInternacional": "Clipperton Island",
+    "sigla": "CP"
+  },
+  {
+    "gentilico": "manês",
+    "nomePais": "Ilha de Man",
+    "nomePaisInternacional": "Isle of Man",
+    "sigla": "IM"
+  },
+  {
+    "gentilico": "natalense",
+    "nomePais": "Ilha Natal",
+    "nomePaisInternacional": "Christmas Island",
+    "sigla": "CX"
+  },
+  {
+    "gentilico": "pitcairnense",
+    "nomePais": "Ilha Pitcairn",
+    "nomePaisInternacional": "Pitcairn Islands",
+    "sigla": "PN"
+  },
+  {
+    "gentilico": "reunionense",
+    "nomePais": "Ilha Reunião",
+    "nomePaisInternacional": "Réunion",
+    "sigla": "RE"
+  },
+  {
+    "gentilico": "alandês",
+    "nomePais": "Ilhas Aland",
+    "nomePaisInternacional": "Åland Islands",
+    "sigla": "AX"
+  },
+  {
+    "gentilico": "caimanês",
+    "nomePais": "Ilhas Cayman",
+    "nomePaisInternacional": "Cayman Islands",
+    "sigla": "KY"
+  },
+  {
+    "gentilico": "coquense",
+    "nomePais": "Ilhas Cocos",
+    "nomePaisInternacional": "Cocos (Keeling) Islands",
+    "sigla": "CC"
+  },
+  {
+    "gentilico": "cookense",
+    "nomePais": "Ilhas Cook",
+    "nomePaisInternacional": "Cook Islands",
+    "sigla": "CK"
+  },
+  {
+    "gentilico": "faroense",
+    "nomePais": "Ilhas Faroes",
+    "nomePaisInternacional": "Faroe Islands",
+    "sigla": "FO"
+  },
+  {
+    "gentilico": "das ilhas geórgia do sul e sandwich do sul",
+    "nomePais": "Ilhas Geórgia do Sul e Sandwich do Sul",
+    "nomePaisInternacional": "South Georgia & South Sandwich Islands",
+    "sigla": "GS"
+  },
+  {
+    "gentilico": "das ilhas heard e mcdonald",
+    "nomePais": "Ilhas Heard e McDonald (Território da Austrália)",
+    "nomePaisInternacional": "Heard & McDonald Islands",
+    "sigla": "HM"
+  },
+  {
+    "gentilico": "malvinense",
+    "nomePais": "Ilhas Malvinas",
+    "nomePaisInternacional": "Falkland Islands (Islas Malvinas)",
+    "sigla": "FK"
+  },
+  {
+    "gentilico": "norte-marianense",
+    "nomePais": "Ilhas Marianas do Norte",
+    "nomePaisInternacional": "Northern Mariana Islands",
+    "sigla": "MP"
+  },
+  {
+    "gentilico": "marshallino",
+    "nomePais": "Ilhas Marshall",
+    "nomePaisInternacional": "Marshall Islands",
+    "sigla": "MH"
+  },
+  {
+    "gentilico": "das ilhas menores afastadas",
+    "nomePais": "Ilhas Menores dos Estados Unidos",
+    "nomePaisInternacional": "U.S. Outlying Islands",
+    "sigla": "UM"
+  },
+  {
+    "gentilico": "norfolquino",
+    "nomePais": "Ilhas Norfolk",
+    "nomePaisInternacional": "Norfolk Island",
+    "sigla": "NF"
+  },
+  {
+    "gentilico": "salomônico",
+    "nomePais": "Ilhas Salomão",
+    "nomePaisInternacional": "Solomon Islands",
+    "sigla": "SB"
+  },
+  {
+    "gentilico": "seichelense",
+    "nomePais": "Ilhas Seychelles",
+    "nomePaisInternacional": "Seychelles",
+    "sigla": "SC"
+  },
+  {
+    "gentilico": "toquelauano",
+    "nomePais": "Ilhas Tokelau",
+    "nomePaisInternacional": "Tokelau",
+    "sigla": "TK"
+  },
+  {
+    "gentilico": "turquês",
+    "nomePais": "Ilhas Turks e Caicos",
+    "nomePaisInternacional": "Turks & Caicos Islands",
+    "sigla": "TC"
+  },
+  {
+    "gentilico": "virginense",
+    "nomePais": "Ilhas Virgens (Estados Unidos)",
+    "nomePaisInternacional": "U.S. Virgin Islands",
+    "sigla": "VI"
+  },
+  {
+    "gentilico": "virginense",
+    "nomePais": "Ilhas Virgens (Inglaterra)",
+    "nomePaisInternacional": "British Virgin Islands",
+    "sigla": "VG"
+  },
+  {
+    "gentilico": "indiano",
+    "nomePais": "Índia",
+    "nomePaisInternacional": "India",
+    "sigla": "IN"
+  },
+  {
+    "gentilico": "indonésia",
+    "nomePais": "Indonésia",
+    "nomePaisInternacional": "Indonesia",
+    "sigla": "ID"
+  },
+  {
+    "gentilico": "iraniano",
+    "nomePais": "Irã",
+    "nomePaisInternacional": "Iran",
+    "sigla": "IR"
+  },
+  {
+    "gentilico": "iraquiana",
+    "nomePais": "Iraque",
+    "nomePaisInternacional": "Iraq",
+    "sigla": "IQ"
+  },
+  {
+    "gentilico": "irlandesa",
+    "nomePais": "Irlanda",
+    "nomePaisInternacional": "Ireland",
+    "sigla": "IE"
+  },
+  {
+    "gentilico": "islandesa",
+    "nomePais": "Islândia",
+    "nomePaisInternacional": "Iceland",
+    "sigla": "IS"
+  },
+  {
+    "gentilico": "israelense",
+    "nomePais": "Israel",
+    "nomePaisInternacional": "Israel",
+    "sigla": "IL"
+  },
+  {
+    "gentilico": "italiana",
+    "nomePais": "Itália",
+    "nomePaisInternacional": "Italy",
+    "sigla": "IT"
+  },
+  {
+    "gentilico": "jamaicana",
+    "nomePais": "Jamaica",
+    "nomePaisInternacional": "Jamaica",
+    "sigla": "JM"
+  },
+  {
+    "gentilico": "japonesa",
+    "nomePais": "Japão",
+    "nomePaisInternacional": "Japan",
+    "sigla": "JP"
+  },
+  {
+    "gentilico": "canalina",
+    "nomePais": "Jersey",
+    "nomePaisInternacional": "Jersey",
+    "sigla": "JE"
+  },
+  {
+    "gentilico": "jordaniana",
+    "nomePais": "Jordânia",
+    "nomePaisInternacional": "Jordan",
+    "sigla": "JO"
+  },
+  {
+    "gentilico": "kiribatiana",
+    "nomePais": "Kiribati",
+    "nomePaisInternacional": "Kiribati",
+    "sigla": "KI"
+  },
+  {
+    "gentilico": "kosovar",
+    "nomePais": "Kosovo",
+    "nomePaisInternacional": "Kosovo",
+    "sigla": "XK"
+  },
+  {
+    "gentilico": "kuwaitiano",
+    "nomePais": "Kuait",
+    "nomePaisInternacional": "Kuwait",
+    "sigla": "KW"
+  },
+  {
+    "gentilico": "laosiana",
+    "nomePais": "Laos",
+    "nomePaisInternacional": "Laos",
+    "sigla": "LA"
+  },
+  {
+    "gentilico": "lesota",
+    "nomePais": "Lesoto",
+    "nomePaisInternacional": "Lesotho",
+    "sigla": "LS"
+  },
+  {
+    "gentilico": "letão",
+    "nomePais": "Letônia",
+    "nomePaisInternacional": "Latvia",
+    "sigla": "LV"
+  },
+  {
+    "gentilico": "libanesa",
+    "nomePais": "Líbano",
+    "nomePaisInternacional": "Lebanon",
+    "sigla": "LB"
+  },
+  {
+    "gentilico": "liberiana",
+    "nomePais": "Libéria",
+    "nomePaisInternacional": "Liberia",
+    "sigla": "LR"
+  },
+  {
+    "gentilico": "líbia",
+    "nomePais": "Líbia",
+    "nomePaisInternacional": "Libya",
+    "sigla": "LY"
+  },
+  {
+    "gentilico": "liechtensteiniense",
+    "nomePais": "Liechtenstein",
+    "nomePaisInternacional": "Liechtenstein",
+    "sigla": "LI"
+  },
+  {
+    "gentilico": "lituana",
+    "nomePais": "Lituânia",
+    "nomePaisInternacional": "Lithuania",
+    "sigla": "LT"
+  },
+  {
+    "gentilico": "luxemburguesa",
+    "nomePais": "Luxemburgo",
+    "nomePaisInternacional": "Luxembourg",
+    "sigla": "LU"
+  },
+  {
+    "gentilico": "macauense",
+    "nomePais": "Macau",
+    "nomePaisInternacional": "Macau",
+    "sigla": "MO"
+  },
+  {
+    "gentilico": "macedônio",
+    "nomePais": "Macedônia (República Yugoslava)",
+    "nomePaisInternacional": "Macedonia (FYROM)",
+    "sigla": "MK"
+  },
+  {
+    "gentilico": "malgaxe",
+    "nomePais": "Madagascar",
+    "nomePaisInternacional": "Madagascar",
+    "sigla": "MG"
+  },
+  {
+    "gentilico": "malaia",
+    "nomePais": "Malásia",
+    "nomePaisInternacional": "Malaysia",
+    "sigla": "MY"
+  },
+  {
+    "gentilico": "malauiano",
+    "nomePais": "Malaui",
+    "nomePaisInternacional": "Malawi",
+    "sigla": "MW"
+  },
+  {
+    "gentilico": "maldívia",
+    "nomePais": "Maldivas",
+    "nomePaisInternacional": "Maldives",
+    "sigla": "MV"
+  },
+  {
+    "gentilico": "malinesa",
+    "nomePais": "Mali",
+    "nomePaisInternacional": "Mali",
+    "sigla": "ML"
+  },
+  {
+    "gentilico": "maltesa",
+    "nomePais": "Malta",
+    "nomePaisInternacional": "Malta",
+    "sigla": "MT"
+  },
+  {
+    "gentilico": "marroquina",
+    "nomePais": "Marrocos",
+    "nomePaisInternacional": "Morocco",
+    "sigla": "MA"
+  },
+  {
+    "gentilico": "martiniquense",
+    "nomePais": "Martinica",
+    "nomePaisInternacional": "Martinique",
+    "sigla": "MQ"
+  },
+  {
+    "gentilico": "mauriciana",
+    "nomePais": "Maurício",
+    "nomePaisInternacional": "Mauritius",
+    "sigla": "MU"
+  },
+  {
+    "gentilico": "mauritana",
+    "nomePais": "Mauritânia",
+    "nomePaisInternacional": "Mauritania",
+    "sigla": "MR"
+  },
+  {
+    "gentilico": "maiotense",
+    "nomePais": "Mayotte",
+    "nomePaisInternacional": "Mayotte",
+    "sigla": "YT"
+  },
+  {
+    "gentilico": "mexicana",
+    "nomePais": "México",
+    "nomePaisInternacional": "Mexico",
+    "sigla": "MX"
+  },
+  {
+    "gentilico": "micronésia",
+    "nomePais": "Micronésia",
+    "nomePaisInternacional": "Micronesia",
+    "sigla": "FM"
+  },
+  {
+    "gentilico": "moçambicana",
+    "nomePais": "Moçambique",
+    "nomePaisInternacional": "Mozambique",
+    "sigla": "MZ"
+  },
+  {
+    "gentilico": "moldavo",
+    "nomePais": "Moldova",
+    "nomePaisInternacional": "Moldova",
+    "sigla": "MD"
+  },
+  {
+    "gentilico": "monegasca",
+    "nomePais": "Mônaco",
+    "nomePaisInternacional": "Monaco",
+    "sigla": "MC"
+  },
+  {
+    "gentilico": "mongol",
+    "nomePais": "Mongólia",
+    "nomePaisInternacional": "Mongolia",
+    "sigla": "MN"
+  },
+  {
+    "gentilico": "montenegra",
+    "nomePais": "Montenegro",
+    "nomePaisInternacional": "Montenegro",
+    "sigla": "ME"
+  },
+  {
+    "gentilico": "montserratiano",
+    "nomePais": "Montserrat",
+    "nomePaisInternacional": "Montserrat",
+    "sigla": "MS"
+  },
+  {
+    "gentilico": "birmanês",
+    "nomePais": "Myanma",
+    "nomePaisInternacional": "Myanmar (Burma)",
+    "sigla": "MM"
+  },
+  {
+    "gentilico": "namíbia",
+    "nomePais": "Namíbia",
+    "nomePaisInternacional": "Namibia",
+    "sigla": "NA"
+  },
+  {
+    "gentilico": "nauruana",
+    "nomePais": "Nauru",
+    "nomePaisInternacional": "Nauru",
+    "sigla": "NR"
+  },
+  {
+    "gentilico": "nepalesa",
+    "nomePais": "Nepal",
+    "nomePaisInternacional": "Nepal",
+    "sigla": "NP"
+  },
+  {
+    "gentilico": "nicaraguense",
+    "nomePais": "Nicarágua",
+    "nomePaisInternacional": "Nicaragua",
+    "sigla": "NI"
+  },
+  {
+    "gentilico": "nigerina",
+    "nomePais": "Níger",
+    "nomePaisInternacional": "Niger",
+    "sigla": "NE"
+  },
+  {
+    "gentilico": "nigeriana",
+    "nomePais": "Nigéria",
+    "nomePaisInternacional": "Nigeria",
+    "sigla": "NG"
+  },
+  {
+    "gentilico": "niueana",
+    "nomePais": "Niue",
+    "nomePaisInternacional": "Niue",
+    "sigla": "NU"
+  },
+  {
+    "gentilico": "norueguesa",
+    "nomePais": "Noruega",
+    "nomePaisInternacional": "Norway",
+    "sigla": "NO"
+  },
+  {
+    "gentilico": "caledônia",
+    "nomePais": "Nova Caledônia",
+    "nomePaisInternacional": "New Caledonia",
+    "sigla": "NC"
+  },
+  {
+    "gentilico": "neozelandesa",
+    "nomePais": "Nova Zelândia",
+    "nomePaisInternacional": "New Zealand",
+    "sigla": "NZ"
+  },
+  {
+    "gentilico": "omani",
+    "nomePais": "Omã",
+    "nomePaisInternacional": "Oman",
+    "sigla": "OM"
+  },
+  {
+    "gentilico": "dos países baixos caribenhos",
+    "nomePais": "Países Baixos Caribenhos",
+    "nomePaisInternacional": "Caribbean Netherlands",
+    "sigla": "BQ"
+  },
+  {
+    "gentilico": "palauense",
+    "nomePais": "Palau",
+    "nomePaisInternacional": "Palau",
+    "sigla": "PW"
+  },
+  {
+    "gentilico": "palestino",
+    "nomePais": "Palestina",
+    "nomePaisInternacional": "Palestine",
+    "sigla": "PS"
+  },
+  {
+    "gentilico": "zona do canal do panamá",
+    "nomePais": "Panamá",
+    "nomePaisInternacional": "Panama",
+    "sigla": "PA"
+  },
+  {
+    "gentilico": "pauásia",
+    "nomePais": "Papua-Nova Guiné",
+    "nomePaisInternacional": "Papua New Guinea",
+    "sigla": "PG"
+  },
+  {
+    "gentilico": "paquistanesa",
+    "nomePais": "Paquistão",
+    "nomePaisInternacional": "Pakistan",
+    "sigla": "PK"
+  },
+  {
+    "gentilico": "paraguaia",
+    "nomePais": "Paraguai",
+    "nomePaisInternacional": "Paraguay",
+    "sigla": "PY"
+  },
+  {
+    "gentilico": "peruana",
+    "nomePais": "Peru",
+    "nomePaisInternacional": "Peru",
+    "sigla": "PE"
+  },
+  {
+    "gentilico": "franco-polinésia",
+    "nomePais": "Polinésia Francesa",
+    "nomePaisInternacional": "French Polynesia",
+    "sigla": "PF"
+  },
+  {
+    "gentilico": "polonesa",
+    "nomePais": "Polônia",
+    "nomePaisInternacional": "Poland",
+    "sigla": "PL"
+  },
+  {
+    "gentilico": "portorriquenha",
+    "nomePais": "Porto Rico",
+    "nomePaisInternacional": "Puerto Rico",
+    "sigla": "PR"
+  },
+  {
+    "gentilico": "portuguesa",
+    "nomePais": "Portugal",
+    "nomePaisInternacional": "Portugal",
+    "sigla": "PT"
+  },
+  {
+    "gentilico": "catarense",
+    "nomePais": "Qatar",
+    "nomePaisInternacional": "Qatar",
+    "sigla": "QA"
+  },
+  {
+    "gentilico": "queniano",
+    "nomePais": "Quênia",
+    "nomePaisInternacional": "Kenya",
+    "sigla": "KE"
+  },
+  {
+    "gentilico": "quirguiz",
+    "nomePais": "Quirguistão",
+    "nomePaisInternacional": "Kyrgyzstan",
+    "sigla": "KG"
+  },
+  {
+    "gentilico": "centro-africana",
+    "nomePais": "República Centro-Africana",
+    "nomePaisInternacional": "Central African Republic",
+    "sigla": "CF"
+  },
+  {
+    "gentilico": "congolesa",
+    "nomePais": "República Democrática do Congo",
+    "nomePaisInternacional": "Congo (DRC)",
+    "sigla": "CD"
+  },
+  {
+    "gentilico": "dominicana",
+    "nomePais": "República Dominicana",
+    "nomePaisInternacional": "Dominican Republic",
+    "sigla": "DO"
+  },
+  {
+    "gentilico": "tcheco",
+    "nomePais": "República Tcheca",
+    "nomePaisInternacional": "Czech Republic",
+    "sigla": "CZ"
+  },
+  {
+    "gentilico": "romena",
+    "nomePais": "Romênia",
+    "nomePaisInternacional": "Romania",
+    "sigla": "RO"
+  },
+  {
+    "gentilico": "ruandesa",
+    "nomePais": "Ruanda",
+    "nomePaisInternacional": "Rwanda",
+    "sigla": "RW"
+  },
+  {
+    "gentilico": "russa",
+    "nomePais": "Rússia (antiga URSS) - Federação Russa",
+    "nomePaisInternacional": "Russia",
+    "sigla": "RU"
+  },
+  {
+    "gentilico": "saariano",
+    "nomePais": "Saara Ocidental",
+    "nomePaisInternacional": "Western Sahara",
+    "sigla": "EH"
+  },
+  {
+    "gentilico": "pedro-miquelonense",
+    "nomePais": "Saint-Pierre e Miquelon",
+    "nomePaisInternacional": "St. Pierre & Miquelon",
+    "sigla": "PM"
+  },
+  {
+    "gentilico": "samoana",
+    "nomePais": "Samoa Americana",
+    "nomePaisInternacional": "American Samoa",
+    "sigla": "AS"
+  },
+  {
+    "gentilico": "samoano",
+    "nomePais": "Samoa Ocidental",
+    "nomePaisInternacional": "Samoa",
+    "sigla": "WS"
+  },
+  {
+    "gentilico": "samarinês",
+    "nomePais": "San Marino",
+    "nomePaisInternacional": "San Marino",
+    "sigla": "SM"
+  },
+  {
+    "gentilico": "helenense",
+    "nomePais": "Santa Helena",
+    "nomePaisInternacional": "St. Helena",
+    "sigla": "SH"
+  },
+  {
+    "gentilico": "santa-lucense",
+    "nomePais": "Santa Lúcia",
+    "nomePaisInternacional": "St. Lucia",
+    "sigla": "LC"
+  },
+  {
+    "gentilico": "são-bartolomeense",
+    "nomePais": "São Bartolomeu",
+    "nomePaisInternacional": "St. Barthélemy",
+    "sigla": "BL"
+  },
+  {
+    "gentilico": "são-cristovense",
+    "nomePais": "São Cristóvão e Névis",
+    "nomePaisInternacional": "St. Kitts & Nevis",
+    "sigla": "KN"
+  },
+  {
+    "gentilico": "são-martinhense",
+    "nomePais": "São Martim",
+    "nomePaisInternacional": "St. Martin",
+    "sigla": "MF"
+  },
+  {
+    "gentilico": "são-martinhense",
+    "nomePais": "São Martinho",
+    "nomePaisInternacional": "Sint Maarten",
+    "sigla": "SX"
+  },
+  {
+    "gentilico": "são-tomense",
+    "nomePais": "São Tomé e Príncipe",
+    "nomePaisInternacional": "São Tomé & Príncipe",
+    "sigla": "ST"
+  },
+  {
+    "gentilico": "sao-vicentino",
+    "nomePais": "São Vicente e Granadinas",
+    "nomePaisInternacional": "St. Vincent & Grenadines",
+    "sigla": "VC"
+  },
+  {
+    "gentilico": "senegalesa",
+    "nomePais": "Senegal",
+    "nomePaisInternacional": "Senegal",
+    "sigla": "SN"
+  },
+  {
+    "gentilico": "leonesa",
+    "nomePais": "Serra Leoa",
+    "nomePaisInternacional": "Sierra Leone",
+    "sigla": "SL"
+  },
+  {
+    "gentilico": "sérvia",
+    "nomePais": "Sérvia",
+    "nomePaisInternacional": "Serbia",
+    "sigla": "RS"
+  },
+  {
+    "gentilico": "síria",
+    "nomePais": "Síria",
+    "nomePaisInternacional": "Syria",
+    "sigla": "SY"
+  },
+  {
+    "gentilico": "somali",
+    "nomePais": "Somália",
+    "nomePaisInternacional": "Somalia",
+    "sigla": "SO"
+  },
+  {
+    "gentilico": "cingalesa",
+    "nomePais": "Sri Lanka",
+    "nomePaisInternacional": "Sri Lanka",
+    "sigla": "LK"
+  },
+  {
+    "gentilico": "suazi",
+    "nomePais": "Suazilândia",
+    "nomePaisInternacional": "Swaziland",
+    "sigla": "SZ"
+  },
+  {
+    "gentilico": "sudanesa",
+    "nomePais": "Sudão",
+    "nomePaisInternacional": "Sudan",
+    "sigla": "SD"
+  },
+  {
+    "gentilico": "sul-sudanês",
+    "nomePais": "Sudão do Sul",
+    "nomePaisInternacional": "South Sudan",
+    "sigla": "SS"
+  },
+  {
+    "gentilico": "sueca",
+    "nomePais": "Suécia",
+    "nomePaisInternacional": "Sweden",
+    "sigla": "SE"
+  },
+  {
+    "gentilico": "suíça",
+    "nomePais": "Suíça",
+    "nomePaisInternacional": "Switzerland",
+    "sigla": "CH"
+  },
+  {
+    "gentilico": "surinamesa",
+    "nomePais": "Suriname",
+    "nomePaisInternacional": "Suriname",
+    "sigla": "SR"
+  },
+  {
+    "gentilico": "svalbardense",
+    "nomePais": "Svalbard",
+    "nomePaisInternacional": "Svalbard & Jan Mayen",
+    "sigla": "SJ"
+  },
+  {
+    "gentilico": "tadjique",
+    "nomePais": "Tadjiquistão",
+    "nomePaisInternacional": "Tajikistan",
+    "sigla": "TJ"
+  },
+  {
+    "gentilico": "tailandesa",
+    "nomePais": "Tailândia",
+    "nomePaisInternacional": "Thailand",
+    "sigla": "TH"
+  },
+  {
+    "gentilico": "taiwanês",
+    "nomePais": "Taiwan",
+    "nomePaisInternacional": "Taiwan",
+    "sigla": "TW"
+  },
+  {
+    "gentilico": "tanzaniana",
+    "nomePais": "Tanzânia",
+    "nomePaisInternacional": "Tanzania",
+    "sigla": "TZ"
+  },
+  {
+    "gentilico": "do território britânico do oceano índico",
+    "nomePais": "Território Britânico do Oceano índico",
+    "nomePaisInternacional": "British Indian Ocean Territory",
+    "sigla": "IO"
+  },
+  {
+    "gentilico": "do territórios do sul da frança",
+    "nomePais": "Territórios do Sul da França",
+    "nomePaisInternacional": "French Southern Territories",
+    "sigla": "TF"
+  },
+  {
+    "gentilico": "timorense",
+    "nomePais": "Timor-Leste",
+    "nomePaisInternacional": "Timor-Leste",
+    "sigla": "TL"
+  },
+  {
+    "gentilico": "togolesa",
+    "nomePais": "Togo",
+    "nomePaisInternacional": "Togo",
+    "sigla": "TG"
+  },
+  {
+    "gentilico": "tonganesa",
+    "nomePais": "Tonga",
+    "nomePaisInternacional": "Tonga",
+    "sigla": "TO"
+  },
+  {
+    "gentilico": "trinitário-tobagense",
+    "nomePais": "Trinidad e Tobago",
+    "nomePaisInternacional": "Trinidad & Tobago",
+    "sigla": "TT"
+  },
+  {
+    "gentilico": "tristanita",
+    "nomePais": "Tristão da Cunha",
+    "nomePaisInternacional": "Tristan da Cunha",
+    "sigla": "TA"
+  },
+  {
+    "gentilico": "tunisiana",
+    "nomePais": "Tunísia",
+    "nomePaisInternacional": "Tunisia",
+    "sigla": "TN"
+  },
+  {
+    "gentilico": "turcomana",
+    "nomePais": "Turcomenistão",
+    "nomePaisInternacional": "Turkmenistan",
+    "sigla": "TM"
+  },
+  {
+    "gentilico": "turca",
+    "nomePais": "Turquia",
+    "nomePaisInternacional": "Turkey",
+    "sigla": "TR"
+  },
+  {
+    "gentilico": "tuvaluana",
+    "nomePais": "Tuvalu",
+    "nomePaisInternacional": "Tuvalu",
+    "sigla": "TV"
+  },
+  {
+    "gentilico": "ucraniana",
+    "nomePais": "Ucrânia",
+    "nomePaisInternacional": "Ukraine",
+    "sigla": "UA"
+  },
+  {
+    "gentilico": "ugandense",
+    "nomePais": "Uganda",
+    "nomePaisInternacional": "Uganda",
+    "sigla": "UG"
+  },
+  {
+    "gentilico": "uruguaia",
+    "nomePais": "Uruguai",
+    "nomePaisInternacional": "Uruguay",
+    "sigla": "UY"
+  },
+  {
+    "gentilico": "uzbeque",
+    "nomePais": "Uzbequistão",
+    "nomePaisInternacional": "Uzbekistan",
+    "sigla": "UZ"
+  },
+  {
+    "gentilico": "vanuatuense",
+    "nomePais": "Vanuatu",
+    "nomePaisInternacional": "Vanuatu",
+    "sigla": "VU"
+  },
+  {
+    "gentilico": "vaticano",
+    "nomePais": "Vaticano",
+    "nomePaisInternacional": "Vatican City",
+    "sigla": "VA"
+  },
+  {
+    "gentilico": "venezuelana",
+    "nomePais": "Venezuela",
+    "nomePaisInternacional": "Venezuela",
+    "sigla": "VE"
+  },
+  {
+    "gentilico": "vietnamita",
+    "nomePais": "Vietnã",
+    "nomePaisInternacional": "Vietnam",
+    "sigla": "VN"
+  },
+  {
+    "gentilico": "wallis-futunense",
+    "nomePais": "Wallis e Futuna",
+    "nomePaisInternacional": "Wallis & Futuna",
+    "sigla": "WF"
+  },
+  {
+    "gentilico": "zambiana",
+    "nomePais": "Zâmbia",
+    "nomePaisInternacional": "Zambia",
+    "sigla": "ZM"
+  },
+  {
+    "gentilico": "zimbabuana",
+    "nomePais": "Zimbábue",
+    "nomePaisInternacional": "Zimbabwe",
+    "sigla": "ZW"
+  }
+]
