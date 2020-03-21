@@ -216,9 +216,14 @@ export class PacientesComponent implements OnInit, OnDestroy {
       height: '550px',
       width: '900px',
       data: {
-        paciente: this.selection.selected
+        pacientes: this.selection.selected
       }
     });
+    dialogRef.afterClosed().subscribe(
+      res => {
+        this.selection.clear();
+      }
+    );
   }
 
   onDelete() {
