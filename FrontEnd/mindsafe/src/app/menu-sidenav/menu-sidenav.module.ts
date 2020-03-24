@@ -1,3 +1,4 @@
+import { ModalFuncionarioComponent } from './modal-funcionario/modal-funcionario.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -19,7 +20,7 @@ import { MenuSidenavComponent } from '../menu-sidenav/menu-sidenav/menu-sidenav.
 import { MenuSidenavRountigModule } from './menu-sidenav-rountig.module';
 import { VisitasModule } from '../visitas/visitas.module';
 import { PacientesModule } from '../pacientes/pacientes.module';
-import { ModalFuncionarioComponent } from '../menu-sidenav/modal-funcionario/modal-funcionario.component';
+import { ResidenciasModule } from '../residencias/residencias.module';
 
 @NgModule({
   declarations: [
@@ -29,8 +30,7 @@ import { ModalFuncionarioComponent } from '../menu-sidenav/modal-funcionario/mod
   imports: [
     CommonModule,
     MenuSidenavRountigModule,
-    FormsModule,
-    ReactiveFormsModule,
+    ResidenciasModule,
     VisitasModule,
     PacientesModule,
     MatToolbarModule,
