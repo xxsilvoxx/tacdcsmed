@@ -1,6 +1,5 @@
 package fadep.medicina.service;
 
-import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,11 +42,7 @@ public class UbsService {
 	    }
 
 	    public Ubs buscarPorCodigo(Long codigo) {
-	        Optional<Ubs> ubsOptional = ubsRepository.findById(codigo);
-	        if (!(ubsOptional.equals(Optional.empty()))) {
-	            Ubs ubsSalvo = ubsOptional.get();
-	            return ubsSalvo;
-	        }
-	        return null;
+	    	Ubs ubs = ubsRepository.findOne(codigo);
+	    	return (ubs != null) ? (ubs) : (null);
 	    }
 }

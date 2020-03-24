@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+
 
 @Service
 public class BairroService {
@@ -40,14 +40,14 @@ public class BairroService {
             return ResponseEntity.notFound().build();
         }
     }
-
+    /**
+     * alteracao para novo bairro
+     * 
+     * 
+     */
     public Bairro buscarPorCodigo(Long codigo) {
-        Optional<Bairro> bairroOptional = bairroRepository.findById(codigo);
-        if (!(bairroOptional.equals(Optional.empty()))) {
-            Bairro bairroSalvo = bairroOptional.get();
-            return bairroSalvo;
-        }
-        return null;
+        Bairro bairro = bairroRepository.findOne(codigo);
+        return (bairro != null) ? (bairro) : (null);
     }
 
 }

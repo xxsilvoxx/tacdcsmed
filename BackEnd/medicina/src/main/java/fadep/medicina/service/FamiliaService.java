@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 
 @Service
 public class FamiliaService {
@@ -42,10 +41,9 @@ public class FamiliaService {
     }
 
     public Familia buscarPorCodigo(Long codigo) {
-        Optional<Familia> familiaOptional = familiaRepository.findById(codigo);
-        if (!(familiaOptional.equals(Optional.empty()))) {
-            Familia familiaSalva = familiaOptional.get();
-            return familiaSalva;
+    	Familia familia = familiaRepository.findOne(codigo);
+    	if (familia != null) {
+            return familia;
         }
         return null;
     }

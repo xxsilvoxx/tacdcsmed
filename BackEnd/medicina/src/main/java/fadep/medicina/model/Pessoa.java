@@ -28,6 +28,9 @@ public class Pessoa {
 	private Familia familia;
 	
 	@NotNull
+	private Boolean ativo;
+	
+	@NotNull
 	@Column(name="nome")
 	private String nome;
 	
@@ -77,6 +80,16 @@ public class Pessoa {
 
 	public void setFamilia(Familia familia) {
 		this.familia = familia;
+	}
+	
+	
+
+	public Boolean getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
 	}
 
 	public String getNome() {
@@ -174,6 +187,11 @@ public class Pessoa {
 		} else if (!idPessoa.equals(other.idPessoa))
 			return false;
 		return true;
+	}
+
+	public Pessoa get() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

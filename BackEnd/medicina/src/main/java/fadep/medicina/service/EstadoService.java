@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 
 @Service
 public class EstadoService {
@@ -42,10 +41,9 @@ public class EstadoService {
     }
 
     public Estado buscarPorCodigo(Long codigo) {
-        Optional<Estado> estadoOptional = estadoRepository.findById(codigo);
-        if (!(estadoOptional.equals(Optional.empty()))) {
-            Estado estadoSalvo = estadoOptional.get();
-            return estadoSalvo;
+    	Estado estado = estadoRepository.findOne(codigo);
+    	if (estado != null) {
+            return estado;
         }
         return null;
     }

@@ -7,9 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Optional;
-
 @Service
 public class PessoaService {
 
@@ -47,11 +44,13 @@ public class PessoaService {
          * Nas versões atuais do spring ele pede um objeto Optional para buscar informações, como o findById,
          * que é muito similar ao findOne().
          * Por isso é passado primeiro Pessoa como Optional, e depois convertido para a Classe Pessoa.
-         */
-        Optional<Pessoa> pessoaOptional = pessoaRepository.findById(codigo);
-        if (!(pessoaOptional.equals(Optional.empty()))) {
-            Pessoa pessoaSalva = pessoaOptional.get();
-            return pessoaSalva;
+         */ 	
+    	/**
+    	 * novo retorno de pessoas, se for diferente de nulo;
+    	 */
+        Pessoa pessoa = pessoaRepository.findOne(codigo);
+        if ( pessoa != null) {
+        	return pessoa;
         }
         return null;
     }
@@ -69,5 +68,11 @@ public class PessoaService {
         Integer registro = pessoaRepository.retornarCpfCnpjValido(cpfCnpj);
         return (registro > 0) ? (false) : (true);
     }
+    
+	public void atualizarPropriedadeAtivo(Long codigo, Boolean ativo) {
+		Pessoa pessoaSalva = buscarPorCodigo(codigo);
+		pessoaSalva.setAtivo(ativo);
+		pessoaRepository.save(pessoaSalva);
+	}
 
 }

@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 
 @Service
 public class ResidenciaService {
@@ -42,12 +41,8 @@ public class ResidenciaService {
     }
 
     public Residencia buscarPorCodigo(Long codigo) {
-        Optional<Residencia> residenciaOptional = residenciaRepository.findById(codigo);
-        if (!(residenciaOptional.equals(Optional.empty()))) {
-            Residencia residenciaSalva = residenciaOptional.get();
-            return residenciaSalva;
-        }
-        return null;
+    	Residencia residencia = residenciaRepository.findOne(codigo);
+    	return (residencia != null) ? (residencia): (null);
     }
 
 }

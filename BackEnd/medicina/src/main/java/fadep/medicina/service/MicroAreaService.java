@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+
 
 @Service
 public class MicroAreaService {
@@ -42,12 +42,8 @@ public class MicroAreaService {
     }
 
     public MicroArea buscarPorCodigo(Long codigo) {
-        Optional<MicroArea> microAreaOptional = microAreaRepository.findById(codigo);
-        if (!(microAreaOptional.equals(Optional.empty()))) {
-            MicroArea microAreaSalva = microAreaOptional.get();
-            return microAreaSalva;
-        }
-        return null;
+    	MicroArea microArea = microAreaRepository.findOne(codigo);
+    	return (microArea != null) ? (microArea) : (null);
     }
 
 }

@@ -1,6 +1,6 @@
 package fadep.medicina.service;
 
-import java.util.Optional;
+
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,10 +42,9 @@ public class FuncaoService {
 	    }
 
 	    public Funcao buscarPorCodigo(Long codigo) {
-	        Optional<Funcao> funcaoOptional = funcaoRepository.findById(codigo);
-	        if (!(funcaoOptional.equals(Optional.empty()))) {
-	            Funcao funcaoSalvo = funcaoOptional.get();
-	            return funcaoSalvo;
+	    	Funcao funcao = funcaoRepository.findOne(codigo);
+	    	if (funcao != null) {
+	            return funcao;
 	        }
 	        return null;
 	    }

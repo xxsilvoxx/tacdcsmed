@@ -1,6 +1,5 @@
 package fadep.medicina.service;
 
-import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,12 +42,10 @@ public class MedicamentoPessoaService {
 	    }
 
 	    public MedicamentoPessoa buscarPorCodigo(Long codigo) {
-	        Optional<MedicamentoPessoa> medicamentoPessoaOptional = medicamentoPessoaRepository.findById(codigo);
-	        if (!(medicamentoPessoaOptional.equals(Optional.empty()))) {
-	            MedicamentoPessoa medicamentoPessoaSalvo = medicamentoPessoaOptional.get();
-	            return medicamentoPessoaSalvo;
-	        }
-	        return null;
+	    	
+	    	MedicamentoPessoa medicamentoPessoa = medicamentoPessoaRepository.findOne(codigo);
+	    	return (medicamentoPessoa != null) ? (medicamentoPessoa) : (null);
+
 	    }
 
 }

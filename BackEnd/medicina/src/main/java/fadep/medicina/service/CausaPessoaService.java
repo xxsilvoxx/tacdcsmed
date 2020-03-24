@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 
 @Service
 public class CausaPessoaService {
@@ -42,10 +41,9 @@ public class CausaPessoaService {
     }
 
     public CausaPessoa buscarPorCodigo(Long codigo) {
-        Optional<CausaPessoa> causaPessoaOptional = causaPessoaRepository.findById(codigo);
-        if (!(causaPessoaOptional.equals(Optional.empty()))) {
-            CausaPessoa causaPessoaSalva = causaPessoaOptional.get();
-            return causaPessoaSalva;
+    	CausaPessoa causaPessoa = causaPessoaRepository.findOne(codigo);
+    	if ( causaPessoa !=  null) {
+    		return causaPessoa;
         }
         return null;
     }

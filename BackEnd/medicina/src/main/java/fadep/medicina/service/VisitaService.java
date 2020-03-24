@@ -2,7 +2,6 @@ package fadep.medicina.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,12 +44,12 @@ public class VisitaService {
 	    }
 
 	    public Visita buscarPorCodigo(Long codigo) {
-	        Optional<Visita> visitaOptional = visitaRepository.findById(codigo);
-	        if (!(visitaOptional.equals(Optional.empty()))) {
-	            Visita visitaSalvo = visitaOptional.get();
-	            return visitaSalvo;
-	        }
-	        return null;
+	    	Visita visita = visitaRepository.findOne(codigo);
+	    	if (visita != null) {
+	    		return visita;
+	    	}
+	    	return null;
+
 	    }
 
 	    public List<Visita> listarAgendamentos(Long codPaciente) {

@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+
 
 @Service
 public class FuncionarioService {
@@ -42,12 +42,8 @@ public class FuncionarioService {
     }
 
     public Funcionario buscarPorCodigo(Long codigo) {
-        Optional<Funcionario> agenteDeSaudeOptional = funcionarioRepository.findById(codigo);
-        if (!(agenteDeSaudeOptional.equals(Optional.empty()))) {
-            Funcionario funcionarioSalvo = agenteDeSaudeOptional.get();
-            return funcionarioSalvo;
-        }
-        return null;
+    	Funcionario funcionario = funcionarioRepository.findOne(codigo);
+            return (funcionario != null) ? (funcionario) : (null);
     }
 
 }

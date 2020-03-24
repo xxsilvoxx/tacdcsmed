@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+
 
 @Service
 public class CidadeService {
@@ -42,10 +42,9 @@ public class CidadeService {
     }
 
     public Cidade buscarPorCodigo(Long codigo) {
-        Optional<Cidade> cidadeOptional = cidadeRepository.findById(codigo);
-        if (!(cidadeOptional.equals(Optional.empty()))) {
-            Cidade cidadeSalva = cidadeOptional.get();
-            return cidadeSalva;
+    	Cidade cidade = cidadeRepository.findOne(codigo);
+    	if (cidade != null) {
+            return cidade;
         }
         return null;
     }

@@ -6,4 +6,8 @@ import fadep.medicina.model.MicroArea;
 
 public interface MicroAreaRepository extends JpaRepository<MicroArea, Long> {
 
+
+
+	
+
 }
