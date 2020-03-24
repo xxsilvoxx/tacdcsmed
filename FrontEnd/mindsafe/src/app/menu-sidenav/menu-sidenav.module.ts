@@ -8,15 +8,18 @@ import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { MenuSidenavComponent } from '../menu-sidenav/menu-sidenav/menu-sidenav.component';
 import { MenuSidenavRountigModule } from './menu-sidenav-rountig.module';
 import { VisitasModule } from '../visitas/visitas.module';
 import { PacientesModule } from '../pacientes/pacientes.module';
+import { ModalFuncionarioComponent } from '../menu-sidenav/modal-funcionario/modal-funcionario.component';
 
 @NgModule({
   declarations: [
-    MenuSidenavComponent
+    MenuSidenavComponent,
+    ModalFuncionarioComponent
   ],
   imports: [
     CommonModule,
@@ -29,10 +32,12 @@ import { PacientesModule } from '../pacientes/pacientes.module';
     MatButtonModule,
     MatCardModule,
     MatListModule,
+    MatDialogModule,
     FlexLayoutModule
   ],
   entryComponents: [
-    MenuSidenavComponent
+    MenuSidenavComponent,
+    ModalFuncionarioComponent
   ]
 })
 export class MenuSidenavModule { }

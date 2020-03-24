@@ -1,0 +1,18 @@
+.content-avatar {
+  position: relative;
+  margin: 10px;
+}
+
+.content-avatar button {
+  display: block;
+  margin: -135px 0px 175px 125px;
+}
+
+.avatar {
+  width: 150px;
+  height: 150px;
+  background-position: center;
+  background-size: cover;
+  border-radius: 100%;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+}

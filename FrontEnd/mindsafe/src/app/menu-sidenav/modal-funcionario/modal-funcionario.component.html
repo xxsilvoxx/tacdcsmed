@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>Informações Pessoais</h1>
+<div mat-dialog-content>
+  <div class="content-avatar">
+    <div class="avatar" [ngStyle]="{'background-image': 'url(' + imgUsuario + ')' }"></div>
+
+    <button mat-mini-fab color="warn" [disabled]="funcionario === null || funcionario?.imagem === null">
+      <mat-icon class="material-icons">delete</mat-icon>
+    </button>
+
+    <button mat-mini-fab color="primary" [disabled]="funcionario === null">
+      <mat-icon class="material-icons">add_a_photo</mat-icon>
+    </button>
+  </div>
+</div>
