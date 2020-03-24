@@ -17,6 +17,10 @@ public class Funcionario {
 	@ManyToOne
 	@JoinColumn(name="id_micro_area")
 	private MicroArea microArea;
+
+	@ManyToOne
+	@JoinColumn(name="id_imagem")
+	private Imagem imagem;
 	
 	@NotNull
 	@ManyToOne
@@ -29,8 +33,8 @@ public class Funcionario {
 	private Funcao funcao;
 
 	@NotNull
-	@JoinColumn(name="email")
 	@Size(min=10, max=100)
+	@Column(name="email")
 	private String email;
 	
 	@Column(name="nome")
@@ -61,7 +65,15 @@ public class Funcionario {
 	public void setMicroArea(MicroArea microArea) {
 		this.microArea = microArea;
 	}
-	
+
+	public Imagem getImagem() {
+		return imagem;
+	}
+
+	public void setImagem(Imagem imagem) {
+		this.imagem = imagem;
+	}
+
 	public Ubs getUbs() {
 		return ubs;
 	}

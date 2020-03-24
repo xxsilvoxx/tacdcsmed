@@ -1,6 +1,7 @@
 package fadep.medicina.service;
 
 import fadep.medicina.model.Funcionario;
+import fadep.medicina.model.Imagem;
 import fadep.medicina.repository.FuncionarioRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,14 @@ public class FuncionarioService {
     public Funcionario buscarPorCodigo(Long codigo) {
     	Funcionario funcionario = funcionarioRepository.findOne(codigo);
             return (funcionario != null) ? (funcionario) : (null);
+    }
+
+    public int removerImagem(Long codFuncionario) {
+        return funcionarioRepository.removerImagem(codFuncionario);
+    }
+
+    public int adicionarImagem(Imagem img, Long codFuncionario) {
+        return funcionarioRepository.adicionarImagemAoUsuario(img.getIdImagem(), codFuncionario);
     }
 
 }

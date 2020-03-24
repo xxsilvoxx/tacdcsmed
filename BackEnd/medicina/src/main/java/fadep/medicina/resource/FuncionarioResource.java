@@ -27,6 +27,14 @@ public class FuncionarioResource {
         return funcionarioRepository.findAll();
     }
 
+    @GetMapping("/{codigo}")
+    public ResponseEntity<Funcionario> buscarPorCodigo(@PathVariable("codigo") Long codigo) {
+        Funcionario funcionario = funcionarioService.buscarPorCodigo(codigo);
+        return (funcionario != null)
+                ? (ResponseEntity.ok(funcionario))
+                : (ResponseEntity.notFound().build());
+    }
+
     @PostMapping
     public ResponseEntity<Funcionario> cadastrar(@Valid @RequestBody Funcionario funcionario, HttpServletResponse response) {
         Funcionario funcionarioSalvo = funcionarioRepository.save(funcionario);
