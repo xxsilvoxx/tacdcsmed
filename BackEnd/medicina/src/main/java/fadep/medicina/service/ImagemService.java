@@ -3,7 +3,6 @@ package fadep.medicina.service;
 import fadep.medicina.model.Funcionario;
 import fadep.medicina.model.Imagem;
 import fadep.medicina.repository.ImagemRepository;
-import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +11,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
