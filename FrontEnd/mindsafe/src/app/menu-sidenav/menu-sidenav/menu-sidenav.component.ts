@@ -52,6 +52,16 @@ export class MenuSidenavComponent implements OnInit {
       height: '540px',
       width: '650px'
     });
+
+    dialogRef.afterClosed().subscribe(
+      (res: Funcionario) => {
+        if (res) {
+          if (res.imagem === null) {
+            this.imgUsuario = '../../../assets/imagens/avatar-usuario/user.png';
+          }
+        }
+      }
+    );
   }
 
   sair() {

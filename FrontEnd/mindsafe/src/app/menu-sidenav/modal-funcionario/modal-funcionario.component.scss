@@ -1,9 +1,26 @@
 .content-avatar {
-  position: relative;
   margin: 10px;
 }
 
-.content-avatar button {
+.input-img {
+  opacity: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: white;
+  width: 150px;
+  height: 150px;
+  transition: 1s all;
+}
+
+.avatar:hover .input-img {
+  opacity: 1;
+}
+
+button label {
+  cursor: pointer;
+  padding: 55px;
+}
+
+.actions {
   display: block;
   margin: -135px 0px 175px 125px;
 }
