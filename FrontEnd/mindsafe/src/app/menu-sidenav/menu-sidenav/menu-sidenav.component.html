@@ -24,7 +24,7 @@
           {{ funcionario !== null ? funcionario?.email : '' }}
         </mat-card-content>
         <mat-card-actions align="end">
-          <button mat-fab color="primary" (click)="openModalInfo()">
+          <button matTooltip="Editar Informações" matTooltipPosition="before" mat-fab color="primary" (click)="openModalInfo()" [disabled]="funcionario.idFuncionario === undefined">
             <i class="material-icons">edit</i>
           </button>
         </mat-card-actions>

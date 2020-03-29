@@ -1,5 +1,42 @@
+mat-form-field {
+  width: 100%;
+}
+
+#msg-erro-arquivo {
+  width: 150px;
+  font-size: 13px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.input-button {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+}
+
+.input-button button {
+  margin: 16px 0px 0px 10px;
+}
+
+.forms {
+  width: 100%;
+}
+
+.direita {
+  position: relative;
+  float: right;
+  width: 60%;
+}
+
+/* .esquerda {
+  width: 60%;
+} */
+
 .content-avatar {
-  margin: 10px;
+  margin: 10px 0px 20px 5px;
+  position: relative;
+  float: left;
 }
 
 .input-img {
@@ -22,7 +59,7 @@ button label {
 
 .actions {
   display: block;
-  margin: -135px 0px 175px 125px;
+  margin: -135px 0px 0px 125px;
 }
 
 .avatar {
