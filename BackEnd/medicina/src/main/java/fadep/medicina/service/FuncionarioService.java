@@ -47,6 +47,16 @@ public class FuncionarioService {
             return (funcionario != null) ? (funcionario) : (null);
     }
 
+    public ResponseEntity<Boolean> verificarDisponibilidadeLogin(String loginDigitado) {
+        Integer registros = funcionarioRepository.loginDisponivel(loginDigitado);
+        return (registros > 0) ? (ResponseEntity.ok(false)) : (ResponseEntity.ok(true));
+    }
+
+    public ResponseEntity<Boolean> verificarDisponibilidadeEmail(String emailDigitado) {
+        Integer registros = funcionarioRepository.emailDisponivel(emailDigitado);
+        return (registros > 0) ? (ResponseEntity.ok(false)) : (ResponseEntity.ok(true));
+    }
+
     public int removerImagem(Long codFuncionario) {
         return funcionarioRepository.removerImagem(codFuncionario);
     }
