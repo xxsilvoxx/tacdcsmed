@@ -42,7 +42,7 @@
             <input [textMask]="{
               mask: tipoPessoa == 'cpf' ? maskCpf : maskCnpj,
               guide: false
-            }" matInput [placeholder]="tipoPessoa.toUpperCase()" formControlName="cpfCnpj">
+            }" matInput [placeholder]="tipoPessoa.toUpperCase()" (change)="validarCpfCnpj(cpfCnpj)" formControlName="cpfCnpj" #cpfCnpj>
             <mat-error>
               {{ retornarValidacoes(tipoPessoa.toUpperCase(), formPaciente.get('cpfCnpj')) }}
             </mat-error>
