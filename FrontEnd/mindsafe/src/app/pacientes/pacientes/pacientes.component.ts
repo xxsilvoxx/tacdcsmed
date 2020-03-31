@@ -297,8 +297,6 @@ export class PacientesComponent implements OnInit, OnDestroy {
           }
         } else if (coluna === 'familia') {
           if (p.familia.nome.trim().toLowerCase().indexOf(value.trim().toLowerCase()) >= 0) {
-            /* p.familia.nome.trim().toLowerCase().indexOf(value.trim().toLowerCase()) >= 0 */
-            /* Pode estar ocorrendo um erro ao validar alguns caracteres */
             filtrado.push(p);
           }
         } else if (coluna === 'nacionalidade') {
