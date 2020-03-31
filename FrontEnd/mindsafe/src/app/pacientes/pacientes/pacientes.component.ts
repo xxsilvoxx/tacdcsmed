@@ -297,7 +297,6 @@ export class PacientesComponent implements OnInit, OnDestroy {
           }
         } else if (coluna === 'familia') {
           if (p.familia.nome.trim().toLowerCase().indexOf(value.trim().toLowerCase()) >= 0) {
-            /* Pode estar ocorrendo um erro ao validar alguns caracteres */
             filtrado.push(p);
           }
         } else if (coluna === 'nacionalidade') {
@@ -334,12 +333,9 @@ export class PacientesComponent implements OnInit, OnDestroy {
         }
       }
     );
-    console.log(filtrado);
     this.dataSource = new MatTableDataSource<Paciente>(filtrado);
-    console.log(this.dataSource);
     this.dataSource.paginator = this.paginator;
-    this.dataSource.filter = value;
-    // filtrado.forEach(v => filtrado.pop());
+    // this.dataSource.filter = value;
   }
 
 }
