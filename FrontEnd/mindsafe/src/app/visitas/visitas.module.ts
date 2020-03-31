@@ -1,3 +1,4 @@
+import {  MatDialogModule } from '@angular/material/dialog';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
@@ -8,10 +9,12 @@ import { MatListModule } from '@angular/material/list';
 import { VisitasRoutingModule } from './visitas-routing.module';
 import { VisitasComponent } from './visitas/visitas.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormVisitasComponent } from './form-visitas/form-visitas.component';
 
 @NgModule({
   declarations: [
-    VisitasComponent
+    VisitasComponent,
+    FormVisitasComponent
   ],
   imports: [
     CommonModule,
@@ -20,7 +23,11 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatIconModule,
     MatButtonModule,
     MatListModule,
+    MatDialogModule,
     FlexLayoutModule
+  ],
+  entryComponents: [
+    FormVisitasComponent
   ]
 })
 export class VisitasModule { }
