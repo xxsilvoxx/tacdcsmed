@@ -36,7 +36,7 @@ export class VisitasComponent implements OnInit {
   openModal(visita: Visita) {
     const dialogRef = this.dialog.open(FormVisitasComponent, {
       height: '500px',
-      width: '300px',
+      width: '400px',
       data: visita
     });
   }

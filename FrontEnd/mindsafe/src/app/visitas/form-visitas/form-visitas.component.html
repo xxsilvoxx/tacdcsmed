@@ -1,1 +1,63 @@
-<p>form-visitas works!</p>
+<h2 mat-dialog-title>Entrevista</h2>
+
+<div class="datepicker" >
+  <mat-form-field>
+    <mat-label>Data de nascimento</mat-label>
+    <input matInput [matDatepicker]="meuDatePicker" disabled>
+    <mat-datepicker-toggle  [for]="meuDatePicker" matSuffix></mat-datepicker-toggle>
+    <mat-datepicker #meuDatePicker disabled="false"></mat-datepicker>
+  </mat-form-field>
+</div>
+
+<div class="anotacoes">
+  <mat-form-field appearance="fill">
+    <mat-label>Anotações</mat-label>
+    <textarea matInput></textarea>
+  </mat-form-field>
+</div>
+
+
+<div>
+  <section class="example-section">
+    <mat-slide-toggle
+        class="example-margin"
+        [color]="primary"
+        [checked]="checked"
+        [disabled]="disabled">
+      Comparecer na UBS
+    </mat-slide-toggle>
+  </section>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Confirmar</button>
+</mat-dialog-actions>
