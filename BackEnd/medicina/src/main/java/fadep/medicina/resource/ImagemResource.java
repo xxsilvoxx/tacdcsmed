@@ -3,16 +3,11 @@ package fadep.medicina.resource;
 import fadep.medicina.model.Imagem;
 import fadep.medicina.repository.ImagemRepository;
 import fadep.medicina.service.ImagemService;
-import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import sun.nio.ch.IOUtil;
-
-import java.io.IOException;
-import java.io.InputStream;
 
 @RestController
 @RequestMapping("/imagens")
