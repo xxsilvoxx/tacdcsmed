@@ -30,6 +30,8 @@ import { ResidenciasModule } from '../residencias/residencias.module';
   imports: [
     CommonModule,
     MenuSidenavRountigModule,
+    FormsModule,
+    ReactiveFormsModule,
     ResidenciasModule,
     VisitasModule,
     PacientesModule,
