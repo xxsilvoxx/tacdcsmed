@@ -1,11 +1,65 @@
-.content-avatar {
-  position: relative;
-  margin: 10px;
+mat-form-field {
+  width: 100%;
 }
 
-.content-avatar button {
+#msg-erro-arquivo {
+  width: 150px;
+  font-size: 13px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.input-button {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+}
+
+.input-button button {
+  margin: 16px 0px 0px 10px;
+}
+
+.forms {
+  width: 100%;
+}
+
+.direita {
+  position: relative;
+  float: right;
+  width: 60%;
+}
+
+/* .esquerda {
+  width: 60%;
+} */
+
+.content-avatar {
+  margin: 10px 0px 20px 5px;
+  position: relative;
+  float: left;
+}
+
+.input-img {
+  opacity: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: white;
+  width: 150px;
+  height: 150px;
+  transition: 1s all;
+}
+
+.avatar:hover .input-img {
+  opacity: 1;
+}
+
+button label {
+  cursor: pointer;
+  padding: 55px;
+}
+
+.actions {
   display: block;
-  margin: -135px 0px 175px 125px;
+  margin: -135px 0px 0px 125px;
 }
 
 .avatar {

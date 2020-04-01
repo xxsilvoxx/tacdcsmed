@@ -4,7 +4,7 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { FormBuilder, FormGroup, Validators, FormControl, ValidationErrors } from '@angular/forms';
 import { Observable, EMPTY, Subject } from 'rxjs';
-import { tap, map } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 
 import { Familia } from 'src/app/models/familia.model';
 import { FamiliasService } from '../../services/familias/familias.service';
@@ -21,6 +21,7 @@ import { MedicamentoPessoaService } from '../../services/medicamentoPessoa/medic
 import { CausaPessoaService } from '../../services/causaPessoa/causa-pessoa.service';
 import { PacientesService } from '../../services/pacientes/pacientes.service';
 import { CausaPessoa } from '../../models/causaPessoa.model';
+import { cpfCnpjDisponivelValidator } from '../../shared/mensagem-validation/form-validations';
 
 
 @Component({
@@ -183,6 +184,7 @@ export class PacientesFormComponent implements OnInit {
       if (paciente.responsavelFamiliar == false) {
         this.validarReponsavel(paciente.familia);
       }
+      this.formPaciente.get('cpfCnpj').clearAsyncValidators();
       this.medicamentoPessoaService.retornarMedicamentos(paciente).subscribe(
         medicamentoPessoa => {
           this.medicamentosAdicionados = medicamentoPessoa;
@@ -447,25 +449,22 @@ export class PacientesFormComponent implements OnInit {
     );
   }
 
-  retornarValidacoes(label: string, campo: FormControl) {
-    if (campo.touched || campo.dirty) {
-      return this.msgValidation.getErrorMessage(campo, label);
+  // método que observa o change do cpfCnpj
+  // valida se o valor dentro do campo é o mesmo que veio do servidor
+  // se for diferente ele aplica a validação assíncrona
+  validarCpfCnpj(valor: string) {
+    if (this.paciente) {
+      if (valor === this.paciente.cpfCnpj) {
+        this.formPaciente.get('cpfCnpj').clearAsyncValidators();
+      } else {
+        this.formPaciente.get('cpfCnpj').setAsyncValidators(cpfCnpjDisponivelValidator(this.pacientesService));
+      }
     }
   }
 
-  // Precisam serem feitos mais testes
-  cpfOuCnpjValido(control: FormControl) {
-    const value = control.value;
-    if ((!this.paciente) || (this.paciente.cpfCnpj.indexOf(value) == -1)) {
-      if (value && (value.length === 14 || value.length === 18)) {
-        return this.pacientesService.retornarCpfCnpjValido(value).pipe(
-          map(v => v === true ? null : { cpfCnpjInvalido: true })
-        ).subscribe(
-          res => res,
-          err => err
-        );
-      }
-      return null;
+  retornarValidacoes(label: string, campo: FormControl) {
+    if (campo.touched || campo.dirty) {
+      return this.msgValidation.getErrorMessage(campo, label);
     }
   }
 
@@ -474,7 +473,14 @@ export class PacientesFormComponent implements OnInit {
       responsavelFamiliar: [false, Validators.required],
       familia: ['', Validators.required],
       nome: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]],
-      cpfCnpj: ['', [Validators.required, Validators.minLength(14), Validators.maxLength(18), this.cpfOuCnpjValido.bind(this)]],
+      cpfCnpj: ['', {
+        validators: [
+          Validators.required,
+          Validators.minLength(14),
+          Validators.maxLength(18)
+        ],
+        asyncValidators: cpfCnpjDisponivelValidator(this.pacientesService)
+      }],
       nacionalidade: ['BR', Validators.required],
       sexo: ['M', Validators.required],
       dataNascimento: ['', Validators.required],

@@ -1,14 +1,143 @@
-<h1 mat-dialog-title>Informações Pessoais</h1>
-<div mat-dialog-content>
-  <div class="content-avatar">
-    <div class="avatar" [ngStyle]="{'background-image': 'url(' + imgUsuario + ')' }"></div>
+<div style="display: flex; flex-direction: row;">
+  <h1 mat-dialog-title>Informações Pessoais</h1>
+  <span style="flex: 1 1 auto;"></span>
+  <button matTooltip="Fechar a janela" aria mat-icon-button (click)="onClose()">
+    <i class="material-icons" style="color: #565656;">close</i>
+  </button>
+</div>
 
-    <button mat-mini-fab color="warn" [disabled]="funcionario === null || funcionario?.imagem === null">
+<div mat-dialog-content [formGroup]="formFuncionario">
+  <div class="content-avatar" [ngStyle.xs]="{'margin': '15px 20% 40px 20%'}">
+    <div class="avatar" [ngStyle]="{'background-image': 'url(' + imgUsuario + ')' }">
+      <button matTooltip="Adicionar/Alterar foto" mat-icon-button class="input-img">
+        <label for="file-input" class="material-icons">edit</label>
+      </button>
+
+      <input type="file" id="file-input" (change)="onSelectFile($event)" accept="image/png, image/jpeg" style="display: none;">
+    </div>
+
+    <button matTooltip="Remover imagem" mat-mini-fab color="warn" (click)="onRemoveImg()" class="actions" [disabled]="formFuncionario.value === null || formFuncionario.get('imagem').value === null || imgUpload !== null">
       <mat-icon class="material-icons">delete</mat-icon>
-    </button>
+    </button><br><br>
 
-    <button mat-mini-fab color="primary" [disabled]="funcionario === null">
+    <button matTooltip="Fazer upload" mat-mini-fab color="primary" (click)="onUpload()" style="margin-left: 125px;" [disabled]="imgUpload === null || mostrarErroArquivo">
       <mat-icon class="material-icons">add_a_photo</mat-icon>
     </button>
+
+    <mat-error id="msg-erro-arquivo" *ngIf="mostrarErroArquivo">
+      <span>Selecione um arquivo de no máximo <strong>1,04MB</strong></span>
+    </mat-error>
+  </div>
+
+  <div class="forms" [formGroup]="formFuncionario" ngClass.lg="direita" ngClass.md="direita" ngClass.sm="direita" fxLayout="column" fxLayoutGap="10px">
+    <div class="input-button">
+      <mat-form-field fxFlex>
+        <input formControlName="nome" matInput placeholder="Nome" #nome>
+        <mat-hint align="end">
+          <span>{{ nome?.value.length }} / 250</span>
+        </mat-hint>
+        <mat-error>
+          {{ retornarValidacoes('nome', 'Nome') }}
+        </mat-error>
+      </mat-form-field>
+
+      <button [disabled]="formFuncionario.get('nome').value === '' || formFuncionario.get('nome').invalid" (click)="alterar('Nome')" mat-icon-button matTooltip="Editar nome">
+        <mat-icon class="material-icons">edit</mat-icon>
+      </button>
+    </div>
+
+    <div class="input-button">
+      <mat-form-field fxFlex>
+        <input formControlName="email" matInput placeholder="E-mail" #email>
+        <mat-hint align="end">
+          <span>{{ email?.value.length }} / 250</span>
+        </mat-hint>
+        <mat-error>
+          <span>{{ retornarValidacoes('email', 'E-mail') }}</span>
+        </mat-error>
+      </mat-form-field>
+
+      <button [disabled]="formFuncionario.get('email').invalid || formFuncionario.get('email').value === ''" (click)="alterar('E-mail')" mat-icon-button matTooltip="Editar e-mail">
+        <mat-icon class="material-icons">edit</mat-icon>
+      </button>
+    </div>
+
+    <div class="input-button">
+      <mat-form-field fxFlex>
+        <input formControlName="login" matInput placeholder="Login" #login>
+        <mat-hint align="end">
+          <span>{{ login?.value.length }} / 250</span>
+        </mat-hint>
+        <mat-error>
+          <span>{{ retornarValidacoes('login', 'Login') }}</span>
+        </mat-error>
+      </mat-form-field>
+
+      <button [disabled]="formFuncionario.get('login').value === '' || formFuncionario.get('login').invalid" (click)="alterar('Login')" mat-icon-button matTooltip="Editar login">
+        <mat-icon class="material-icons">edit</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <div class="forms" [formGroup]="formFuncionario" fxLayout="column" fxLayoutGap="10px">
+    <mat-form-field fxFlex>
+      <input disabled [value]="formFuncionario.get('funcao').value" matInput placeholder="Função">
+    </mat-form-field>
+
+    <mat-form-field fxFlex>
+      <input disabled [value]="formFuncionario.get('codEquipe').value" matInput placeholder="Código da equipe">
+    </mat-form-field>
+
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Senha
+          </mat-panel-title>
+
+          <mat-panel-description>
+            Alterar a Senha
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div [formGroup]="formFuncionario" fxLayout="column" fxLayoutGap="10px">
+          <mat-form-field>
+            <input matInput [type]="esconderSenha ? 'text' : 'password'" formControlName="senha" placeholder="Senha" #senha>
+            <mat-hint align="end">
+              <span>{{ senha?.value.length }} / 10</span>
+            </mat-hint>
+            <mat-error>
+              {{ retornarValidacoes('senha', 'Senha') }}
+            </mat-error>
+            <button mat-icon-button matSuffix (click)="mudarVisibilidadeSenha()">
+              <mat-icon>{{ esconderSenha ? 'visibility' : 'visibility_off' }}</mat-icon>
+            </button>
+          </mat-form-field>
+
+          <mat-form-field>
+            <input matInput [type]="esconderSenha ? 'text' : 'password'" [formControl]="formConfirmarSenha" placeholder="Confirmar Senha" #confirmarSenha>
+            <mat-hint align="end">
+              <span>{{ confirmarSenha?.value.length }} / 10</span>
+            </mat-hint>
+            <button mat-icon-button matSuffix (click)="mudarVisibilidadeSenha()">
+              <mat-icon>{{ esconderSenha ? 'visibility' : 'visibility_off' }}</mat-icon>
+            </button>
+            <mat-error>
+              {{ retornarValidacoes('confirmarSenha', 'confirmar') }}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-action-row>
+            <button (click)="cancelarAlteracaoSenha()" [disabled]="formConfirmarSenha.value === '' || formFuncionario.get('senha').value === ''" mat-icon-button matTooltip="Cancelar alteração">
+              <i class="material-icons">thumb_down</i>
+            </button>
+
+            <button (click)="alterar('Senha')" [disabled]="formConfirmarSenha.invalid || formFuncionario.get('senha').invalid || (formFuncionario.get('senha').value === '' && formConfirmarSenha.value === '')" mat-icon-button matTooltip="Confirmar alteração">
+              <i class="material-icons">thumb_up</i>
+            </button>
+          </mat-action-row>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
   </div>
 </div>

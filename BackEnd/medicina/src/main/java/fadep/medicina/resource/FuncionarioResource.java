@@ -35,6 +35,18 @@ public class FuncionarioResource {
                 : (ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/validar/login")
+    @ResponseBody
+    public ResponseEntity<Boolean> validarLogin(@RequestParam(name="login") String loginDigitado) {
+        return funcionarioService.verificarDisponibilidadeLogin(loginDigitado);
+    }
+
+    @GetMapping("/validar/email")
+    @ResponseBody
+    public ResponseEntity<Boolean> validarEmail(@RequestParam(name="email") String emailDigitado) {
+        return funcionarioService.verificarDisponibilidadeEmail(emailDigitado);
+    }
+
     @PostMapping
     public ResponseEntity<Funcionario> cadastrar(@Valid @RequestBody Funcionario funcionario, HttpServletResponse response) {
         Funcionario funcionarioSalvo = funcionarioRepository.save(funcionario);

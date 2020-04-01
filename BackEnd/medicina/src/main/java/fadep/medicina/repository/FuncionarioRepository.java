@@ -25,4 +25,16 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> 
     @Transactional
     @Query("UPDATE Funcionario f SET f.imagem = null WHERE f.idFuncionario = :idFuncionario")
     public int removerImagem(@Param("idFuncionario") Long idFuncionario);
+
+    /**
+     * Verifica se o login pode ser modificado para um não salvo antes
+     */
+    @Query("SELECT COUNT(f.idFuncionario) FROM Funcionario f WHERE f.login = ?1")
+    public Integer loginDisponivel(String login);
+
+    /**
+     * Verifica se o e-mail pode ser modificado para um não salvo antes
+     */
+    @Query("SELECT COUNT(f.idFuncionario) FROM Funcionario f WHERE f.email = ?1")
+    public Integer emailDisponivel(String email);
 }

@@ -12,17 +12,55 @@ mat-card-content h2 {
   padding-top: 1px;
   height: 300px;
   width: 100%;
-  background-color: #cecece;
-  margin-bottom: 10px;
+  background-image: url('../../../assets/imagens/visitas.jfif');
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 20px;
+}
+
+.overlay {
+  bottom: 0;
+  background: rgb(0, 0, 0);
+  background: #0000007e;
+  color: #f1f1f1;
+  transition: .5s ease;
+  opacity:0;
+  color: white;
+  font-size: 20px;
+  padding: 20px;
+  text-align: center;
+}
+
+.overlay a {
+  text-decoration: none;
+  color: #969696;
+}
+
+.bg-visitas:hover .overlay {
+  opacity: 1;
 }
 
 .titulo {
   position: relative;
-  margin-top: 150px;
+  margin-top: 148px;
   font-size: 30pt;
   margin-left: 30px;
   font-weight: bold;
   color: white;
+  text-shadow: 1px 1px 10px #000000;
+}
+
+.titulo-xs {
+  font-size: 15pt;
+  margin-top: 98px;
+}
+
+.overlay-xs {
+  font-size: 15px;
+}
+
+.bg-xs {
+  height: 200px;
 }
 
 .cabecalho {

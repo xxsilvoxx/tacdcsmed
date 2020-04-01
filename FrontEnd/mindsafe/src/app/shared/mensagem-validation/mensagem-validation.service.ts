@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormControl, FormGroup, ValidationErrors } from '@angular/forms';
-import { map } from 'rxjs/operators';
+import { FormControl } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +15,9 @@ export class MensagemValidationService {
       'minlength' : `${label} deve ter no mínimo ${extra.requiredLength} caracteres`,
       'maxlength' : `${label} deve ter no máximo ${extra.requiredLength} caracteres`,
       'cpfCnpjInvalido': 'Já existe um registro com esse número',
+      'senhaDiferente': 'A senha deve ser igual',
+      'loginInvalido': 'Este login já está sendo usado',
+      'emailInvalido': 'Este email já está sendo usado'
     };
     return mensagens[validacao];
   }
