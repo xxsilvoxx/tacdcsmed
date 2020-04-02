@@ -68,11 +68,5 @@ public class PessoaService {
         Integer registro = pessoaRepository.retornarCpfCnpjValido(cpfCnpj);
         return (registro > 0) ? (false) : (true);
     }
-    
-	public void atualizarPropriedadeAtivo(Long codigo, Boolean ativo) {
-		Pessoa pessoaSalva = buscarPorCodigo(codigo);
-		pessoaSalva.setAtivo(ativo);
-		pessoaRepository.save(pessoaSalva);
-	}
 
 }

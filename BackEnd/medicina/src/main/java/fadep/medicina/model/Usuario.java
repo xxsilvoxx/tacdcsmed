@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "usuario")
@@ -18,7 +19,8 @@ public class Usuario {
 	@Id
 	@Column(name="id_usuario")
 	private Long id_usuario;
-
+	@NotNull
+	private Boolean ativo;
 	private String nome;
 	private String email;
 	private String senha;
@@ -28,16 +30,20 @@ public class Usuario {
 		, inverseJoinColumns = @JoinColumn(name = "id_permissao"))
 	private List<Permissao> permissoes;
 
-
-
-
-
 	public Long getId_usuario() {
 		return id_usuario;
 	}
 
 	public void setId_usuario(Long id_usuario) {
 		this.id_usuario = id_usuario;
+	}
+
+	public Boolean getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
 	}
 
 	public String getNome() {
@@ -96,7 +102,5 @@ public class Usuario {
 			return false;
 		return true;
 	}
-
 	
-
 }
