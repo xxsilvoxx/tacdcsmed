@@ -34,7 +34,7 @@ export class ModalFuncionarioComponent implements OnInit {
   senhaSalva: string;
   funcaoSalva: Funcao = new Funcao();
 
-  imgUsuario = '../../../assets/imagens/avatar-usuario/user.png';
+  imgUsuario = '../../../assets/imagens/user.png';
 
   // variável que armazena a imagem selecionada para fazer upload.
   imgUpload: File = null;
@@ -149,7 +149,7 @@ export class ModalFuncionarioComponent implements OnInit {
     if (this.imgUpload && this.imgUpload.size > 0 && this.imgUpload.size <= 1048576) {
       this.img.adicionarImg(this.imgUpload, this.formFuncionario.value).pipe(
         tap(v => v !== null
-          ? this.imgUsuario = '../../../assets/imagens/avatar-usuario/user.png'
+          ? this.imgUsuario = '../../../assets/imagens/user.png'
           : EMPTY),
         switchMap(v => v !== null ? this.service.listarUsuario() : EMPTY)
       ).subscribe(
@@ -168,7 +168,7 @@ export class ModalFuncionarioComponent implements OnInit {
   onRemoveImg() {
     this.img.removerImg(this.formFuncionario.value).pipe(
       tap(v => v === null
-        ? this.imgUsuario = '../../../assets/imagens/avatar-usuario/user.png'
+        ? this.imgUsuario = '../../../assets/imagens/user.png'
         : EMPTY
       )
     ).subscribe(
