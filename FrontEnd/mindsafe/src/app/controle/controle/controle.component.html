@@ -28,11 +28,13 @@
       </mat-card-content>
 
       <mat-card-actions align="end">
-        <button mat-icon-button>
+        <button mat-icon-button matTooltip="Cadastrar Medicamentos" (click)="abrirModalMedicamento('cadastrar')">
           <mat-icon class="material-icons">add</mat-icon>
         </button>
+
         <span class="espaco"></span>
-        <button mat-icon-button>
+
+        <button mat-icon-button matTooltip="Vizualizar Medicamentos" (click)="abrirModalMedicamento('vizualizar')">
           <mat-icon class="material-icons">description</mat-icon>
         </button>
       </mat-card-actions>

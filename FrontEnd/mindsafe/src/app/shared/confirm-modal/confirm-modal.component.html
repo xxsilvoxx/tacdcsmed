@@ -1,6 +1,9 @@
 <h1 mat-dialog-title>{{ data.titulo }}</h1>
 <div mat-dialog-content>
-  <p style="text-align: center;">{{ data.texto }}</p>
+  <p style="text-align: center; font-weight: 500;">{{ data.texto }}</p>
+  <p style="text-align: center;" *ngIf="data.icone && data.textoAdicional">
+    <i class="material-icons">{{ data?.icone }}</i> {{ data?.textoAdicional }}
+  </p>
 </div>
 <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutGap.xs="5px" mat-dialog-actions>
   <button fxFlex mat-raised-button color="warn" (click)="onDecline()">

@@ -1,0 +1,42 @@
+<div style="display: flex; flex-direction: row;">
+  <h1 matDialogTitle>Vizualizar Medicamentos</h1>
+  <span style="flex: 1 1 auto;"></span>
+  <button matTooltip="Fechar a janela" mat-icon-button matDialogClose>
+    <i class="material-icons" style="color: #565656;">close</i>
+  </button>
+</div>
+
+<mat-dialog-content>
+  <div class="colunas" fxLayout="row" fxLayoutGap="10px">
+    <span fxFlex="40%">Nome</span>
+    <span fxFlex="30%">Dependentes</span>
+    <span fxFlex></span>
+  </div>
+
+  <mat-list>
+    <mat-list-item *ngFor="let element of totalDependentes">
+      <mat-form-field>
+        <input matInput [value]="element.medicamento.value.nome ? element.medicamento.value.nome : ''" [formControl]="element.medicamento" #nome>
+        <mat-hint align="end">
+          {{ nome.value?.length }} / 250
+        </mat-hint>
+        <mat-error>
+          {{ retornarValidacoes(element.medicamento, 'nome') }}
+        </mat-error>
+      </mat-form-field>
+
+      <span>{{ element.total }} paciente(s)</span>
+
+      <span class="espaco-interno"></span>
+
+      <button matTooltip="Remover Medicamento" mat-icon-button (click)="removerMedicamento(element.medicamento, element.total)" [disabled]="element.medicamento.value.idMedicamento === undefined">
+        <mat-icon class="material-icons">delete</mat-icon>
+      </button>
+
+      <button matTooltip="Editar Medicamento" mat-icon-button (click)="alterarMedicamento(element.medicamento.value, element.codigo)" [disabled]="element.medicamento.invalid || nome.value === ''">
+        <mat-icon class="material-icons">edit</mat-icon>
+      </button>
+    </mat-list-item>
+  </mat-list>
+
+</mat-dialog-content>

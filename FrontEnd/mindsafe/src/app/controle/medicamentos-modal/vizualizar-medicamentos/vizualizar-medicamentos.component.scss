@@ -1,0 +1,38 @@
+mat-form-field {
+  margin-right: 20px;
+}
+
+mat-list {
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+  max-height: 280px;
+  overflow-y: auto;
+  margin-bottom: 2px;
+  padding: 5px;
+}
+
+mat-list-item {
+  margin: 10px 0;
+}
+
+.linha-codigo {
+  margin-right: 40px;
+  font-size: 13pt;
+  font-weight: 400;
+}
+
+.colunas {
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.308);
+  background-color: #cececece;
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px 10px 0px 0px;
+}
+
+.colunas span {
+  font-size: 10pt;
+  font-weight: 400;
+}
+
+.espaco-interno {
+  flex: 1 1 auto;
+}

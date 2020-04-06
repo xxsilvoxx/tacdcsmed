@@ -17,7 +17,8 @@ export class MensagemValidationService {
       'cpfCnpjInvalido': 'Já existe um registro com esse número',
       'senhaDiferente': 'A senha deve ser igual',
       'loginInvalido': 'Este login já está sendo usado',
-      'emailInvalido': 'Este email já está sendo usado'
+      'emailInvalido': 'Este email já está sendo usado',
+      'medicamentoInvalido': 'Este medicamento já está cadastrado'
     };
     return mensagens[validacao];
   }

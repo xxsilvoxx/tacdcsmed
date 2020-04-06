@@ -4,6 +4,7 @@ import { switchMap, map } from 'rxjs/operators';
 
 import { FuncionariosService } from '../../services/funcionarios/funcionarios.service';
 import { PacientesService } from '../../services/pacientes/pacientes.service';
+import { MedicamentosService } from '../../services/medicamentos/medicamentos.service';
 
 // Validação pra mostrar se o login está disponivel
 // Percore no banco pra todos os funcionários
@@ -37,6 +38,17 @@ export const cpfCnpjDisponivelValidator = (service: PacientesService, time: numb
       : null),
       map(res => {
         return res ? null : { cpfCnpjInvalido: true };
+      })
+    );
+  };
+};
+
+export const medicamentoDisponivelValidator = (service: MedicamentosService, time: number = 500) => {
+  return (input: FormControl) => {
+    return timer (time).pipe(
+      switchMap(() => service.validarNomeMedicamentoValido(input.value)),
+      map(res => {
+        return res ? null : { medicamentoInvalido: true };
       })
     );
   };
