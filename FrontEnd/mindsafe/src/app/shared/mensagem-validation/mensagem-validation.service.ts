@@ -10,7 +10,7 @@ export class MensagemValidationService {
 
   listarMensagensErro(label: string, validacao: string, extra?: any) {
     const mensagens = {
-      'required' : `O campo de ${label} é obrigatório`,
+      'required' : `${label} é um campo obrigatório`,
       'email' : 'Deve ser um e-mail válido',
       'minlength' : `${label} deve ter no mínimo ${extra.requiredLength} caracteres`,
       'maxlength' : `${label} deve ter no máximo ${extra.requiredLength} caracteres`,
@@ -18,7 +18,8 @@ export class MensagemValidationService {
       'senhaDiferente': 'A senha deve ser igual',
       'loginInvalido': 'Este login já está sendo usado',
       'emailInvalido': 'Este email já está sendo usado',
-      'medicamentoInvalido': 'Este medicamento já está cadastrado'
+      'medicamentoInvalido': 'Este medicamento já está cadastrado',
+      'microareaInvalida': 'Esta microárea já está cadastrada'
     };
     return mensagens[validacao];
   }

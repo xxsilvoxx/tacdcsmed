@@ -19,4 +19,12 @@ export class MicroAreasService {
   listarTodas() {
     return this.http.get<MicroArea[]>(this.apiUrl).pipe(take(1));
   }
+
+  cadastrarMicroarea(microarea: MicroArea) {
+    return this.http.post<MicroArea>(this.apiUrl, microarea).pipe(take(1));
+  }
+
+  validarNumeroMicroareaDisponivel(numero: number) {
+    return this.http.get<boolean>(`${this.apiUrl}/validar/${numero}`);
+  }
 }

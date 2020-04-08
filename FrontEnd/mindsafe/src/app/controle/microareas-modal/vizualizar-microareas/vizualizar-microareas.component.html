@@ -1,0 +1,44 @@
+<div style="display: flex; flex-direction: row;">
+  <h1 matDialogTitle>Vizualizar Medicamentos</h1>
+  <span style="flex: 1 1 auto;"></span>
+  <button matTooltip="Fechar a janela" mat-icon-button matDialogClose>
+    <i class="material-icons" style="color: #565656;">close</i>
+  </button>
+</div>
+
+<mat-dialog-content>
+  <div class="colunas" fxLayout="row" fxLayoutGap="10px">
+    <span fxFlex>Número</span>
+    <span fxFlex>Total Pacientes</span>
+    <span fxFlex>ACS</span>
+    <span fxFlex></span>
+  </div>
+
+  <mat-list>
+    <mat-list-item>
+      <!-- input do número da microárea -->
+      <mat-form-field>
+        <input matInput value="1">
+      </mat-form-field>
+
+      <!-- Total de pacientes que estão na microárea -->
+      <span>30</span>
+
+      <!-- Nome da ACS responsável -->
+      <span>João da Silva</span>
+
+      <!-- Espaçamento entre o conteúdo anterior r posterior, deixando um espaço ao centro -->
+      <span style="flex: 1 1 auto;"></span>
+
+      <!-- Botão de delete -->
+      <button mat-icon-button>
+        <mat-icon class="material-icons">delete</mat-icon>
+      </button>
+
+      <!-- Botão de edit -->
+      <button mat-icon-button>
+        <mat-icon class="material-icons">edit</mat-icon>
+      </button>
+    </mat-list-item>
+  </mat-list>
+</mat-dialog-content>

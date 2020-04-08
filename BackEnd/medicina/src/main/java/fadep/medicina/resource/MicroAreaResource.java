@@ -45,4 +45,9 @@ public class MicroAreaResource {
         return microAreaService.remover(codigo);
     }
 
+    @GetMapping("/validar/{numero}")
+    public ResponseEntity<Boolean> microareaDisponivel(@PathVariable("numero") int numero) {
+        return microAreaService.retornarMicroareaValida(numero);
+    }
+
 }

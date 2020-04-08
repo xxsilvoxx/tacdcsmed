@@ -5,6 +5,7 @@ import { switchMap, map } from 'rxjs/operators';
 import { FuncionariosService } from '../../services/funcionarios/funcionarios.service';
 import { PacientesService } from '../../services/pacientes/pacientes.service';
 import { MedicamentosService } from '../../services/medicamentos/medicamentos.service';
+import { MicroAreasService } from '../../services/microAreas/microArea.service';
 
 // Validação pra mostrar se o login está disponivel
 // Percore no banco pra todos os funcionários
@@ -53,3 +54,14 @@ export const medicamentoDisponivelValidator = (service: MedicamentosService, tim
     );
   };
 };
+
+export const microareaDisponivelValidator = (service: MicroAreasService) => {
+  return (input: FormControl) => {
+    return service.validarNumeroMicroareaDisponivel(input.value).pipe(
+      map(res => {
+        return res ? null : { microareaInvalida: true };
+      })
+    );
+  };
+};
+

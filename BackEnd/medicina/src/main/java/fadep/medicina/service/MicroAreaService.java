@@ -41,6 +41,11 @@ public class MicroAreaService {
         }
     }
 
+    public ResponseEntity<Boolean> retornarMicroareaValida(int numero) {
+        Integer registros = microAreaRepository.retornarMicroareaDisponivel(numero);
+        return (registros > 0) ? (ResponseEntity.ok(false)) : (ResponseEntity.ok(true));
+    }
+
     public MicroArea buscarPorCodigo(Long codigo) {
     	MicroArea microArea = microAreaRepository.findOne(codigo);
     	return (microArea != null) ? (microArea) : (null);

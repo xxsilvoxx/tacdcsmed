@@ -1,0 +1,33 @@
+<h1 matDialogTitle>Adicionar Microárea</h1>
+
+<mat-dialog-content [ngStyle.xs]="{'margin-bottom': '0px'}">
+  <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" [formGroup]="formMicroarea">
+    <mat-form-field fxFlex>
+      <input matInput type="number" formControlName="numero" placeholder="Número da microárea">
+      <mat-error>
+        {{ retornarValidacoes(formMicroarea.get('numero'), 'Número') }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field fxFlex>
+      <mat-select placeholder="Selecionar Bairro" formControlName="bairro">
+        <mat-option *ngFor="let bairro of bairros$ | async" [value]="bairro">
+          {{ bairro.nome }}
+        </mat-option>
+      </mat-select>
+      <mat-error>
+        {{ retornarValidacoes(formMicroarea.get('bairro'), 'Bairro') }}
+      </mat-error>
+    </mat-form-field>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="center" fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutGap.xs="5px">
+  <button mat-raised-button color="warn" fxFlex matDialogClose>
+    CANCELAR <mat-icon class="material-icons">cancel</mat-icon>
+  </button><br>
+
+  <button mat-raised-button color="primary" [disabled]="formMicroarea.invalid" (click)="cadastrar()" fxFlex>
+    CONFIRMAR <mat-icon class="material-icons">send</mat-icon>
+  </button>
+</mat-dialog-actions>

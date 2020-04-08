@@ -10,18 +10,23 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSelectModule } from '@angular/material/select';
 
 import { ControleRoutingModule } from './controle-routing.module';
 import { ControleComponent } from './controle/controle.component';
 import { CadastrarMedicamentoComponent } from './medicamentos-modal/cadastrar-medicamento/cadastrar-medicamento.component';
 import { VizualizarMedicamentosComponent } from './medicamentos-modal/vizualizar-medicamentos/vizualizar-medicamentos.component';
-import { MatTooltipModule } from '@angular/material/tooltip';
+import { CadastrarMicroareaComponent } from './microareas-modal/cadastrar-microarea/cadastrar-microarea.component';
+import { VizualizarMicroareasComponent } from './microareas-modal/vizualizar-microareas/vizualizar-microareas.component';
 
 @NgModule({
   declarations: [
     ControleComponent,
     CadastrarMedicamentoComponent,
-    VizualizarMedicamentosComponent
+    VizualizarMedicamentosComponent,
+    CadastrarMicroareaComponent,
+    VizualizarMicroareasComponent
   ],
   imports: [
     CommonModule,
@@ -34,13 +39,16 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatFormFieldModule,
     MatInputModule,
     MatListModule,
+    MatSelectModule,
     MatTooltipModule,
     FormsModule,
     ReactiveFormsModule
   ],
   entryComponents: [
     CadastrarMedicamentoComponent,
-    VizualizarMedicamentosComponent
+    VizualizarMedicamentosComponent,
+    CadastrarMicroareaComponent,
+    VizualizarMicroareasComponent
   ]
 })
 export class ControleModule { }
