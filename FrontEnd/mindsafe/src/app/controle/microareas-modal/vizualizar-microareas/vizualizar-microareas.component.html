@@ -8,35 +8,38 @@
 
 <mat-dialog-content>
   <div class="colunas" fxLayout="row" fxLayoutGap="10px">
-    <span fxFlex>Número</span>
-    <span fxFlex>Total Pacientes</span>
-    <span fxFlex>ACS</span>
+    <span fxFlex="35%">Número</span>
+    <span fxFlex="20%">Total Pacientes</span>
+    <span fxFlex="30%">ACS</span>
     <span fxFlex></span>
   </div>
 
   <mat-list>
-    <mat-list-item>
+    <mat-list-item *ngFor="let element of microareasTot">
       <!-- input do número da microárea -->
-      <mat-form-field>
-        <input matInput value="1">
+      <mat-form-field style="margin-right: 35px;">
+        <input matInput type="number" [formControl]="element.microarea" (click)="atribuirValidator(element.microarea)" [value]="element.microarea.value?.numero ? element.microarea.value?.numero : 0" #numero>
+        <mat-error>
+          {{ retornarValidacoes(element.microarea, 'Número') }}
+        </mat-error>
       </mat-form-field>
 
       <!-- Total de pacientes que estão na microárea -->
-      <span>30</span>
+      <span style="margin-right: 50px;">{{ element?.pacientes }}</span>
 
       <!-- Nome da ACS responsável -->
-      <span>João da Silva</span>
+      <span style="display: inline;">{{ element.responsavel ? element.responsavel.nome : 'Não Atribuído' }}</span>
 
       <!-- Espaçamento entre o conteúdo anterior r posterior, deixando um espaço ao centro -->
       <span style="flex: 1 1 auto;"></span>
 
       <!-- Botão de delete -->
-      <button mat-icon-button>
+      <button matTooltip="Remover Microárea" (click)="onRemove(element)" [disabled]="element.microarea.value?.idMicroArea === undefined" mat-icon-button>
         <mat-icon class="material-icons">delete</mat-icon>
       </button>
 
       <!-- Botão de edit -->
-      <button mat-icon-button>
+      <button matTooltip="Alterar Microárea" (click)="onUpdate(element)" [disabled]="element.microarea.invalid || numero.value === ''" mat-icon-button>
         <mat-icon class="material-icons">edit</mat-icon>
       </button>
     </mat-list-item>

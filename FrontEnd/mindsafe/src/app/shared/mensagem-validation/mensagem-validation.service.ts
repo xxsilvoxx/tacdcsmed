@@ -19,7 +19,8 @@ export class MensagemValidationService {
       'loginInvalido': 'Este login já está sendo usado',
       'emailInvalido': 'Este email já está sendo usado',
       'medicamentoInvalido': 'Este medicamento já está cadastrado',
-      'microareaInvalida': 'Esta microárea já está cadastrada'
+      'microareaInvalida': 'Esta microárea já está cadastrada',
+      'numeroInvalido': `${label} deve ser maior ou igual à 0`
     };
     return mensagens[validacao];
   }

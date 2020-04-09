@@ -1,5 +1,6 @@
 package fadep.medicina.service;
 
+import fadep.medicina.model.Funcionario;
 import fadep.medicina.model.MicroArea;
 import fadep.medicina.repository.MicroAreaRepository;
 import org.springframework.beans.BeanUtils;
@@ -44,6 +45,11 @@ public class MicroAreaService {
     public ResponseEntity<Boolean> retornarMicroareaValida(int numero) {
         Integer registros = microAreaRepository.retornarMicroareaDisponivel(numero);
         return (registros > 0) ? (ResponseEntity.ok(false)) : (ResponseEntity.ok(true));
+    }
+
+    public ResponseEntity<Funcionario> retornarAcsResponsavel(Long codigo) {
+        Funcionario funcionario = microAreaRepository.retornarAcsResponsavel(codigo);
+        return (funcionario != null) ? (ResponseEntity.ok(funcionario)) : (ResponseEntity.ok(null));
     }
 
     public MicroArea buscarPorCodigo(Long codigo) {

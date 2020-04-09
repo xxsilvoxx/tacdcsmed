@@ -1,5 +1,5 @@
 import { FormControl } from '@angular/forms';
-import { timer } from 'rxjs';
+import { timer, EMPTY } from 'rxjs';
 import { switchMap, map } from 'rxjs/operators';
 
 import { FuncionariosService } from '../../services/funcionarios/funcionarios.service';
@@ -57,11 +57,11 @@ export const medicamentoDisponivelValidator = (service: MedicamentosService, tim
 
 export const microareaDisponivelValidator = (service: MicroAreasService) => {
   return (input: FormControl) => {
-    return service.validarNumeroMicroareaDisponivel(input.value).pipe(
+    return input.value ? service.validarNumeroMicroareaDisponivel(input.value).pipe(
       map(res => {
         return res ? null : { microareaInvalida: true };
       })
-    );
+    ) : EMPTY;
   };
 };
 
