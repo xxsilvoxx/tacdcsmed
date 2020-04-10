@@ -4,7 +4,7 @@ import { MicroArea } from '../../../models/microArea.model';
 import { MensagemService } from '../../../shared/mensagem/mensagem.service';
 import { tap, switchMap } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
-import { microareaDisponivelValidator } from '../../../shared/mensagem-validation/form-validations';
+import { microareaDisponivelValidator, validarNumeroMinimo } from '../../../shared/mensagem-validation/form-validations';
 import { MensagemValidationService } from '../../../shared/mensagem-validation/mensagem-validation.service';
 import { MatDialog } from '@angular/material/dialog';
 import { element } from 'protractor';
@@ -46,7 +46,7 @@ export class VizualizarMicroareasComponent implements OnInit {
                 tap(funcionario => {
                   const obj = {
                     microarea: new FormControl(microarea, {
-                      validators: [ this.validarNumeroMinimo.bind(this) ]
+                      validators: [ validarNumeroMinimo.bind(this) ]
                     }),
                     bairro: microarea.bairro,
                     codigo: microarea.idMicroArea,
@@ -120,17 +120,6 @@ export class VizualizarMicroareasComponent implements OnInit {
       success => this.msg.exibirMensagem('Microárea alterada com sucesso', 'done'),
       err => this.msg.exibirMensagem('Erro ao alterar a microárea', 'error')
     );
-  }
-
-  /**
-   * Validação do valor do campo input, para que o valor seja
-   * maior ou igual à 0.
-   */
-  validarNumeroMinimo(control: FormControl) {
-    if (control.value < 0) {
-      return { numeroInvalido: true };
-    }
-    return null;
   }
 
   atribuirValidator(control: FormControl) {

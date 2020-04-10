@@ -6,6 +6,13 @@ import { FuncionariosService } from '../../services/funcionarios/funcionarios.se
 import { PacientesService } from '../../services/pacientes/pacientes.service';
 import { MedicamentosService } from '../../services/medicamentos/medicamentos.service';
 import { MicroAreasService } from '../../services/microAreas/microArea.service';
+import { CausasService } from '../../services/causas/causas.service';
+
+/* --------------------------------------------------------------------------------------- */
+
+// Validações assincronas
+
+/* --------------------------------------------------------------------------------------- */
 
 // Validação pra mostrar se o login está disponivel
 // Percore no banco pra todos os funcionários
@@ -64,4 +71,31 @@ export const microareaDisponivelValidator = (service: MicroAreasService) => {
     ) : EMPTY;
   };
 };
+
+export const causaDisponivelValidator = (service: CausasService) => {
+  return (input: FormControl) => {
+    return service.validarCausaDisponivel(input.value).pipe(
+      map(res => {
+        return res ? null : { causaInvalida: true };
+      })
+    );
+  };
+};
+
+/* --------------------------------------------------------------------------------------- */
+
+// Validações sincronas
+
+/* --------------------------------------------------------------------------------------- */
+
+/**
+ * Validação do valor do campo input, para que o valor seja
+ * maior que 0.
+ */
+export const validarNumeroMinimo = (control: FormControl) => {
+ if (control.value <= 0) {
+   return { numeroInvalido: true };
+ }
+ return null;
+}
 

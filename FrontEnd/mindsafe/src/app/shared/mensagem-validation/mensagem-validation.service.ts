@@ -20,7 +20,8 @@ export class MensagemValidationService {
       'emailInvalido': 'Este email já está sendo usado',
       'medicamentoInvalido': 'Este medicamento já está cadastrado',
       'microareaInvalida': 'Esta microárea já está cadastrada',
-      'numeroInvalido': `${label} deve ser maior ou igual à 0`
+      'numeroInvalido': `${label} deve ser positivo`,
+      'causaInvalida': 'Este risco já está cadastrado'
     };
     return mensagens[validacao];
   }

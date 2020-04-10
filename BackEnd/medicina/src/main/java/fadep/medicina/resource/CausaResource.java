@@ -1,5 +1,6 @@
 package fadep.medicina.resource;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import fadep.medicina.model.Causa;
 import fadep.medicina.repository.CausaRepository;
 import fadep.medicina.service.CausaService;
@@ -43,6 +44,17 @@ public class CausaResource {
     @DeleteMapping("/{codigo}")
     public ResponseEntity<Causa> remover(@PathVariable("codigo") Long codigo) {
         return causaService.remover(codigo);
+    }
+
+    @GetMapping("/{codigo}/pacientes")
+    public Integer retornarTotalPacientes(@PathVariable("codigo") Long codigo) {
+        return causaRepository.retornarTotalPacientes(codigo);
+    }
+
+    @GetMapping("/validar/causa")
+    @ResponseBody
+    public ResponseEntity<Boolean> retornarCausaDisponivel(@RequestParam("causa") String causa) {
+        return causaService.retornarCausaDisponivel(causa);
     }
 
 }

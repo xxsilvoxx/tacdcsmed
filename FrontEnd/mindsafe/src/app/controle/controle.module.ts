@@ -19,6 +19,8 @@ import { CadastrarMedicamentoComponent } from './medicamentos-modal/cadastrar-me
 import { VizualizarMedicamentosComponent } from './medicamentos-modal/vizualizar-medicamentos/vizualizar-medicamentos.component';
 import { CadastrarMicroareaComponent } from './microareas-modal/cadastrar-microarea/cadastrar-microarea.component';
 import { VizualizarMicroareasComponent } from './microareas-modal/vizualizar-microareas/vizualizar-microareas.component';
+import { CadastrarRiscoComponent } from './riscos-modal/cadastrar-risco/cadastrar-risco.component';
+import { VizualizarRiscosComponent } from './riscos-modal/vizualizar-riscos/vizualizar-riscos.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { VizualizarMicroareasComponent } from './microareas-modal/vizualizar-mic
     CadastrarMedicamentoComponent,
     VizualizarMedicamentosComponent,
     CadastrarMicroareaComponent,
-    VizualizarMicroareasComponent
+    VizualizarMicroareasComponent,
+    CadastrarRiscoComponent,
+    VizualizarRiscosComponent
   ],
   imports: [
     CommonModule,
@@ -48,7 +52,9 @@ import { VizualizarMicroareasComponent } from './microareas-modal/vizualizar-mic
     CadastrarMedicamentoComponent,
     VizualizarMedicamentosComponent,
     CadastrarMicroareaComponent,
-    VizualizarMicroareasComponent
+    VizualizarMicroareasComponent,
+    CadastrarRiscoComponent,
+    VizualizarRiscosComponent
   ]
 })
 export class ControleModule { }

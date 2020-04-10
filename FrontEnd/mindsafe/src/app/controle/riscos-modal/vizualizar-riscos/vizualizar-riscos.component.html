@@ -1,0 +1,49 @@
+<div style="display: flex; flex-direction: row;">
+  <h1 matDialogTitle>Vizualizar Riscos</h1>
+  <span style="flex: 1 1 auto;"></span>
+  <button matTooltip="Fechar a janela" mat-icon-button matDialogClose>
+    <i class="material-icons" style="color: #565656;">close</i>
+  </button>
+</div>
+
+<mat-dialog-content>
+  <mat-list>
+    <div class="colunas">
+      <span style="margin-right: 165px;">Descrição</span>
+      <span style="margin-right: 70px;">Risco</span>
+      <span>Pacientes</span>
+    </div>
+    <mat-list-item *ngFor="let element of riscosTot">
+      <div [formGroup]="element.causa" fxLayout="row" fxLayoutGap="10px" style="width: 300px;">
+        <mat-form-field fxFlex="75%">
+          <input matInput formControlName="nome" #nome>
+          <mat-hint align="end">
+            {{ nome.value?.length }} / 250
+          </mat-hint>
+          <mat-error>
+            {{ retornarValidacoes(element.causa.get('nome'), 'Nome') }}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="25%">
+          <input matInput type="number" formControlName="risco">
+          <mat-error>
+            {{ retornarValidacoes(element.causa.get('risco'), 'Risco') }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <span style="margin-left: 30px; margin-right: 50px;">{{ element.totPacientes }}</span>
+
+      <span style="flex: 1 1 auto;"></span>
+
+      <button mat-icon-button (click)="onDelete(element)">
+        <mat-icon class="material-icons">delete</mat-icon>
+      </button>
+
+      <button mat-icon-button (click)="onUpdate(element.causa.value)" [disabled]="element.causa.invalid">
+        <mat-icon class="material-icons">edit</mat-icon>
+      </button>
+    </mat-list-item>
+  </mat-list>
+</mat-dialog-content>

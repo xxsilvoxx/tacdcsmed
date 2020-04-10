@@ -28,6 +28,10 @@ public class CausaService {
     public ResponseEntity<Causa> remover(Long codigo) {
         Causa causaSalva = buscarPorCodigo(codigo);
         if (causaSalva != null) {
+            Integer registros = causaRepository.retornarTotalPacientes(codigo);
+            if (registros > 0) {
+                causaRepository.removerRelacaoPacienteCausa(codigo);
+            }
             causaRepository.delete(causaSalva);
             causaSalva = buscarPorCodigo(codigo);
             if (causaSalva == null) {
@@ -40,13 +44,14 @@ public class CausaService {
         }
     }
 
+    public ResponseEntity<Boolean> retornarCausaDisponivel(String causa) {
+        Integer registros = causaRepository.retornarRiscoDisponivel(causa);
+        return (registros > 0) ? (ResponseEntity.ok(false)) : (ResponseEntity.ok(true));
+    }
+
     public Causa buscarPorCodigo(Long codigo) {
     	Causa causa = causaRepository.findOne(codigo);
-    	if (causa != null) {
-        
-            return causa;
-        }
-        return null;
+    	return (causa != null) ? (causa) : (null);
     }
 
 }

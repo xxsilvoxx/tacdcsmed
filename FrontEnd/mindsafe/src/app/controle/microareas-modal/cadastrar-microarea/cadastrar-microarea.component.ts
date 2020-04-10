@@ -4,7 +4,7 @@ import { MicroArea } from '../../../models/microArea.model';
 import { Observable } from 'rxjs';
 import { Bairro } from '../../../models/bairro.model';
 import { BairrosService } from '../../../services/bairros/bairros.service';
-import { microareaDisponivelValidator } from '../../../shared/mensagem-validation/form-validations';
+import { microareaDisponivelValidator, validarNumeroMinimo } from '../../../shared/mensagem-validation/form-validations';
 import { MicroAreasService } from '../../../services/microAreas/microArea.service';
 import { MensagemValidationService } from '../../../shared/mensagem-validation/mensagem-validation.service';
 import { MensagemService } from '../../../shared/mensagem/mensagem.service';
@@ -42,11 +42,11 @@ export class CadastrarMicroareaComponent implements OnInit {
   criarFormulario() {
     this.formMicroarea = this.builder.group({
       numero: [null, {
-        validators: [Validators.required],
+        validators: [ Validators.required, validarNumeroMinimo.bind(this) ],
         asyncValidators: [microareaDisponivelValidator(this.microareasService)]
       }],
       bairro: [null, {
-        validators: [Validators.required]
+        validators: [ Validators.required ]
       }]
     });
   }

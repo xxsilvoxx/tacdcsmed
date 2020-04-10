@@ -4,6 +4,8 @@ import { CadastrarMedicamentoComponent } from '../medicamentos-modal/cadastrar-m
 import { VizualizarMedicamentosComponent } from '../medicamentos-modal/vizualizar-medicamentos/vizualizar-medicamentos.component';
 import { CadastrarMicroareaComponent } from '../microareas-modal/cadastrar-microarea/cadastrar-microarea.component';
 import { VizualizarMicroareasComponent } from '../microareas-modal/vizualizar-microareas/vizualizar-microareas.component';
+import { CadastrarRiscoComponent } from '../riscos-modal/cadastrar-risco/cadastrar-risco.component';
+import { VizualizarRiscosComponent } from '../riscos-modal/vizualizar-riscos/vizualizar-riscos.component';
 
 @Component({
   selector: 'app-controle',
@@ -43,6 +45,20 @@ export class ControleComponent implements OnInit {
       const dialogRef = this.dialog.open(VizualizarMicroareasComponent, {
         height: '498px',
         width: '576px'
+      });
+    }
+  }
+
+  abrirModalRiscos(operacao: string) {
+    if (operacao.trim().toLowerCase() === 'cadastrar') {
+      const dialogRef = this.dialog.open(CadastrarRiscoComponent, {
+        height: '350px',
+        width: '550px'
+      });
+    } else if (operacao.trim().toLowerCase() === 'vizualizar') {
+      const dialogRef = this.dialog.open(VizualizarRiscosComponent, {
+        height: '500px',
+        width: '620px'
       });
     }
   }
