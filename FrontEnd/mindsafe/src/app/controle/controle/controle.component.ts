@@ -29,8 +29,8 @@ export class ControleComponent implements OnInit {
       });
     } else if (operacao.trim().toLowerCase() === 'vizualizar') {
       const dialogRef = this.dialog.open(VizualizarMedicamentosComponent, {
-        height: '498px',
-        width: '576px'
+        height: '480px',
+        width: '510px'
       });
     }
   }
@@ -43,8 +43,8 @@ export class ControleComponent implements OnInit {
       });
     } else if (operacao.trim().toLowerCase() === 'vizualizar') {
       const dialogRef = this.dialog.open(VizualizarMicroareasComponent, {
-        height: '498px',
-        width: '576px'
+        height: '500px',
+        width: '720px'
       });
     }
   }
@@ -58,7 +58,7 @@ export class ControleComponent implements OnInit {
     } else if (operacao.trim().toLowerCase() === 'vizualizar') {
       const dialogRef = this.dialog.open(VizualizarRiscosComponent, {
         height: '500px',
-        width: '620px'
+        width: '650px'
       });
     }
   }

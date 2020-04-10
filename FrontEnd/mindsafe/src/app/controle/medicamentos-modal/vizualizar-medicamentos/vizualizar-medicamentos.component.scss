@@ -1,17 +1,17 @@
-mat-form-field {
-  margin-right: 20px;
-}
-
 mat-list {
   box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
-  max-height: 280px;
+  max-height: 320px;
   overflow-y: auto;
   margin-bottom: 2px;
-  padding: 5px;
+  padding-bottom: 10px;
+}
+
+mat-form-field {
+  width: 100%;
 }
 
 mat-list-item {
-  margin: 10px 0;
+  margin: 12px 0;
 }
 
 .linha-codigo {
@@ -21,18 +21,9 @@ mat-list-item {
 }
 
 .colunas {
-  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.308);
-  background-color: #cececece;
-  width: 100%;
-  padding: 10px;
-  border-radius: 10px 10px 0px 0px;
-}
-
-.colunas span {
-  font-size: 10pt;
-  font-weight: 400;
-}
-
-.espaco-interno {
-  flex: 1 1 auto;
+  padding: 5px 0px;
+  margin: 5px 15px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #8a8a8a;
 }

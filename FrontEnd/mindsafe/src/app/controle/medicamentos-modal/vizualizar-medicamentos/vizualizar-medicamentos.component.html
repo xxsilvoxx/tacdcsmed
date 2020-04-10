@@ -7,33 +7,34 @@
 </div>
 
 <mat-dialog-content>
-  <div class="colunas" fxLayout="row" fxLayoutGap="10px">
-    <span fxFlex="40%">Nome</span>
-    <span fxFlex="30%">Dependentes</span>
-    <span fxFlex></span>
-  </div>
-
   <mat-list>
-    <mat-list-item *ngFor="let element of totalDependentes">
-      <mat-form-field>
-        <input matInput [value]="element.medicamento.value.nome ? element.medicamento.value.nome : ''" [formControl]="element.medicamento" #nome>
-        <mat-hint align="end">
-          {{ nome.value?.length }} / 250
-        </mat-hint>
-        <mat-error>
-          {{ retornarValidacoes(element.medicamento, 'nome') }}
-        </mat-error>
-      </mat-form-field>
+    <div class="colunas">
+      <span style="margin-right: 165px;">Nome</span>
+      <span>Dependentes</span>
+    </div>
 
-      <span>{{ element.total }} paciente(s)</span>
+    <mat-list-item *ngFor="let element of medicamentosTot">
+      <div [formGroup]="element.medicamento" fxLayout="row" fxLayoutGap="10px" style="width: 180px;">
+        <mat-form-field fxFlex>
+          <input matInput formControlName="nome" #nome>
+          <mat-hint align="end">
+            {{ nome.value?.length }} / 250
+          </mat-hint>
+          <mat-error>
+            {{ retornarValidacoes(element.medicamento.get('nome'), 'nome') }}
+          </mat-error>
+        </mat-form-field>
+      </div>
 
-      <span class="espaco-interno"></span>
+      <span style="margin: 0px 65px 0px 20px;">{{ element.totalDependentes }}</span>
 
-      <button matTooltip="Remover Medicamento" mat-icon-button (click)="removerMedicamento(element.medicamento, element.total)" [disabled]="element.medicamento.value.idMedicamento === undefined">
+      <span style="flex: 1 1 auto;"></span>
+
+      <button matTooltip="Remover Medicamento" mat-icon-button (click)="onDelete(element)">
         <mat-icon class="material-icons">delete</mat-icon>
       </button>
 
-      <button matTooltip="Editar Medicamento" mat-icon-button (click)="alterarMedicamento(element.medicamento.value, element.codigo)" [disabled]="element.medicamento.invalid || nome.value === ''">
+      <button matTooltip="Editar Medicamento" mat-icon-button (click)="onUpdate(element.medicamento.value)" [disabled]="element.medicamento.invalid">
         <mat-icon class="material-icons">edit</mat-icon>
       </button>
     </mat-list-item>

@@ -51,14 +51,15 @@ export class VizualizarRiscosComponent implements OnInit {
                   nome: [causa.nome, {
                     validators: [
                       Validators.minLength(5),
-                      Validators.maxLength(250)
-                    ],
-                    asyncValidators: [
-                      causaDisponivelValidator(this.service)
+                      Validators.maxLength(250),
+                      Validators.required
                     ]
                   }],
                   risco: [causa.risco, {
-                    validators: [ validarNumeroMinimo.bind(this) ]
+                    validators: [
+                      validarNumeroMinimo.bind(this),
+                      Validators.required
+                    ]
                   }]
                 }),
                 totPacientes: total
@@ -82,7 +83,7 @@ export class VizualizarRiscosComponent implements OnInit {
     );
   }
 
-  onDelete(element) {
+  onDelete(element: any) {
     let icon = null;
     let adicional = null;
     if (element.totPacientes > 0) {
@@ -119,6 +120,10 @@ export class VizualizarRiscosComponent implements OnInit {
       },
       err => this.msg.exibirMensagem('Erro ao alterar o risco', 'error')
     );
+  }
+
+  atribuirValidadorAssincrono(control: FormControl) {
+    control.setAsyncValidators(causaDisponivelValidator(this.service));
   }
 
 }

@@ -7,39 +7,41 @@
 </div>
 
 <mat-dialog-content>
-  <div class="colunas" fxLayout="row" fxLayoutGap="10px">
-    <span fxFlex="35%">Número</span>
-    <span fxFlex="20%">Total Pacientes</span>
-    <span fxFlex="30%">ACS</span>
-    <span fxFlex></span>
-  </div>
-
   <mat-list>
+    <div class="colunas">
+      <span style="margin-right: 80px;">Número</span>
+      <span style="margin-right: 150px;">Bairro</span>
+      <span style="margin-right: 10px;">Pacientes</span>
+      <span>ACS</span>
+    </div>
+
     <mat-list-item *ngFor="let element of microareasTot">
-      <!-- input do número da microárea -->
-      <mat-form-field style="margin-right: 35px;">
-        <input matInput type="number" [formControl]="element.microarea" (click)="atribuirValidator(element.microarea)" [value]="element.microarea.value?.numero ? element.microarea.value?.numero : 0" #numero>
-        <mat-error>
-          {{ retornarValidacoes(element.microarea, 'Número') }}
-        </mat-error>
-      </mat-form-field>
+      <div [formGroup]="element.microarea" fxLayout="row" fxLayoutGap="10px" style="width: 300px;">
+        <mat-form-field fxFlex="40%">
+          <input matInput type="number" (click)="atribuirValidadorAssincrono(element.microarea.get('numero'))" formControlName="numero" #numero>
+          <mat-error>
+            {{ retornarValidacoes(element.microarea.get('numero'), 'Número') }}
+          </mat-error>
+        </mat-form-field>
 
-      <!-- Total de pacientes que estão na microárea -->
-      <span style="margin-right: 50px;">{{ element?.pacientes }}</span>
+        <mat-form-field fxFlex="60%">
+          <mat-select formControlName="bairro">
+            <mat-option *ngFor="let bairro of bairros" [value]="bairro.nome">{{ bairro.nome }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
 
-      <!-- Nome da ACS responsável -->
-      <span style="display: inline;">{{ element.responsavel ? element.responsavel.nome : 'Não Atribuído' }}</span>
+      <span style="margin: 0px 40px;">{{ element.totPacientes }}</span>
 
-      <!-- Espaçamento entre o conteúdo anterior r posterior, deixando um espaço ao centro -->
+      <span style="margin-right: 40px;">{{ element.funcionarioResponsavel ? element.funcionarioResponsavel?.nome : 'Não Atribuído' }}</span>
+
       <span style="flex: 1 1 auto;"></span>
 
-      <!-- Botão de delete -->
-      <button matTooltip="Remover Microárea" (click)="onRemove(element)" [disabled]="element.microarea.value?.idMicroArea === undefined" mat-icon-button>
+      <button matTooltip="Remover Microárea" mat-icon-button (click)="onRemove(element)">
         <mat-icon class="material-icons">delete</mat-icon>
       </button>
 
-      <!-- Botão de edit -->
-      <button matTooltip="Alterar Microárea" (click)="onUpdate(element)" [disabled]="element.microarea.invalid || numero.value === ''" mat-icon-button>
+      <button matTooltip="Alterar Microárea" mat-icon-button (click)="onUpdate(element.microarea.value)" [disabled]="element.microarea.invalid">
         <mat-icon class="material-icons">edit</mat-icon>
       </button>
     </mat-list-item>

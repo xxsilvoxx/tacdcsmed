@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, Validators, FormBuilder } from '@angular/forms';
 import { switchMap, tap } from 'rxjs/operators';
 import { EMPTY } from 'rxjs';
 
@@ -12,6 +12,7 @@ import { MedicamentoPessoaService } from '../../../services/medicamentoPessoa/me
 import { ConfirmModalComponent } from '../../../shared/confirm-modal/confirm-modal.component';
 import { medicamentoDisponivelValidator } from '../../../shared/mensagem-validation/form-validations';
 import { MensagemValidationService } from '../../../shared/mensagem-validation/mensagem-validation.service';
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-vizualizar-medicamentos',
@@ -21,15 +22,16 @@ import { MensagemValidationService } from '../../../shared/mensagem-validation/m
 export class VizualizarMedicamentosComponent implements OnInit {
 
   medicamentos: Medicamento[] = [];
-  totalDependentes: any[] = [];
+  medicamentosTot: any[] = [];
 
   constructor(
     private dialogRef: MatDialogRef<VizualizarMedicamentosComponent>,
+    private dialog: MatDialog,
+    private builder: FormBuilder,
     private msg: MensagemService,
     private validation: MensagemValidationService,
     private medicamentosService: MedicamentosService,
-    private medicamentoPessoaService: MedicamentoPessoaService,
-    private dialog: MatDialog
+    private medicamentoPessoaService: MedicamentoPessoaService
   ) { }
 
   ngOnInit() {
@@ -48,14 +50,20 @@ export class VizualizarMedicamentosComponent implements OnInit {
             this.medicamentoPessoaService.retornarTotalDependentes(c).pipe(
               tap(res => {
                 const obj = {
-                  medicamento: new FormControl(c, {
-                    validators: [ Validators.maxLength(250) ],
-                    asyncValidators: [ medicamentoDisponivelValidator(this.medicamentosService) ]
+                  medicamento: this.builder.group({
+                    idMedicamento: [c.idMedicamento],
+                    nome: [c.nome, {
+                      validators: [
+                        Validators.maxLength(250)
+                      ],
+                      asyncValidators: [
+                        medicamentoDisponivelValidator(this.medicamentosService)
+                      ]
+                    }]
                   }),
-                  codigo: c.idMedicamento,
-                  total: res
+                  totalDependentes: res
                 };
-                this.totalDependentes.push(obj);
+                this.medicamentosTot.push(obj);
               })
             ).subscribe(
               success => success,
@@ -72,13 +80,13 @@ export class VizualizarMedicamentosComponent implements OnInit {
     );
   }
 
-  removerMedicamento(medicamento: Medicamento, totalDependentes = 0) {
+  onDelete(element: any) {
     let texto = null;
-    if (totalDependentes) {
-      texto = `${totalDependentes} paciente(s) utiliza(m) este medicamento !`;
+    if (element.totalDependentes) {
+      texto = `${element.totalDependentes} paciente(s) utiliza(m) este medicamento !`;
     }
     const dialogRef = this.dialog.open(ConfirmModalComponent, {
-      height: '280px',
+      height: element.totalDependentes > 0 ? '340px' : '300px',
       width: '400px',
       data: {
         titulo: 'Remover Medicamento',
@@ -88,21 +96,26 @@ export class VizualizarMedicamentosComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().pipe(
-      switchMap(v => v ? this.medicamentosService.removerMedicamento(medicamento) : EMPTY)
+      switchMap(v => v
+        ? this.medicamentosService.removerMedicamento(element.medicamento.value)
+        : EMPTY
+      )
     ).subscribe(
       success => {
+        const index = this.medicamentosTot.indexOf(element);
+        this.medicamentosTot.splice(index, 1);
         this.msg.exibirMensagem('Medicamento removido com successo', 'done');
       },
       err => this.msg.exibirMensagem('Erro ao remover o medicamento', 'error')
     );
   }
 
-  alterarMedicamento(nome: string, codigo: number) {
-    const alterado = new Medicamento();
-    alterado.nome = nome;
-    alterado.idMedicamento = codigo;
-    this.medicamentosService.alterarMedicamento(alterado).subscribe(
-      success => this.msg.exibirMensagem('Medicamento alterado com sucesso', 'done'),
+  onUpdate(medicamento: Medicamento) {
+    this.medicamentosService.alterarMedicamento(medicamento).subscribe(
+      success => {
+        this.msg.exibirMensagem('Medicamento alterado com sucesso', 'done');
+        this.dialogRef.close();
+      },
       err => this.msg.exibirMensagem('Erro ao alterar o medicamento', 'error')
     );
   }
