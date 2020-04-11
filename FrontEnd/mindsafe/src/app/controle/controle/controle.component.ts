@@ -40,13 +40,13 @@ export class ControleComponent implements OnInit {
   abrirModalMicroarea(operacao: string) {
     if (operacao.trim().toLowerCase() === 'cadastrar') {
       const dialogRef = this.dialog.open(CadastrarMicroareaComponent, {
-        height: '350px',
+        height: '450px',
         width: '600px'
       });
     } else if (operacao.trim().toLowerCase() === 'vizualizar') {
       const dialogRef = this.dialog.open(VizualizarMicroareasComponent, {
         height: '500px',
-        width: '720px'
+        width: '1000px'
       });
     }
   }

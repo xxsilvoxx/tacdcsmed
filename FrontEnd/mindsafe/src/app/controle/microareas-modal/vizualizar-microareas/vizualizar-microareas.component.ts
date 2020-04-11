@@ -3,7 +3,7 @@ import { MicroAreasService } from '../../../services/microAreas/microArea.servic
 import { MicroArea } from '../../../models/microArea.model';
 import { MensagemService } from '../../../shared/mensagem/mensagem.service';
 import { tap, switchMap } from 'rxjs/operators';
-import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
+import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { microareaDisponivelValidator, validarNumeroMinimo } from '../../../shared/mensagem-validation/form-validations';
 import { MensagemValidationService } from '../../../shared/mensagem-validation/mensagem-validation.service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
@@ -12,6 +12,8 @@ import { ConfirmModalComponent } from '../../../shared/confirm-modal/confirm-mod
 import { EMPTY, Observable } from 'rxjs';
 import { Bairro } from '../../../models/bairro.model';
 import { BairrosService } from '../../../services/bairros/bairros.service';
+import { Ubs } from '../../../models/ubs.model';
+import { UbsService } from '../../../services/ubs/ubs.service';
 
 @Component({
   selector: 'app-vizualizar-microareas',
@@ -23,6 +25,7 @@ export class VizualizarMicroareasComponent implements OnInit {
   microareas: MicroArea[] = [];
   microareasTot: any[] = [];
   bairros: Bairro[];
+  ubs: Ubs[];
 
   constructor(
     private dialogRef: MatDialogRef<VizualizarMicroareasComponent>,
@@ -30,6 +33,7 @@ export class VizualizarMicroareasComponent implements OnInit {
     private builder: FormBuilder,
     private microAreasService: MicroAreasService,
     private bairrosService: BairrosService,
+    private ubsService: UbsService,
     private msg: MensagemService,
     private validation: MensagemValidationService
   ) { }
@@ -37,6 +41,7 @@ export class VizualizarMicroareasComponent implements OnInit {
   ngOnInit() {
     this.listarMicroAreas();
     this.listarBairros();
+    this.listarUbs();
   }
 
   retornarValidacoes(control: FormControl, label: string) {
@@ -58,6 +63,11 @@ export class VizualizarMicroareasComponent implements OnInit {
                         validators: [ validarNumeroMinimo.bind(this) ]
                       }],
                       bairro: [ microarea.bairro.nome ]
+                    }),
+                    ubs: this.builder.group({
+                      nome: [ microarea.bairro.ubs.nome, {
+                        validators: [ Validators.required ]
+                      }]
                     }),
                     totPacientes: totalPacientes,
                     funcionarioResponsavel: funcionario
@@ -89,6 +99,13 @@ export class VizualizarMicroareasComponent implements OnInit {
   listarBairros() {
     this.bairrosService.listarTodos().subscribe(
       res => this.bairros = res,
+      err => err
+    );
+  }
+
+  listarUbs() {
+    this.ubsService.listar().subscribe(
+      res => this.ubs = res,
       err => err
     );
   }
@@ -126,13 +143,19 @@ export class VizualizarMicroareasComponent implements OnInit {
   /**
    * Método que altera o registro da microárea.
    */
-  onUpdate(microarea) {
+  onUpdate(element: any) {
+    const microarea = element.microarea.value as MicroArea;
     this.bairros.forEach(b => {
-      if (b.nome === microarea.bairro) {
+      if (b.nome === element.microarea.get('bairro').value) {
         microarea.bairro = b;
       }
     });
-    this.microAreasService.alterarMicroarea(microarea as MicroArea).subscribe(
+    this.ubs.forEach(u => {
+      if (u.nome === element.ubs.get('nome').value) {
+        microarea.bairro.ubs = u;
+      }
+    });
+    this.microAreasService.alterarMicroarea(microarea).subscribe(
       success => {
         this.msg.exibirMensagem('Microárea alterada com sucesso', 'done');
         this.dialogRef.close();

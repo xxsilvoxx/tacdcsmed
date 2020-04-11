@@ -9,6 +9,8 @@ import { MicroAreasService } from '../../../services/microAreas/microArea.servic
 import { MensagemValidationService } from '../../../shared/mensagem-validation/mensagem-validation.service';
 import { MensagemService } from '../../../shared/mensagem/mensagem.service';
 import { MatDialogRef } from '@angular/material/dialog';
+import { Ubs } from '../../../models/ubs.model';
+import { UbsService } from '../../../services/ubs/ubs.service';
 
 @Component({
   selector: 'app-cadastrar-microarea',
@@ -18,13 +20,16 @@ import { MatDialogRef } from '@angular/material/dialog';
 export class CadastrarMicroareaComponent implements OnInit {
 
   formMicroarea: FormGroup;
+  controlUbs: FormControl;
 
   bairros$: Observable<Bairro[]>;
+  ubs$: Observable<Ubs[]>;
 
   constructor(
     private dialogRef: MatDialogRef<CadastrarMicroareaComponent>,
     private builder: FormBuilder,
     private bairrosService: BairrosService,
+    private ubsService: UbsService,
     private microareasService: MicroAreasService,
     private msg: MensagemService,
     private validation: MensagemValidationService
@@ -33,6 +38,7 @@ export class CadastrarMicroareaComponent implements OnInit {
   ngOnInit() {
     this.criarFormulario();
     this.listarBairros();
+    this.listarUbs();
   }
 
   retornarValidacoes(control: FormControl, label: string) {
@@ -49,14 +55,24 @@ export class CadastrarMicroareaComponent implements OnInit {
         validators: [ Validators.required ]
       }]
     });
+
+    this.controlUbs = this.builder.control(null, {
+      validators: [ Validators.required ]
+    });
   }
 
   listarBairros() {
     this.bairros$ = this.bairrosService.listarTodos();
   }
 
+  listarUbs() {
+    this.ubs$ = this.ubsService.listar();
+  }
+
   cadastrar() {
-    this.microareasService.cadastrarMicroarea(this.formMicroarea.value).subscribe(
+    const microarea = this.formMicroarea.value as MicroArea;
+    microarea.bairro.ubs = this.controlUbs.value as Ubs;
+    this.microareasService.cadastrarMicroarea(microarea).subscribe(
       success => this.msg.exibirMensagem('Microárea cadastrada com sucesso', 'done'),
       err => this.msg.exibirMensagem('Erro ao cadastrar a microárea', 'error')
     );
