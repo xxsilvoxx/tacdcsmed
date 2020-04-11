@@ -21,6 +21,8 @@ import { CadastrarMicroareaComponent } from './microareas-modal/cadastrar-microa
 import { VizualizarMicroareasComponent } from './microareas-modal/vizualizar-microareas/vizualizar-microareas.component';
 import { CadastrarRiscoComponent } from './riscos-modal/cadastrar-risco/cadastrar-risco.component';
 import { VizualizarRiscosComponent } from './riscos-modal/vizualizar-riscos/vizualizar-riscos.component';
+import { CadastrarFuncaoComponent } from './funcoes-modal/cadastrar-funcao/cadastrar-funcao.component';
+import { VizualizarFuncoesComponent } from './funcoes-modal/vizualizar-funcoes/vizualizar-funcoes.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { VizualizarRiscosComponent } from './riscos-modal/vizualizar-riscos/vizu
     CadastrarMicroareaComponent,
     VizualizarMicroareasComponent,
     CadastrarRiscoComponent,
-    VizualizarRiscosComponent
+    VizualizarRiscosComponent,
+    CadastrarFuncaoComponent,
+    VizualizarFuncoesComponent
   ],
   imports: [
     CommonModule,
@@ -54,7 +58,9 @@ import { VizualizarRiscosComponent } from './riscos-modal/vizualizar-riscos/vizu
     CadastrarMicroareaComponent,
     VizualizarMicroareasComponent,
     CadastrarRiscoComponent,
-    VizualizarRiscosComponent
+    VizualizarRiscosComponent,
+    CadastrarFuncaoComponent,
+    VizualizarFuncoesComponent
   ]
 })
 export class ControleModule { }

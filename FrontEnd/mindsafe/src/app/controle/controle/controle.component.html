@@ -88,13 +88,13 @@
       </mat-card-content>
 
       <mat-card-actions align="end">
-        <button mat-icon-button>
+        <button mat-icon-button matTooltip="Cadastrar Funcionários">
           <mat-icon class="material-icons">add</mat-icon>
         </button>
 
         <span class="espaco"></span>
 
-        <button mat-icon-button>
+        <button mat-icon-button matTooltip="Vizualizar Funcionários">
           <mat-icon class="material-icons">description</mat-icon>
         </button>
       </mat-card-actions>
@@ -119,13 +119,13 @@
       </mat-card-content>
 
       <mat-card-actions align="end">
-        <button mat-icon-button>
+        <button mat-icon-button matTooltip="Cadastrar UBS">
           <mat-icon class="material-icons">add</mat-icon>
         </button>
 
         <span class="espaco"></span>
 
-        <button mat-icon-button>
+        <button mat-icon-button matTooltip="Vizualizar UBS">
           <mat-icon class="material-icons">description</mat-icon>
         </button>
       </mat-card-actions>
@@ -148,13 +148,13 @@
       </mat-card-content>
 
       <mat-card-actions align="end">
-        <button mat-icon-button>
+        <button mat-icon-button matTooltip="Cadastrar Funções" (click)="abrirModalFuncoes('cadastrar')">
           <mat-icon class="material-icons">add</mat-icon>
         </button>
 
         <span class="espaco"></span>
 
-        <button mat-icon-button>
+        <button mat-icon-button matTooltip="Vizualizar Funções" (click)="abrirModalFuncoes('vizualizar')">
           <mat-icon class="material-icons">description</mat-icon>
         </button>
       </mat-card-actions>
@@ -179,13 +179,13 @@
       </mat-card-content>
 
       <mat-card-actions align="end">
-        <button mat-icon-button (click)="abrirModalRiscos('cadastrar')">
+        <button mat-icon-button matTooltip="Cadastrar Riscos" (click)="abrirModalRiscos('cadastrar')">
           <mat-icon class="material-icons">add</mat-icon>
         </button>
 
         <span class="espaco"></span>
 
-        <button mat-icon-button (click)="abrirModalRiscos('vizualizar')">
+        <button mat-icon-button matTooltip="Vizualizar Riscos" (click)="abrirModalRiscos('vizualizar')">
           <mat-icon class="material-icons">description</mat-icon>
         </button>
       </mat-card-actions>

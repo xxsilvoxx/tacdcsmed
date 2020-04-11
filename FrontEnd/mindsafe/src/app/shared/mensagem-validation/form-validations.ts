@@ -7,6 +7,7 @@ import { PacientesService } from '../../services/pacientes/pacientes.service';
 import { MedicamentosService } from '../../services/medicamentos/medicamentos.service';
 import { MicroAreasService } from '../../services/microAreas/microArea.service';
 import { CausasService } from '../../services/causas/causas.service';
+import { FuncoesService } from '../../services/funcoes/funcoes.service';
 
 /* --------------------------------------------------------------------------------------- */
 
@@ -82,6 +83,15 @@ export const causaDisponivelValidator = (service: CausasService) => {
   };
 };
 
+export const funcaoDisponivelValidator = (service: FuncoesService) => {
+  return (input: FormControl) => {
+    return service.validarFuncaoDisponivel(input.value).pipe(
+      map(res => {
+        return res ? null : { funcaoInvalida: true };
+      })
+    );
+  };
+};
 /* --------------------------------------------------------------------------------------- */
 
 // Validações sincronas

@@ -21,7 +21,8 @@ export class MensagemValidationService {
       'medicamentoInvalido': 'Este medicamento já está cadastrado',
       'microareaInvalida': 'Esta microárea já está cadastrada',
       'numeroInvalido': `${label} deve ser positivo`,
-      'causaInvalida': 'Este risco já está cadastrado'
+      'causaInvalida': 'Este risco já está cadastrado',
+      'funcaoInvalida': 'Esta função já está cadastrada'
     };
     return mensagens[validacao];
   }
