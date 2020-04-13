@@ -65,9 +65,11 @@ export class VizualizarMicroareasComponent implements OnInit {
                       bairro: [ microarea.bairro.nome ]
                     }),
                     ubs: this.builder.group({
+                      idUbs: [ microarea.bairro.ubs.idUbs ],
                       nome: [ microarea.bairro.ubs.nome, {
                         validators: [ Validators.required ]
-                      }]
+                      }],
+                      descricao: [ microarea.bairro.ubs.descricao ]
                     }),
                     totPacientes: totalPacientes,
                     funcionarioResponsavel: funcionario
@@ -145,21 +147,17 @@ export class VizualizarMicroareasComponent implements OnInit {
    */
   onUpdate(element: any) {
     const microarea = element.microarea.value as MicroArea;
-    this.bairros.forEach(b => {
-      if (b.nome === element.microarea.get('bairro').value) {
-        microarea.bairro = b;
-      }
-    });
-    this.ubs.forEach(u => {
-      if (u.nome === element.ubs.get('nome').value) {
-        microarea.bairro.ubs = u;
-      }
-    });
-    this.microAreasService.alterarMicroarea(microarea).subscribe(
-      success => {
-        this.msg.exibirMensagem('Microárea alterada com sucesso', 'done');
-        this.dialogRef.close();
-      },
+    const novaUbs = this.ubs.filter(u => u.nome === element.ubs.value.nome);
+    const bairro = this.bairros.filter(b => b.nome === element.microarea.get('bairro').value);
+    microarea.bairro = bairro[0];
+    microarea.bairro.ubs = novaUbs[0];
+    this.bairrosService.alterar(microarea.bairro).pipe(
+      switchMap(b => b
+        ? (microarea.bairro = b, this.microAreasService.alterarMicroarea(microarea))
+        : EMPTY
+      )
+    ).subscribe(
+      success => this.msg.exibirMensagem('Microárea alterada com sucesso', 'done'),
       err => this.msg.exibirMensagem('Erro ao alterar a microárea', 'error')
     );
   }
@@ -170,6 +168,6 @@ export class VizualizarMicroareasComponent implements OnInit {
    * de número da microárea é alterado.
    */
   atribuirValidadorAssincrono(control: FormControl) {
-    control.setAsyncValidators(microareaDisponivelValidator(this.microAreasService));
+    /* control.setAsyncValidators(microareaDisponivelValidator(this.microAreasService)); */
   }
 }

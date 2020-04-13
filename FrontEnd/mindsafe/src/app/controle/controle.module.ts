@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { TextMaskModule } from 'angular2-text-mask';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
@@ -23,6 +24,8 @@ import { CadastrarRiscoComponent } from './riscos-modal/cadastrar-risco/cadastra
 import { VizualizarRiscosComponent } from './riscos-modal/vizualizar-riscos/vizualizar-riscos.component';
 import { CadastrarFuncaoComponent } from './funcoes-modal/cadastrar-funcao/cadastrar-funcao.component';
 import { VizualizarFuncoesComponent } from './funcoes-modal/vizualizar-funcoes/vizualizar-funcoes.component';
+import { CadastrarUbsComponent } from './ubs-modal/cadastrar-ubs/cadastrar-ubs.component';
+import { VizualizarUbsComponent } from './ubs-modal/vizualizar-ubs/vizualizar-ubs.component';
 
 @NgModule({
   declarations: [
@@ -34,12 +37,15 @@ import { VizualizarFuncoesComponent } from './funcoes-modal/vizualizar-funcoes/v
     CadastrarRiscoComponent,
     VizualizarRiscosComponent,
     CadastrarFuncaoComponent,
-    VizualizarFuncoesComponent
+    VizualizarFuncoesComponent,
+    CadastrarUbsComponent,
+    VizualizarUbsComponent
   ],
   imports: [
     CommonModule,
     ControleRoutingModule,
     FlexLayoutModule,
+    TextMaskModule,
     MatButtonModule,
     MatCardModule,
     MatIconModule,
@@ -60,7 +66,9 @@ import { VizualizarFuncoesComponent } from './funcoes-modal/vizualizar-funcoes/v
     CadastrarRiscoComponent,
     VizualizarRiscosComponent,
     CadastrarFuncaoComponent,
-    VizualizarFuncoesComponent
+    VizualizarFuncoesComponent,
+    CadastrarUbsComponent,
+    VizualizarUbsComponent
   ]
 })
 export class ControleModule { }

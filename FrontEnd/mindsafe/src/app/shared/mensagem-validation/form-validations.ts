@@ -8,6 +8,7 @@ import { MedicamentosService } from '../../services/medicamentos/medicamentos.se
 import { MicroAreasService } from '../../services/microAreas/microArea.service';
 import { CausasService } from '../../services/causas/causas.service';
 import { FuncoesService } from '../../services/funcoes/funcoes.service';
+import { UbsService } from '../../services/ubs/ubs.service';
 
 /* --------------------------------------------------------------------------------------- */
 
@@ -88,6 +89,16 @@ export const funcaoDisponivelValidator = (service: FuncoesService) => {
     return service.validarFuncaoDisponivel(input.value).pipe(
       map(res => {
         return res ? null : { funcaoInvalida: true };
+      })
+    );
+  };
+};
+
+export const ubsDisponivelValidator = (service: UbsService) => {
+  return (input: FormControl) => {
+    return service.validarUbsDisponivel(input.value).pipe(
+      map(res => {
+        return res ? null : { ubsInvalida: true };
       })
     );
   };

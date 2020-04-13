@@ -19,4 +19,12 @@ export class BairrosService {
   listarTodos() {
     return this.http.get<Bairro[]>(this.apiUrl).pipe(take(1));
   }
+
+  cadastrar(bairro: Bairro) {
+    return this.http.post<Bairro>(this.apiUrl, bairro).pipe(take(1));
+  }
+
+  alterar(bairro: Bairro) {
+    return this.http.put<Bairro>(`${this.apiUrl}/${bairro.idBairro}`, bairro).pipe(take(1));
+  }
 }

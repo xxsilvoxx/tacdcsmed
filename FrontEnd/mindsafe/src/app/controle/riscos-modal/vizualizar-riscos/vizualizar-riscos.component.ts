@@ -114,10 +114,7 @@ export class VizualizarRiscosComponent implements OnInit {
 
   onUpdate(causa: Causa) {
     this.service.alterarCausa(causa).subscribe(
-      success => {
-        this.msg.exibirMensagem('Risco alterado com sucesso', 'done');
-        this.dialogRef.close();
-      },
+      success => this.msg.exibirMensagem('Risco alterado com sucesso', 'done'),
       err => this.msg.exibirMensagem('Erro ao alterar o risco', 'error')
     );
   }

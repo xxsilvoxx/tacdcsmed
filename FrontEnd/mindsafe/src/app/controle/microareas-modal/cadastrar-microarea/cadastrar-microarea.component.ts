@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { MicroArea } from '../../../models/microArea.model';
-import { Observable } from 'rxjs';
+import { Observable, EMPTY } from 'rxjs';
 import { Bairro } from '../../../models/bairro.model';
 import { BairrosService } from '../../../services/bairros/bairros.service';
 import { microareaDisponivelValidator, validarNumeroMinimo } from '../../../shared/mensagem-validation/form-validations';
@@ -11,6 +11,7 @@ import { MensagemService } from '../../../shared/mensagem/mensagem.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Ubs } from '../../../models/ubs.model';
 import { UbsService } from '../../../services/ubs/ubs.service';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-cadastrar-microarea',
@@ -49,7 +50,7 @@ export class CadastrarMicroareaComponent implements OnInit {
     this.formMicroarea = this.builder.group({
       numero: [null, {
         validators: [ Validators.required, validarNumeroMinimo.bind(this) ],
-        asyncValidators: [microareaDisponivelValidator(this.microareasService)]
+        /* asyncValidators: [ microareaDisponivelValidator(this.microareasService) ] */
       }],
       bairro: [null, {
         validators: [ Validators.required ]
@@ -71,9 +72,15 @@ export class CadastrarMicroareaComponent implements OnInit {
 
   cadastrar() {
     const microarea = this.formMicroarea.value as MicroArea;
-    microarea.bairro.ubs = this.controlUbs.value as Ubs;
-    this.microareasService.cadastrarMicroarea(microarea).subscribe(
-      success => this.msg.exibirMensagem('Microárea cadastrada com sucesso', 'done'),
+    const ubs = this.controlUbs.value as Ubs;
+    microarea.bairro.ubs = ubs;
+    this.bairrosService.alterar(microarea.bairro).pipe(
+      switchMap(b => b
+        ? (microarea.bairro = b, this.microareasService.cadastrarMicroarea(microarea))
+        : EMPTY
+      )
+    ).subscribe(
+      res => this.msg.exibirMensagem('Microárea cadastrada com sucesso', 'done'),
       err => this.msg.exibirMensagem('Erro ao cadastrar a microárea', 'error')
     );
     this.dialogRef.close();

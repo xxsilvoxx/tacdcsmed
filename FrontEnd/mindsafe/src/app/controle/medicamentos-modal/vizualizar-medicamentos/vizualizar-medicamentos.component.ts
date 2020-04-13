@@ -112,10 +112,7 @@ export class VizualizarMedicamentosComponent implements OnInit {
 
   onUpdate(medicamento: Medicamento) {
     this.medicamentosService.alterarMedicamento(medicamento).subscribe(
-      success => {
-        this.msg.exibirMensagem('Medicamento alterado com sucesso', 'done');
-        this.dialogRef.close();
-      },
+      success => this.msg.exibirMensagem('Medicamento alterado com sucesso', 'done'),
       err => this.msg.exibirMensagem('Erro ao alterar o medicamento', 'error')
     );
   }

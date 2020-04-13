@@ -1,0 +1,21 @@
+<div style="display: flex; flex-direction: row;">
+  <h1 matDialogTitle>Vizualizar UBS</h1>
+  <span style="flex: 1 1 auto;"></span>
+  <button matTooltip="Fechar a janela" mat-icon-button matDialogClose>
+    <i class="material-icons" style="color: #565656;">close</i>
+  </button>
+</div>
+
+<mat-dialog-content>
+  <mat-list>
+    <div class="colunas">
+      <span style="margin-right: 170px;">Nome</span>
+      <span style="margin-right: 125px;">Descrição</span>
+      <span>Funcionários</span>
+    </div>
+
+    <mat-list-item *ngFor="let u of ubs">
+      {{ u.nome }}
+    </mat-list-item>
+  </mat-list>
+</mat-dialog-content>

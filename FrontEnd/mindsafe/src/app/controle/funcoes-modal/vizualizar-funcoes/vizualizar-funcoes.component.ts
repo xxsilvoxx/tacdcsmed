@@ -111,10 +111,8 @@ export class VizualizarFuncoesComponent implements OnInit {
 
   onUpdate(funcao: Funcao) {
     this.service.alterar(funcao).subscribe(
-      success => {
-        this.msg.exibirMensagem('Função alterada com sucesso', 'done');
-        this.dialogRef.close();
-      }
+      success => this.msg.exibirMensagem('Função alterada com sucesso', 'done'),
+      err => this.msg.exibirMensagem('Erro ao alterar a função', 'error')
     );
   }
 

@@ -22,7 +22,8 @@ export class MensagemValidationService {
       'microareaInvalida': 'Esta microárea já está cadastrada',
       'numeroInvalido': `${label} deve ser positivo`,
       'causaInvalida': 'Este risco já está cadastrado',
-      'funcaoInvalida': 'Esta função já está cadastrada'
+      'funcaoInvalida': 'Esta função já está cadastrada',
+      'ubsInvalida': 'Esta UBS já está cadastrada'
     };
     return mensagens[validacao];
   }

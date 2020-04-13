@@ -8,6 +8,8 @@ import { CadastrarRiscoComponent } from '../riscos-modal/cadastrar-risco/cadastr
 import { VizualizarRiscosComponent } from '../riscos-modal/vizualizar-riscos/vizualizar-riscos.component';
 import { CadastrarFuncaoComponent } from '../funcoes-modal/cadastrar-funcao/cadastrar-funcao.component';
 import { VizualizarFuncoesComponent } from '../funcoes-modal/vizualizar-funcoes/vizualizar-funcoes.component';
+import { CadastrarUbsComponent } from '../ubs-modal/cadastrar-ubs/cadastrar-ubs.component';
+import { VizualizarUbsComponent } from '../ubs-modal/vizualizar-ubs/vizualizar-ubs.component';
 
 @Component({
   selector: 'app-controle',
@@ -75,6 +77,20 @@ export class ControleComponent implements OnInit {
       const dialogRef = this.dialog.open(VizualizarFuncoesComponent, {
         height: '460px',
         width: '500px'
+      });
+    }
+  }
+
+  abrirModalUbs(operacao: string) {
+    if (operacao.trim().toLowerCase() === 'cadastrar') {
+      const dialogRef = this.dialog.open(CadastrarUbsComponent, {
+        height: '540px',
+        width: '600px'
+      });
+    } else if (operacao.trim().toLowerCase() === 'vizualizar') {
+      const dialogRef = this.dialog.open(VizualizarUbsComponent, {
+        height: '500px',
+        width: '600px'
       });
     }
   }
