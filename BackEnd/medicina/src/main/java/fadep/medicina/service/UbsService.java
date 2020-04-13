@@ -12,37 +12,42 @@ import fadep.medicina.repository.UbsRepository;
 @Service
 public class UbsService {
 
-	  @Autowired
-	    private UbsRepository ubsRepository;
+	@Autowired
+	private UbsRepository ubsRepository;
 
-	    public ResponseEntity<Ubs> atualizar(Ubs ubs, Long codigo) {
-	        Ubs ubsSalvo = buscarPorCodigo(codigo);
-	        if (ubsSalvo != null) {
-	            BeanUtils.copyProperties(ubs, ubsSalvo, "idubs");
-	            ubsRepository.save(ubsSalvo);
-	            return ResponseEntity.ok(ubsSalvo);
-	        } else {
-	            return ResponseEntity.notFound().build();
-	        }
-	    }
+	public ResponseEntity<Ubs> atualizar(Ubs ubs, Long codigo) {
+		Ubs ubsSalvo = buscarPorCodigo(codigo);
+		if (ubsSalvo != null) {
+			BeanUtils.copyProperties(ubs, ubsSalvo, "idubs");
+			ubsRepository.save(ubsSalvo);
+			return ResponseEntity.ok(ubsSalvo);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+	}
 
-	    public ResponseEntity<Ubs> remover(Long codigo) {
-	        Ubs ubsSalvo = buscarPorCodigo(codigo);
-	        if (ubsSalvo != null) {
-	            ubsRepository.delete(ubsSalvo);
-	            ubsSalvo = buscarPorCodigo(codigo);
-	            if (ubsSalvo == null) {
-	                return ResponseEntity.noContent().build();
-	            } else {
-	                return ResponseEntity.badRequest().build();
-	            }
-	        } else {
-	            return ResponseEntity.notFound().build();
-	        }
-	    }
+	public ResponseEntity<Ubs> remover(Long codigo) {
+		Ubs ubsSalvo = buscarPorCodigo(codigo);
+		if (ubsSalvo != null) {
+			ubsRepository.delete(ubsSalvo);
+			ubsSalvo = buscarPorCodigo(codigo);
+			if (ubsSalvo == null) {
+				return ResponseEntity.noContent().build();
+			} else {
+				return ResponseEntity.badRequest().build();
+			}
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+	}
 
-	    public Ubs buscarPorCodigo(Long codigo) {
-	    	Ubs ubs = ubsRepository.findOne(codigo);
-	    	return (ubs != null) ? (ubs) : (null);
-	    }
+	public ResponseEntity<Boolean> retornarUbsDisponivel(String nome) {
+		Integer registros = ubsRepository.validarUbsDisponivel(nome);
+		return (registros > 0) ? (ResponseEntity.ok(false)) : (ResponseEntity.ok(true));
+	}
+
+	public Ubs buscarPorCodigo(Long codigo) {
+		Ubs ubs = ubsRepository.findOne(codigo);
+		return (ubs != null) ? (ubs) : (null);
+	}
 }
