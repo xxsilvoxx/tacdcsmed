@@ -89,8 +89,8 @@ export class ControleComponent implements OnInit {
       });
     } else if (operacao.trim().toLowerCase() === 'vizualizar') {
       const dialogRef = this.dialog.open(VizualizarUbsComponent, {
-        height: '500px',
-        width: '600px'
+        height: '480px',
+        width: '750px'
       });
     }
   }

@@ -96,11 +96,11 @@ export const funcaoDisponivelValidator = (service: FuncoesService) => {
 
 export const ubsDisponivelValidator = (service: UbsService) => {
   return (input: FormControl) => {
-    return service.validarUbsDisponivel(input.value).pipe(
+    return input.value.length >= 5 ? service.validarUbsDisponivel(input.value).pipe(
       map(res => {
         return res ? null : { ubsInvalida: true };
       })
-    );
+    ) : EMPTY;
   };
 };
 /* --------------------------------------------------------------------------------------- */

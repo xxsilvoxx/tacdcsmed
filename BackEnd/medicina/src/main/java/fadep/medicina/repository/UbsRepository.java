@@ -12,4 +12,16 @@ public interface UbsRepository extends JpaRepository<Ubs, Long>{
     @Query("SELECT COUNT(u.idUbs) FROM Ubs u WHERE u.nome = ?1")
     public Integer validarUbsDisponivel(String nome);
 
+    /**
+     * Retorna o total de funcionários na ubs
+     */
+    @Query("SELECT COUNT(f.idFuncionario) FROM Funcionario f WHERE f.ubs.idUbs = ?1")
+    public Integer retornarTotalFuncionarios(Long idUbs);
+
+    /**
+     * Retorna o total de bairros que a ubs atende
+     */
+    @Query("SELECT COUNT(b.idBairro) FROM Bairro b WHERE b.ubs.idUbs = ?1")
+    public Integer retornarTotalBairros(Long idUbs);
+
 }

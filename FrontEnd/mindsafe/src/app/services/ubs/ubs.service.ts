@@ -24,7 +24,23 @@ export class UbsService {
     return this.http.post<Ubs>(this.apiUrl, ubs).pipe(take(1));
   }
 
+  alterar(ubs: Ubs) {
+    return this.http.put<Ubs>(`${this.apiUrl}/${ubs.idUbs}`, ubs).pipe(take(1));
+  }
+
+  remover(ubs: Ubs) {
+    return this.http.delete<Ubs>(`${this.apiUrl}/${ubs.idUbs}`).pipe(take(1));
+  }
+
   validarUbsDisponivel(nome: string) {
     return this.http.get<boolean>(`${this.apiUrl}/validar/nome?nome=${nome}`).pipe(take(1));
+  }
+
+  retornarTotalFuncionarios(ubs: Ubs) {
+    return this.http.get<number>(`${this.apiUrl}/${ubs.idUbs}/funcionarios/total`).pipe(take(1));
+  }
+
+  retornarTotalBairros(ubs: Ubs) {
+    return this.http.get<number>(`${this.apiUrl}/${ubs.idUbs}/bairros/total`).pipe(take(1));
   }
 }

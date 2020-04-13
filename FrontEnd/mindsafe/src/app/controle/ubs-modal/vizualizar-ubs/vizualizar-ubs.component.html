@@ -8,14 +8,55 @@
 
 <mat-dialog-content>
   <mat-list>
+    <!-- Colunas que se referem aos campos presentes na tela -->
     <div class="colunas">
-      <span style="margin-right: 170px;">Nome</span>
+      <span style="margin-right: 130px;">Nome</span>
       <span style="margin-right: 125px;">Descrição</span>
-      <span>Funcionários</span>
+      <span style="margin-right: 30px;">Funcionários</span>
+      <span>Bairros</span>
     </div>
 
-    <mat-list-item *ngFor="let u of ubs">
-      {{ u.nome }}
+    <mat-list-item *ngFor="let element of ubsTot">
+      <!-- O form group com as informações que podem ser editadas pelo usuário -->
+      <div [formGroup]="element.ubs" fxLayout="row" fxLayoutGap="10px" style="width: 350px;">
+        <mat-form-field fxFlex="45%">
+          <input matInput formControlName="nome" (click)="atribuirValidacaoAssincrona(element.ubs.get('nome'))" #nome>
+          <mat-hint align="end">
+            {{ nome.value?.length }} / 250
+          </mat-hint>
+          <mat-error>
+            {{ retornarValidacoes(element.ubs.get('nome'), 'Nome') }}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field fxFlex>
+          <input matInput formControlName="descricao" #desc>
+          <mat-hint align="end">
+            {{ desc.value?.length }} / 150
+          </mat-hint>
+          <mat-error>
+            {{ retornarValidacoes(element.ubs.get('descricao'), 'Descrição') }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <!-- Mostra o total de funcionários trabalhando naquela UBS -->
+      <span style="margin: 0 40px;">{{ element.totFuncionarios }}</span>
+
+      <!-- Mostra o total de bairros que a UBS atende -->
+      <span style="margin: 0 40px;">{{ element.totBairros }}</span>
+
+      <span style="flex: 1 1 auto;"></span>
+
+      <!-- Botão que remove a UBS da linha -->
+      <button mat-icon-button (click)="onDelete(element)">
+        <mat-icon class="material-icons">delete</mat-icon>
+      </button>
+
+      <!-- Botão que altera a UBS da linha -->
+      <button mat-icon-button (click)="onUpdate(element.ubs.value)" [disabled]="element.ubs.invalid">
+        <mat-icon class="material-icons">edit</mat-icon>
+      </button>
     </mat-list-item>
   </mat-list>
 </mat-dialog-content>

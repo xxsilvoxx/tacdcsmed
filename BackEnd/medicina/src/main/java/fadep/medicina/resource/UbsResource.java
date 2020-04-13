@@ -54,5 +54,15 @@ public class UbsResource {
         return ubsService.retornarUbsDisponivel(nome);
     }
 
+    @GetMapping("/{codigo}/funcionarios/total")
+    public Integer retornarTotalFuncionarios(@PathVariable("codigo") Long codigo) {
+        return ubsRepository.retornarTotalFuncionarios(codigo);
+    }
+
+    @GetMapping("/{codigo}/bairros/total")
+    public Integer retornarTotalBairros(@PathVariable("codigo") Long codigo) {
+        return ubsRepository.retornarTotalBairros(codigo);
+    }
+
 }
 
