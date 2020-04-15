@@ -1,7 +1,7 @@
 <div style="display: flex; flex-direction: row;">
   <h1 mat-dialog-title>Informações Pessoais</h1>
   <span style="flex: 1 1 auto;"></span>
-  <button matTooltip="Fechar a janela" aria mat-icon-button (click)="onClose()">
+  <button matTooltip="Fechar a janela" aria mat-icon-button matDialogClose>
     <i class="material-icons" style="color: #565656;">close</i>
   </button>
 </div>
@@ -41,7 +41,7 @@
         </mat-error>
       </mat-form-field>
 
-      <button [disabled]="formFuncionario.get('nome').value === '' || formFuncionario.get('nome').invalid" (click)="alterar('Nome')" mat-icon-button matTooltip="Editar nome">
+      <button [disabled]="formFuncionario.get('nome').invalid" (click)="alterar('Nome')" mat-icon-button matTooltip="Editar nome">
         <mat-icon class="material-icons">edit</mat-icon>
       </button>
     </div>
@@ -57,7 +57,7 @@
         </mat-error>
       </mat-form-field>
 
-      <button [disabled]="formFuncionario.get('email').invalid || formFuncionario.get('email').value === ''" (click)="alterar('E-mail')" mat-icon-button matTooltip="Editar e-mail">
+      <button [disabled]="formFuncionario.get('email').invalid" (click)="alterar('E-mail')" mat-icon-button matTooltip="Editar e-mail">
         <mat-icon class="material-icons">edit</mat-icon>
       </button>
     </div>
@@ -73,20 +73,84 @@
         </mat-error>
       </mat-form-field>
 
-      <button [disabled]="formFuncionario.get('login').value === '' || formFuncionario.get('login').invalid" (click)="alterar('Login')" mat-icon-button matTooltip="Editar login">
+      <button [disabled]="formFuncionario.get('login').invalid" (click)="alterar('Login')" mat-icon-button matTooltip="Editar login">
         <mat-icon class="material-icons">edit</mat-icon>
       </button>
     </div>
   </div>
 
   <div class="forms" [formGroup]="formFuncionario" fxLayout="column" fxLayoutGap="10px">
-    <mat-form-field fxFlex>
-      <input disabled [value]="formFuncionario.get('funcao').value" matInput placeholder="Função">
-    </mat-form-field>
+    <div class="input-button">
+      <mat-form-field fxFlex>
+        <mat-select formControlName="funcao" placeholder="Função">
+          <mat-option *ngFor="let funcao of funcoes" [value]="funcao.nome">
+            {{ funcao.nome }}
+          </mat-option>
+        </mat-select>
+        <mat-error>
+          <span>{{ retornarValidacoes('funcao', 'Função') }}</span>
+        </mat-error>
+      </mat-form-field>
 
-    <mat-form-field fxFlex>
-      <input disabled [value]="formFuncionario.get('codEquipe').value" matInput placeholder="Código da equipe">
-    </mat-form-field>
+      <button [disabled]="formFuncionario.get('funcao').invalid" (click)="alterar('Função')" mat-icon-button matTooltip="Editar Função">
+        <mat-icon class="material-icons">edit</mat-icon>
+      </button>
+    </div>
+
+    <div class="input-button">
+      <mat-form-field fxFlex>
+        <input matInput type="number" formControlName="codEquipe" placeholder="Código da equipe">
+        <mat-error>
+          <span>{{ retornarValidacoes('codEquipe', 'Código da equipe') }}</span>
+        </mat-error>
+      </mat-form-field>
+
+      <button [disabled]="formFuncionario.get('codEquipe').invalid" (click)="alterar('Código da Equipe')" mat-icon-button matTooltip="Editar Código da Equipe">
+        <mat-icon class="material-icons">edit</mat-icon>
+      </button>
+    </div>
+
+    <div class="input-button">
+      <mat-form-field fxFlex>
+        <mat-select formControlName="ubs" [(ngModel)]="this.formFuncionario.get('ubs').value" placeholder="UBS">
+          <mat-option *ngFor="let ubs of ubsList" [value]="ubs">
+            {{ ubs.nome }}
+          </mat-option>
+        </mat-select>
+        <mat-error>
+          <span>{{ retornarValidacoes('ubs', 'UBS') }}</span>
+        </mat-error>
+      </mat-form-field>
+
+      <button [disabled]="formFuncionario.get('funcao').invalid" (click)="alterar('Função')" mat-icon-button matTooltip="Editar Função">
+        <mat-icon class="material-icons">edit</mat-icon>
+      </button>
+    </div>
+
+    <div class="input-button">
+      <mat-form-field fxFlex>
+        <mat-select formControlName="microArea" [(ngModel)]="this.formFuncionario.get('microArea').value" placeholder="Microárea">
+          <mat-optgroup *ngFor="let grupo of gruposMicroareas" [label]="grupo.nome" [disabled]="grupo.disabled">
+            <mat-option *ngFor="let microarea of grupo.microareas" [value]="microarea">
+              <span style="position: relative; float: left;">
+                Microárea {{ microarea.numero }}
+              </span>
+
+              <span style="position: relative; float: right;">
+                {{ microarea.bairro.nome }}
+              </span>
+            </mat-option>
+          </mat-optgroup>
+        </mat-select>
+        <mat-error>
+          <span>{{ retornarValidacoes('microArea', 'Microárea') }}</span>
+        </mat-error>
+      </mat-form-field>
+
+      <button [disabled]="formFuncionario.get('microArea').invalid" (click)="alterar('Microárea')" mat-icon-button matTooltip="Editar Microárea">
+        <mat-icon class="material-icons">edit</mat-icon>
+      </button>
+    </div>
 
     <mat-accordion>
       <mat-expansion-panel>

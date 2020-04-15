@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
+
 import { CadastrarMedicamentoComponent } from '../medicamentos-modal/cadastrar-medicamento/cadastrar-medicamento.component';
 import { VizualizarMedicamentosComponent } from '../medicamentos-modal/vizualizar-medicamentos/vizualizar-medicamentos.component';
 import { CadastrarMicroareaComponent } from '../microareas-modal/cadastrar-microarea/cadastrar-microarea.component';
@@ -10,6 +11,8 @@ import { CadastrarFuncaoComponent } from '../funcoes-modal/cadastrar-funcao/cada
 import { VizualizarFuncoesComponent } from '../funcoes-modal/vizualizar-funcoes/vizualizar-funcoes.component';
 import { CadastrarUbsComponent } from '../ubs-modal/cadastrar-ubs/cadastrar-ubs.component';
 import { VizualizarUbsComponent } from '../ubs-modal/vizualizar-ubs/vizualizar-ubs.component';
+import { CadastrarFuncionarioComponent } from '../funcionarios-modal/cadastrar-funcionario/cadastrar-funcionario.component';
+import { VizualizarFuncionariosComponent } from '../funcionarios-modal/vizualizar-funcionarios/vizualizar-funcionarios.component';
 
 @Component({
   selector: 'app-controle',
@@ -91,6 +94,20 @@ export class ControleComponent implements OnInit {
       const dialogRef = this.dialog.open(VizualizarUbsComponent, {
         height: '480px',
         width: '750px'
+      });
+    }
+  }
+
+  abrirModalFuncionarios(operacao: string) {
+    if (operacao.trim().toLowerCase() === 'cadastrar') {
+      const dialogRef = this.dialog.open(CadastrarFuncionarioComponent, {
+        height: '560px',
+        width: '680px'
+      });
+    } else if (operacao.trim().toLowerCase() === 'vizualizar') {
+      const dialogRef = this.dialog.open(VizualizarFuncionariosComponent, {
+        height: '500px',
+        width: '800px'
       });
     }
   }

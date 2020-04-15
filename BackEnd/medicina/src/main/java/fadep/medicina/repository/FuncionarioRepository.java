@@ -37,4 +37,16 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> 
      */
     @Query("SELECT COUNT(f.idFuncionario) FROM Funcionario f WHERE f.email = ?1")
     public Integer emailDisponivel(String email);
+
+    /**
+     * Verifica se a microárea avaliada está disponivel ou não
+     */
+    @Query("SELECT COUNT(f.microArea.idMicroArea) FROM Funcionario f WHERE f.microArea.idMicroArea = ?1")
+    public Integer microAreaDisponivel(Long idMicroArea);
+
+    /**
+     * Verifica se o funcionário tem visitas realizadas
+     */
+    @Query("SELECT COUNT(v.idVisita) FROM Visita v WHERE v.funcionario.idFuncionario = ?1")
+    public Integer funcionarioPossuiVisitas(Long idFuncionario);
 }

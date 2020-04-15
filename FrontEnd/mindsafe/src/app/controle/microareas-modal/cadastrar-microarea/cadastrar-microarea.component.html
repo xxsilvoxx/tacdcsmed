@@ -10,7 +10,7 @@
     </mat-form-field>
 
     <mat-form-field fxFlex>
-      <mat-select placeholder="Selecionar Bairro" formControlName="bairro">
+      <mat-select placeholder="Selecionar Bairro" (valueChange)="desabilitarSelecaoUbs(bairro.value)" formControlName="bairro" #bairro>
         <mat-option *ngFor="let bairro of bairros$ | async" [value]="bairro">
           {{ bairro.nome }}
         </mat-option>
@@ -21,7 +21,7 @@
     </mat-form-field>
 
     <mat-form-field fxFlex>
-      <mat-select placeholder="Selecionar UBS" [formControl]="controlUbs">
+      <mat-select placeholder="Selecionar UBS" [disabled]="disabledCampoUbs" [formControl]="controlUbs">
         <mat-option *ngFor="let ubs of ubs$ | async" [value]="ubs">
           <span>{{ ubs.nome }}</span>
         </mat-option>

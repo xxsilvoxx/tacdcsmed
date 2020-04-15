@@ -25,7 +25,6 @@ export class VizualizarMicroareasComponent implements OnInit {
   microareas: MicroArea[] = [];
   microareasTot: any[] = [];
   bairros: Bairro[];
-  ubs: Ubs[];
 
   constructor(
     private dialogRef: MatDialogRef<VizualizarMicroareasComponent>,
@@ -33,7 +32,6 @@ export class VizualizarMicroareasComponent implements OnInit {
     private builder: FormBuilder,
     private microAreasService: MicroAreasService,
     private bairrosService: BairrosService,
-    private ubsService: UbsService,
     private msg: MensagemService,
     private validation: MensagemValidationService
   ) { }
@@ -41,7 +39,6 @@ export class VizualizarMicroareasComponent implements OnInit {
   ngOnInit() {
     this.listarMicroAreas();
     this.listarBairros();
-    this.listarUbs();
   }
 
   retornarValidacoes(control: FormControl, label: string) {
@@ -63,13 +60,6 @@ export class VizualizarMicroareasComponent implements OnInit {
                         validators: [ validarNumeroMinimo.bind(this) ]
                       }],
                       bairro: [ microarea.bairro.nome ]
-                    }),
-                    ubs: this.builder.group({
-                      idUbs: [ microarea.bairro.ubs.idUbs ],
-                      nome: [ microarea.bairro.ubs.nome, {
-                        validators: [ Validators.required ]
-                      }],
-                      descricao: [ microarea.bairro.ubs.descricao ]
                     }),
                     totPacientes: totalPacientes,
                     funcionarioResponsavel: funcionario
@@ -105,18 +95,11 @@ export class VizualizarMicroareasComponent implements OnInit {
     );
   }
 
-  listarUbs() {
-    this.ubsService.listar().subscribe(
-      res => this.ubs = res,
-      err => err
-    );
-  }
-
   onRemove(element: any) {
-    if (element.totPacientes > 0) {
-      this.msg.exibirMensagem('A microárea possui pacientes, não pode ser removida', 'warning').afterDismissed().subscribe(
+    if (element.totPacientes > 0 || element.funcionarioResponsavel) {
+      this.msg.exibirMensagem('A microárea não pode ser removida', 'warning').afterDismissed().subscribe(
         // tslint:disable-next-line: max-line-length
-        res => this.msg.exibirMensagem('Altere as microáreas das residências dos pacientes, para poder remover esta microárea', 'info', 5000)
+        res => this.msg.exibirMensagem('Altere as microáreas das residências e dos funcionários da saúde', 'info', 5000)
       );
     } else {
       const dialogRef = this.dialog.open(ConfirmModalComponent, {
@@ -147,10 +130,8 @@ export class VizualizarMicroareasComponent implements OnInit {
    */
   onUpdate(element: any) {
     const microarea = element.microarea.value as MicroArea;
-    const novaUbs = this.ubs.filter(u => u.nome === element.ubs.value.nome);
     const bairro = this.bairros.filter(b => b.nome === element.microarea.get('bairro').value);
     microarea.bairro = bairro[0];
-    microarea.bairro.ubs = novaUbs[0];
     this.bairrosService.alterar(microarea.bairro).pipe(
       switchMap(b => b
         ? (microarea.bairro = b, this.microAreasService.alterarMicroarea(microarea))

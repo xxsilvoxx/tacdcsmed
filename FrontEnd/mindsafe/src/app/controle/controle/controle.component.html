@@ -88,13 +88,13 @@
       </mat-card-content>
 
       <mat-card-actions align="end">
-        <button mat-icon-button matTooltip="Cadastrar Funcionários">
+        <button mat-icon-button matTooltip="Cadastrar Funcionários" (click)="abrirModalFuncionarios('cadastrar')">
           <mat-icon class="material-icons">add</mat-icon>
         </button>
 
         <span class="espaco"></span>
 
-        <button mat-icon-button matTooltip="Vizualizar Funcionários">
+        <button mat-icon-button matTooltip="Vizualizar Funcionários" (click)="abrirModalFuncionarios('vizualizar')">
           <mat-icon class="material-icons">description</mat-icon>
         </button>
       </mat-card-actions>

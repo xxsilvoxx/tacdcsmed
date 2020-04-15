@@ -91,12 +91,9 @@ export class MenuSidenavComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe(
-      (res: Funcionario) => {
-        if (res) {
-          if (res.imagem === null) {
-            this.imgUsuario = '../../../assets/imagens/user.png';
-          }
-        }
+      res => {
+        this.buscarInformacoes();
+        this.imgUsuario = '../../../assets/imagens/user.png';
       }
     );
   }

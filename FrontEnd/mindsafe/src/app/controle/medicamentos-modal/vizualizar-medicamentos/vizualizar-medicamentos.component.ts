@@ -83,7 +83,7 @@ export class VizualizarMedicamentosComponent implements OnInit {
   onDelete(element: any) {
     let texto = null;
     if (element.totalDependentes) {
-      texto = `${element.totalDependentes} paciente(s) utiliza(m) este medicamento !`;
+      texto = `Os pacientes que consomem este medicamento, serão afetados`;
     }
     const dialogRef = this.dialog.open(ConfirmModalComponent, {
       height: element.totalDependentes > 0 ? '340px' : '300px',

@@ -1,5 +1,6 @@
 package fadep.medicina.resource;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import fadep.medicina.model.Funcionario;
 import fadep.medicina.repository.FuncionarioRepository;
 import fadep.medicina.service.FuncionarioService;
@@ -49,6 +50,16 @@ public class FuncionarioResource {
     @ResponseBody
     public ResponseEntity<Boolean> validarEmail(@RequestParam(name="email") String emailDigitado) {
         return funcionarioService.verificarDisponibilidadeEmail(emailDigitado);
+    }
+
+    @GetMapping("/validar/microarea/{codigo}")
+    public ResponseEntity<Boolean> validarMicroarea(@PathVariable("codigo") Long codigo) {
+        return funcionarioService.verificarDisponibilidadeMicroArea(codigo);
+    }
+
+    @GetMapping("/{codigo}/visitas/total")
+    public Integer validarVisitas(@PathVariable("codigo") Long codigo) {
+        return funcionarioRepository.funcionarioPossuiVisitas(codigo);
     }
 
     @PostMapping

@@ -1,0 +1,34 @@
+<div style="display: flex; flex-direction: row;">
+  <h1 matDialogTitle>Vizualizar Funcionários</h1>
+  <span style="flex: 1 1 auto;"></span>
+  <button matTooltip="Fechar a janela" mat-icon-button matDialogClose>
+    <i class="material-icons" style="color: #565656;">close</i>
+  </button>
+</div>
+
+<mat-dialog-content>
+  <mat-list>
+    <div *ngFor="let grupo of grupoLista">
+      <span matSubheader>Funcionários do(a) {{ grupo.nome }}</span>
+      <mat-list-item *ngFor="let funcionario of grupo.registros">
+        <img matListAvatar [src]="funcionario.imagem !== null ? buscarImagem(funcionario) : imgDefault">
+        <span matLine style="font-weight: 500; margin-right: 10px;">{{ funcionario.nome }}</span>
+        <span matLine style="font-weight: 400; margin-right: 10px;">
+          {{ funcionario.funcao.nome }} | {{ funcionario.email }}
+        </span>
+
+        <span class="espaco"></span>
+
+        <span style="width: 400px; margin: 0px 10px;">
+          Microárea {{ funcionario.microArea.numero }} - {{ funcionario.microArea.bairro.nome }}
+        </span>
+
+        <span class="espaco"></span>
+
+        <button mat-icon-button matTooltip="Remover Funcionário" [disabled]="'true'" (click)="onDelete(funcionario)">
+          <mat-icon class="material-icons">delete</mat-icon>
+        </button>
+      </mat-list-item>
+    </div>
+  </mat-list>
+</mat-dialog-content>
