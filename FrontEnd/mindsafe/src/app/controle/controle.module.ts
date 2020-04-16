@@ -12,6 +12,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
 
 import { ControleRoutingModule } from './controle-routing.module';
@@ -59,6 +61,8 @@ import { VizualizarFuncionariosComponent } from './funcionarios-modal/vizualizar
     MatListModule,
     MatSelectModule,
     MatTooltipModule,
+    MatSlideToggleModule,
+    MatAutocompleteModule,
     FormsModule,
     ReactiveFormsModule
   ],

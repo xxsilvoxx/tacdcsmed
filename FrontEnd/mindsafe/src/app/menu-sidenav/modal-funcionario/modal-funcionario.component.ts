@@ -126,7 +126,7 @@ export class ModalFuncionarioComponent implements OnInit {
       imagem: funcionario.imagem,
       microArea: funcionario.microArea,
       ubs: funcionario.ubs,
-      funcao: funcionario.funcao.nome,
+      funcao: funcionario.funcao,
       email: funcionario.email,
       nome: funcionario.nome,
       login: funcionario.login,
@@ -221,15 +221,10 @@ export class ModalFuncionarioComponent implements OnInit {
   }
 
   alterar(label: string) {
-    const funcaoDigitada = this.formFuncionario.get('funcao').value;
-    const funcao = this.funcoes.filter(v => v.nome === funcaoDigitada);
-    this.formFuncionario.get('funcao').setValue(funcao[0]);
-    console.log(this.formFuncionario.value);
     this.service.alterar(this.formFuncionario.value).subscribe(
       success => this.msg.exibirMensagem(`${label} alterado(a) com sucesso`, 'done'),
       err => this.msg.exibirMensagem(`Erro ao alterar o(a) ${label}`, 'error')
     );
-    this.formFuncionario.get('funcao').setValue(funcao[0].nome);
     this.gruposMicroareas.forEach((obj) => obj.microareas = []);
     this.listarMicroareas();
   }
@@ -269,7 +264,15 @@ export class ModalFuncionarioComponent implements OnInit {
   }
 
   listarFuncoes() {
-    this.funcoesService.listar().subscribe(
+    this.funcoesService.listar().pipe(
+      tap(funcoes => funcoes.forEach(
+        funcao => {
+          if (this.formFuncionario.get('funcao').value.idFuncao === funcao.idFuncao) {
+            this.formFuncionario.get('funcao').setValue(funcao);
+          }
+        }
+      ))
+    ).subscribe(
       res => this.funcoes = res,
       err => this.msg.exibirMensagem('Erro ao buscar as funções', 'error')
     );

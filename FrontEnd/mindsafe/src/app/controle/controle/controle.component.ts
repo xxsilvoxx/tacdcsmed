@@ -45,7 +45,7 @@ export class ControleComponent implements OnInit {
   abrirModalMicroarea(operacao: string) {
     if (operacao.trim().toLowerCase() === 'cadastrar') {
       const dialogRef = this.dialog.open(CadastrarMicroareaComponent, {
-        height: '450px',
+        height: '480px',
         width: '600px'
       });
     } else if (operacao.trim().toLowerCase() === 'vizualizar') {

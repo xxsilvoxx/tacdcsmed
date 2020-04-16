@@ -82,8 +82,8 @@
   <div class="forms" [formGroup]="formFuncionario" fxLayout="column" fxLayoutGap="10px">
     <div class="input-button">
       <mat-form-field fxFlex>
-        <mat-select formControlName="funcao" placeholder="Função">
-          <mat-option *ngFor="let funcao of funcoes" [value]="funcao.nome">
+        <mat-select formControlName="funcao" placeholder="Função" [(ngModel)]="this.formFuncionario.get('funcao').value">
+          <mat-option *ngFor="let funcao of funcoes" [value]="funcao">
             {{ funcao.nome }}
           </mat-option>
         </mat-select>
