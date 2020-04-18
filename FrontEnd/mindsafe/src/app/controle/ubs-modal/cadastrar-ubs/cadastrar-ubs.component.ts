@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { Observable, EMPTY } from 'rxjs';
+import { startWith, map, switchMap } from 'rxjs/operators';
 
 import { MatDialogRef } from '@angular/material/dialog';
 
@@ -15,8 +17,7 @@ import { Estado } from '../../../models/estado.model';
 import { CidadesService } from '../../../services/cidades/cidades.service';
 import { EstadosService } from '../../../services/estados/estados.service';
 import { MensagemService } from '../../../shared/mensagem/mensagem.service';
-import { Observable, EMPTY } from 'rxjs';
-import { startWith, map, switchMap } from 'rxjs/operators';
+import { mascaras } from '../../../shared/form-masks/form-masks';
 
 @Component({
   selector: 'app-cadastrar-ubs',
@@ -34,8 +35,8 @@ export class CadastrarUbsComponent implements OnInit {
 
   filtroBairros: Observable<any[]>;
 
-  maskCep = [];
-  maskTel = [];
+  maskCep = mascaras.maskCep;
+  maskTel = mascaras.maskTelefone;
 
   constructor(
     private dialogRef: MatDialogRef<CadastrarUbsComponent>,
@@ -51,7 +52,6 @@ export class CadastrarUbsComponent implements OnInit {
 
   ngOnInit() {
     this.criarFormularios();
-    this.criarMascaras();
     this.listarBairros();
     this.listarCidades();
     this.listarEstados();
@@ -126,9 +126,9 @@ export class CadastrarUbsComponent implements OnInit {
           // enquanto que o setValue é obrigatório passar
           // todos os campos do formulário
           this.formEndereco.patchValue({
-            cep: res.cep,
+            cep: res.cep ? res.cep : '',
             bairro: res.bairro ? res.bairro : null,
-            logradouro: res.logradouro ? res.logradouro : null
+            logradouro: res.logradouro ? res.logradouro : ''
           });
         },
         err => this.msg.exibirMensagem('O serviço do viacep não conseguiu retornar os dados', 'error')
@@ -295,10 +295,5 @@ export class CadastrarUbsComponent implements OnInit {
         err => this.msg.exibirMensagem('Erro ao cadastrar a UBS', 'error')
       );
     }
-  }
-
-  criarMascaras() {
-    this.maskCep = [/[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, '-', /[0-9]/, /[0-9]/, /[0-9]/];
-    this.maskTel = ['(', /[0-9]/, /[0-9]/, ')', /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, '-', /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/];
   }
 }
