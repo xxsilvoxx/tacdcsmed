@@ -15,6 +15,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormVisitasComponent } from './form-visitas/form-visitas.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,9 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     MatButtonModule,
     MatListModule,
     MatDialogModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    FormsModule,
+    ReactiveFormsModule
 
   ],
   entryComponents: [

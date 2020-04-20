@@ -1,4 +1,7 @@
-/*import { Component, OnInit } from '@angular/core';
+
+import {Component, OnInit} from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-form-visitas',
@@ -6,33 +9,41 @@
   styleUrls: ['./form-visitas.component.scss']
 })
 export class FormVisitasComponent implements OnInit {
+  dataAtual: Date = new Date();
+  
+  formVisitas: FormGroup;
 
-  constructor() { }
+  constructor(
+    public dialog: MatDialog,
+    private builder: FormBuilder
+    
+    ) {}
 
-  ngOnInit() {
+  ngOnInit(){
+    this.criarFormulario();
+
   }
 
-}
-*/
-
-import {Component} from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
-
-@Component({
-  selector: 'app-form-visitas',
-  templateUrl: './form-visitas.component.html',
-  styleUrls: ['./form-visitas.component.scss']
-})
-export class FormVisitasComponent {
-  constructor(public dialog: MatDialog) {}
-
-  openDialog() {
-    const dialogRef = this.dialog.open(FormVisitasComponent);
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+  criarFormulario() {
+    this.formVisitas = this.builder.group({
+      idVisita: [null],
+      paciente: [null, Validators.required],
+      funcionario: [null, Validators.required],
+      dataVisita: [Validators.required],
+      anotacoes: [null],
+      comparecerUbs: [null],
+      dataCompare: [null],
+      desCompare: [null]
     });
+
+    this.formVisitas.get('dataVisita').setValue(new Date().toUTCString());
+    console.log(this.formVisitas.get('dataVisita').value);
+
   }
+
+
+
+
 }
 
 

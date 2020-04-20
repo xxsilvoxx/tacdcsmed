@@ -1,15 +1,20 @@
 <h2 mat-dialog-title>Entrevista</h2>
 
-<div class="datepicker" >
-  <mat-form-field>
-    <mat-label>Data de nascimento</mat-label>
-    <input matInput [matDatepicker]="meuDatePicker" disabled>
-    <mat-datepicker-toggle  [for]="meuDatePicker" matSuffix></mat-datepicker-toggle>
-    <mat-datepicker #meuDatePicker disabled="false"></mat-datepicker>
-  </mat-form-field>
-</div>
+<mat-dialog-content>
+  <div [formGroup]="formVisitas" >
 
-<div class="anotacoes">
+    <mat-form-field>
+      <mat-label>Data da Visita</mat-label>
+      <input  matInput formControlName="dataVisita" [matDatepicker]="meuDatePicker" disabled>
+      <mat-datepicker-toggle  [for]="meuDatePicker" matSuffix></mat-datepicker-toggle>
+      <mat-datepicker #meuDatePicker disabled="true"></mat-datepicker>
+    </mat-form-field>
+
+  </div>
+</mat-dialog-content>
+
+
+<!-- <div class="anotacoes">
   <mat-form-field appearance="fill">
     <mat-label>Anotações</mat-label>
     <textarea matInput></textarea>
@@ -53,9 +58,9 @@
 
   </section>
 
-
-
 </div>
+
+ -->
 
 
 
