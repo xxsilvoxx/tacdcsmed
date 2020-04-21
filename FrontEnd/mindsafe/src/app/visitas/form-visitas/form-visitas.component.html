@@ -5,36 +5,55 @@
 
     <mat-form-field>
       <mat-label>Data da Visita</mat-label>
-      <input  matInput formControlName="dataVisita" [matDatepicker]="meuDatePicker" disabled>
+      <input  matInput  formControlName="dataVisita" [matDatepicker]="meuDatePicker" readonly >
       <mat-datepicker-toggle  [for]="meuDatePicker" matSuffix></mat-datepicker-toggle>
       <mat-datepicker #meuDatePicker disabled="true"></mat-datepicker>
     </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Anotações</mat-label>
+      <textarea matInput  formControlName="anotacoes" ></textarea>
+    </mat-form-field>
+
+    <mat-slide-toggle formControlName="comparecerUbs"
+        class="example-margin"
+        [color]='"primary"'
+        [checked]="checked"
+        [disabled]="disabled">
+        Comparecer na UBS
+    </mat-slide-toggle>
+
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Comparecer
+          </mat-panel-title>
+          <mat-panel-description>
+            Agendar Comparecimento na UBS
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+    
+ <!--        <mat-form-field>
+          <mat-label>First name</mat-label>
+          <input matInput>
+        </mat-form-field>
+    
+        <mat-form-field>
+          <mat-label>Age</mat-label>
+          <input matInput type="number" min="1">
+        </mat-form-field> -->
+      </mat-expansion-panel>
+      
+    </mat-accordion>
+
+
 
   </div>
 </mat-dialog-content>
 
 
-<!-- <div class="anotacoes">
-  <mat-form-field appearance="fill">
-    <mat-label>Anotações</mat-label>
-    <textarea matInput></textarea>
-  </mat-form-field>
-</div>
-
-
-<div>
-  <section class="example-section">
-    <mat-slide-toggle
-        class="example-margin"
-        [color]="primary"
-        [checked]="checked"
-        [disabled]="disabled">
-      Comparecer na UBS
-    </mat-slide-toggle>
-  </section>
-</div>
-
-
+<!--
 <div class="comparecer-ubs" >
   <section>
     <mat-form-field>

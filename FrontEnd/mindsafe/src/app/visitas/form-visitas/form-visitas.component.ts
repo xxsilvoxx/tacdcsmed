@@ -36,7 +36,7 @@ export class FormVisitasComponent implements OnInit {
       desCompare: [null]
     });
 
-    this.formVisitas.get('dataVisita').setValue(new Date().toUTCString());
+    this.formVisitas.get('dataVisita').setValue(new Date());
     console.log(this.formVisitas.get('dataVisita').value);
 
   }

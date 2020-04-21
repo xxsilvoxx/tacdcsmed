@@ -16,6 +16,7 @@ import { FormVisitasComponent } from './form-visitas/form-visitas.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatDialogModule,
     FlexLayoutModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatExpansionModule
 
   ],
   entryComponents: [
