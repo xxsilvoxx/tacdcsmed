@@ -1,0 +1,1 @@
+alter table residencia change numero numero BIGINT NOT NULL

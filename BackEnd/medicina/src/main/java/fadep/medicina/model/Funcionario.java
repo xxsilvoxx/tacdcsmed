@@ -13,7 +13,8 @@ public class Funcionario {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id_funcionario")
 	private Long idFuncionario;
-	
+
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name="id_micro_area")
 	private MicroArea microArea;

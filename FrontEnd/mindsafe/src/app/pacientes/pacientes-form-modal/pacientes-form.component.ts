@@ -1,10 +1,12 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { MatChipInputEvent } from '@angular/material/chips';
-import { FormBuilder, FormGroup, Validators, FormControl, ValidationErrors } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Observable, EMPTY, Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
+
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatChipInputEvent } from '@angular/material/chips';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 import { Familia } from 'src/app/models/familia.model';
 import { FamiliasService } from '../../services/familias/familias.service';
@@ -22,12 +24,16 @@ import { CausaPessoaService } from '../../services/causaPessoa/causa-pessoa.serv
 import { PacientesService } from '../../services/pacientes/pacientes.service';
 import { CausaPessoa } from '../../models/causaPessoa.model';
 import { cpfCnpjDisponivelValidator } from '../../shared/mensagem-validation/form-validations';
+import { mascaras } from '../../shared/form-masks/form-masks';
 
 
 @Component({
   selector: 'app-pacientes-form',
   templateUrl: './pacientes-form.component.html',
-  styleUrls: ['./pacientes-form.component.scss']
+  styleUrls: ['./pacientes-form.component.scss'],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' }
+  ]
 })
 export class PacientesFormComponent implements OnInit {
 
@@ -69,11 +75,11 @@ export class PacientesFormComponent implements OnInit {
   /**
    * Mascaras para os campos do formulário, apenas a declaração.
    */
-  maskCpf = [];
-  maskCnpj = [];
-  maskCel = [];
-  maskTel = [];
-  maskHora = [];
+  maskCpf = mascaras.maskCpf;
+  maskCnpj = mascaras.maskCnpj;
+  maskCel = mascaras.maskCelular;
+  maskTel = mascaras.maskTelefone;
+  maskHora = mascaras.maskHora;
 
   /**
    * Variáveis para o layout, usadas pra mostrar se é Alteração ou Adição (padrão).
@@ -152,7 +158,6 @@ export class PacientesFormComponent implements OnInit {
     this.criarFormularios();
     this.verificarView(this.paciente);
     this.listarCausas(this.paciente);
-    this.criarMascaras();
     this.listarFamilias();
     this.listarPaises();
     this.listarMedicamentos();
@@ -173,7 +178,7 @@ export class PacientesFormComponent implements OnInit {
         cpfCnpj: paciente.cpfCnpj,
         nacionalidade: paciente.nacionalidade,
         sexo: paciente.sexo,
-        dataNascimento: paciente.dataNascimento,
+        dataNascimento: this.converteData(paciente.dataNascimento),
         telefone: paciente.telefone,
         celular: paciente.celular,
         email: paciente.email
@@ -181,7 +186,7 @@ export class PacientesFormComponent implements OnInit {
       if (paciente.cpfCnpj.length > 14) {
         this.tipoPessoa = 'cnpj';
       }
-      if (paciente.responsavelFamiliar == false) {
+      if (paciente.responsavelFamiliar === false) {
         this.validarReponsavel(paciente.familia);
       }
       this.formPaciente.get('cpfCnpj').clearAsyncValidators();
@@ -221,6 +226,7 @@ export class PacientesFormComponent implements OnInit {
   onConfirm() {
     if (this.paciente) {
       // Altera os dados do paciente
+      this.converteDataSemGMT();
       this.pacientesService.alterar(this.formPaciente.value, this.paciente.idPessoa).subscribe(
         paciente => {
           this.msg.exibirMensagem('Paciente alterado com sucesso', 'done');
@@ -322,6 +328,7 @@ export class PacientesFormComponent implements OnInit {
       );
     } else {
       // cadastra o paciente.
+      this.converteDataSemGMT();
       this.pacientesService.cadastrar(this.formPaciente.value).subscribe(
         paciente => {
           this.msg.exibirMensagem('Paciente cadastrado com sucesso', 'done');
@@ -333,8 +340,12 @@ export class PacientesFormComponent implements OnInit {
               err => this.msg.exibirMensagem('Erro ao adicionar medicamentos', 'error')
             );
           }
+          let causas: Causa[] = [];
+          if (this.formControlCausas.value !== undefined) {
+            causas = this.formControlCausas.value as Causa[];
+          }
           // Itera cada causa marcada dentro do angular, e as envia para o servidor.
-          for (const causa of this.formControlCausas.value) {
+          for (const causa of causas) {
             const causaPessoa = new CausaPessoa();
             causaPessoa.pessoa = paciente;
             causaPessoa.causa = causa;
@@ -350,8 +361,25 @@ export class PacientesFormComponent implements OnInit {
     }
   }
 
+  // Método que atua no evento de change do campo que
+  // seleciona o tipo de pessoa, Física ou Jurídica.
   alterarTipoPessoa(valor) {
     this.tipoPessoa = valor;
+  }
+
+  converteDataSemGMT() {
+    // Pega o valor da variável do formulário referente ao nascimento.
+    const nascimento = this.formPaciente.get('dataNascimento').value as Date;
+    // Reatribuindo somente a data ele está desconsiderando o GMT
+    this.formPaciente.get('dataNascimento').setValue(nascimento.setDate(nascimento.getDate()));
+  }
+
+  // Método que converte a data pro padrão do navegador
+  converteData(data: Date) {
+    let date = data.toString().split('-');
+    // coloquei a subtração do mês pois ele tava considerando uma casa a mais no momento de exibir
+    let newDate = new Date(Number(date[0]), (Number(date[1]) - 1), Number(date[2]));
+    return newDate;
   }
 
   /**
@@ -488,15 +516,6 @@ export class PacientesFormComponent implements OnInit {
       celular: ['', Validators.maxLength(20)],
       email: ['', [Validators.email, Validators.maxLength(250)]]
     });
-  }
-
-  criarMascaras() {
-    this.maskCpf = [/[0-9]/, /[0-9]/, /[0-9]/, '.', /[0-9]/, /[0-9]/, /[0-9]/, '.', /[0-9]/, /[0-9]/, /[0-9]/, '-', /[0-9]/, /[0-9]/];
-    // tslint:disable-next-line: max-line-length
-    this.maskCnpj = [/[0-9]/, /[0-9]/, '.', /[0-9]/, /[0-9]/, /[0-9]/, '.', /[0-9]/, /[0-9]/, /[0-9]/, '/', /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, '-', /[0-9]/, /[0-9]/];
-    this.maskCel = ['(', /[0-9]/, /[0-9]/, ')', /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, '-', /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/];
-    this.maskTel = ['(', /[0-9]/, /[0-9]/, ')', /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, '-', /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/];
-    this.maskHora = [/[0-2]/, /[0-9]/, ':', /[0-5]/, /[0-9]/];
   }
 
   listarFamilias() {

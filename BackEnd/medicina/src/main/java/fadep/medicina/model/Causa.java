@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="causa")
@@ -15,10 +17,13 @@ public class Causa {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_causa")
 	private Long idCausa;
-	
+
+	@NotNull
+	@Size(min = 5, max = 250)
 	@Column(name="nome")
 	private String nome;
-	
+
+	@NotNull
 	@Column(name = "risco")
 	private Integer risco;
 	

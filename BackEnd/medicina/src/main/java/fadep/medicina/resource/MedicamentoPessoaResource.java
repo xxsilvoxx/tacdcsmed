@@ -63,5 +63,10 @@ public class MedicamentoPessoaResource {
         return medicamentoPessoaRepository.RetornarMedicamentosPaciente(codPaciente);
     }
 
+    @GetMapping("/medicamento/{codigo}/dependentes")
+    public Integer retornarTotalDependentes(@PathVariable("codigo") Long codigo) {
+        return medicamentoPessoaRepository.retornarTotalDependentes(codigo);
+    }
+
 }
 

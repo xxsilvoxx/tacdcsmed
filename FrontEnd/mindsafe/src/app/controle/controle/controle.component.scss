@@ -1,0 +1,90 @@
+.bg-controle {
+  padding-top: 1px;
+  height: 300px;
+  width: 100%;
+  background-image: url('../../../assets/imagens/controle.jpg');
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 20px;
+}
+
+.overlay {
+  bottom: 0;
+  background: rgb(0, 0, 0);
+  background: #0000007e;
+  color: #f1f1f1;
+  transition: .5s ease;
+  opacity:0;
+  color: white;
+  font-size: 20px;
+  padding: 20px;
+  text-align: center;
+}
+
+.overlay a {
+  text-decoration: none;
+  color: #969696;
+}
+
+.bg-controle:hover .overlay {
+  opacity: 1;
+}
+
+.titulo {
+  position: relative;
+  margin-top: 148px;
+  font-size: 30pt;
+  margin-left: 30px;
+  font-weight: bold;
+  color: black;
+  text-shadow: 1px 1px 10px rgb(255, 255, 255);
+}
+
+.titulo-xs {
+  font-size: 15pt;
+  margin-top: 98px;
+}
+
+.overlay-xs {
+  font-size: 15px;
+}
+
+.bg-xs {
+  height: 200px;
+}
+
+.espaco {
+  flex: 1 1 auto;
+}
+
+.img-card-overlay {
+  width: 96%;
+  margin: -10px auto 10px auto;
+  border-radius: 10px;
+  padding: 5px;
+  text-align: center;
+  height: 20px;
+  opacity: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  transition: .5s ease;
+  color: white;
+}
+
+.img-card-overlay a {
+  text-decoration: none;
+  color: #969696;
+}
+
+.img-card:hover .img-card-overlay {
+  opacity: 1;
+}
+
+.img-card-overlay-xs {
+  font-size: 13px;
+}
+
+.alinhamento-texto {
+  text-align: center;
+  font-weight: 500;
+  font-size: 21pt;
+}

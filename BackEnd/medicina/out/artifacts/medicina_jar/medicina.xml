@@ -1,0 +1,9 @@
+<service>
+      <id>TCC-Medicina</id>
+      <name>TCC-Medicina</name>
+      <description>Back end service for TCC-Medicina</description>
+      <env name="HOME" value="D:\FACULDADE\TCC\tacdcsmed\BackEnd\medicina\out\artifacts\medicina_jar"/>
+      <executable>java</executable>
+      <arguments>-Xrs -Xmx256m -jar "D:\FACULDADE\TCC\tacdcsmed\BackEnd\medicina\out\artifacts\medicina_jar\medicina.jar"</arguments>
+      <logmode>rotate</logmode>
+</service>

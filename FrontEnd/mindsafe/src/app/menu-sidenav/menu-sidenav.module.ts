@@ -1,3 +1,4 @@
+import { ModalFuncionarioComponent } from './modal-funcionario/modal-funcionario.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -14,12 +15,14 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSelectModule } from '@angular/material/select';
 
 import { MenuSidenavComponent } from '../menu-sidenav/menu-sidenav/menu-sidenav.component';
 import { MenuSidenavRountigModule } from './menu-sidenav-rountig.module';
 import { VisitasModule } from '../visitas/visitas.module';
 import { PacientesModule } from '../pacientes/pacientes.module';
-import { ModalFuncionarioComponent } from '../menu-sidenav/modal-funcionario/modal-funcionario.component';
+import { ResidenciasModule } from '../residencias/residencias.module';
+
 
 @NgModule({
   declarations: [
@@ -31,6 +34,7 @@ import { ModalFuncionarioComponent } from '../menu-sidenav/modal-funcionario/mod
     MenuSidenavRountigModule,
     FormsModule,
     ReactiveFormsModule,
+    ResidenciasModule,
     VisitasModule,
     PacientesModule,
     MatToolbarModule,
@@ -38,6 +42,7 @@ import { ModalFuncionarioComponent } from '../menu-sidenav/modal-funcionario/mod
     MatIconModule,
     MatButtonModule,
     MatTooltipModule,
+    MatSelectModule,
     MatCardModule,
     MatListModule,
     MatInputModule,

@@ -1,0 +1,48 @@
+<h1 matDialogTitle>Adicionar Microárea</h1>
+
+<mat-dialog-content [ngStyle.xs]="{'margin-bottom': '0px'}">
+  <div [formGroup]="formMicroarea" fxLayout="column" fxLayoutGap="10px">
+    <mat-form-field fxFlex>
+      <input matInput type="number" formControlName="numero" placeholder="Número da microárea">
+      <mat-error>
+        {{ retornarValidacoes(formMicroarea.get('numero'), 'Número') }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field fxFlex>
+      <mat-select placeholder="Selecionar Bairro" (valueChange)="desabilitarSelecaoUbs(bairro.value)" formControlName="bairro" #bairro>
+        <mat-option *ngFor="let bairro of bairros$ | async" [value]="bairro">
+          {{ bairro.nome }}
+        </mat-option>
+      </mat-select>
+      <mat-error>
+        {{ retornarValidacoes(formMicroarea.get('bairro'), 'Bairro') }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-slide-toggle matTooltip="Alterar a UBS deste bairro" *ngIf="bairroPossuiUbs" [(ngModel)]="alterarUbs" [ngModelOptions]="{standalone: true}" (change)="onAlterarCampoUbs()" color="primary" fxFlex>
+      Alterar a UBS
+    </mat-slide-toggle>
+
+    <mat-form-field fxFlex>
+      <mat-select placeholder="Selecionar UBS" [disabled]="disabledCampoUbs" [formControl]="controlUbs">
+        <mat-option *ngFor="let ubs of ubs$ | async" [value]="ubs">
+          <span>{{ ubs.nome }}</span>
+        </mat-option>
+      </mat-select>
+      <mat-error>
+        {{ retornarValidacoes(controlUbs, 'UBS') }}
+      </mat-error>
+    </mat-form-field>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="center" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutGap="10px" fxLayoutGap.xs="5px">
+  <button mat-raised-button color="warn" fxFlex matDialogClose>
+    CANCELAR <mat-icon class="material-icons">cancel</mat-icon>
+  </button><br>
+
+  <button mat-raised-button color="primary" [disabled]="formMicroarea.invalid || controlUbs.invalid" (click)="cadastrar()" fxFlex>
+    CONFIRMAR <mat-icon class="material-icons">send</mat-icon>
+  </button>
+</mat-dialog-actions>
