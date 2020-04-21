@@ -1,7 +1,8 @@
 
 import {Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { mascaras } from 'src/app/shared/form-masks/form-masks';
 
 @Component({
   selector: 'app-form-visitas',
@@ -11,7 +12,12 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class FormVisitasComponent implements OnInit {
   dataAtual: Date = new Date();
   
+  mask =  mascaras.maskHora;
+
+  comparecerUbs = false;
+
   formVisitas: FormGroup;
+  horarioControl: FormControl;
 
   constructor(
     public dialog: MatDialog,
@@ -31,15 +37,25 @@ export class FormVisitasComponent implements OnInit {
       funcionario: [null, Validators.required],
       dataVisita: [Validators.required],
       anotacoes: [null],
-      comparecerUbs: [null],
+      comparecerUbs: [false],
       dataCompare: [null],
       desCompare: [null]
     });
 
+    this.horarioControl =  this.builder.control(null, {validators: 
+      [Validators.minLength(5), Validators.maxLength(5)] } );
+      
     this.formVisitas.get('dataVisita').setValue(new Date());
     console.log(this.formVisitas.get('dataVisita').value);
 
-  }
+  };
+
+  mudarComparecerUbs() {
+    this.comparecerUbs = !this.comparecerUbs; 
+
+  };
+
+
 
 
 
