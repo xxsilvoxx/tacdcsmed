@@ -3,6 +3,38 @@
   margin: auto;
 }
 
+.imagem-residencia{
+  padding-top: 1px;
+  height: 100px;
+  width: 100%;
+  background-image: url('../../../assets/imagens/residencias-info.jpg');
+  background-size: cover;
+  background-position-y: 100%;
+  margin-bottom: 20px;
+}
+
+.imagem-residencia:hover .overlay {
+  opacity: 1;
+}
+
+.overlay {
+  bottom: 0;
+  background: rgb(0, 0, 0);
+  background: #0000007e;
+  color: #f1f1f1;
+  transition: .5s ease;
+  opacity:0;
+  color: white;
+  font-size: 20px;
+  padding: 20px;
+  text-align: center;
+}
+
+.overlay a {
+  text-decoration: none;
+  color: #969696;
+}
+
 button {
   position: relative;
   float: right;

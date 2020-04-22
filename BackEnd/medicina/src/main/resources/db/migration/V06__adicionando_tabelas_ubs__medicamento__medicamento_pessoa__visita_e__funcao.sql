@@ -22,10 +22,10 @@ CREATE TABLE visita (
 	id_visita BIGINT(20) AUTO_INCREMENT PRIMARY KEY,
 	id_pessoa BIGINT(20) NOT NULL,
 	id_funcionario BIGINT(20) NOT NULL,
-	data_visita TIMESTAMP,
+	data_visita date,
 	anotacoes TEXT,
 	comparecer_ubs BOOLEAN,
-	data_comparecimento TIMESTAMP,
+	data_comparecimento date,
 	descricao_comparecimento VARCHAR(150)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

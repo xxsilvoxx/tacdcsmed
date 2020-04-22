@@ -66,62 +66,8 @@ export class ResidenciasInfoModalComponent implements OnInit {
   }
 
   retornaComponentesFamilia() {
-    for (let i = 0; this.data.residencia.familia.lenght > 0; i ++) {
 
-    }
   }
-
-
-
-
-  // listarCausas() {
-  //   this.causas$ = this.causaPessoaService.listarCausas(this.data.residencias).pipe(
-  //     tap(v => v.length == 0 ? this.msgService.exibirMensagem('Lista de Causas Vazia', 'info') : EMPTY),
-  //     tap(l => l.forEach(v => this.risco += v.causa.risco))
-  //   );
-  // }
-
-  // listarMedicamentos() {
-  //   this.medicamentos$ = this.medicamentoPessoaService.retornarMedicamentos(this.data.residencias).pipe(
-  //     tap(v => v.length == 0 ? this.msgService.exibirMensagem('Lista de Medicamentos Vazia', 'info') : EMPTY)
-  //   );
-  // }
-
-  // listarAgendamentos() {
-  //   this.agendamentos$ = this.visitaService.listarConsultas(this.data.residencias).pipe(
-  //     tap(v => v.length == 0 ? this.msgService.exibirMensagem('Lista de Agendamentos Vazia', 'info') : EMPTY)
-  //   );
-  // }
-
-  // criarContatosUsuario() {
-  //   if (this.data.residencias.cpfCnpj) {
-  //     this.contatos.push(`${this.data.residencias.cpfCnpj}`);
-  //   }
-  //   if (this.data.residencias.telefone) {
-  //     this.contatos.push(`${this.data.residencias.telefone}`);
-  //   }
-  //   if (this.data.residencias.celular) {
-  //     this.contatos.push(`${this.data.residencias.celular}`);
-  //   }
-  //   if (this.data.residencias.email) {
-  //     this.contatos.push(`${this.data.residencias.email}`);
-  //   }
-  // }
-
-  // retornarDescricaoRisco(): string {
-  //   let texto = '';
-  //   if (this.risco <= 5) {
-  //     texto = 'Nenhum Risco';
-  //   } else if (this.risco <= 10) {
-  //     texto = 'Risco Baixo';
-  //   } else if (this.risco <= 15) {
-  //     texto = 'Risco Médio';
-  //   } else {
-  //     texto = 'Risco Grave';
-  //   }
-  //   return texto;
-  // }
-
   onClose() {
     this.modalRef.close();
   }
