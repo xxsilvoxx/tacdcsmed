@@ -58,7 +58,7 @@
         <!-- <button mat-icon-button (click)="onVerificarAcao('add')" [disabled]="selection.selected.length > 0">
           <mat-icon class="material-icons">add</mat-icon>
         </button> -->
-        <button mat-icon-button>
+        <button mat-icon-button (click)="abrirJanelaCadastro()" [disabled]="selection.selected.length > 0">
           <mat-icon class="material-icons">add</mat-icon>
         </button>
       </mat-card>
@@ -71,39 +71,33 @@
 
       <ng-container matColumnDef="idFamilia">
         <th mat-header-cell *matHeaderCellDef> Código </th>
-        <td mat-cell *matCellDef="let familia"> {{familia.idFamilia}} </td>
+        <td mat-cell *matCellDef="let registro"> {{registro.familia.idFamilia}} </td>
       </ng-container>
 
       <ng-container matColumnDef="nome">
         <th mat-header-cell *matHeaderCellDef> Nome </th>
-        <td mat-cell *matCellDef="let familia"> {{familia.nome}} </td>
+        <td mat-cell *matCellDef="let registro"> {{registro.familia.nome}} </td>
       </ng-container>
 
       <ng-container matColumnDef="responsavelFamiliar">
         <th mat-header-cell *matHeaderCellDef> Responsável Familiar </th>
-        <td mat-cell *matCellDef="let paciente"> {{paciente.responsavelFamiliar ? 'Sim' : 'Não'}} </td>
+        <td mat-cell *matCellDef="let registro"> {{registro.responsavel ? registro.responsavel.nome : 'Sem Responsável Familiar'}} </td>
       </ng-container>
 
       <ng-container matColumnDef="select">
         <th mat-header-cell *matHeaderCellDef>
-          <!-- <mat-checkbox [disabled]="familias$.length == 0"
+          <mat-checkbox [disabled]="familiasComResponsavel.length == 0"
           (change)="$event ? masterToggle() : null"
           [checked]="selection.hasValue() && isAllSelected()"
           [indeterminate]="selection.hasValue() && !isAllSelected()"
           [aria-label]="checkboxLabel()">
-          </mat-checkbox> -->
-          <mat-checkbox
-                        (change)="$event ? masterToggle() : null"
-                        [checked]="selection.hasValue() && isAllSelected()"
-                        [indeterminate]="selection.hasValue() && !isAllSelected()"
-                        [aria-label]="checkboxLabel()">
           </mat-checkbox>
         </th>
-        <td mat-cell *matCellDef="let familia">
+        <td mat-cell *matCellDef="let registro">
           <mat-checkbox (click)="$event.stopPropagation()"
-                        (change)="$event ? selection.toggle(familia) : null"
-                        [checked]="selection.isSelected(familia)"
-                        [aria-label]="checkboxLabel(familia)">
+                        (change)="$event ? selection.toggle(registro) : null"
+                        [checked]="selection.isSelected(registro)"
+                        [aria-label]="checkboxLabel(registro)">
           </mat-checkbox>
         </td>
       </ng-container>

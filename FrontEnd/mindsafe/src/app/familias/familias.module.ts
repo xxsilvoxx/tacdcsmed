@@ -58,6 +58,9 @@ import { MatOption, MatOptionModule } from '@angular/material/core';
     MatChipsModule,
     FormsModule,
     ReactiveFormsModule
+  ],
+  entryComponents: [
+    FamiliasFormComponent
   ]
 })
 export class FamiliasModule { }

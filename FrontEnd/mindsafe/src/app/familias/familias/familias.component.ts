@@ -1,15 +1,16 @@
+import { FamiliasFormComponent } from './../familias-form-modal/familias-form-modal.component';
+import { PacientesService } from './../../services/pacientes/pacientes.service';
 import { FamiliasService } from './../../services/familias/familias.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { Familia } from 'src/app/models/familia.model';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Subscription, Observable, EMPTY } from 'rxjs';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MediaObserver } from '@angular/flex-layout';
 import { MensagemService } from 'src/app/shared/mensagem/mensagem.service';
-import { filter, switchMap } from 'rxjs/operators';
-import { ConfirmModalComponent } from 'src/app/shared/confirm-modal/confirm-modal.component';
+import { filter, switchMap, tap } from 'rxjs/operators';
 
 interface FiltroFamilia{
   nome: string;
@@ -23,9 +24,10 @@ interface FiltroFamilia{
   styleUrls: ['./familias.component.scss']
 })
 
-export class FamiliasComponent implements OnInit {
+export class FamiliasComponent implements OnInit{
 
-  familias$: Observable<Familia[]>;
+  familias: Familia[];
+  familiasComResponsavel: any[] = [];
 
   displayedColumns = ['idFamilia', 'nome', 'responsavelFamiliar', 'select'];
 
@@ -37,8 +39,8 @@ export class FamiliasComponent implements OnInit {
 
   tipoCampo = 'text';
 
-  dataSource: MatTableDataSource<Familia>;
-  selection = new SelectionModel<Familia>(true, []);
+  dataSource: MatTableDataSource<any>;
+  selection = new SelectionModel<any>(true, []);
 
   subscriptions: Subscription[] = [];
 
@@ -46,10 +48,11 @@ export class FamiliasComponent implements OnInit {
 
 
   constructor(
-    public dialog: MatDialog,
     private media: MediaObserver,
     private service: FamiliasService,
-    private msg: MensagemService
+    private pacienteService: PacientesService,
+    private msg: MensagemService,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -58,7 +61,8 @@ export class FamiliasComponent implements OnInit {
     this.alterarDisplayColunasSm();
     this.alterarDisplayColunasMd();
     this.alterarDisplayColunasLg();
-    this.dataSource = new MatTableDataSource<Familia>();
+    this.dataSource = new MatTableDataSource<any>([]);
+    this.dataSource.data = this.familiasComResponsavel;
     this.dataSource.paginator = this.paginator;
   }
 
@@ -77,22 +81,32 @@ export class FamiliasComponent implements OnInit {
    */
 
   isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
+    if (this.dataSource.data){
+      const numSelected = this.selection.selected.length;
+      const numRows = this.dataSource.data.length;
+      return numSelected === numRows;
+    }
+
   }
 
   masterToggle() {
-    this.isAllSelected() ?
+    console.log(this.selection.selected)
+    if(this.dataSource.data){
+      this.isAllSelected() ?
       this.selection.clear() :
       this.dataSource.data.forEach(row => this.selection.select(row));
+    }
+
   }
 
-  checkboxLabel(row?: Familia): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+  checkboxLabel(row?: any): string {
+    if (this.dataSource.data){
+      if (!row) {
+        return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+      }
+      return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.familia.idFamilia + 1}`;
     }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.idFamilia + 1}`;
+
   }
 
 
@@ -130,7 +144,7 @@ alterarDisplayColunasMd() {
     filter(() => this.media.isActive('md'))
   ).subscribe(
     res => {
-      const columns = ['idFamilia', 'responsavelFamiliar', 'select'];
+      const columns = ['idFamilia', 'nome', 'responsavelFamiliar', 'select'];
       this.displayedColumns = columns;
     }
   );
@@ -143,7 +157,7 @@ alterarDisplayColunasLg() {
     filter(() => this.media.isActive('lg'))
   ).subscribe(
     res => {
-      const columns = ['idFamilia', 'nome','responsavelFamiliar', 'select'];
+      const columns = ['idFamilia', 'nome', 'responsavelFamiliar', 'select'];
       this.displayedColumns = columns;
     }
   );
@@ -152,8 +166,38 @@ alterarDisplayColunasLg() {
 }
 
 listarTodos() {
-  this.familias$ = this.service.listarTodas();
+  this.service.listarTodas().pipe(
+    tap(familias => familias.forEach(
+      familia => {
+        this.pacienteService.retornarResponsavelFamiliar(familia).pipe(
+          tap(responsavel => {
+            let obj = {
+              familia: familia,
+              responsavel: responsavel
+            }
+            this.familiasComResponsavel.push(obj);
+            this.dataSource.data = this.familiasComResponsavel.sort();
+          })
+        ).subscribe(
+          success => success,
+          err => err
+        )
+      })
+    ),
+  ).subscribe(
+    res => {
+      this.familias = res;
+    },
+    err => err
+  );
 
+}
+
+abrirJanelaCadastro(){
+  const dialogRef = this.dialog.open(FamiliasFormComponent, {
+    width: "350px",
+    height: "400px"
+  })
 }
 
 /**onInfoPaciente() {
