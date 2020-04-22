@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-
-
 @Service
 public class FuncionarioService {
 
@@ -54,6 +52,11 @@ public class FuncionarioService {
 
     public ResponseEntity<Boolean> verificarDisponibilidadeEmail(String emailDigitado) {
         Integer registros = funcionarioRepository.emailDisponivel(emailDigitado);
+        return (registros > 0) ? (ResponseEntity.ok(false)) : (ResponseEntity.ok(true));
+    }
+
+    public ResponseEntity<Boolean> verificarDisponibilidadeMicroArea(Long idMicroArea) {
+        Integer registros = funcionarioRepository.microAreaDisponivel(idMicroArea);
         return (registros > 0) ? (ResponseEntity.ok(false)) : (ResponseEntity.ok(true));
     }
 

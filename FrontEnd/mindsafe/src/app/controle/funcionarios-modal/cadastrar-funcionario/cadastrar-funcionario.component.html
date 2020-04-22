@@ -1,0 +1,130 @@
+<h1 matDialogTitle>Cadastrar Funcionário</h1>
+
+<mat-dialog-content>
+  <div [formGroup]="formFuncionario">
+    <div fxLayout="column" fxLayoutGap="5px">
+      <mat-form-field fxFlex>
+        <input matInput placeholder="Nome" formControlName="nome" #nome>
+        <mat-hint align="end">
+          {{ nome.value?.length }} / 250
+        </mat-hint>
+        <mat-error>
+          {{ retornarValidacoes(formFuncionario.get('nome'), 'Nome') }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field fxFlex>
+        <input matInput placeholder="Login" formControlName="login" #login>
+        <mat-hint align="end">
+          {{ login.value?.length }} / 50
+        </mat-hint>
+        <mat-error>
+          {{ retornarValidacoes(formFuncionario.get('login'), 'Login') }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field fxFlex>
+        <input type="email" matInput placeholder="E-mail" formControlName="email" #email>
+        <mat-hint align="end">
+          {{ email.value?.length }} / 100
+        </mat-hint>
+        <mat-error>
+          {{ retornarValidacoes(formFuncionario.get('email'), 'E-mail') }}
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutGap.xs="5px" style="margin: 5px 0px;">
+      <mat-form-field fxFlex>
+        <input [type]="mostrarSenha ? 'text' : 'password'" matInput placeholder="Senha" formControlName="senha" #senha
+          fxFlex>
+        <mat-hint align="end">
+          {{ senha.value?.length }} / 10
+        </mat-hint>
+        <mat-error>
+          {{ retornarValidacoes(formFuncionario.get('senha'), 'Senha') }}
+        </mat-error>
+        <button mat-icon-button (click)="onMostrarSenha()" matSuffix>
+          <mat-icon class="material-icons">{{ mostrarSenha ? 'visibility' : 'visibility_off' }}</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <mat-form-field fxFlex>
+        <input [type]="mostrarSenha ? 'text' : 'password'" matInput placeholder="Confirmar Senha"
+          [formControl]="controlConfirmaSenha" #confirmaSenha fxFlex>
+        <mat-hint align="end">
+          {{ confirmaSenha.value?.length }} / 10
+        </mat-hint>
+        <mat-error>
+          {{ retornarValidacoes(controlConfirmaSenha, 'Confirmar Senha') }}
+        </mat-error>
+        <button mat-icon-button (click)="onMostrarSenha()" matSuffix>
+          <mat-icon class="material-icons">{{ mostrarSenha ? 'visibility' : 'visibility_off' }}</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="colum" fxLayoutGap="5px">
+      <mat-form-field fxFlex>
+        <input type="number" matInput placeholder="Código da Equipe" formControlName="codEquipe">
+        <mat-error>
+          {{ retornarValidacoes(formFuncionario.get('codEquipe'), 'Código da Equipe') }}
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutGap="10px" fxLayoutGap.xs="5px">
+      <mat-form-field fxFlex>
+        <mat-select formControlName="ubs" placeholder="UBS">
+          <mat-option *ngFor="let ubs of ubs$ | async" [value]="ubs">
+            {{ ubs.nome }}
+          </mat-option>
+        </mat-select>
+        <mat-error>
+          {{ retornarValidacoes(formFuncionario.get('ubs'), 'UBS') }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field fxFlex>
+        <mat-select formControlName="funcao" placeholder="Função">
+          <mat-option *ngFor="let funcao of funcoes$ | async" [value]="funcao">
+            {{ funcao.nome }}
+          </mat-option>
+        </mat-select>
+        <mat-error>
+          {{ retornarValidacoes(formFuncionario.get('funcao'), 'Função') }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="40%">
+        <mat-select formControlName="microArea" placeholder="Microárea">
+          <mat-optgroup *ngFor="let grupo of gruposMicroareas" [label]="grupo.nome" [disabled]="grupo.disabled">
+            <mat-option *ngFor="let microarea of grupo.microareas" [value]="microarea">
+              <span style="position: relative; float: left;">
+                Microárea {{ microarea.numero }}
+              </span>
+
+              <span style="position: relative; float: right;">
+                {{ microarea.bairro.nome }}
+              </span>
+            </mat-option>
+          </mat-optgroup>
+        </mat-select>
+        <mat-error>
+          {{ retornarValidacoes(formFuncionario.get('microArea'), 'Microárea') }}
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="center" fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px">
+  <button mat-raised-button color="warn" matDialogClose fxFlex>
+    CANCELAR <mat-icon class="material-icons">cancel</mat-icon>
+  </button><br>
+
+  <button mat-raised-button color="primary" (click)="cadastrarFuncionario()"
+    [disabled]="formFuncionario.invalid || controlConfirmaSenha.invalid" fxFlex>
+    CONFIRMAR <mat-icon class="material-icons">send</mat-icon>
+  </button>
+</mat-dialog-actions>

@@ -1,5 +1,6 @@
 package fadep.medicina.resource;
 
+import fadep.medicina.model.Funcionario;
 import fadep.medicina.model.MicroArea;
 import fadep.medicina.repository.MicroAreaRepository;
 import fadep.medicina.service.MicroAreaService;
@@ -43,6 +44,21 @@ public class MicroAreaResource {
     @DeleteMapping("/{codigo}")
     public ResponseEntity<MicroArea> remover(@PathVariable("codigo") Long codigo) {
         return microAreaService.remover(codigo);
+    }
+
+    @GetMapping("/validar/{numero}")
+    public ResponseEntity<Boolean> microareaDisponivel(@PathVariable("numero") int numero) {
+        return microAreaService.retornarMicroareaValida(numero);
+    }
+
+    @GetMapping("{codigo}/pacientes")
+    public Integer retornarTotalPacientes(@PathVariable("codigo") Long codigo) {
+        return microAreaRepository.retornarTotalPacientesMicroarea(codigo);
+    }
+
+    @GetMapping("{codigo}/responsavel")
+    public ResponseEntity<Funcionario> retornarAcsResponsavel(@PathVariable("codigo") Long codigo) {
+        return microAreaService.retornarAcsResponsavel(codigo);
     }
 
 }

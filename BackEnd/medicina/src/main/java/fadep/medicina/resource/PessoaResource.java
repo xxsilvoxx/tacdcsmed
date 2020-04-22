@@ -55,11 +55,5 @@ public class PessoaResource {
     public Boolean validarCpfCnpj(@RequestParam(name="cpfCnpj") String cpfCnpj) {
         return pessoaService.retornarValidadeCpfCnpj(cpfCnpj);
     }
-    
-	@PutMapping("/{codigo}/ativo")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void atualizarPropriedadeAtivo(@PathVariable Long codigo, @RequestBody Boolean ativo) {
-		pessoaService.atualizarPropriedadeAtivo(codigo, ativo);
-	}
 
 }

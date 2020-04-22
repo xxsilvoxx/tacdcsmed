@@ -41,12 +41,14 @@ public class FuncaoService {
 	        }
 	    }
 
+	    public ResponseEntity<Boolean> retornarFuncaoDisponivel(String nome) {
+	    	Integer registros = funcaoRepository.retornarFuncaoDisponivel(nome);
+	    	return (registros > 0) ? (ResponseEntity.ok(false)) : (ResponseEntity.ok(true));
+		}
+
 	    public Funcao buscarPorCodigo(Long codigo) {
 	    	Funcao funcao = funcaoRepository.findOne(codigo);
-	    	if (funcao != null) {
-	            return funcao;
-	        }
-	        return null;
+	    	return (funcao != null) ? (funcao) : (null);
 	    }
 
 }

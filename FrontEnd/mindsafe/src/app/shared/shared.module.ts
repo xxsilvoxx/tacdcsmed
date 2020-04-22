@@ -1,3 +1,4 @@
+import { ResidenciasInfoModalComponent } from 'src/app/shared/residencias-info-modal/residencias-info-modal.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
@@ -18,6 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
   declarations: [
     ConfirmModalComponent,
     PacienteInfoModalComponent,
+    ResidenciasInfoModalComponent,
     MensagemComponent
   ],
   imports: [
@@ -34,6 +36,7 @@ import { HttpClientModule } from '@angular/common/http';
   entryComponents: [
     ConfirmModalComponent,
     PacienteInfoModalComponent,
+    ResidenciasInfoModalComponent,
     MensagemComponent
   ],
   exports: [

@@ -1,0 +1,127 @@
+<div class="bg-residencias" ngClass.xs="bg-xs">
+    <h3 class="titulo" ngClass.xs="titulo-xs">Residencias</h3>
+    <div class="overlay" ngClass.xs="overlay-xs">
+      Photo by
+      <a href="https://unsplash.com/@freestocks?utm_source=medium&utm_medium=referral" target="blank">freestocks.org</a> on
+      <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="blank">Unsplash</a>
+    </div>
+  </div>
+
+  <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0.5%" fxLayoutAlign="center center" ngClass.xs="espaco-lateral">
+
+    <div fxFlex="75%" fxFlex.md="65%" fxFlex.sm="60%" fxFlex.xs="50%">
+
+      <mat-form-field>
+        <input matInput placeholder="Filtro" type="string" (focus)="disabledFilter()" #filtroTexto>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Filtro Selecionado</mat-label>
+        <mat-select #filtroTipo>
+          <mat-option *ngFor="let op of filtroPesquisa" value="{{ op.valor }}" #tipo>
+            {{ op.nome }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    </div>
+
+    <div fxFlex="20%" fxFlex.md="25%" fxFlex.sm="35%">
+      <mat-card>
+        <button mat-icon-button (click)="applyFilter(filtroTexto.value, filtroTipo.value)" [disabled]="(filtroTexto.value == '' || filtroTipo.value == null)">
+          <mat-icon class="material-icons">search</mat-icon>
+        </button>
+        <button mat-icon-button (click)="onVerificarAcao('alterar')" [disabled]="selection.selected.length == 0">
+          <mat-icon class="material-icons">edit</mat-icon>
+        </button>
+        <button mat-icon-button (click)="onDelete()" [disabled]="selection.selected.length == 0">
+          <mat-icon class="material-icons">delete</mat-icon>
+        </button>
+        <button mat-icon-button (click)="onInfoResidencia()" [disabled]="selection.selected.length != 1">
+          <mat-icon class="material-icons">perm_media</mat-icon>
+        </button>
+        <button mat-icon-button (click)="onVerificarAcao('add')" [disabled]="selection.selected.length > 0">
+          <mat-icon class="material-icons">add</mat-icon>
+        </button>
+      </mat-card>
+    </div>
+
+  </div>
+
+  <div class="mat-elevation-z8" class="espaco-lateral">
+    <table mat-table [dataSource]="dataSource">
+
+      <ng-container matColumnDef="idResidencia">
+        <th mat-header-cell *matHeaderCellDef> Código </th>
+        <td mat-cell *matCellDef="let residencia"> {{residencia.idResidencia}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="familia">
+        <th mat-header-cell *matHeaderCellDef> Família </th>
+        <td mat-cell *matCellDef="let residencia"> {{residencia.familia.nome}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="microArea">
+        <th mat-header-cell *matHeaderCellDef> Micro Area </th>
+        <td mat-cell *matCellDef="let residencia"> {{residencia.microArea.numero}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="bairro">
+        <th mat-header-cell *matHeaderCellDef> Bairro </th>
+        <td mat-cell *matCellDef="let residencia"> {{residencia.microArea.bairro.nome}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="cep">
+        <th mat-header-cell *matHeaderCellDef> CEP </th>
+        <td mat-cell *matCellDef="let residencia"> {{residencia.cep}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="logradouro">
+        <th mat-header-cell *matHeaderCellDef> Logradouro </th>
+        <td mat-cell *matCellDef="let residencia"> {{residencia.logradouro}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="numero">
+        <th mat-header-cell *matHeaderCellDef> Numero </th>
+        <td mat-cell *matCellDef="let residencia"> {{residencia.numero}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="localReferencia">
+        <th mat-header-cell *matHeaderCellDef> Local Referencia </th>
+        <td mat-cell *matCellDef="let residencia"> {{residencia.localReferencia}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="cor">
+        <th mat-header-cell *matHeaderCellDef> Cor </th>
+        <td mat-cell *matCellDef="let residencia"> {{residencia.cor}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="complemento">
+        <th mat-header-cell *matHeaderCellDef> Complemento </th>
+        <td mat-cell *matCellDef="let residencia"> {{residencia.complemento}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox [disabled]="residencias.length == 0"
+                        (change)="$event ? masterToggle() : null"
+                        [checked]="selection.hasValue() && isAllSelected()"
+                        [indeterminate]="selection.hasValue() && !isAllSelected()"
+                        [aria-label]="checkboxLabel()">
+          </mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let residencia">
+          <mat-checkbox (click)="$event.stopPropagation()"
+                        (change)="$event ? selection.toggle(residencia) : null"
+                        [checked]="selection.isSelected(residencia)"
+                        [aria-label]="checkboxLabel(residencia)">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>

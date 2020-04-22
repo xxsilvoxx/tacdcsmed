@@ -279,7 +279,7 @@ onAlterarFamilia() {
  *
  * ESTÁ FUNCIONANDO
  */
-onDeleteVerify(subs: Observable<boolean>, familias: Familia[]) {
+/* onDeleteVerify(subs: Observable<boolean>, familias: Familia[]) {
   familias.forEach(
     p => {
       subs.pipe(
@@ -296,7 +296,7 @@ onDeleteVerify(subs: Observable<boolean>, familias: Familia[]) {
       );
     }
   );
-}
+} */
 
 /**
  * Método responsável por trazer a lista que havia sido carregada sem nenhuma filtragem

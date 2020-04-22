@@ -1,0 +1,16 @@
+2020-03-28 21:34:01,413 DEBUG - Starting ServiceWrapper in the CLI mode
+2020-03-28 21:34:06,101 INFO  - Uninstalling the service with id 'TCC-Medicina'
+2020-03-28 21:34:06,234 DEBUG - Completed. Exit code is 0
+2020-03-28 21:34:11,569 DEBUG - Starting ServiceWrapper in the CLI mode
+2020-03-28 21:34:12,063 INFO  - Installing the service with id 'TCC-Medicina'
+2020-03-28 21:34:12,280 DEBUG - Completed. Exit code is 0
+2020-03-28 21:34:27,138 INFO  - Starting ServiceWrapper in the service mode
+2020-03-28 21:34:27,578 INFO  - Starting java -Xrs -Xmx256m -jar "D:\FACULDADE\TCC\tacdcsmed\BackEnd\medicina\out\artifacts\medicina_jar\medicina.jar"
+2020-03-28 21:34:27,605 INFO  - Starting java -Xrs -Xmx256m -jar "D:\FACULDADE\TCC\tacdcsmed\BackEnd\medicina\out\artifacts\medicina_jar\medicina.jar"
+2020-03-28 21:34:27,736 INFO  - Started process 9152
+2020-03-28 21:34:27,819 DEBUG - Forwarding logs of the process System.Diagnostics.Process (java) to winsw.SizeBasedRollingLogAppender
+2020-03-28 22:25:11,837 INFO  - Starting ServiceWrapper in the service mode
+2020-03-28 22:25:12,040 INFO  - Starting java -Xrs -Xmx256m -jar "D:\FACULDADE\TCC\tacdcsmed\BackEnd\medicina\out\artifacts\medicina_jar\medicina.jar"
+2020-03-28 22:25:12,087 INFO  - Starting java -Xrs -Xmx256m -jar "D:\FACULDADE\TCC\tacdcsmed\BackEnd\medicina\out\artifacts\medicina_jar\medicina.jar"
+2020-03-28 22:25:12,337 INFO  - Started process 3860
+2020-03-28 22:25:12,889 DEBUG - Forwarding logs of the process System.Diagnostics.Process (java) to winsw.SizeBasedRollingLogAppender

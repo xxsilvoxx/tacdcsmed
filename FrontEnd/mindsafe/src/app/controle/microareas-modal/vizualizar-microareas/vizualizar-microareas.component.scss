@@ -1,0 +1,19 @@
+.colunas {
+  padding: 5px 0px;
+  margin: 5px 15px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #8a8a8a;
+}
+
+mat-list-item {
+  margin: 12px 0px;
+}
+
+mat-list {
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+  margin-bottom: 1px;
+  padding-bottom: 5px;
+  max-height: 340px;
+  overflow-y: auto;
+}

@@ -1,0 +1,23 @@
+mat-list {
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+  max-height: 320px;
+  overflow-y: auto;
+  margin-bottom: 2px;
+  padding-bottom: 10px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+mat-list-item {
+  margin: 12px 0;
+}
+
+.colunas {
+  padding: 5px 0px;
+  margin: 5px 15px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #8a8a8a;
+}
