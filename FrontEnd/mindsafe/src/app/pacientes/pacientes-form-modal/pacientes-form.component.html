@@ -1,12 +1,13 @@
-<div class="cabecalho">
-  <h1 mat-dialog-title>{{ tituloModal }}</h1>
-  <button ngClass.xs="button-xs" mat-icon-button (click)="onClose()">
-    <mat-icon class="material-icons" style="color: #565656;">close</mat-icon>
+<div style="display: flex; flex-direction: row;">
+  <h1 matDialogTitle>{{ tituloModal }}</h1>
+  <span style="flex: 1 1 auto;"></span>
+  <button matTooltip="Fechar a janela" mat-icon-button matDialogClose>
+    <i class="material-icons" style="color: #565656;">close</i>
   </button>
 </div>
 
 <mat-dialog-content>
-  <mat-horizontal-stepper [linear]="paciente?.idPessoa == null" labelPosition="bottom" #stepper>
+  <mat-horizontal-stepper [linear]="paciente?.idPessoa === null" labelPosition="bottom" #stepper>
     <!-- Step Inicial -->
     <mat-step [stepControl]="formPaciente">
       <form [formGroup]="formPaciente">
@@ -37,7 +38,7 @@
           </mat-form-field>
         </div>
 
-        <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px">
+        <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutGap="10px">
           <mat-form-field fxFlex>
             <input [textMask]="{
               mask: tipoPessoa == 'cpf' ? maskCpf : maskCnpj,

@@ -9,13 +9,25 @@ import { take } from 'rxjs/operators';
 })
 export class FamiliasService {
 
-  readonly apiUrl = `${environment.url}familias`;
+  private readonly apiUrl = `${environment.url}familias`;
 
   constructor(
     private http: HttpClient
   ) { }
 
+  cadastrar(familia: Familia) {
+    return this.http.post<Familia>(this.apiUrl, familia).pipe(take(1));
+  }
+
+  alterar(familia: Familia, codigo: number) {
+    return this.http.put<Familia>(`${this.apiUrl}/${codigo}`, familia);
+  }
+
   listarTodas() {
     return this.http.get<Familia[]>(this.apiUrl).pipe(take(1));
+  }
+
+  remover(familia: Familia) {
+    return this.http.delete<Familia>(`${this.apiUrl}/${familia.idFamilia}`);
   }
 }

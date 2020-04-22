@@ -20,7 +20,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { TextMaskModule } from 'angular2-text-mask';
+
 import { PacientesRoutingModule } from './pacientes-routing.module';
 import { PacientesComponent } from './pacientes/pacientes.component';
 import { SharedModule } from '../shared/shared.module';
@@ -56,6 +58,7 @@ import { PacientesAlterarComponent } from './pacientes-alterar-modal/pacientes-a
     MatExpansionModule,
     TextMaskModule,
     MatChipsModule,
+    MatTooltipModule,
     FormsModule,
     ReactiveFormsModule
   ],

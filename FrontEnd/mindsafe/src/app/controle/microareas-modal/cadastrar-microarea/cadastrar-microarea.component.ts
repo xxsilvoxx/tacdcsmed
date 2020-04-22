@@ -26,6 +26,10 @@ export class CadastrarMicroareaComponent implements OnInit {
   bairros$: Observable<Bairro[]>;
   ubs$: Observable<Ubs[]>;
 
+  bairroPossuiUbs = false;
+  alterarUbs = false;
+  disabledCampoUbs = false;
+
   constructor(
     private dialogRef: MatDialogRef<CadastrarMicroareaComponent>,
     private builder: FormBuilder,
@@ -40,6 +44,34 @@ export class CadastrarMicroareaComponent implements OnInit {
     this.criarFormulario();
     this.listarBairros();
     this.listarUbs();
+  }
+
+  /**
+   * Caso o usuário ao cadastrar outra microárea
+   * identificar que precisar mudar a UBS do bairro
+   * o slide toggle aparece na tela.
+   */
+  onAlterarCampoUbs() {
+    if (this.alterarUbs) {
+      this.disabledCampoUbs = false;
+      this.controlUbs.setValidators(Validators.required);
+    } else {
+      this.disabledCampoUbs = true;
+      this.controlUbs.clearValidators();
+    }
+  }
+
+  /**
+   * Método que analisa o bairro passado por parâmetro
+   * verifica se o mesmo possui uma ubs setada
+   */
+  desabilitarSelecaoUbs(bairro: Bairro) {
+    if (bairro.ubs !== null) {
+      this.bairroPossuiUbs = true;
+      this.disabledCampoUbs = true;
+    } else {
+      this.bairroPossuiUbs = false;
+    }
   }
 
   retornarValidacoes(control: FormControl, label: string) {
@@ -58,7 +90,7 @@ export class CadastrarMicroareaComponent implements OnInit {
     });
 
     this.controlUbs = this.builder.control(null, {
-      validators: [ Validators.required ]
+      validators: [Validators.required]
     });
   }
 
@@ -73,16 +105,29 @@ export class CadastrarMicroareaComponent implements OnInit {
   cadastrar() {
     const microarea = this.formMicroarea.value as MicroArea;
     const ubs = this.controlUbs.value as Ubs;
-    microarea.bairro.ubs = ubs;
-    this.bairrosService.alterar(microarea.bairro).pipe(
-      switchMap(b => b
-        ? (microarea.bairro = b, this.microareasService.cadastrarMicroarea(microarea))
-        : EMPTY
-      )
-    ).subscribe(
-      res => this.msg.exibirMensagem('Microárea cadastrada com sucesso', 'done'),
-      err => this.msg.exibirMensagem('Erro ao cadastrar a microárea', 'error')
-    );
+    if (microarea.bairro.ubs === null) {
+      microarea.bairro.ubs = ubs;
+      this.bairrosService.alterar(microarea.bairro).pipe(
+        switchMap(b => b
+          ? (microarea.bairro = b, this.microareasService.cadastrarMicroarea(microarea))
+          : EMPTY
+        )
+      ).subscribe(
+        res => this.msg.exibirMensagem('Microárea cadastrada com sucesso', 'done'),
+        err => this.msg.exibirMensagem('Erro ao cadastrar a microárea', 'error')
+      );
+    } else if (this.alterarUbs) {
+      microarea.bairro.ubs = ubs;
+      this.bairrosService.alterar(microarea.bairro).pipe(
+        switchMap(b => b
+          ? (microarea.bairro = b, this.microareasService.cadastrarMicroarea(microarea))
+          : EMPTY
+        )
+      ).subscribe(
+        res => this.msg.exibirMensagem('Microárea cadastrada com sucesso', 'done'),
+        err => this.msg.exibirMensagem('Erro ao cadastrar a microárea', 'error')
+      );
+    }
     this.dialogRef.close();
   }
 }

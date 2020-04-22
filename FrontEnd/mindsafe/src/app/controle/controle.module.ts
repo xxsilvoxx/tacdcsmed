@@ -12,6 +12,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
 
 import { ControleRoutingModule } from './controle-routing.module';
@@ -26,6 +28,8 @@ import { CadastrarFuncaoComponent } from './funcoes-modal/cadastrar-funcao/cadas
 import { VizualizarFuncoesComponent } from './funcoes-modal/vizualizar-funcoes/vizualizar-funcoes.component';
 import { CadastrarUbsComponent } from './ubs-modal/cadastrar-ubs/cadastrar-ubs.component';
 import { VizualizarUbsComponent } from './ubs-modal/vizualizar-ubs/vizualizar-ubs.component';
+import { CadastrarFuncionarioComponent } from './funcionarios-modal/cadastrar-funcionario/cadastrar-funcionario.component';
+import { VizualizarFuncionariosComponent } from './funcionarios-modal/vizualizar-funcionarios/vizualizar-funcionarios.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +43,9 @@ import { VizualizarUbsComponent } from './ubs-modal/vizualizar-ubs/vizualizar-ub
     CadastrarFuncaoComponent,
     VizualizarFuncoesComponent,
     CadastrarUbsComponent,
-    VizualizarUbsComponent
+    VizualizarUbsComponent,
+    CadastrarFuncionarioComponent,
+    VizualizarFuncionariosComponent
   ],
   imports: [
     CommonModule,
@@ -55,6 +61,8 @@ import { VizualizarUbsComponent } from './ubs-modal/vizualizar-ubs/vizualizar-ub
     MatListModule,
     MatSelectModule,
     MatTooltipModule,
+    MatSlideToggleModule,
+    MatAutocompleteModule,
     FormsModule,
     ReactiveFormsModule
   ],
@@ -68,7 +76,9 @@ import { VizualizarUbsComponent } from './ubs-modal/vizualizar-ubs/vizualizar-ub
     CadastrarFuncaoComponent,
     VizualizarFuncoesComponent,
     CadastrarUbsComponent,
-    VizualizarUbsComponent
+    VizualizarUbsComponent,
+    CadastrarFuncionarioComponent,
+    VizualizarFuncionariosComponent
   ]
 })
 export class ControleModule { }

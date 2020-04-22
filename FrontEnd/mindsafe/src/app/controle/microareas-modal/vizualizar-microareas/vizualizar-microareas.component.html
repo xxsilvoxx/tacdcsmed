@@ -10,9 +10,8 @@
   <mat-list>
     <div class="colunas">
       <span style="margin-right: 81px;">Número</span>
-      <span style="margin-right: 152px;">Bairro</span>
-      <span style="margin-right: 160px;">UBS</span>
-      <span style="margin-right: 20px;">Pacientes</span>
+      <span style="margin-right: 154px;">Bairro</span>
+      <span style="margin-right: 24px;">Pacientes</span>
       <span>ACS</span>
     </div>
 
@@ -32,18 +31,9 @@
         </mat-form-field>
       </div>
 
-      <div [formGroup]="element.ubs" fxLayout="row" fxLayoutGap="10px">
-        <mat-form-field fxFlex>
-          <mat-select formControlName="nome">
-            <mat-option *ngFor="let element of ubs" [value]="element.nome">{{ element.nome }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-
-
       <span style="margin: 0px 40px">{{ element.totPacientes }}</span>
 
-      <span style="margin-right: 40px; width: 100px;">{{ element.funcionarioResponsavel ? element.funcionarioResponsavel?.nome : 'Não Atribuído' }}</span>
+      <span style="margin-right: 40px; width: 200px;">{{ element.funcionarioResponsavel ? element.funcionarioResponsavel?.nome : 'Não Atribuído' }}</span>
 
       <span style="flex: 1 1 auto;"></span>
 
@@ -51,7 +41,7 @@
         <mat-icon class="material-icons">delete</mat-icon>
       </button>
 
-      <button matTooltip="Alterar Microárea" mat-icon-button (click)="onUpdate(element)" [disabled]="element.microarea.invalid || element.ubs.invalid">
+      <button matTooltip="Alterar Microárea" mat-icon-button (click)="onUpdate(element)" [disabled]="element.microarea.invalid">
         <mat-icon class="material-icons">edit</mat-icon>
       </button>
     </mat-list-item>

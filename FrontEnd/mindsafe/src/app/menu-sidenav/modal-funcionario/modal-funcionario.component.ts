@@ -1,7 +1,7 @@
 import { loginDisponivelValidator } from './../../shared/mensagem-validation/form-validations';
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { EMPTY } from 'rxjs';
+import { EMPTY, Observable } from 'rxjs';
 
 import { FuncionariosService } from '../../services/funcionarios/funcionarios.service';
 import { Funcionario } from '../../models/funcionario.model';
@@ -11,7 +11,12 @@ import { switchMap, tap } from 'rxjs/operators';
 import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { MensagemValidationService } from '../../shared/mensagem-validation/mensagem-validation.service';
 import { Funcao } from '../../models/funcao.model';
-import { emailDisponivelValidator } from '../../shared/mensagem-validation/form-validations';
+import { emailDisponivelValidator, validarNumeroMinimo } from '../../shared/mensagem-validation/form-validations';
+import { UbsService } from '../../services/ubs/ubs.service';
+import { MicroAreasService } from '../../services/microAreas/microArea.service';
+import { Ubs } from '../../models/ubs.model';
+import { MicroArea } from '../../models/microArea.model';
+import { FuncoesService } from '../../services/funcoes/funcoes.service';
 
 @Component({
   selector: 'app-modal-funcionario',
@@ -19,7 +24,6 @@ import { emailDisponivelValidator } from '../../shared/mensagem-validation/form-
   styleUrls: ['./modal-funcionario.component.scss']
 })
 export class ModalFuncionarioComponent implements OnInit {
-
 
   esconderSenha = false;
   mostrarErroArquivo = false;
@@ -29,10 +33,31 @@ export class ModalFuncionarioComponent implements OnInit {
   formFuncionario: FormGroup;
   formConfirmarSenha: FormControl;
 
+  funcoes: Funcao[];
+  microAreas: MicroArea[];
+  ubsList: Ubs[];
+
+  gruposMicroareas: any[] = [
+    {
+      disabled: false,
+      nome: 'Microárea Atual',
+      microareas: [] as MicroArea[]
+    },
+    {
+      disabled: false,
+      nome: 'Microáreas Disponíveis',
+      microareas: [] as MicroArea[]
+    },
+    {
+      disabled: true,
+      nome: 'Microáreas Indisponíveis',
+      microareas: [] as MicroArea[]
+    }
+  ];
+
   // Armazena a senha vinda do servidor, caso o funcionario desista
   // de alterar.
   senhaSalva: string;
-  funcaoSalva: Funcao = new Funcao();
 
   imgUsuario = '../../../assets/imagens/user.png';
 
@@ -43,6 +68,9 @@ export class ModalFuncionarioComponent implements OnInit {
     private modalRef: MatDialogRef<ModalFuncionarioComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private service: FuncionariosService,
+    private ubsService: UbsService,
+    private microAreaService: MicroAreasService,
+    private funcoesService: FuncoesService,
     private img: ImagensService,
     private msg: MensagemService,
     private validation: MensagemValidationService,
@@ -51,31 +79,44 @@ export class ModalFuncionarioComponent implements OnInit {
 
   ngOnInit() {
     this.criarFormulario();
+    this.listarFuncoes();
+    this.listarMicroareas();
+    this.listarUbs();
     this.preencherFormulario(this.data.funcionario);
-  }
-
-  onClose() {
-    this.modalRef.close(this.formFuncionario.value);
   }
 
   criarFormulario() {
     this.formFuncionario = this.builder.group({
-      idFuncionario: [null],
+      idFuncionario: [null, {
+        validators: [ Validators.required ]
+      }],
       imagem: [null],
-      microArea: [null],
-      ubs: [null],
-      funcao: [null],
+      microArea: [null, {
+        validators: [ Validators.required ]
+      }],
+      ubs: [null, {
+        validators: [ Validators.required ]
+      }],
+      funcao: [null, {
+        validators: [ Validators.required ]
+      }],
       email: [null, {
-        validators: [Validators.email],
+        validators: [Validators.email, Validators.required],
         asyncValidators: [emailDisponivelValidator(this.service)]
       }],
-      nome: [null, Validators.maxLength(250)],
+      nome: [null, {
+        validators: [Validators.maxLength(250), Validators.required]
+      }],
       login: [null, {
-        validators: [Validators.maxLength(250)],
+        validators: [Validators.maxLength(250), Validators.required],
         asyncValidators: [loginDisponivelValidator(this.service)]
       }],
-      senha: [null, Validators.maxLength(10)],
-      codEquipe: [null]
+      senha: [null, {
+        validators: [Validators.maxLength(10), Validators.required]
+      }],
+      codEquipe: [null, {
+        validators: [Validators.required, validarNumeroMinimo.bind(this)]
+      }]
     });
   }
 
@@ -85,7 +126,7 @@ export class ModalFuncionarioComponent implements OnInit {
       imagem: funcionario.imagem,
       microArea: funcionario.microArea,
       ubs: funcionario.ubs,
-      funcao: funcionario.funcao.nome,
+      funcao: funcionario.funcao,
       email: funcionario.email,
       nome: funcionario.nome,
       login: funcionario.login,
@@ -95,7 +136,6 @@ export class ModalFuncionarioComponent implements OnInit {
     this.carregarImg(funcionario);
     this.formConfirmarSenha = new FormControl(funcionario.senha, this.compararSenha.bind(this));
     this.senhaSalva = funcionario.senha;
-    this.funcaoSalva = funcionario.funcao;
   }
 
   retornarValidacoes(campo: string, label: string) {
@@ -181,17 +221,76 @@ export class ModalFuncionarioComponent implements OnInit {
   }
 
   alterar(label: string) {
-    this.formFuncionario.get('funcao').setValue(this.funcaoSalva);
     this.service.alterar(this.formFuncionario.value).subscribe(
       success => this.msg.exibirMensagem(`${label} alterado(a) com sucesso`, 'done'),
       err => this.msg.exibirMensagem(`Erro ao alterar o(a) ${label}`, 'error')
     );
-    this.formFuncionario.get('funcao').setValue(this.funcaoSalva.nome);
+    this.gruposMicroareas.forEach((obj) => obj.microareas = []);
+    this.listarMicroareas();
   }
 
   cancelarAlteracaoSenha() {
     this.formFuncionario.get('senha').setValue(this.senhaSalva);
     this.formConfirmarSenha.setValue(this.senhaSalva);
+  }
+
+  listarMicroareas() {
+    this.microAreaService.listarTodas().pipe(
+      tap(microareas =>
+        microareas.forEach(microarea => {
+          if (this.formFuncionario.get('microArea').value.idMicroArea === microarea.idMicroArea) {
+            this.formFuncionario.get('microArea').setValue(microarea);
+          }
+          this.service.verificarMicroArea(microarea).pipe(
+            tap(res => {
+              if (res) {
+                this.gruposMicroareas[1].microareas.push(microarea);
+              } else if (this.formFuncionario.get('microArea').value.idMicroArea === microarea.idMicroArea) {
+                this.gruposMicroareas[0].microareas.push(microarea);
+              } else {
+                this.gruposMicroareas[2].microareas.push(microarea);
+              }
+            })
+          ).subscribe(
+            success => success,
+            err => err
+          );
+        }),
+      )
+    ).subscribe(
+      res => this.microAreas = res,
+      err => this.msg.exibirMensagem('Erro ao buscar as Microáreas', 'error')
+    );
+  }
+
+  listarFuncoes() {
+    this.funcoesService.listar().pipe(
+      tap(funcoes => funcoes.forEach(
+        funcao => {
+          if (this.formFuncionario.get('funcao').value.idFuncao === funcao.idFuncao) {
+            this.formFuncionario.get('funcao').setValue(funcao);
+          }
+        }
+      ))
+    ).subscribe(
+      res => this.funcoes = res,
+      err => this.msg.exibirMensagem('Erro ao buscar as funções', 'error')
+    );
+  }
+
+  listarUbs() {
+    this.ubsService.listar().pipe(
+      tap(list => list.forEach(
+        ubs => {
+          if (this.formFuncionario.get('ubs').value.idUbs === ubs.idUbs) {
+            this.formFuncionario.get('ubs').setValue(ubs);
+          }
+        }
+      ))
+    ).subscribe(
+      res => this.ubsList = res,
+      err => this.msg.exibirMensagem('Erro ao buscar as UBS', 'error')
+    );
   }
 
 }

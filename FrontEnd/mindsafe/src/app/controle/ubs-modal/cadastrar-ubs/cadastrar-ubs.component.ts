@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { Observable, EMPTY } from 'rxjs';
+import { startWith, map, switchMap } from 'rxjs/operators';
+
+import { MatDialogRef } from '@angular/material/dialog';
 
 import { ViacepService } from '../../../shared/viacep/viacep.service';
 import { MensagemValidationService } from '../../../shared/mensagem-validation/mensagem-validation.service';
@@ -12,10 +16,8 @@ import { Cidade } from '../../../models/cidade.model';
 import { Estado } from '../../../models/estado.model';
 import { CidadesService } from '../../../services/cidades/cidades.service';
 import { EstadosService } from '../../../services/estados/estados.service';
-import { switchMap } from 'rxjs/operators';
-import { EMPTY } from 'rxjs';
 import { MensagemService } from '../../../shared/mensagem/mensagem.service';
-import { MatDialogRef } from '@angular/material/dialog';
+import { mascaras } from '../../../shared/form-masks/form-masks';
 
 @Component({
   selector: 'app-cadastrar-ubs',
@@ -31,8 +33,10 @@ export class CadastrarUbsComponent implements OnInit {
   cidades: Cidade[];
   estados: Estado[];
 
-  maskCep = [];
-  maskTel = [];
+  filtroBairros: Observable<any[]>;
+
+  maskCep = mascaras.maskCep;
+  maskTel = mascaras.maskTelefone;
 
   constructor(
     private dialogRef: MatDialogRef<CadastrarUbsComponent>,
@@ -48,8 +52,10 @@ export class CadastrarUbsComponent implements OnInit {
 
   ngOnInit() {
     this.criarFormularios();
-    this.criarMascaras();
     this.listarBairros();
+    this.listarCidades();
+    this.listarEstados();
+    this.filtrarBairros();
   }
 
   retornarValidacoes(control: FormControl, label: string) {
@@ -86,6 +92,10 @@ export class CadastrarUbsComponent implements OnInit {
     });
   }
 
+  /**
+   * Método que faz a requisição para o viacep
+   * ele retorna o JSON com as informações do endereço
+   */
   buscarCep(cep: string) {
     if (cep.length === 9) {
       this.viacep.buscarPorCep(cep).subscribe(
@@ -101,12 +111,24 @@ export class CadastrarUbsComponent implements OnInit {
               bairro.cidade = cidade;
               bairro.cidade.estado = estado;
               this.bairros.push(bairro);
+            } else {
+              // Caso não traga nenhum bairro junto com o cep
+              // o que é comum com cidades que possuem um único cep
+              // é inserido um registro na lista de bairros com '.'
+              bairro.nome = '.';
+              bairro.cidade = cidade;
+              bairro.cidade.estado = estado;
+              this.bairros.push(bairro);
             }
           }
+          // O patchValue foi a melhor opção porque
+          // ele modifica somente os campos que eu passo
+          // enquanto que o setValue é obrigatório passar
+          // todos os campos do formulário
           this.formEndereco.patchValue({
-            cep: res.cep,
+            cep: res.cep ? res.cep : '',
             bairro: res.bairro ? res.bairro : null,
-            logradouro: res.logradouro ? res.logradouro : null
+            logradouro: res.logradouro ? res.logradouro : ''
           });
         },
         err => this.msg.exibirMensagem('O serviço do viacep não conseguiu retornar os dados', 'error')
@@ -114,6 +136,25 @@ export class CadastrarUbsComponent implements OnInit {
     }
   }
 
+  // Método que valida as informações vindas do viacep
+  // atribuindo cidade, estado, bairro de mesmo nome
+  // caso os mesmos já estejam cadastrados no sistema
+  // assim evitando a duplicação de registros
+  validarPropriedadesExistentes(bairroRetornado: Bairro) {
+    const cidade = this.cidades.filter(c => c.nome === bairroRetornado.cidade.nome);
+    const estado = this.estados.filter(e => e.nome === bairroRetornado.cidade.estado.nome);
+    console.log(cidade);
+    console.log(estado);
+    if (cidade.length > 0) {
+      bairroRetornado.cidade = cidade[0];
+    }
+    if (estado.length > 0) {
+      bairroRetornado.cidade.estado = estado[0];
+    }
+    return bairroRetornado;
+  }
+
+  // Lista todos os bairros cadastrados no sistema
   listarBairros() {
     this.bairrosService.listarTodos().subscribe(
       res => this.bairros = res,
@@ -121,6 +162,7 @@ export class CadastrarUbsComponent implements OnInit {
     );
   }
 
+  // Lista todas as cidades cadastradas no sistema
   listarCidades() {
     this.cidadesService.listar().subscribe(
       res => this.cidades = res,
@@ -128,11 +170,38 @@ export class CadastrarUbsComponent implements OnInit {
     );
   }
 
+  // Lista todos os estados cadastrados no sistema
   listarEstados() {
     this.estadosService.listar().subscribe(
       res => this.estados = res,
       err => this.msg.exibirMensagem('Erro ao buscar os estados', 'error')
     );
+  }
+
+  /**
+   * Método que cria um observable pro campo de bairro, recebe cada valor
+   * observando o evento de valueChanges
+   */
+  filtrarBairros() {
+    this.filtroBairros = this.formEndereco.get('bairro').valueChanges.pipe(
+      startWith(''),
+      map(value => this._filtro(value))
+    );
+  }
+
+  /**
+   * Método que aplica o filtro na minha lista de bairros já cadastrados
+   */
+  private _filtro(valor: string) {
+    let filterValue;
+    // A validação é apenas pra não dar erro quando o campo estiver vazio
+    if (valor) {
+      filterValue = valor.toLowerCase();
+    }
+    // Validação pra quando a lista de bairros não estiver carregada
+    if (this.bairros) {
+      return this.bairros.filter(bairro => bairro.nome.toLowerCase().includes(filterValue));
+    }
   }
 
   cadastrarUbs() {
@@ -146,9 +215,21 @@ export class CadastrarUbsComponent implements OnInit {
     ubs.descricao = descricao.join(' - ');
     // Verifica se o bairro do endereço está presente na lista, e o retorna com
     // as informações de cidade e estado pra fazer a verificação.
-    const presente = this.bairros.filter(b => b.nome === endereco.bairro);
+    let presente = this.bairros.filter(b => b.nome === endereco.bairro);
+
+    // No caso de estar sendo inserido um novo bairro pra uma cidade
+    // de um único cep, ele pega o registro que está com o nome do bairro
+    // '.', e atribui o nome do bairro inserido pelo template.
+    if (presente.length === 0) {
+      presente = this.bairros.filter(b => b.nome === '.');
+      if (presente.length > 0) {
+        presente[0].nome = endereco.bairro;
+        presente[0] = this.validarPropriedadesExistentes(presente[0]);
+      }
+    }
+
     // Caso o estado passado não esteja cadastrado, consequentemente a cidade
-    // e o bairro não estão, atra´ves do switchMap vou fazendo uma requisição
+    // e o bairro não estão, através do switchMap vou fazendo uma requisição
     // pra cada um deles.
     if (presente[0].cidade.estado.idEstado === undefined) {
       this.estadosService.cadastrar(presente[0].cidade.estado).pipe(
@@ -214,10 +295,5 @@ export class CadastrarUbsComponent implements OnInit {
         err => this.msg.exibirMensagem('Erro ao cadastrar a UBS', 'error')
       );
     }
-  }
-
-  criarMascaras() {
-    this.maskCep = [/[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, '-', /[0-9]/, /[0-9]/, /[0-9]/];
-    this.maskTel = ['(', /[0-9]/, /[0-9]/, ')', /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, '-', /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/];
   }
 }

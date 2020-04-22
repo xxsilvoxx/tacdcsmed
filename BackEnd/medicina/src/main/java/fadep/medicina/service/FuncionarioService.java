@@ -55,6 +55,11 @@ public class FuncionarioService {
         return (registros > 0) ? (ResponseEntity.ok(false)) : (ResponseEntity.ok(true));
     }
 
+    public ResponseEntity<Boolean> verificarDisponibilidadeMicroArea(Long idMicroArea) {
+        Integer registros = funcionarioRepository.microAreaDisponivel(idMicroArea);
+        return (registros > 0) ? (ResponseEntity.ok(false)) : (ResponseEntity.ok(true));
+    }
+
     public int removerImagem(Long codFuncionario) {
         return funcionarioRepository.removerImagem(codFuncionario);
     }
