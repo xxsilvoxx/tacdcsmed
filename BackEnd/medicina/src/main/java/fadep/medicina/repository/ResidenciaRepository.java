@@ -1,7 +1,5 @@
 package fadep.medicina.repository;
 
-
-
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import fadep.medicina.model.Residencia;
@@ -13,7 +11,7 @@ public interface ResidenciaRepository extends JpaRepository<Residencia, Long> {
     * Retorna a quantidade de pessoas que existem naquela família
     * */
 
-    @Query("select count (p.idpessoa) from Pessoa p, Familia f, " +"where p.idfamilia = f")
-    public Integer retornaTotalFamiliares(Long idPessoa);
+    @Query("SELECT COUNT(p.idPessoa) FROM Pessoa p, Familia f WHERE p.familia = f AND p.idPessoa = ?1")
+    public Integer retornaTotalFamiliares(Integer idPessoa);
 
 }

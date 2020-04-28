@@ -20,9 +20,11 @@
           <mat-card-title>{{ funcionario !== null ? funcionario?.nome : 'Informações não retornadas' }}</mat-card-title>
           <mat-card-subtitle>{{ funcionario !== null ? funcionario.funcao?.nome : '' }}</mat-card-subtitle>
         </mat-card-header>
+
         <mat-card-content>
           {{ funcionario !== null ? funcionario?.email : '' }}
         </mat-card-content>
+
         <mat-card-actions align="end">
           <button matTooltip="Editar Informações" matTooltipPosition="before" mat-fab color="primary" (click)="openModalInfo()" [disabled]="funcionario.idFuncionario === undefined">
             <i class="material-icons">edit</i>
@@ -34,10 +36,8 @@
       <p id="menu-title">MENU</p>
       <div class="divisor-white"></div>
       <mat-nav-list>
-        <a mat-list-item [routerLink]="['familias']" (click)="snav.toggle()" >FAMÍLIAS</a>
-        <a mat-list-item [routerLink]="['pacientes']" (click)="snav.toggle()" >PACIENTES</a>
-        <a mat-list-item [routerLink]="['visitas']" (click)="snav.toggle()" >VISITAS</a>
         <a mat-list-item [routerLink]="['residencias']" (click)="snav.toggle()">RESIDÊNCIAS</a>
+        <a mat-list-item [routerLink]="['familias']" (click)="snav.toggle()">FAMÍLIAS</a>
         <a mat-list-item [routerLink]="['pacientes']" (click)="snav.toggle()">PACIENTES</a>
         <a mat-list-item [routerLink]="['controle']" (click)="snav.toggle()">CONTROLE</a>
         <a mat-list-item [routerLink]="['visitas']" (click)="snav.toggle()">VISITAS</a>
