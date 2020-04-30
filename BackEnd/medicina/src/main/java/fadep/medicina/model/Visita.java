@@ -47,6 +47,12 @@ public class Visita {
 	@Column(name = "descricao_comparecimento")
 	private String desCompare;
 
+	@Column(name = "proxima_visita")
+	private Timestamp proximaVisita;
+
+	@Column(name = "status")
+	private String status;
+
 	public Long getIdVisita() {
 		return idVisita;
 	}
@@ -109,6 +115,22 @@ public class Visita {
 
 	public void setDesCompare(String desCompare) {
 		this.desCompare = desCompare;
+	}
+
+	public Timestamp getProximaVisita() {
+		return proximaVisita;
+	}
+
+	public void setProximaVisita(Timestamp proximaVisita) {
+		this.proximaVisita = proximaVisita;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 	@Override
