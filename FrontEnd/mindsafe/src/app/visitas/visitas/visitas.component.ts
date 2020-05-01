@@ -1,5 +1,11 @@
+import { FormVisitasComponent } from './../form-visitas/form-visitas.component';
+import { MatDialog } from '@angular/material/dialog';
+import { Visita } from './../../models/visita.model';
+import { VisitaService } from './../../services/visitas/visita.service';
+import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
-import { Visita } from '../../models/visita.model';
+
+
 
 @Component({
   selector: 'app-visitas',
@@ -10,18 +16,31 @@ export class VisitasComponent implements OnInit {
 
   msg = '17 visitas a serem feitas';
 
-  visitas = [
-    { codigo: 1, pessoa: { nome: 'João da Silva' }, dataVisita: new Date() },
-    { codigo: 2, pessoa: { nome: 'Fernando da Silva' }, dataVisita: new Date() },
-    { codigo: 1, pessoa: { nome: 'João da Silva' }, dataVisita: new Date() },
-    { codigo: 2, pessoa: { nome: 'Fernando da Silva' }, dataVisita: new Date() },
-    { codigo: 1, pessoa: { nome: 'João da Silva' }, dataVisita: new Date() },
-    { codigo: 2, pessoa: { nome: 'Fernando da Silva' }, dataVisita: new Date() }
-  ];
+  visitas$: Observable<Visita[]>;
+  visitas: Visita[];
 
-  constructor() { }
+  constructor(
+    private visitaService: VisitaService,
+    private dialog: MatDialog
+  ) { }
 
   ngOnInit() {
+    this.listarVisitas();
+
+  }
+
+  listarVisitas() {
+    this.visitas$ = this.visitaService.listarVisitas();
+  }
+
+  openModal(visita: Visita) {
+    const dialogRef = this.dialog.open(FormVisitasComponent, {
+      height: '500px',
+      width: '400px',
+      data: {
+        dados: visita
+      }
+    });
   }
 
 }

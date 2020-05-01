@@ -18,6 +18,10 @@ export class VisitaService {
     private http: HttpClient
   ) {}
 
+  listarVisitas() {
+    return this.http.get<Visita[]>(this.apiUrl).pipe(take(1));
+  }
+
   listarConsultas(paciente: Paciente) {
     return this.http.get<Visita[]>(`${this.apiUrl}/paciente/${paciente.idPessoa}/agendamentos`).pipe(take(1));
   }

@@ -46,9 +46,9 @@
     </mat-list>
 
     <mat-list>
-      <mat-list-item *ngFor="let visita of visitas">
+      <mat-list-item *ngFor="let visita of visitas$ | async">
         <div class="alinhamento esquerda small-size">
-          {{ visita.codigo }}
+          {{ visita.idVisita }}
         </div>
         <div class="alinhamento esquerda">
           {{ visita.pessoa.nome }}
@@ -57,10 +57,10 @@
           {{ visita.dataVisita | date }}
         </div>
         <div class="alinhamento esquerda small-size">
-          <mat-icon class="material-icons" id="valid" *ngIf="visita.codigo != null">done</mat-icon>
+          <mat-icon class="material-icons" id="valid" *ngIf="visita.idVisita != null">done</mat-icon>
         </div>
         <div class="alinhamento direita small-size">
-          <button mat-mini-fab color="primary">
+          <button mat-mini-fab color="primary" (click)="openModal(visita)">
             <i class="material-icons">edit</i>
           </button>
         </div>
