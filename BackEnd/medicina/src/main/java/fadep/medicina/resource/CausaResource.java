@@ -57,4 +57,8 @@ public class CausaResource {
         return causaService.retornarCausaDisponivel(causa);
     }
 
+    @GetMapping("/paciente/{codigo}/somatorio")
+    public Integer retornarSomatorioRiscos(@PathVariable("codigo") Long codigo) {
+        return causaRepository.retornarSomatorioRisco(codigo);
+    }
 }

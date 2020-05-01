@@ -30,4 +30,10 @@ public interface CausaRepository extends JpaRepository<Causa, Long> {
     @Query("DELETE FROM CausaPessoa cp WHERE cp.causa.idCausa = :idCausa")
     public void removerRelacaoPacienteCausa(@Param("idCausa") Long idCausa);
 
+    /**
+     * Retorna o somatório do risco do paciente
+     */
+    @Query("SELECT SUM(cp.causa.risco) FROM CausaPessoa cp WHERE cp.pessoa.idPessoa = ?1")
+    public Integer retornarSomatorioRisco(Long idPessoa);
+
 }
