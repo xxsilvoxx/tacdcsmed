@@ -37,7 +37,9 @@ export class VisitasComponent implements OnInit {
     const dialogRef = this.dialog.open(FormVisitasComponent, {
       height: '500px',
       width: '400px',
-      data: visita
+      data: {
+        dados: visita
+      }
     });
   }
 
