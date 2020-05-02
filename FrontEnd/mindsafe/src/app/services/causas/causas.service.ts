@@ -1,8 +1,10 @@
-import { environment } from './../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Causa } from '../../models/causa.model';
 import { take } from 'rxjs/operators';
+
+import { Causa } from '../../models/causa.model';
+import { environment } from './../../../environments/environment';
+import { Paciente } from '../../models/paciente.model';
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +38,10 @@ export class CausasService {
   }
 
   retornarTotalPacientes(causa: Causa) {
-    return this.http.get<number>(`${this.apiUrl}/${causa.idCausa}/pacientes`);
+    return this.http.get<number>(`${this.apiUrl}/${causa.idCausa}/pacientes`).pipe(take(1));
+  }
+
+  retornarSomatorioRiscosPaciente(paciente: Paciente) {
+    return this.http.get<number>(`${this.apiUrl}/paciente/${paciente.idPessoa}/somatorio`).pipe(take(1));
   }
 }

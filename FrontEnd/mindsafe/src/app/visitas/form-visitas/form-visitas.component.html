@@ -1,28 +1,37 @@
-<h2 mat-dialog-title>Entrevista</h2>
+<h2 mat-dialog-title>Visita</h2>
 
 <mat-dialog-content>
-  <div [formGroup]="formVisitas" >
-
-    <mat-form-field>
+  <form [formGroup]="formVisitas" fxLayout="column" fxLayoutGap="10px">
+    <mat-form-field fxFlex>
       <mat-label>Data da Visita</mat-label>
-      <input  matInput  formControlName="dataVisita" [matDatepicker]="meuDatePicker" readonly >
+      <input matInput formControlName="dataVisita" [matDatepicker]="meuDatePicker" readonly >
       <mat-datepicker-toggle  [for]="meuDatePicker" matSuffix></mat-datepicker-toggle>
       <mat-datepicker #meuDatePicker disabled="true"></mat-datepicker>
     </mat-form-field>
 
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="fill" fxFlex>
       <mat-label>Anotações</mat-label>
-      <textarea matInput  formControlName="anotacoes" ></textarea>
+      <textarea matInput formControlName="anotacoes" rows="6"></textarea>
+    </mat-form-field>
+
+    <mat-form-field fxFlex>
+      <mat-select formControlName="pessoa" placeholder="Paciente">
+        <mat-option *ngFor="let paciente of pacientes$ | async">
+          {{ paciente.nome }}
+        </mat-option>
+      </mat-select>
+      <mat-error>
+        {{ retornarValidacoes(formVisitas.get('pessoa'), 'Paciente') }}
+      </mat-error>
     </mat-form-field>
 
     <mat-slide-toggle formControlName="comparecerUbs"
-        class="example-margin"
         [color]='"primary"'
-        (change)="mudarComparecerUbs()"  >
+        (change)="mudarComparecerUbs()" fxFlex>
         Comparecer na UBS
     </mat-slide-toggle>
 
-    <mat-accordion>
+    <mat-accordion fxFlex>
       <mat-expansion-panel [disabled]="!comparecerUbs" (opened)="comparecerUbs == true" (close)="comparecerUbs == false" >
         <mat-expansion-panel-header>
           <mat-panel-title>
@@ -35,46 +44,45 @@
 
         <mat-form-field>
           <mat-label>Data</mat-label>
-          <input  matInput formControlName="dataCompare" [matDatepicker]="datePikerHorario" readonly >
-          <mat-datepicker-toggle  [for]="datePikerHorario" matSuffix></mat-datepicker-toggle>
+          <input matInput formControlName="dataCompare" [matDatepicker]="datePikerHorario" readonly >
+          <mat-datepicker-toggle [for]="datePikerHorario" matSuffix></mat-datepicker-toggle>
           <mat-datepicker #datePikerHorario ></mat-datepicker>
         </mat-form-field>
 
         <mat-form-field>
-          <input  matInput [textMask]="{mask: mask, guide:false}"  placeholder="Hora" [formControl]='horarioControl'  >
+          <input matInput [textMask]="{mask: mask, guide:false}" placeholder="Hora" [formControl]='horarioControl'>
         </mat-form-field>
 
         <mat-form-field>
           <input type="text"  formControlName="desCompare" matInput placeholder="Descrição" >
         </mat-form-field>
       </mat-expansion-panel>
-
-      <mat-form-field>
-        <mat-label>Proxima Visita</mat-label>
-        <input  matInput formControlName="proximaVisita" [matDatepicker]="datePikerProxima" readonly >
-        <mat-datepicker-toggle  [for]="datePikerProxima" matSuffix></mat-datepicker-toggle>
-        <mat-datepicker #datePikerProxima ></mat-datepicker>
-      </mat-form-field>
-
-      <mat-form-field>
-        <input  matInput [textMask]="{mask: mask, guide:false}"  placeholder="Hora" [formControl]='horarioProximaVisitaControl'  >
-      </mat-form-field>
-
-
-
     </mat-accordion>
-  </div>
+
+    <mat-form-field fxFlex>
+      <mat-label>Proxima Visita</mat-label>
+      <input  matInput formControlName="proximaVisita" [matDatepicker]="datePikerProxima" readonly >
+      <mat-datepicker-toggle  [for]="datePikerProxima" matSuffix></mat-datepicker-toggle>
+      <mat-datepicker #datePikerProxima ></mat-datepicker>
+      <mat-error>
+        {{ retornarValidacoes(formVisitas.get('proximaVisita'), 'Próxima Visita') }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field fxFlex>
+      <input  matInput [textMask]="{mask: mask, guide:false}"  placeholder="Hora" [formControl]='horarioProximaVisitaControl'  >
+    </mat-form-field>
+  </form>
 </mat-dialog-content>
 
-<mat-dialog-actions fxLayout='row' fxLayout.xs='column' fxLayoutGap='10px' >
-  <button color='warn' mat-raised-button matDialogClose fxFlex >
+<mat-dialog-actions fxLayout='row' fxLayout.xs='column' fxLayoutGap='10px'>
+  <button color='warn' mat-raised-button matDialogClose fxFlex>
     CANCELAR
-    <mat-icon class="material-icons" >cancel</mat-icon>
-  </button>
-  <br>
-  <button color='primary' mat-raised-button [disabled]="formVisitas.invalid" (click)="cadastrar()" fxFlex >
-    Salvar
-    <mat-icon class="material-icons" >send</mat-icon>
-  </button>
+    <mat-icon class="material-icons">cancel</mat-icon>
+  </button><br>
 
+  <button color='primary' mat-raised-button [disabled]="formVisitas.invalid" (click)="cadastrar()" fxFlex>
+    CONFIRMAR
+    <mat-icon class="material-icons">{{ iconBtn }}</mat-icon>
+  </button>
 </mat-dialog-actions>

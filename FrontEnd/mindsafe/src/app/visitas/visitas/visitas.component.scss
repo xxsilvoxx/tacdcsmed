@@ -63,54 +63,51 @@ mat-card-content h2 {
   height: 200px;
 }
 
-.cabecalho {
-  border-radius: 5px 5px 0px 0px;
-  background-color: #cecece;
-}
-
-.alinhamento {
-  display: inline;
-  width: 100%;
-}
-
-.alinhamento.esquerda {
-  text-align: left;
-}
-
-.alinhamento.centro {
-  text-align: center;
-}
-
-.alinhamento.direita {
-  text-align: right;
-}
-
-.alinhamento.justificado {
-  text-align: justify;
-}
-
-.small-size {
-  width: 30%;
-}
-
-.middle-size {
-  width: 50%;
-}
-
-.large-size {
-  width: 75%;
-}
-
-.full-size {
-  width: 100%;
-}
-
-.text-bold {
-  font-size: 14pt;
+.colunas {
+  padding: 5px 0px;
+  margin: 5px 15px;
+  font-size: 14px;
   font-weight: 500;
+  color: #8a8a8a;
 }
 
+.circulo {
+  width: 25px;
+  height: 25px;
+  border-radius: 100%;
+  position: relative;
+}
 
-#valid {
-  color: green;
+#div-container {
+  margin: 0 56px;
+}
+
+mat-list {
+  border-radius: 5px;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.4);
+  margin: 10px 0px;
+}
+
+mat-list-item {
+  margin: 8px 0px;
+}
+
+h2 {
+  color: #707070;
+}
+
+#visitas-pendentes, #visitas-atrasadas {
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+.espaco {
+  flex: 1 1 auto;
+}
+
+#float-button {
+  position: fixed;
+  right: 15px;
+  bottom: 15px;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.4);
 }

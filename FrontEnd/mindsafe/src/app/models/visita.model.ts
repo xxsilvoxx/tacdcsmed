@@ -11,6 +11,6 @@ export class Visita {
   dataCompare: Date;
   desCompare: string;
   proximaVisita: Date;
-  status: string;
+  status: any;
 
 }

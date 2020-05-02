@@ -3,72 +3,111 @@
   <h3 class="titulo" ngClass.xs="titulo-xs">Visitas</h3>
   <div class="overlay" ngClass.xs="overlay-xs">
     Photo by
-    <a href="https://unsplash.com/@chrisliverani?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="blank">Chris Liverani</a> on
-    <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="blank">Unsplash</a>
+    <a href="https://unsplash.com/@chrisliverani?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+      target="blank">Chris Liverani</a> on
+    <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+      target="blank">Unsplash</a>
   </div>
 </div>
 
-
-<div style="padding-left: 20px; padding-right: 20px;">
-
-  <mat-card>
-    <mat-card-content>
-      <mat-icon class="material-icons">record_voice_over</mat-icon>
-      <h2>{{ msg }}</h2>
-    </mat-card-content>
-    <mat-card-actions>
-      <button class="full-size" color="primary" mat-raised-button>Continuar Visistas <i
-        class="material-icons">send</i></button>
-    </mat-card-actions>
-  </mat-card>
-
-  <h2>Pacientes Visitados</h2>
-
-  <mat-card>
-    <mat-list class="cabecalho">
-      <mat-list-item>
-        <div class="alinhamento esquerda small-size text-bold">
-          Código
-        </div>
-        <div class="alinhamento esquerda text-bold">
-          Paciente
-        </div>
-        <div class="alinhamento esquerda text-bold middle-size">
-          Data da Visita
-        </div>
-        <div class="alinhamento esquerda small-size text-bold">
-          Status
-        </div>
-        <div class="alinhamento esquerda small-size text-bold">
-
-        </div>
-      </mat-list-item>
-    </mat-list>
+<div fxLayout="column" fxLayout.lg="row" fxLayoutGap="40px" id="div-container">
+  <div fxFlex *ngIf="visitasConcluidas.length > 0">
+    <h2>Visitas Concluídas</h2>
 
     <mat-list>
-      <mat-list-item *ngFor="let visita of visitas$ | async">
-        <div class="alinhamento esquerda small-size">
-          {{ visita.idVisita }}
-        </div>
-        <div class="alinhamento esquerda">
-          {{ visita.pessoa.nome }}
-        </div>
-        <div class="alinhamento esquerda middle-size">
-          {{ visita.dataVisita | date }}
-        </div>
-        <div class="alinhamento esquerda small-size">
-          <mat-icon class="material-icons" id="valid" *ngIf="visita.idVisita != null">done</mat-icon>
-        </div>
-        <div class="alinhamento direita small-size">
-          <button mat-mini-fab color="primary" (click)="openModal(visita)">
-            <i class="material-icons">edit</i>
-          </button>
-        </div>
+      <mat-list-item *ngFor="let element of visitasConcluidas">
+        <mat-icon class="material-icons" [ngStyle]="{'color': element.risco}" style="margin-right: 10px;">lens
+        </mat-icon>
+
+        <span class="espaco"></span>
+        <span style="margin-right: 20px;">{{ element.visita.pessoa.nome }}</span>
+
+        <span class="espaco"></span>
+        <span style="margin-right: 20px;">{{ element.visita.dataVisita | date:'short' }}</span>
+
+        <span class="espaco"></span>
+        <span [ngStyle]="{
+          'color': element.visita.status.cor,
+          'margin-right': '10px',
+          'font-size': '11pt'
+        }">
+          <mat-icon class="material-icons">{{ element.visita.status.icone }}</mat-icon>
+          {{ element.visita.status.mensagem }}
+        </span>
+
+        <span class="espaco"></span>
+        <button mat-icon-button (click)="openModal(element.visita)">
+          <mat-icon class="material-icons">description</mat-icon>
+        </button>
       </mat-list-item>
     </mat-list>
+  </div>
 
-  </mat-card>
+  <div fxFlex>
+    <h2>Visitas Pendentes</h2>
 
+    <mat-list>
+      <div id="visitas-pendentes">
+        <mat-list-item *ngFor="let element of visitasPendentes[0].visitas">
+          <mat-icon class="material-icons" [ngStyle]="{'color': element.risco}" style="margin-right: 10px;">lens
+          </mat-icon>
+
+          <span class="espaco"></span>
+          <span style="margin-right: 20px;">{{ element.visita.pessoa.nome }}</span>
+
+          <span class="espaco"></span>
+          <span style="margin-right: 20px;">{{ element.visita.dataVisita | date:'short' }}</span>
+
+          <span class="espaco"></span>
+          <span [ngStyle]="{
+            'color': element.visita.status.cor,
+            'margin-right': '10px',
+            'font-size': '11pt'
+          }">
+            <mat-icon class="material-icons">{{ element.visita.status.icone }}</mat-icon>
+            {{ element.visita.status.mensagem }}
+          </span>
+
+          <span class="espaco"></span>
+          <button mat-icon-button (click)="openModal(element.visita)">
+            <mat-icon class="material-icons">description</mat-icon>
+          </button>
+        </mat-list-item>
+      </div>
+
+      <h1 mat-subheader>Visitas Atrasadas</h1>
+
+      <div id="visitas-atrasadas">
+        <mat-list-item *ngFor="let element of visitasPendentes[1].visitas">
+          <mat-icon class="material-icons" [ngStyle]="{'color': element.risco}" style="margin-right: 10px;">lens
+          </mat-icon>
+
+          <span class="espaco"></span>
+          <span style="margin-right: 20px;">{{ element.visita.pessoa.nome }}</span>
+
+          <span class="espaco"></span>
+          <span style="margin-right: 20px;">{{ element.visita.dataVisita | date:'short' }}</span>
+
+          <span class="espaco"></span>
+          <span [ngStyle]="{
+            'color': element.visita.status.cor,
+            'margin-right': '10px',
+            'font-size': '11pt'
+          }">
+            <mat-icon class="material-icons">{{ element.visita.status.icone }}</mat-icon>
+            {{ element.visita.status.mensagem }}
+          </span>
+
+          <span class="espaco"></span>
+          <button mat-icon-button (click)="openModal(element.visita)">
+            <mat-icon class="material-icons">description</mat-icon>
+          </button>
+        </mat-list-item>
+      </div>
+    </mat-list>
+  </div>
 </div>
 
-
+<button mat-fab color="primary" matTooltip="Acrescentar nova visita" [matTooltipPosition]="'before'" (click)="openModal()" id="float-button">
+  <mat-icon class="material-icons">add</mat-icon>
+</button>
