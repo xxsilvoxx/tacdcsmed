@@ -1,6 +1,7 @@
 package fadep.medicina.model;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,7 +34,7 @@ public class Visita {
 
 	@NotNull
 	@Column(name = "data_visita")
-	private Timestamp dataVisita;
+	private Date dataVisita;
 	
 	@Column(name = "anotacoes")
 	private String anotacoes;
@@ -42,13 +43,14 @@ public class Visita {
 	private Boolean comparecerUbs;
 	
 	@Column(name = "data_comparecimento")
-	private Timestamp dataCompare;
+	private Date dataCompare;
 	
 	@Column(name = "descricao_comparecimento")
 	private String desCompare;
 
-	@Column(name = "proxima_visita")
-	private Timestamp proximaVisita;
+	@ManyToOne
+	@JoinColumn(name = "cod_proxima_visita")
+	private Visita proximaVisita;
 
 	@Column(name = "status")
 	private String status;
@@ -77,11 +79,11 @@ public class Visita {
 		this.funcionario = funcionario;
 	}
 
-	public Timestamp getDataVisita() {
+	public Date getDataVisita() {
 		return dataVisita;
 	}
 
-	public void setDataVisita(Timestamp dataVisita) {
+	public void setDataVisita(Date dataVisita) {
 		this.dataVisita = dataVisita;
 	}
 
@@ -101,11 +103,11 @@ public class Visita {
 		this.comparecerUbs = comparecerUbs;
 	}
 
-	public Timestamp getDataCompare() {
+	public Date getDataCompare() {
 		return dataCompare;
 	}
 
-	public void setDataCompare(Timestamp dataCompare) {
+	public void setDataCompare(Date dataCompare) {
 		this.dataCompare = dataCompare;
 	}
 
@@ -117,11 +119,11 @@ public class Visita {
 		this.desCompare = desCompare;
 	}
 
-	public Timestamp getProximaVisita() {
+	public Visita getProximaVisita() {
 		return proximaVisita;
 	}
 
-	public void setProximaVisita(Timestamp proximaVisita) {
+	public void setProximaVisita(Visita proximaVisita) {
 		this.proximaVisita = proximaVisita;
 	}
 
