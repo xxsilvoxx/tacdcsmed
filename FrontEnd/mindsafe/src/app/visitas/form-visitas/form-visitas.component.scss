@@ -13,9 +13,26 @@
   margin: 10px;
 }
 
+mat-slide-toggle {
+  margin: 0 auto;
+}
+
+mat-accordion {
+  margin: 30px 0px;
+}
+
+mat-dialog-content {
+  max-height: 330px;
+  overflow-y: auto;
+}
+
+mat-dialog-actions {
+  margin-top: 10px;
+}
+
 mat-form-field {
   width: 100%;
-  
+  margin: 2px 0px;
 }
 
 button {

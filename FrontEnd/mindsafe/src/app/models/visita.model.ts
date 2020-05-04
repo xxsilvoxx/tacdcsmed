@@ -10,7 +10,6 @@ export class Visita {
   comparecerUbs: boolean;
   dataCompare: Date;
   desCompare: string;
-  proximaVisita: Date;
+  proximaVisita: Visita;
   status: any;
-
 }

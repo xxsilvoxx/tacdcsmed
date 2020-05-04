@@ -1,5 +1,5 @@
 /**
- * Objeto JSON que retorna máscaras que possuem um array de RegExp
+ * # Objeto JSON que retorna máscaras que possuem um array de RegExp
  * -----------------------------------------------------------
  * Ele trabalha de acordo com a documentação de utilização do módulo
  * angular2-text-mask.

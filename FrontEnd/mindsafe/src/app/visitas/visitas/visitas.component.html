@@ -10,34 +10,36 @@
   </div>
 </div>
 
-<div fxLayout="column" fxLayout.lg="row" fxLayoutGap="40px" id="div-container">
-  <div fxFlex *ngIf="visitasConcluidas.length > 0">
+<div fxLayout="column" fxLayout.lg="row" fxLayoutGap="20px" id="div-container">
+  <div fxFlex>
     <h2>Visitas Concluídas</h2>
 
-    <mat-list>
+    <mat-list id="visitas-concluidas">
       <mat-list-item *ngFor="let element of visitasConcluidas">
         <mat-icon class="material-icons" [ngStyle]="{'color': element.risco}" style="margin-right: 10px;">lens
         </mat-icon>
 
-        <span class="espaco"></span>
-        <span style="margin-right: 20px;">{{ element.visita.pessoa.nome }}</span>
+        <span style="margin-right: 20px; width: 200px;">{{ element.visita.pessoa.nome }}</span>
 
         <span class="espaco"></span>
         <span style="margin-right: 20px;">{{ element.visita.dataVisita | date:'short' }}</span>
 
         <span class="espaco"></span>
-        <span [ngStyle]="{
-          'color': element.visita.status.cor,
-          'margin-right': '10px',
-          'font-size': '11pt'
-        }">
+        <div [ngStyle]="{'color': element.visita.status.cor}">
           <mat-icon class="material-icons">{{ element.visita.status.icone }}</mat-icon>
+          <span [ngStyle]="{
+            'margin-right': '10px',
+            'position': 'relative',
+            'top': '-5px',
+            'font-size': '13pt'
+          }">
           {{ element.visita.status.mensagem }}
-        </span>
+          </span>
+        </div>
 
         <span class="espaco"></span>
         <button mat-icon-button (click)="openModal(element.visita)">
-          <mat-icon class="material-icons">description</mat-icon>
+          <mat-icon class="material-icons">edit</mat-icon>
         </button>
       </mat-list-item>
     </mat-list>
@@ -52,21 +54,23 @@
           <mat-icon class="material-icons" [ngStyle]="{'color': element.risco}" style="margin-right: 10px;">lens
           </mat-icon>
 
-          <span class="espaco"></span>
-          <span style="margin-right: 20px;">{{ element.visita.pessoa.nome }}</span>
+          <span style="margin-right: 20px; width: 200px;">{{ element.visita.pessoa.nome }}</span>
 
           <span class="espaco"></span>
           <span style="margin-right: 20px;">{{ element.visita.dataVisita | date:'short' }}</span>
 
           <span class="espaco"></span>
-          <span [ngStyle]="{
-            'color': element.visita.status.cor,
-            'margin-right': '10px',
-            'font-size': '11pt'
-          }">
+          <div [ngStyle]="{'color': element.visita.status.cor}">
             <mat-icon class="material-icons">{{ element.visita.status.icone }}</mat-icon>
+            <span [ngStyle]="{
+              'margin-right': '10px',
+              'position': 'relative',
+              'top': '-5px',
+              'font-size': '13pt'
+            }">
             {{ element.visita.status.mensagem }}
-          </span>
+            </span>
+          </div>
 
           <span class="espaco"></span>
           <button mat-icon-button (click)="openModal(element.visita)">
@@ -82,21 +86,23 @@
           <mat-icon class="material-icons" [ngStyle]="{'color': element.risco}" style="margin-right: 10px;">lens
           </mat-icon>
 
-          <span class="espaco"></span>
-          <span style="margin-right: 20px;">{{ element.visita.pessoa.nome }}</span>
+          <span style="margin-right: 20px; width: 200px;">{{ element.visita.pessoa.nome }}</span>
 
           <span class="espaco"></span>
           <span style="margin-right: 20px;">{{ element.visita.dataVisita | date:'short' }}</span>
 
           <span class="espaco"></span>
-          <span [ngStyle]="{
-            'color': element.visita.status.cor,
-            'margin-right': '10px',
-            'font-size': '11pt'
-          }">
+          <div [ngStyle]="{'color': element.visita.status.cor}">
             <mat-icon class="material-icons">{{ element.visita.status.icone }}</mat-icon>
+            <span [ngStyle]="{
+              'margin-right': '10px',
+              'position': 'relative',
+              'top': '-5px',
+              'font-size': '13pt'
+            }">
             {{ element.visita.status.mensagem }}
-          </span>
+            </span>
+          </div>
 
           <span class="espaco"></span>
           <button mat-icon-button (click)="openModal(element.visita)">
