@@ -1,0 +1,16 @@
+<div fxLayout="column" fxLayoutGap="15px">
+  <h1 [ngStyle.xs]="{'font-size': '45pt'}">404!</h1>
+
+  <h2 [ngStyle.xs]="{'font-size': '20pt'}">PÁGINA NÃO ENCONTRADA</h2>
+
+  <div id="img-erro" fxFlex>
+    <img src="../../../assets/imagens/404-error.svg" [ngStyle.xs]="{'width': '80%'}" [ngStyle.sm]="{'width': '60%'}" [ngStyle.md]="{'width': '40%'}">
+  </div>
+
+  <button mat-raised-button (click)="navegarParaHome()" color="primary">
+    IR PARA PÁGINA INCIAL
+    <mat-icon class="material-icons">home</mat-icon>
+  </button>
+</div>
+
+
