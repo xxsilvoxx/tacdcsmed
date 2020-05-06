@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Observable, EMPTY, Subject } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { tap, switchMap } from 'rxjs/operators';
 
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatChipInputEvent } from '@angular/material/chips';
@@ -25,6 +25,7 @@ import { PacientesService } from '../../services/pacientes/pacientes.service';
 import { CausaPessoa } from '../../models/causaPessoa.model';
 import { cpfCnpjDisponivelValidator } from '../../shared/mensagem-validation/form-validations';
 import { mascaras } from '../../shared/form-masks/form-masks';
+import { converterPraDate } from '../../shared/date-format/date-format';
 
 
 @Component({
@@ -85,7 +86,7 @@ export class PacientesFormComponent implements OnInit {
    * Variáveis para o layout, usadas pra mostrar se é Alteração ou Adição (padrão).
    */
   tituloModal = 'Adicionar Paciente';
-  txtBotao = 'Cadastrar';
+  txtBotao = 'CADASTRAR';
 
   /**
    * Caso passado por parâmetro o paciente, valida para alterar seus dados.
@@ -163,6 +164,29 @@ export class PacientesFormComponent implements OnInit {
     this.listarMedicamentos();
   }
 
+  criarFormularios() {
+    this.formPaciente = this.builder.group({
+      idPessoa: [null],
+      responsavelFamiliar: [false, Validators.required],
+      familia: ['', Validators.required],
+      nome: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]],
+      cpfCnpj: ['', {
+        validators: [
+          Validators.required,
+          Validators.minLength(14),
+          Validators.maxLength(18)
+        ],
+        asyncValidators: cpfCnpjDisponivelValidator(this.pacientesService)
+      }],
+      nacionalidade: ['BR', Validators.required],
+      sexo: ['M', Validators.required],
+      dataNascimento: ['', Validators.required],
+      telefone: ['', Validators.maxLength(20)],
+      celular: ['', Validators.maxLength(20)],
+      email: ['', [Validators.email, Validators.maxLength(250)]]
+    });
+  }
+
   /**
    * Método responsável por trazer as informações do paciente selecionado, para que
    * o usuário possa verificar o que precisa ser mudado.
@@ -170,15 +194,16 @@ export class PacientesFormComponent implements OnInit {
   verificarView(paciente?: Paciente) {
     if (paciente) {
       this.tituloModal = 'Alterar Paciente';
-      this.txtBotao = 'Alterar';
+      this.txtBotao = 'ALTERAR';
       this.formPaciente.setValue({
+        idPessoa: paciente.idPessoa,
         responsavelFamiliar: paciente.responsavelFamiliar,
         familia: paciente.familia,
         nome: paciente.nome,
         cpfCnpj: paciente.cpfCnpj,
         nacionalidade: paciente.nacionalidade,
         sexo: paciente.sexo,
-        dataNascimento: this.converteData(paciente.dataNascimento),
+        dataNascimento: converterPraDate(paciente.dataNascimento),
         telefone: paciente.telefone,
         celular: paciente.celular,
         email: paciente.email
@@ -210,7 +235,6 @@ export class PacientesFormComponent implements OnInit {
         },
         err => this.msg.exibirMensagem('Erro ao retornar riscos', 'error')
       );
-
     }
   }
 
@@ -227,16 +251,16 @@ export class PacientesFormComponent implements OnInit {
     if (this.paciente) {
       // Altera os dados do paciente
       this.converteDataSemGMT();
-      this.pacientesService.alterar(this.formPaciente.value, this.paciente.idPessoa).subscribe(
+      this.pacientesService.alterar(this.formPaciente.value).subscribe(
         paciente => {
-          this.msg.exibirMensagem('Paciente alterado com sucesso', 'done');
+          this.msg.exibirMensagem('Paciente alterado com sucesso', 'check_circle_outline');
           // Altera dados dos medicamentos modificados dentro do angular
           // Faz a iteração de cada objeto modificado pelo usuário
           // Depois compara com o que tem salvo no servidor.
           for (const medicamentoPessoa of this.medicamentosAdicionados) {
             medicamentoPessoa.pessoa = paciente;
             // Valida se o registro não possui código, ou seja, é novo.
-            const novoRegistro = medicamentoPessoa.idMedPessoa == undefined ? medicamentoPessoa : null;
+            const novoRegistro = medicamentoPessoa.idMedPessoa === undefined ? medicamentoPessoa : null;
             if (novoRegistro != null) {
               // Chama serviço que adiciona o novo registro.
               this.medicamentoPessoaService.cadastrar(novoRegistro).subscribe(
@@ -270,6 +294,17 @@ export class PacientesFormComponent implements OnInit {
             }
           }
 
+          // Caso seja vazia a lista de causas selecioandas
+          // remove todas as causas do server.
+          if (this.selectedCausas.length === 0) {
+            this.causasDoServer.forEach(causaPessoa => {
+              this.causaPessoaService.removerCausa(causaPessoa).subscribe(
+                success => success,
+                err => this.msg.exibirMensagem('Erro ao remover os riscos', 'error')
+              );
+            });
+          }
+
           // Altera as causas marcadas e desmarcadas pelo usuário dentro do angular
           // Itera cada registro modificado pra depois validar com o que está salvo no servidor.
           for (const causa of this.selectedCausas) {
@@ -282,7 +317,7 @@ export class PacientesFormComponent implements OnInit {
             // Ou seja, o usuário está passando valores novos.
             if (this.causasDoServer.length === 0) {
               this.causaPessoaService.cadastrar(causaPessoa).subscribe(
-                successs => successs,
+                success => success,
                 err => this.msg.exibirMensagem('Erro ao alterar as causas', 'error')
               );
             // Caso a lista que veio do servidor não esteja vazia, cai nesse else.
@@ -294,7 +329,9 @@ export class PacientesFormComponent implements OnInit {
                   // passando o código do registro salvo pra ele
                   // passar pelas validações.
                   if (v.causa.nome.indexOf(causaPessoa.causa.nome) !== -1) {
-                    causaPessoa.idCausaPessoa = v.idCausaPessoa;
+                    if (causaPessoa.idCausaPessoa === undefined) {
+                      causaPessoa.idCausaPessoa = v.idCausaPessoa;
+                    }
                   }
                   // Valida se o código é como undefined pra dizer que o mesmo é novo
                   // Executa o mesmo processo da linha 269.
@@ -374,20 +411,12 @@ export class PacientesFormComponent implements OnInit {
     this.formPaciente.get('dataNascimento').setValue(nascimento.setDate(nascimento.getDate()));
   }
 
-  // Método que converte a data pro padrão do navegador
-  converteData(data: Date) {
-    let date = data.toString().split('-');
-    // coloquei a subtração do mês pois ele tava considerando uma casa a mais no momento de exibir
-    let newDate = new Date(Number(date[0]), (Number(date[1]) - 1), Number(date[2]));
-    return newDate;
-  }
-
   /**
    * Lista provisória dos medicamentos adicionados para o paciente
    * podendo ser modificado antes de enviar para o servidor.
    */
   adicionarMedicamentoNaLista() {
-    let obj = new MedicamentoPessoa();
+    const obj = new MedicamentoPessoa();
     obj.horarios = this.horarios.map(v => v.hora).join(', ');
     obj.medicamento = this.medicamentoSelecionado;
     if (this.medicamentosAdicionados.indexOf(obj) === -1) {
@@ -485,6 +514,8 @@ export class PacientesFormComponent implements OnInit {
       if (valor === this.paciente.cpfCnpj) {
         this.formPaciente.get('cpfCnpj').clearAsyncValidators();
       } else {
+        this.formPaciente.get('cpfCnpj').markAsTouched();
+        this.formPaciente.get('cpfCnpj').markAsDirty();
         this.formPaciente.get('cpfCnpj').setAsyncValidators(cpfCnpjDisponivelValidator(this.pacientesService));
       }
     }
@@ -494,28 +525,6 @@ export class PacientesFormComponent implements OnInit {
     if (campo.touched || campo.dirty) {
       return this.msgValidation.getErrorMessage(campo, label);
     }
-  }
-
-  criarFormularios() {
-    this.formPaciente = this.builder.group({
-      responsavelFamiliar: [false, Validators.required],
-      familia: ['', Validators.required],
-      nome: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]],
-      cpfCnpj: ['', {
-        validators: [
-          Validators.required,
-          Validators.minLength(14),
-          Validators.maxLength(18)
-        ],
-        asyncValidators: cpfCnpjDisponivelValidator(this.pacientesService)
-      }],
-      nacionalidade: ['BR', Validators.required],
-      sexo: ['M', Validators.required],
-      dataNascimento: ['', Validators.required],
-      telefone: ['', Validators.maxLength(20)],
-      celular: ['', Validators.maxLength(20)],
-      email: ['', [Validators.email, Validators.maxLength(250)]]
-    });
   }
 
   listarFamilias() {
@@ -544,7 +553,7 @@ export class PacientesFormComponent implements OnInit {
 
   listarPaises() {
     this.paises$ = this.paisesService.listarPaises().pipe(
-      tap(v => v.length == 0 ? this.msg.exibirMensagem('A Lista de Países Está Vazia', 'info') : EMPTY)
+      tap(v => v.length === 0 ? this.msg.exibirMensagem('A Lista de Países Está Vazia', 'info') : EMPTY)
     );
   }
 
@@ -597,7 +606,7 @@ export class PacientesFormComponent implements OnInit {
 
   listarMedicamentos() {
     this.medicamentos$ = this.medicamentosService.listarMedicamentos().pipe(
-      tap(v => v.length == 0 ? this.msg.exibirMensagem('A Lista de Medicamentos Está Vazia', 'info') : EMPTY)
+      tap(v => v.length === 0 ? this.msg.exibirMensagem('A Lista de Medicamentos Está Vazia', 'info') : EMPTY)
     );
   }
 }

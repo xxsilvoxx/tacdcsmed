@@ -1,6 +1,6 @@
 import { FormControl } from '@angular/forms';
-import { timer, EMPTY } from 'rxjs';
-import { switchMap, map } from 'rxjs/operators';
+import { EMPTY } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { FuncionariosService } from '../../services/funcionarios/funcionarios.service';
 import { PacientesService } from '../../services/pacientes/pacientes.service';
@@ -18,10 +18,9 @@ import { UbsService } from '../../services/ubs/ubs.service';
 
 // Validação pra mostrar se o login está disponivel
 // Percore no banco pra todos os funcionários
-export const loginDisponivelValidator = (service: FuncionariosService, time: number = 500) => {
+export const loginDisponivelValidator = (service: FuncionariosService) => {
   return (input: FormControl) => {
-    return timer (time).pipe(
-      switchMap(() => service.verificarLogin(input.value)),
+    return service.verificarLogin(input.value).pipe(
       map(res => {
         return res ? null : { loginInvalido: true };
       })
@@ -29,10 +28,9 @@ export const loginDisponivelValidator = (service: FuncionariosService, time: num
   };
 };
 
-export const emailDisponivelValidator = (service: FuncionariosService, time: number = 500) => {
+export const emailDisponivelValidator = (service: FuncionariosService) => {
   return (input: FormControl) => {
-    return timer (time).pipe(
-      switchMap(() => service.verificarEmail(input.value)),
+    return service.verificarEmail(input.value).pipe(
       map(res => {
         return res ? null : { emailInvalido: true };
       })
@@ -40,12 +38,9 @@ export const emailDisponivelValidator = (service: FuncionariosService, time: num
   };
 };
 
-export const cpfCnpjDisponivelValidator = (service: PacientesService, time: number = 500) => {
+export const cpfCnpjDisponivelValidator = (service: PacientesService) => {
   return (input: FormControl) => {
-    return timer (time).pipe(
-      switchMap(() => (input.value.length === 14 || input.value.length === 18)
-      ? service.retornarCpfCnpjValido(input.value)
-      : null),
+    return service.retornarCpfCnpjValido(input.value).pipe(
       map(res => {
         return res ? null : { cpfCnpjInvalido: true };
       })
@@ -53,10 +48,9 @@ export const cpfCnpjDisponivelValidator = (service: PacientesService, time: numb
   };
 };
 
-export const medicamentoDisponivelValidator = (service: MedicamentosService, time: number = 500) => {
+export const medicamentoDisponivelValidator = (service: MedicamentosService) => {
   return (input: FormControl) => {
-    return timer (time).pipe(
-      switchMap(() => service.validarNomeMedicamentoValido(input.value)),
+    return service.validarNomeMedicamentoValido(input.value).pipe(
       map(res => {
         return res ? null : { medicamentoInvalido: true };
       })
@@ -114,9 +108,8 @@ export const ubsDisponivelValidator = (service: UbsService) => {
  * maior que 0.
  */
 export const validarNumeroMinimo = (control: FormControl) => {
- if (control.value <= 0) {
-   return { numeroInvalido: true };
- }
- return null;
-}
-
+  if (control.value <= 0) {
+    return { numeroInvalido: true };
+  }
+  return null;
+};

@@ -14,7 +14,7 @@ export class MensagemValidationService {
       'email' : 'Deve ser um e-mail válido',
       'minlength' : `${label} deve ter no mínimo ${extra.requiredLength} caracteres`,
       'maxlength' : `${label} deve ter no máximo ${extra.requiredLength} caracteres`,
-      'cpfCnpjInvalido': 'Já existe um registro com esse número',
+      'cpfCnpjInvalido': 'Esse número já está cadastrado',
       'senhaDiferente': 'A senha deve ser igual',
       'loginInvalido': 'Este login já está sendo usado',
       'emailInvalido': 'Este email já está sendo usado',

@@ -22,8 +22,8 @@ export class PacientesService {
     return this.http.post<Paciente>(this.apiUrl, paciente).pipe(take(1));
   }
 
-  alterar(paciente: Paciente, codigo: number) {
-    return this.http.put<Paciente>(`${this.apiUrl}/${codigo}`, paciente);
+  alterar(paciente: Paciente) {
+    return this.http.put<Paciente>(`${this.apiUrl}/${paciente.idPessoa}`, paciente).pipe(take(1));
   }
 
   listar() {

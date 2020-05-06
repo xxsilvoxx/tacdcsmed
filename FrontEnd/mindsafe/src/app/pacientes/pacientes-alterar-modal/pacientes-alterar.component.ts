@@ -46,7 +46,7 @@ export class PacientesAlterarComponent implements OnInit {
       if (sexo !== '') {
         paciente.sexo = sexo;
       }
-      this.pacientesService.alterar(paciente, paciente.idPessoa).subscribe(
+      this.pacientesService.alterar(paciente).subscribe(
         success => success,
         err => this.msg.exibirMensagem(`Erro ao alterar o ${count}° paciente`, 'error')
       );
