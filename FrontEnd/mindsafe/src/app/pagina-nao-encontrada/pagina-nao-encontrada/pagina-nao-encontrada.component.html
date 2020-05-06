@@ -1,13 +1,19 @@
 <div fxLayout="column" fxLayoutGap="15px">
-  <h1 [ngStyle.xs]="{'font-size': '45pt'}">404!</h1>
+  <h1 [ngStyle.xs]="{'font-size': '40pt'}" class="w3-center w3-animate-top">404!</h1>
 
-  <h2 [ngStyle.xs]="{'font-size': '20pt'}">PÁGINA NÃO ENCONTRADA</h2>
+  <h2 [ngStyle.xs]="{'font-size': '20pt'}" class="w3-center w3-animate-left">PÁGINA NÃO ENCONTRADA OU EM MANUTENÇÃO</h2>
 
   <div id="img-erro" fxFlex>
-    <img src="../../../assets/imagens/404-error.svg" [ngStyle.xs]="{'width': '80%'}" [ngStyle.sm]="{'width': '60%'}" [ngStyle.md]="{'width': '40%'}">
+    <img id="img" src="../../../assets/imagens/404-error.svg" class="w3-animate-zoom" [ngStyle.xs]="{'width': '60%'}" [ngStyle.sm]="{'width': '40%'}" [ngStyle.md]="{'width': '30%'}">
+    <p id="licensa">
+      Icons made by
+      <a href="https://www.flaticon.com/authors/flat-icons" target="blank" title="Flat Icons">Flat Icons</a>
+      from
+      <a href="https://www.flaticon.com/" target="blank" title="Flaticon">www.flaticon.com</a>
+    </p>
   </div>
 
-  <button mat-raised-button (click)="navegarParaHome()" color="primary">
+  <button mat-raised-button (click)="navegarParaHome()" class="w3-center w3-animate-bottom" color="primary">
     IR PARA PÁGINA INCIAL
     <mat-icon class="material-icons">home</mat-icon>
   </button>

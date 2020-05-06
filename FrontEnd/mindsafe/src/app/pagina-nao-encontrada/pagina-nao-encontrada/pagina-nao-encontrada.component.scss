@@ -1,8 +1,10 @@
+@import 'https://www.w3schools.com/w3css/4/w3.css';
+
 h1 {
   margin-top: 2px;
   text-align: center;
   font-weight: 500;
-  font-size: 60pt;
+  font-size: 50pt;
   color: #272727;
 }
 
@@ -10,19 +12,33 @@ h2 {
   margin-top: 1px;
   text-align: center;
   font-weight: 400;
-  font-size: 30pt;
+  font-size: 25pt;
   letter-spacing: 5px;
   color: #747474;
 }
 
 img {
-  width: 30%;
+  width: 25%;
   height: auto;
-  margin: 0px auto;
 }
 
 #img-erro {
   text-align: center;
+}
+
+#img-erro a {
+  text-decoration: none;
+  color: #3751e4;
+}
+
+#licensa {
+  margin: 0px auto;
+  opacity: 0;
+  transition: all 1s;
+}
+
+#img-erro:hover #licensa {
+  opacity: 1;
 }
 
 mat-icon {
