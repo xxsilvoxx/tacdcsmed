@@ -119,7 +119,7 @@ export class PacientesFormComponent implements OnInit {
    * Armazena os medicamentos selecionados, antes de enviar para o servidor
    */
   medicamentosAdicionados: MedicamentoPessoa[] = [];
-  causasAdicionadas: CausaPessoa[] = [];
+  /* causasAdicionadas: CausaPessoa[] = []; */
 
   /**
    * Lista que armazena os tips de horários para cada medicamento
@@ -208,19 +208,24 @@ export class PacientesFormComponent implements OnInit {
         celular: paciente.celular,
         email: paciente.email
       });
+
       if (paciente.cpfCnpj.length > 14) {
         this.tipoPessoa = 'cnpj';
       }
+
       if (paciente.responsavelFamiliar === false) {
         this.validarReponsavel(paciente.familia);
       }
+
       this.formPaciente.get('cpfCnpj').clearAsyncValidators();
+
       this.medicamentoPessoaService.retornarMedicamentos(paciente).subscribe(
         medicamentoPessoa => {
           this.medicamentosAdicionados = medicamentoPessoa;
         },
         err => this.msg.exibirMensagem('Erro ao retornar medicamentos', 'error')
       );
+
       // Busca os medicamentos pra comparativo
       this.medicamentoPessoaService.retornarMedicamentos(paciente).subscribe(
         medicamentoPessoa => {
@@ -228,6 +233,7 @@ export class PacientesFormComponent implements OnInit {
         },
         err => this.msg.exibirMensagem('Erro ao retornar medicamentos', 'error')
       );
+
       // Busca as causas pra comparativo
       this.causaPessoaService.listarCausas(paciente).subscribe(
         causaPessoa => {
@@ -238,137 +244,179 @@ export class PacientesFormComponent implements OnInit {
     }
   }
 
-  // Método chamado para sair da modal, tanto no icone de close
-  // quanto no botão cancelar na última etapa do cadastro.
-  onClose() {
-    this.modalRef.close();
-  }
-
   // Método que avalia se está cadastrando ou alterando o usuário
   // Ele é chamado quando o botão de de confirmação na última etapa do
   // cadastro, é pressioando.
   onConfirm() {
     if (this.paciente) {
-      // Altera os dados do paciente
+
+      // Altera os dados do paciente.
       this.converteDataSemGMT();
-      this.pacientesService.alterar(this.formPaciente.value).subscribe(
-        paciente => {
-          this.msg.exibirMensagem('Paciente alterado com sucesso', 'check_circle_outline');
-          // Altera dados dos medicamentos modificados dentro do angular
-          // Faz a iteração de cada objeto modificado pelo usuário
-          // Depois compara com o que tem salvo no servidor.
-          for (const medicamentoPessoa of this.medicamentosAdicionados) {
-            medicamentoPessoa.pessoa = paciente;
-            // Valida se o registro não possui código, ou seja, é novo.
-            const novoRegistro = medicamentoPessoa.idMedPessoa === undefined ? medicamentoPessoa : null;
-            if (novoRegistro != null) {
-              // Chama serviço que adiciona o novo registro.
-              this.medicamentoPessoaService.cadastrar(novoRegistro).subscribe(
+      this.pacientesService.alterar(this.formPaciente.value).pipe(
+        tap(paciente => {
+
+          // Valida se a lista de medicamentosAdicionados está vazia
+          // removendo todas os medicamentos do paciente.
+          if (this.medicamentosAdicionados.length === 0) {
+
+            // Itera todos os medicamentos salvos para o paciente
+            // e remove todos.
+            for (const medicamentoPessoa of this.medicamentosDoServer) {
+              this.medicamentoPessoaService.remover(medicamentoPessoa).subscribe(
                 success => success,
-                err => this.msg.exibirMensagem('Erro ao adicionar o novo medicamento', 'error')
-              );
-            } else {
-              this.medicamentosDoServer.forEach(
-                v => {
-                  // Seleciona o registro do mesmo código.
-                  if (medicamentoPessoa.idMedPessoa === v.idMedPessoa) {
-                    // tslint:disable-next-line: max-line-length
-                    if (v.horarios.indexOf(medicamentoPessoa.horarios) === -1 || v.medicamento.nome.indexOf(medicamentoPessoa.medicamento.nome) === -1) {
-                      // Altera o registro.
-                      this.medicamentoPessoaService.alterar(medicamentoPessoa).subscribe(
-                        success => success,
-                        err => this.msg.exibirMensagem('Erro ao alterar o medicamento', 'error')
-                      );
-                    }
-                  } else if (this.medicamentosAdicionados.map(c => c.idMedPessoa).indexOf(v.idMedPessoa) === -1) {
-                    if (v != null) {
-                      // Remove o registro.
-                      this.medicamentoPessoaService.remover(v).subscribe(
-                        success => success,
-                        err => this.msg.exibirMensagem('Erro ao remover o medicamento', 'error')
-                      );
-                    }
-                  }
-                }
+                err => this.msg.exibirMensagem('Erro ao remover o medicamento', 'error')
               );
             }
-          }
 
-          // Caso seja vazia a lista de causas selecioandas
-          // remove todas as causas do server.
-          if (this.selectedCausas.length === 0) {
-            this.causasDoServer.forEach(causaPessoa => {
-              this.causaPessoaService.removerCausa(causaPessoa).subscribe(
+            // Caso tenha um ou mais registros na lista de medicamentos
+            // adicionados, ele itera cada registro.
+          } else {
+
+            // Lista que armazena registros que estavam antes
+            // e que não foram modificados.
+            const registrosMantidos = [] as MedicamentoPessoa[];
+
+            // Lista que armazena registros que estavam antes
+            // mas que tiveram seu medicamento ou horários
+            // alterados.
+            const registrosAlterados = [] as MedicamentoPessoa[];
+
+            // Verifica se possui idMedPessoa, caso não possua
+            // significa que é um novo registro, e fica nessa
+            // lista.
+            const registrosNovos = [] as MedicamentoPessoa[];
+
+            // Lista que armazena registros que forem removidos.
+            let registrosRemovidos = [] as MedicamentoPessoa[];
+
+            for (const medicamentoPessoa of this.medicamentosAdicionados) {
+              if (medicamentoPessoa.idMedPessoa !== undefined) {
+
+                // Filtra para o registro que possui o mesmo id na lista
+                // que armazena os registros originais.
+                const registro = this.medicamentosDoServer.filter(value => value.idMedPessoa === medicamentoPessoa.idMedPessoa);
+
+                // Valida se dos registros que já estavam antes
+                // tem os mesmos horários, e mesmo medicamento.
+                // tslint:disable-next-line: max-line-length
+                const igual = (medicamentoPessoa.idMedPessoa === registro[0].idMedPessoa) && (medicamentoPessoa.horarios === registro[0].horarios) && (medicamentoPessoa.medicamento.idMedicamento === registro[0].medicamento.idMedicamento);
+
+                if (igual) {
+                  registrosMantidos.push(medicamentoPessoa);
+                } else {
+                  registrosAlterados.push(medicamentoPessoa);
+                }
+              } else {
+                registrosNovos.push(medicamentoPessoa);
+              }
+            }
+
+            // Seleciona apenas os elementos que não estão mais na lista
+            // de medicamentos adicionados
+            // tslint:disable-next-line: max-line-length
+            registrosRemovidos = this.medicamentosDoServer.filter(value => !(this.medicamentosAdicionados.map(registro => registro.idMedPessoa).includes(value.idMedPessoa)));
+
+            // Adiciona todos os novos medicamentos.
+            registrosNovos.forEach(registro => {
+              registro.pessoa = paciente;
+              this.medicamentoPessoaService.cadastrar(registro).subscribe(
                 success => success,
-                err => this.msg.exibirMensagem('Erro ao remover os riscos', 'error')
+                err => this.msg.exibirMensagem('Erro ao adicionar o medicamento', 'error')
+              );
+            });
+
+            // Remove todos os medicamentos do servidor
+            // que forem escolhidos no angular.
+            registrosRemovidos.forEach(registro => {
+              /* registro.pessoa = paciente; */
+              this.medicamentoPessoaService.remover(registro).subscribe(
+                success => success,
+                err => this.msg.exibirMensagem('Erro ao remover o medicamento', 'error')
+              );
+            });
+
+            // Altera todos os registros que tiveram
+            // ou medicamento, ou horários modificados.
+            registrosAlterados.forEach(registro => {
+              this.medicamentoPessoaService.alterar(registro).subscribe(
+                success => success,
+                err => this.msg.exibirMensagem('Erro ao alterar o medicamento', 'error')
               );
             });
           }
+        }),
+        tap(paciente => {
 
-          // Altera as causas marcadas e desmarcadas pelo usuário dentro do angular
-          // Itera cada registro modificado pra depois validar com o que está salvo no servidor.
-          for (const causa of this.selectedCausas) {
-            // Instância do objeto que irá ser passado por parâmetro.
-            const causaPessoa = new CausaPessoa();
-            // atribui a causa da iteração e o paciente que irá ter essa causa marcada.
-            causaPessoa.causa = causa;
-            causaPessoa.pessoa = paciente;
-            // Verifica que a lista do servidor está vazia
-            // Ou seja, o usuário está passando valores novos.
-            if (this.causasDoServer.length === 0) {
-              this.causaPessoaService.cadastrar(causaPessoa).subscribe(
+          // Verifica se a lista de causas foi modificada
+          // e selecionados todos os riscos para serem
+          // removidos.
+          if (this.selectedCausas.length === 0) {
+            this.causasDoServer.forEach(registro => {
+              this.causaPessoaService.removerCausa(registro).subscribe(
                 success => success,
-                err => this.msg.exibirMensagem('Erro ao alterar as causas', 'error')
+                err => this.msg.exibirMensagem('Erro ao remover o risco', 'error')
               );
-            // Caso a lista que veio do servidor não esteja vazia, cai nesse else.
-            } else {
-              // Itera cada causa salva para o paciente.
-              this.causasDoServer.forEach(
-                v => {
-                  // Verifica pelo nome da causa se elá já está salva
-                  // passando o código do registro salvo pra ele
-                  // passar pelas validações.
-                  if (v.causa.nome.indexOf(causaPessoa.causa.nome) !== -1) {
-                    if (causaPessoa.idCausaPessoa === undefined) {
-                      causaPessoa.idCausaPessoa = v.idCausaPessoa;
-                    }
-                  }
-                  // Valida se o código é como undefined pra dizer que o mesmo é novo
-                  // Executa o mesmo processo da linha 269.
-                  const novoRegistro = causaPessoa.idCausaPessoa === undefined ? causaPessoa : null;
-                  if (novoRegistro != null) {
-                    this.causaPessoaService.cadastrar(novoRegistro).subscribe(
-                      successs => successs,
-                      err => this.msg.exibirMensagem('Erro ao alterar as causas', 'error')
-                    );
-                  // Verifica se o registro dentro da lista de selecionados para alteração
-                  // possui um determinado valor que já estava no servidor, caso não esteja
-                  // o mesmo é passado como parâmetro para ser removido.
-                  } else if (this.selectedCausas.map(c => c.idCausa).indexOf(v.causa.idCausa) === -1) {
-                    this.causaPessoaService.removerCausa(v).subscribe(
-                      success => success,
-                      err => this.msg.exibirMensagem('Erro ao remover as causas', 'error')
-                    );
-                    // Após remover do servidor, o mesmo objeto é removido da lista de comparação
-                    // para avitar de cair duas vezes na mesma condição e assim evitar um erro
-                    // no servidor.
-                    const index = this.causasDoServer.indexOf(v);
-                    this.formControlCausas.value.splice(index, 1);
-                  }
+            });
+
+          } else {
+
+            const causasMantidas = [] as CausaPessoa[];
+            let causasRemovidas = [] as CausaPessoa[];
+            const causasNovas = [] as CausaPessoa[];
+
+            for (const causa of this.selectedCausas) {
+
+              const causasPessoas = this.causasDoServer.filter(value => value.causa.idCausa === causa.idCausa);
+
+              // Verica se o registro possui id de identificação
+              // caso não possua, considera-o como novo registro
+              if (causasPessoas.length > 0) {
+
+                // Valida se a causa passada da iteração, estava presente
+                // já na lista.
+                if (this.causasDoServer.map(valor => valor.idCausaPessoa).includes(causasPessoas[0].idCausaPessoa)) {
+                  causasMantidas.push(causasPessoas[0]);
                 }
-              );
+
+              } else {
+                const causaPessoa = new CausaPessoa();
+                causaPessoa.causa = causa;
+                causaPessoa.pessoa = paciente;
+                causasNovas.push(causaPessoa);
+              }
             }
+
+            // tslint:disable-next-line: max-line-length
+            causasRemovidas = this.causasDoServer.filter(value => !(this.selectedCausas.map(registro => registro.idCausa).includes(value.causa.idCausa)));
+
+            causasNovas.forEach(registro => {
+              this.causaPessoaService.cadastrar(registro).subscribe(
+                success => success,
+                err => this.msg.exibirMensagem('Erro ao adicionar o risco', 'error')
+              );
+            });
+
+            causasRemovidas.forEach(registro => {
+              this.causaPessoaService.removerCausa(registro).subscribe(
+                success => success,
+                err => this.msg.exibirMensagem('Erro ao remover o risco', 'error')
+              );
+            });
           }
-          this.modalRef.close(paciente);
-        },
+        }),
+        tap(paciente => this.modalRef.close(paciente))
+      ).subscribe(
+        res => this.msg.exibirMensagem('Paciente alterado com sucesso', 'check_circle_outline'),
         err => this.msg.exibirMensagem('Erro ao alterar o paciente', 'error')
       );
     } else {
+
       // cadastra o paciente.
       this.converteDataSemGMT();
       this.pacientesService.cadastrar(this.formPaciente.value).subscribe(
         paciente => {
           this.msg.exibirMensagem('Paciente cadastrado com sucesso', 'done');
+
           // Itera cada medicamento adicionado dentro do angular, e os envia para o servidor.
           for (const medicamentoPessoa of this.medicamentosAdicionados) {
             medicamentoPessoa.pessoa = paciente;
@@ -377,10 +425,12 @@ export class PacientesFormComponent implements OnInit {
               err => this.msg.exibirMensagem('Erro ao adicionar medicamentos', 'error')
             );
           }
+
           let causas: Causa[] = [];
           if (this.formControlCausas.value !== undefined) {
             causas = this.formControlCausas.value as Causa[];
           }
+
           // Itera cada causa marcada dentro do angular, e as envia para o servidor.
           for (const causa of causas) {
             const causaPessoa = new CausaPessoa();
@@ -509,15 +559,9 @@ export class PacientesFormComponent implements OnInit {
   // método que observa o change do cpfCnpj
   // valida se o valor dentro do campo é o mesmo que veio do servidor
   // se for diferente ele aplica a validação assíncrona
-  validarCpfCnpj(valor: string) {
+  validarCpfCnpj() {
     if (this.paciente) {
-      if (valor === this.paciente.cpfCnpj) {
-        this.formPaciente.get('cpfCnpj').clearAsyncValidators();
-      } else {
-        this.formPaciente.get('cpfCnpj').markAsTouched();
-        this.formPaciente.get('cpfCnpj').markAsDirty();
-        this.formPaciente.get('cpfCnpj').setAsyncValidators(cpfCnpjDisponivelValidator(this.pacientesService));
-      }
+      this.formPaciente.get('cpfCnpj').setAsyncValidators(cpfCnpjDisponivelValidator(this.pacientesService));
     }
   }
 
@@ -542,7 +586,7 @@ export class PacientesFormComponent implements OnInit {
       })
     ).subscribe(
       res => {
-        if (res.length == 0) {
+        if (res.length === 0) {
           this.msg.exibirMensagem('A lista de famílias está vazia', 'info');
         }
         this.familias = res;

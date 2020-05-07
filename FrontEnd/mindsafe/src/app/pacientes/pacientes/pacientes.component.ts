@@ -33,7 +33,7 @@ export class PacientesComponent implements OnInit, OnDestroy {
   pacientes: Paciente[] = [];
 
   // Colunas que serão renderizadas na data table do angular material
-  displayedColumns = ['idPessoa', 'nome', 'familia', 'cpfCnpj', 'responsavelFamiliar', 'dataNascimento', 'select'];
+  displayedColumns = ['idPessoa', 'nome', 'familia', 'cpfCnpj', 'responsavelFamiliar', 'dataNascimento', 'sexo', 'select'];
 
   // Filtro específico pra cada classe que ele estará sendo trabalhado
   filtroPesquisa: FiltroPaciente[] = [
@@ -127,7 +127,7 @@ export class PacientesComponent implements OnInit, OnDestroy {
       filter(() => this.media.isActive('sm'))
     ).subscribe(
       res => {
-        const columns = ['idPessoa', 'nome', 'familia', 'select'];
+        const columns = ['idPessoa', 'nome', 'familia', 'cpfCnpj', 'select'];
         this.displayedColumns = columns;
       }
     );
@@ -140,7 +140,7 @@ export class PacientesComponent implements OnInit, OnDestroy {
       filter(() => this.media.isActive('md'))
     ).subscribe(
       res => {
-        const columns = ['idPessoa', 'nome', 'familia', 'cpfCnpj', 'select'];
+        const columns = ['idPessoa', 'nome', 'familia', 'cpfCnpj', 'responsavelFamiliar', 'select'];
         this.displayedColumns = columns;
       }
     );
@@ -153,7 +153,8 @@ export class PacientesComponent implements OnInit, OnDestroy {
       filter(() => this.media.isActive('lg'))
     ).subscribe(
       res => {
-        const columns = ['idPessoa', 'nome', 'familia', 'cpfCnpj', 'responsavelFamiliar', 'dataNascimento', 'nacionalidade', 'select'];
+        // tslint:disable-next-line: max-line-length
+        const columns = ['idPessoa', 'nome', 'familia', 'cpfCnpj', 'responsavelFamiliar', 'dataNascimento', 'nacionalidade', 'sexo', 'select'];
         this.displayedColumns = columns;
       }
     );
