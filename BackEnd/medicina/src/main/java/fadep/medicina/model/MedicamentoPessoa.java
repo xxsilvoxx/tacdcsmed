@@ -60,7 +60,7 @@ public class MedicamentoPessoa {
 		return horarios;
 	}
 
-	public void setHorario(String horarios) {
+	public void setHorarios(String horarios) {
 		this.horarios = horarios;
 	}
 
