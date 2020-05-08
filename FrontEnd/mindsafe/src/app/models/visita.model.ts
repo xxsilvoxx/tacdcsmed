@@ -5,10 +5,10 @@ export class Visita {
   idVisita: number;
   pessoa: Paciente;
   funcionario: Funcionario;
-  dataVisita: Date;
+  dataVisita: Date; // Date
   anotacoes: string;
   comparecerUbs: boolean;
-  dataCompare: Date;
+  dataCompare: Date; // Date
   desCompare: string;
   proximaVisita: Visita;
   status: any;

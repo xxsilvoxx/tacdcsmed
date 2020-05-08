@@ -11,7 +11,7 @@
 
     <mat-form-field fxFlex *ngIf="!data">
       <mat-select formControlName="pessoa" placeholder="Paciente">
-        <mat-option *ngFor="let paciente of pacientes$ | async" [value]="paciente">
+        <mat-option *ngFor="let paciente of pacientes" [value]="paciente">
           {{ paciente.nome }}
         </mat-option>
       </mat-select>
@@ -45,17 +45,26 @@
           <input matInput formControlName="dataCompare" [matDatepicker]="datePikerHorario" readonly >
           <mat-datepicker-toggle [for]="datePikerHorario" matSuffix></mat-datepicker-toggle>
           <mat-datepicker #datePikerHorario ></mat-datepicker>
+          <mat-error>
+            {{ retornarValidacoes(formVisitas.get('dataCompare'), 'Data') }}
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field>
-          <input matInput [textMask]="{mask: mask, guide:false}" placeholder="Hora" [formControl]='horarioControl'>
+          <input matInput [textMask]="{mask: mask, guide:false}" placeholder="Hora" [formControl]='horarioControl' (click)="mudarCampoHora(horarioControl)">
           <mat-error>
             {{ retornarValidacoes(horarioControl, 'Horário') }}
           </mat-error>
         </mat-form-field>
 
         <mat-form-field>
-          <input formControlName="desCompare" matInput placeholder="Descrição" >
+          <input formControlName="desCompare" matInput placeholder="Descrição" #descComparecimento>
+          <mat-hint align="end">
+            {{ descComparecimento.value?.length }} / 250
+          </mat-hint>
+          <mat-error>
+            {{ retornarValidacoes(formVisitas.get('desCompare'), 'Descrição') }}
+          </mat-error>
         </mat-form-field>
       </mat-expansion-panel>
     </mat-accordion>
@@ -71,7 +80,7 @@
     </mat-form-field>
 
     <mat-form-field fxFlex>
-      <input  matInput [textMask]="{mask: mask, guide:false}" placeholder="Hora" [formControl]='horarioProximaVisitaControl'>
+      <input matInput [textMask]="{mask: mask, guide:false}" placeholder="Hora" [formControl]='horarioProximaVisitaControl' (click)="mudarCampoHora(horarioProximaVisitaControl)">
       <mat-error>
         {{ retornarValidacoes(horarioProximaVisitaControl, 'Horário') }}
       </mat-error>

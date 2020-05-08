@@ -41,4 +41,8 @@ export class PacientesService {
   retornarResponsavelFamiliar(familia: Familia) {
     return this.http.get<Paciente>(`${this.apiUrl}/familia/${familia.idFamilia}/responsavel`).pipe(take(1));
   }
+
+  retornarPacientesNaoVisitados() {
+    return this.http.get<Paciente[]>(`${this.apiUrl}/visitas/pendentes`).pipe(take(1));
+  }
 }

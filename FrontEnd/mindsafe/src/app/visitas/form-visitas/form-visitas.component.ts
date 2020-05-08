@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Observable, EMPTY } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, tap } from 'rxjs/operators';
 
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
@@ -13,7 +13,7 @@ import { Visita } from '../../models/visita.model';
 import { MensagemValidationService } from '../../shared/mensagem-validation/mensagem-validation.service';
 import { VisitaService } from '../../services/visitas/visita.service';
 import { MensagemService } from '../../shared/mensagem/mensagem.service';
-import { dateToTimestamp, converterPraDate } from '../../shared/date-format/date-format';
+import { dateToTimestamp, converterPraDate, converterPraHora } from '../../shared/date-format/date-format';
 
 @Component({
   selector: 'app-form-visitas',
@@ -33,7 +33,7 @@ export class FormVisitasComponent implements OnInit {
   // Armazena a lista de pacientes
   // Só será carregado caso seja um
   // cadastro novo.
-  pacientes$: Observable<Paciente[]>;
+  pacientes: Paciente[];
 
   // Lista com os os possíves status da visita
   listStatus: string[] = [
@@ -92,7 +92,7 @@ export class FormVisitasComponent implements OnInit {
       anotacoes: [null],
       comparecerUbs: [false],
       dataCompare: [null],
-      desCompare: [null],
+      desCompare: [null, Validators.maxLength(250)],
       proximaVisita: [null, Validators.required],
       status: [this.listStatus[1], Validators.required]
     });
@@ -120,41 +120,53 @@ export class FormVisitasComponent implements OnInit {
    * no formulário.
    */
   preencherCampos(visita: Visita) {
+    console.log(visita);
     this.formVisitas.setValue({
       idVisita: visita.idVisita,
       pessoa: visita.pessoa,
       funcionario: visita.funcionario,
+
       // Caso o status da visita seja diferente de CONCLUÍDO,
       // seta a data da visita realizada para a data atual,
       // uma forma de não alterar da data das visitas já
       // realizadas, mantendo uma integridade.
-      dataVisita: (visita.status !== this.listStatus[0])
+      dataVisita: (visita.status.mensagem !== this.listStatus[0])
         ? this.dataAtual
-        : converterPraDate(visita.dataVisita),
+        : visita.dataVisita,
       anotacoes: visita.anotacoes,
       comparecerUbs: visita.comparecerUbs,
+
       // Caso possua algum valor na data de comparecimento
       // é setada a data no campo.
       dataCompare: visita.dataCompare
-        ? converterPraDate(visita.dataCompare)
+        ? new Date(visita.dataCompare)
         : null,
       desCompare: visita.desCompare,
       proximaVisita: visita.proximaVisita
-        ? converterPraDate(visita.proximaVisita.dataVisita)
+        ? visita.proximaVisita.dataVisita
         : null,
       status: visita.status
     });
 
     // Caso possua uma próxima visita, o objeto proximaVisita recebe
     // do elemento selecionado.
-    visita.proximaVisita != null
+    visita.proximaVisita !== null
       ? (
-        // Por padrão está setando 08:30 por problemas no timestamp.
-        this.horarioProximaVisitaControl.setValue('08:30'),
+        this.horarioProximaVisitaControl.setValue(converterPraHora(visita.proximaVisita.dataVisita)),
+        this.horarioProximaVisitaControl.clearValidators(),
         this.proximaVisitaSalva = visita.proximaVisita
       )
       // tslint:disable-next-line: no-unused-expression
       : null;
+
+    // Caso possua um agendamento
+    visita.dataCompare
+    ? (
+      this.horarioControl.setValue(converterPraHora(visita.dataCompare)),
+      this.horarioControl.clearValidators()
+    )
+    // tslint:disable-next-line: no-unused-expression
+    : null;
 
     // Muda o icone do botão para edit.
     this.iconBtn = 'edit';
@@ -171,7 +183,26 @@ export class FormVisitasComponent implements OnInit {
 
   // Lista os pacientes cadastrados.
   listarPacientes() {
-    this.pacientes$ = this.pacientesService.listar();
+
+    // Verifica se a lista de visitas está vazia
+    // caso esteja, o switchMap vai para listar
+    // todos, caso contrário, lista somente os
+    // pacientes não visitados.
+    this.visitasService.listarVisitas().pipe(
+      switchMap(
+        visitas => visitas.length === 0
+        ? this.pacientesService.listar()
+        : this.pacientesService.retornarPacientesNaoVisitados()
+      )
+    ).subscribe(
+      res => {
+        if (res.length === 0) {
+          this.msg.exibirMensagem('A lista de pacientes está vazia', 'info');
+        }
+        this.pacientes = res;
+      },
+      err => this.msg.exibirMensagem('Erro ao buscar os pacientes', 'error')
+    );
   }
 
   // Busca o primeiro funcionário cadastrado.
@@ -182,9 +213,24 @@ export class FormVisitasComponent implements OnInit {
     );
   }
 
+  // Caso o usuário mude o valor do campo
+  // Seta os validadores.
+  mudarCampoHora(control: FormControl) {
+    control.setValidators([Validators.minLength(5), Validators.maxLength(5)]);
+  }
+
   // Método para mudar o slide-toggle.
   mudarComparecerUbs() {
     this.comparecerUbs = !this.comparecerUbs;
+    if (this.comparecerUbs) {
+      this.formVisitas.get('desCompare').setValidators([Validators.required, Validators.maxLength(250)]);
+      this.formVisitas.get('dataCompare').setValidators(Validators.required);
+      this.horarioControl.setValidators(Validators.required);
+    } else {
+      this.formVisitas.get('desCompare').clearValidators();
+      this.formVisitas.get('dataCompare').clearValidators();
+      this.horarioControl.clearValidators();
+    }
   }
 
   /**
@@ -207,11 +253,30 @@ export class FormVisitasComponent implements OnInit {
    * feito por este método.
    */
   cadastrar() {
+
+    const dataVisita: Date = this.formVisitas.get('dataVisita').value;
+    const horaVisita = `${dataVisita.getHours().toString()}:${dataVisita.getMinutes().toString()}`;
+    this.formVisitas.get('dataVisita').setValue(dateToTimestamp(dataVisita, horaVisita));
+
     // Seta o status como CONCLUIDO já que a visita foi realizada.
     this.formVisitas.get('status').setValue(this.listStatus[0]);
 
+    // Caso comparecerUbs seja true, converte a data
+    // pro padrão correto que o servidor espera
+    if (this.comparecerUbs) {
+
+      // Converte a data da consulta e o horário para um
+      // obejto timestamp.
+      const dataCompare = dateToTimestamp(this.formVisitas.get('dataCompare').value, this.horarioControl.value);
+      this.formVisitas.get('dataCompare').setValue(dataCompare);
+    } else {
+      this.formVisitas.get('dataCompare').setValue(null);
+      this.formVisitas.get('desCompare').setValue(null);
+    }
+
     // Recebe a data da proxima visita, pra criar um novo objeto.
-    const dataProximaVisita: Date = this.formVisitas.get('proximaVisita').value;
+    let dataProximaVisita: Date = this.formVisitas.get('proximaVisita').value;
+    dataProximaVisita = dateToTimestamp(dataProximaVisita, this.horarioProximaVisitaControl.value);
 
     // Chama o método que irá criar o próximo objeto visita.
     const proximaVisita = this.criarProximaVisita(this.formVisitas.value, dataProximaVisita);
@@ -224,6 +289,7 @@ export class FormVisitasComponent implements OnInit {
       // tslint:disable-next-line: no-shadowed-variable
       switchMap(proximaVisita => proximaVisita.idVisita !== null
         ? (
+
           // Caso tenha sido cadastrada com sucesso a visita futura,
           // retorna o objeto já com o código, e abaixo seta a proxima
           // visita, com essa visita gerada por primeiro.
@@ -248,6 +314,10 @@ export class FormVisitasComponent implements OnInit {
    * ou **atrasada**, este método é chamado.
    */
   alterarVisita() {
+
+    const dataVisita: Date = this.formVisitas.get('dataVisita').value;
+    this.formVisitas.get('dataVisita').setValue(dataVisita);
+
     // Recebe a data selecionada no formulário e
     // o horário da proxima visita, chama o método
     // que converte de date para timestamp.
@@ -261,7 +331,11 @@ export class FormVisitasComponent implements OnInit {
       // obejto timestamp.
       const dataCompare = dateToTimestamp(this.formVisitas.get('dataCompare').value, this.horarioControl.value);
       this.formVisitas.get('dataCompare').setValue(dataCompare);
+    } else {
+      this.formVisitas.get('dataCompare').setValue(null);
+      this.formVisitas.get('desCompare').setValue(null);
     }
+
     this.formVisitas.get('status').setValue(this.listStatus[0]);
 
     // Caso a visita esteja concluída
@@ -296,6 +370,7 @@ export class FormVisitasComponent implements OnInit {
 
       // Adiciona a próxima visita, e retorna o objeto
       // para alterar a visita atual.
+
       this.visitasService.cadastrarVisita(proximaVisita).pipe(
         switchMap(visita => visita.idVisita !== null
           ? (

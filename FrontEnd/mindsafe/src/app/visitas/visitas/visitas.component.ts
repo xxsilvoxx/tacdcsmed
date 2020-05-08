@@ -73,6 +73,7 @@ export class VisitasComponent implements OnInit {
    * - Atrasada
    */
   listarVisitas() {
+
     // Sempre que chama o método, ele apaga todas as
     // listas para preencher-las novamente.
     this.visitas = [];
@@ -81,12 +82,14 @@ export class VisitasComponent implements OnInit {
       v.visitas = [];
     });
     this.visitaService.listarVisitas().pipe(
+
       // Tap utilizado para atualizar a lista, antes mesmo de ela ser renderizada,
       // jogando visitas pendentes que já expiraram para atrasadas.
       tap(visitas => visitas.forEach(
         visita => {
-          const dataVisita = converterPraDate(visita.dataVisita);
+          const dataVisita = new Date(visita.dataVisita);
           const dataAtual = new Date();
+
           // Verifica se a data da visita é anterior a data atual.
           if (dataVisita < dataAtual) {
             if (visita.status === this.listStatus.pendente.mensagem) {
@@ -99,6 +102,7 @@ export class VisitasComponent implements OnInit {
           }
         }
       )),
+
       // Tap utilizado para separar todos os pacientes que
       // possuem visitas, assim evitando de fazer chamadas
       // desnecessárias ao servidor.
@@ -109,6 +113,7 @@ export class VisitasComponent implements OnInit {
           }
         }
       )),
+
       // Tap utilizado para iterar cada paciente, buscando o
       // somatório de riscos, e atribuindo a cor de acordo com
       // o risco.
@@ -116,11 +121,14 @@ export class VisitasComponent implements OnInit {
         ? this.pacientes.forEach(paciente => {
           this.causasService.retornarSomatorioRiscosPaciente(paciente).pipe(
             tap(somatorio => {
+
               // Lista todas as visitas para assim atribuir
               // cada visita em sua respectiva lista.
               this.visitaService.listarVisitas().subscribe(
+                // tslint:disable-next-line: no-shadowed-variable
                 visitas => visitas.forEach(
                   visita => {
+
                     // Compara se a visita passada tem o mesmo paciente da iteração
                     // assim já aplicando o valor do somatorio de riscos para veri-
                     // ficar a cor que será exibida ao lado do mesmo.
