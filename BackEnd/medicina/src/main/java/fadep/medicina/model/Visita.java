@@ -1,5 +1,8 @@
 package fadep.medicina.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -32,6 +35,7 @@ public class Visita {
 	@JoinColumn(name="id_funcionario")
 	private Funcionario funcionario;
 
+	@JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
 	@NotNull
 	@Column(name = "data_visita")
 	private Date dataVisita;
@@ -41,7 +45,8 @@ public class Visita {
 	
 	@Column(name = "comparecer_ubs")
 	private Boolean comparecerUbs;
-	
+
+	@JsonFormat(pattern="yyyy-MM-dd'T'HH:mm")
 	@Column(name = "data_comparecimento")
 	private Date dataCompare;
 	

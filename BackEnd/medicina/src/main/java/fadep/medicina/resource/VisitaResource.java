@@ -59,7 +59,5 @@ public class VisitaResource {
         return visitaService.listarAgendamentos(codPaciente);
     }
 
-
-
 }
 

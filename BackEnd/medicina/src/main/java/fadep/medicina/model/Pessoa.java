@@ -1,5 +1,7 @@
 package fadep.medicina.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -38,7 +40,8 @@ public class Pessoa {
 	@Size(min=14, max=18)
 	@Column(name="cpf_cnpj")
 	private String cpfCnpj;
-	
+
+	@JsonFormat(pattern="yyyy-MM-dd")
 	@NotNull
 	@Column(name="data_nascimento")
 	private Date dataNascimento;

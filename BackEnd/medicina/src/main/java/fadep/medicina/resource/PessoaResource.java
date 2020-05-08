@@ -50,6 +50,11 @@ public class PessoaResource {
         return pessoaService.retornarResponsavelFamiliar(codFamilia);
     }
 
+    @GetMapping("/visitas/pendentes")
+    public List<Pessoa> retornarPacientesNaoVisitados() {
+        return pessoaService.retornarPacientesNaoVisitadas();
+    }
+
     @GetMapping("/validar")
     @ResponseBody
     public Boolean validarCpfCnpj(@RequestParam(name="cpfCnpj") String cpfCnpj) {

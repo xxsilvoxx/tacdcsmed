@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class PessoaService {
 
@@ -67,6 +70,20 @@ public class PessoaService {
     public Boolean retornarValidadeCpfCnpj(String cpfCnpj) {
         Integer registro = pessoaRepository.retornarCpfCnpjValido(cpfCnpj);
         return (registro > 0) ? (false) : (true);
+    }
+
+    public List<Pessoa> retornarPacientesNaoVisitadas() {
+        List<Pessoa> pessoas = new ArrayList<Pessoa>();
+        List<Pessoa> todas = pessoaRepository.findAll();
+        List<Pessoa> pessoasVisitadas = pessoaRepository.retornarPacientesVisitados();
+        for (Pessoa pessoa: todas) {
+            if (!(pessoasVisitadas.contains(pessoa))) {
+                if (!(pessoas.contains(pessoa))) {
+                    pessoas.add(pessoa);
+                }
+            }
+        }
+        return pessoas;
     }
 
 }
