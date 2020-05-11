@@ -46,15 +46,17 @@ export class MenuSidenavComponent implements OnInit, OnDestroy {
   }
 
   buscarInformacoes() {
-    this.service.listarUsuario().subscribe(
-      res => {
-        this.funcionario = res;
-        if (this.funcionario.imagem !== null) {
-          this.imgUsuario = this.img.buscarImg(this.funcionario);
-        }
-      },
-      err => this.msg.exibirMensagem('Erro ao carregar suas informacoes', 'error')
-    );
+
+    // Agora o código busca do storage da sessão se o usuário está
+    // salvo, permitindo navegar entre as páginas.
+    this.funcionario = JSON.parse(window.sessionStorage.getItem('login-mindsafe'));
+    if (this.funcionario !== null) {
+      if (this.funcionario.imagem !== null) {
+        this.imgUsuario = this.img.buscarImg(this.funcionario);
+      }
+    } else {
+      this.msg.exibirMensagem('Erro ao carregar suas informacoes', 'error');
+    }
   }
 
   alterarDisplayXs() {
@@ -99,6 +101,7 @@ export class MenuSidenavComponent implements OnInit, OnDestroy {
   }
 
   sair() {
+    window.sessionStorage.removeItem('login-mindsafe');
     this.route.navigate(['login']);
   }
 

@@ -52,4 +52,8 @@ export class FuncionariosService {
   retornarTotalVisitas(funcionario: Funcionario) {
     return this.http.get<number>(`${this.apiUrl}/${funcionario.idFuncionario}/visitas/total`).pipe(take(1));
   }
+
+  logar(funcionario: Funcionario) {
+    return this.http.post<Funcionario>(`${this.apiUrl}/logar`, funcionario).pipe(take(1));
+  }
 }

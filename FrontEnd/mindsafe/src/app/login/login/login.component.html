@@ -3,35 +3,46 @@
     <div class="logo" ngClass.xs="logo-xs"></div>
     <div class="titulo" ngClass.xs="titulo-xs">MindSafe Software</div>
   </div>
+
   <div class="overlay" ngClass.xs="overlay-xs">
     Photo by
     <a href="https://unsplash.com/@jareddrice?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" class="link-overlay" target="blank">Jared Rice</a> on
     <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" class="link-overlay" target="blank">Unsplash</a>
   </div>
 </div>
-<div style="padding-left: 30px; padding-right: 30px;">
+
+<div style="padding: 0px 50px;">
   <h1>
     LOGIN
   </h1>
 
-  <mat-form-field>
-    <input matInput placeholder="Login" type="text" [(ngModel)]="funcionario.login">
-  </mat-form-field>
+  <form [formGroup]="formLogar" fxLayout="column" fxLayoutGap="15px">
+    <mat-form-field fxFlex>
+      <input matInput placeholder="Login" type="text" formControlName="login">
+      <mat-error>
+        {{ retornarValidacoes(formLogar.get('login'), 'Login') }}
+      </mat-error>
+    </mat-form-field>
 
-  <mat-form-field>
-    <input matInput placeholder="Senha" [type]="senhaViziveu ? 'text' : 'password'" maxlength="10" [(ngModel)]="funcionario.senha" #senha>
-    <button mat-icon-button matSuffix (click)="vizualizarSenha()">
-      <mat-icon class="material-icons" >{{ senhaViziveu ? 'visibility' : 'visibility_off' }}</mat-icon>
-    </button>
-    <mat-hint align="end">
-      {{ senha?.value.length }} / 10
-    </mat-hint>
-  </mat-form-field>
+    <mat-form-field fxFlex>
+      <input matInput placeholder="Senha" [type]="senhaViziveu ? 'text' : 'password'" formControlName="senha" #senha>
+      <mat-hint align="end">
+        {{ senha?.value.length }} / 10
+      </mat-hint>
+      <mat-error>
+        {{ retornarValidacoes(formLogar.get('senha'), 'Senha') }}
+      </mat-error>
+      <button mat-icon-button matSuffix (click)="vizualizarSenha()">
+        <mat-icon class="material-icons" >{{ senhaViziveu ? 'visibility' : 'visibility_off' }}</mat-icon>
+      </button>
+    </mat-form-field>
+  </form>
 
   <button mat-raised-button color="primary"
-    [disabled]="funcionario.login == null || (funcionario.senha == null || funcionario.senha.length < 2) " (click)="logar()">Logar <i
-      class="material-icons">send</i></button>
+    [disabled]="formLogar.invalid" (click)="logar()">
+    LOGAR <mat-icon class="material-icons">send</mat-icon>
+    </button>
 
-  <a class="esqueci-senha">Esqueci minha senha</a>
+  <a mat-button class="esqueci-senha" (click)="abrirJanelaRecuperarConta()">Esqueci minha senha</a>
 </div>
 
