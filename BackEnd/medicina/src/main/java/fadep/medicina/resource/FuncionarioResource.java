@@ -70,6 +70,11 @@ public class FuncionarioResource {
                 :(ResponseEntity.badRequest().build());
     }
 
+    @PostMapping("/logar")
+    public ResponseEntity<Funcionario> logar(@RequestBody Funcionario funcionario) {
+        return funcionarioService.retornarFuncionarioSalvo(funcionario.getLogin(), funcionario.getSenha());
+    }
+
     @PutMapping("/{codigo}")
     public ResponseEntity<Funcionario> alterar(@Valid @RequestBody Funcionario funcionario, @PathVariable("codigo") Long codigo) {
         return funcionarioService.atualizar(funcionario, codigo);

@@ -60,6 +60,11 @@ public class FuncionarioService {
         return (registros > 0) ? (ResponseEntity.ok(false)) : (ResponseEntity.ok(true));
     }
 
+    public ResponseEntity<Funcionario> retornarFuncionarioSalvo(String login, String senha) {
+        Funcionario funcionario = funcionarioRepository.retornarFuncionario(login, senha);
+        return (funcionario != null) ? (ResponseEntity.ok(funcionario)) : (ResponseEntity.notFound().build());
+    }
+
     public int removerImagem(Long codFuncionario) {
         return funcionarioRepository.removerImagem(codFuncionario);
     }

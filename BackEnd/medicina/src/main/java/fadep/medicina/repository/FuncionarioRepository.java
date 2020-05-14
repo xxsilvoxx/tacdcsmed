@@ -49,4 +49,16 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> 
      */
     @Query("SELECT COUNT(v.idVisita) FROM Visita v WHERE v.funcionario.idFuncionario = ?1")
     public Integer funcionarioPossuiVisitas(Long idFuncionario);
+
+    /**
+     * Retorna o objeto de funcionario apartir do email ou login e senha
+     */
+    @Query("SELECT f FROM Funcionario f WHERE (f.login = ?1 OR f.email = ?1) AND f.senha = ?2")
+    public Funcionario retornarFuncionario(String login, String senha);
+
+    /**
+     * Retorna o objeto funcionário apartir do email
+     */
+    @Query("SELECT f FROM Funcionario f WHERE f.email = ?1")
+    public Funcionario buscarPorEmail(String email);
 }
