@@ -1,5 +1,5 @@
 import { FormControl } from '@angular/forms';
-import { EMPTY } from 'rxjs';
+import { EMPTY, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { FuncionariosService } from '../../services/funcionarios/funcionarios.service';
@@ -99,7 +99,7 @@ export const ubsDisponivelValidator = (service: UbsService) => {
 };
 /* --------------------------------------------------------------------------------------- */
 
-// Validações sincronas
+// # Validações sincronas
 
 /* --------------------------------------------------------------------------------------- */
 
@@ -112,4 +112,34 @@ export const validarNumeroMinimo = (control: FormControl) => {
     return { numeroInvalido: true };
   }
   return null;
+};
+
+/**
+ * Valida se as senhas condizem, retornando um erro
+ * para a tela, caso o usuário tenha colocado senhas
+ * diferentes.
+ */
+export const validarSenhasDiferentes = (otherField: string) => {
+  return (confirmarSenha: FormControl) => {
+    const senha = confirmarSenha.root.get(`${otherField}`);
+    if (confirmarSenha.value !== null && senha.value !== null) {
+      if (confirmarSenha.value !== senha.value) {
+        return { senhaDiferente: true };
+      }
+    }
+    return null;
+  };
+};
+
+/**
+ * Método que compara a senha original
+ * com a atual senha do usuário.
+ */
+export const validarSenhaDiferenteOriginal = (original: string) => {
+  return (senha: FormControl) => {
+    if (senha.value === original) {
+      return { igualOriginal: true };
+    }
+    return null;
+  };
 };

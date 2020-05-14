@@ -9,11 +9,14 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatStepperModule } from '@angular/material/stepper';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login/login.component';
 import { RecuperarContaModalComponent } from './recuperar-conta-modal/recuperar-conta-modal.component';
-
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -27,6 +30,11 @@ import { RecuperarContaModalComponent } from './recuperar-conta-modal/recuperar-
     MatButtonModule,
     MatDialogModule,
     MatStepperModule,
+    MatProgressBarModule,
+    SharedModule,
+    MatCardModule,
+    MatTooltipModule,
+    MatProgressBarModule,
     ReactiveFormsModule,
     FormsModule,
     MatIconModule,

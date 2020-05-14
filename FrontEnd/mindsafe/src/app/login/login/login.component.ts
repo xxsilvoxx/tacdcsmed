@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+
 import { MatDialog } from '@angular/material/dialog';
+
 import { RecuperarContaModalComponent } from '../recuperar-conta-modal/recuperar-conta-modal.component';
 import { MensagemValidationService } from '../../shared/mensagem-validation/mensagem-validation.service';
 import { FuncionariosService } from '../../services/funcionarios/funcionarios.service';
 import { MensagemService } from '../../shared/mensagem/mensagem.service';
 import { tap } from 'rxjs/operators';
+import { ProgressBarService } from '../../shared/progress-bar/progress-bar.service';
 
 @Component({
   selector: 'app-login',
@@ -24,6 +27,7 @@ export class LoginComponent implements OnInit {
     private dialog: MatDialog,
     private validation: MensagemValidationService,
     private msg: MensagemService,
+    public progressService: ProgressBarService,
     private service: FuncionariosService
   ) { }
 
@@ -45,10 +49,14 @@ export class LoginComponent implements OnInit {
   }
 
   abrirJanelaRecuperarConta() {
-    this.dialog.open(RecuperarContaModalComponent, {
+    const dialogRef = this.dialog.open(RecuperarContaModalComponent, {
       width: '600px',
       height: '550px'
     });
+
+    dialogRef.afterClosed().subscribe(
+      res => this.criarFormulario()
+    );
   }
 
   vizualizarSenha() {

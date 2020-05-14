@@ -10,6 +10,7 @@ import { ModalFuncionarioComponent } from '../modal-funcionario/modal-funcionari
 import { MediaObserver } from '@angular/flex-layout';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
+import { ProgressBarService } from '../../shared/progress-bar/progress-bar.service';
 
 @Component({
   selector: 'app-menu-sidenav',
@@ -32,7 +33,8 @@ export class MenuSidenavComponent implements OnInit, OnDestroy {
     private img: ImagensService,
     private msg: MensagemService,
     private dialog: MatDialog,
-    private media: MediaObserver
+    private media: MediaObserver,
+    public progressService: ProgressBarService
   ) { }
 
   ngOnInit() {

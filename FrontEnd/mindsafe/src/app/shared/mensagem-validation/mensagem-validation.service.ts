@@ -16,6 +16,7 @@ export class MensagemValidationService {
       'maxlength' : `${label} deve ter no máximo ${extra.requiredLength} caracteres`,
       'cpfCnpjInvalido': 'Esse número já está cadastrado',
       'senhaDiferente': 'A senha deve ser igual',
+      'igualOriginal': 'Senha igual à original',
       'loginInvalido': 'Este login já está sendo usado',
       'emailInvalido': 'Este email já está sendo usado',
       'medicamentoInvalido': 'Este medicamento já está cadastrado',

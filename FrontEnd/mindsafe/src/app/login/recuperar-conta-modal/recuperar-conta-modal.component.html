@@ -1,16 +1,124 @@
-<h1 matDialogTitle>Recuperação de Conta</h1>
+<div style="display: flex; flex-direction: row;">
+  <h1 matDialogTitle>Recuperação de Conta</h1>
+  <span style="flex: 1 1 auto;"></span>
+  <button matTooltip="Fechar a janela" style="width: auto;" mat-icon-button matDialogClose>
+    <i class="material-icons" style="color: #565656;">close</i>
+  </button>
+</div>
 
 <mat-dialog-content>
-  <img src="" alt="">
-  <mat-horizontal-stepper>
-    <mat-step label="label1">
+  <div id="imagem">
+    <p id="creditos">
+      Icons made by <a href="https://www.flaticon.com/authors/monkik" target="blank" title="monkik">monkik</a> from <a
+        href="https://www.flaticon.com/" target="blank" title="Flaticon">www.flaticon.com</a>
+    </p>
+  </div>
+
+  <mat-progress-bar mode="query" *ngIf="progressService.visibility | async"></mat-progress-bar>
+
+  <mat-horizontal-stepper labelPosition="bottom" [linear]="'true'">
+    <!-- Primeiro Stepp -->
+    <mat-step label="Informar E-mail" [stepControl]="emailControl">
+      <div fxLayout="column" fxLayoutGap="15px">
+        <p fxFlex class="texto-step">
+          Assim que o processo for concluído, um e-mail será enviado para a recuperação da sua conta
+        </p>
+
+        <mat-form-field fxFlex>
+          <input matInput placeholder="E-mail" [formControl]="emailControl">
+          <mat-error>
+            {{ retornarValidacoes(emailControl, 'E-mail') }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="15px">
+        <span fxFlex></span>
+        <button mat-raised-button color="primary" [disabled]="emailControl.invalid" matStepperNext fxFlex (click)="buscarEmail()">
+          PRÓXIMO <mat-icon class="material-icons">arrow_forward</mat-icon>
+        </button>
+      </div>
 
     </mat-step>
-    <mat-step label="label2">
+    <!-- Fim do Primeiro Stepp -->
 
-    </mat-step>
-    <mat-step label="label2">
+    <!-- Segundo Stepp -->
+    <mat-step label="Autenticação" [stepControl]="tokenControl">
+      <div fxLayout="column" fxLayoutGap="15px">
+        <p fxFlex class="texto-step">
+          Digite o código que recebeu por e-mail
+        </p>
 
+        <mat-form-field fxFlex>
+          <input matInput placeholder="Código de Verificação" [formControl]="tokenControl">
+          <mat-error>
+            {{ retornarValidacoes(tokenControl, 'Código de Verificação') }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="column" fxLayoutGap="15px">
+        <div id="acoes" fxFlex>
+          <div fxLayout="row" fxLayoutGap="15px">
+            <!-- Valida se o token passado é válido -->
+            <button mat-icon-button matTooltip="Validar código" (click)="validarToken()" [disabled]="tokenControl.invalid" fxFlex>
+              <mat-icon class="material-icons">loop</mat-icon>
+            </button>
+
+            <!-- Permite enviar outro token para o e-mail-->
+            <button mat-icon-button matTooltip="Enviar novamente" (click)="buscarEmail()" [disabled]="emailControl.invalid" fxFlex>
+              <mat-icon class="material-icons">mail</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="15px">
+        <button mat-raised-button color="warn" matStepperPrevious fxFlex>
+          <mat-icon>arrow_back</mat-icon>
+          ANTERIOR
+        </button>
+
+        <button mat-raised-button color="primary" [disabled]="tokenControl.invalid || !tokenValidado" matStepperNext fxFlex>
+          PRÓXIMO <mat-icon class="material-icons">arrow_forward</mat-icon>
+        </button>
+      </div>
     </mat-step>
+    <!-- Fim do Segundo Stepp -->
+
+    <!-- Terceiro Stepp -->
+    <mat-step label="Finalizar" [stepControl]="formSenha" [formGroup]="formSenha">
+      <div fxLayout="column" fxLayoutGap="15px">
+        <p fxFlex class="texto-step">
+          Escolha uma nova senha e confirme
+        </p>
+
+        <mat-form-field fxFlex>
+          <input [type]="exibirSenha ? 'text' : 'password'" matInput placeholder="Nova Senha" formControlName="novaSenha">
+          <mat-error>
+            {{ retornarValidacoes(formSenha.get('novaSenha'), 'Nova Senha') }}
+          </mat-error>
+          <button mat-icon-button (click)="mudarExibirSenha()" matSuffix>
+            <mat-icon class="material-icons">{{ exibirSenha ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+        </mat-form-field>
+
+        <mat-form-field fxFlex>
+          <input [type]="exibirSenha ? 'text' : 'password'" matInput placeholder="Confirmar Senha" formControlName="confirmarSenha">
+          <mat-error>
+            {{ retornarValidacoes(formSenha.get('confirmarSenha'), 'Confirmar Senha') }}
+          </mat-error>
+          <button mat-icon-button (click)="mudarExibirSenha()" matSuffix>
+            <mat-icon class="material-icons">{{ exibirSenha ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" (click)="alterarSenhaFuncionario()" [disabled]="formSenha.invalid" fxFlex>
+          FINALIZAR
+          <mat-icon class="material-icons">edit</mat-icon>
+        </button>
+      </div>
+    </mat-step>
+    <!-- Fim do Terceiro Stepp -->
   </mat-horizontal-stepper>
 </mat-dialog-content>

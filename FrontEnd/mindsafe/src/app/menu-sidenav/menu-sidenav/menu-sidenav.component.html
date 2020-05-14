@@ -48,6 +48,7 @@
   </mat-sidenav>
 
   <mat-sidenav-content>
+    <mat-progress-bar style="position: fixed;" mode="indeterminate" *ngIf="progressService.visibility | async"></mat-progress-bar>
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 

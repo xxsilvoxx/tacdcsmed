@@ -1,3 +1,5 @@
+<mat-progress-bar style="position: fixed;" mode="query" *ngIf="progressService.visibility | async"></mat-progress-bar>
+
 <div class="bg-login" ngClass.xs="bg-login-xs">
   <div style="padding-top: 50px;">
     <div class="logo" ngClass.xs="logo-xs"></div>
@@ -32,8 +34,8 @@
       <mat-error>
         {{ retornarValidacoes(formLogar.get('senha'), 'Senha') }}
       </mat-error>
-      <button mat-icon-button matSuffix (click)="vizualizarSenha()">
-        <mat-icon class="material-icons" >{{ senhaViziveu ? 'visibility' : 'visibility_off' }}</mat-icon>
+      <button mat-icon-button matSuffix (click)="vizualizarSenha()" style="margin: auto;">
+        <mat-icon class="material-icons" >{{ senhaViziveu ? 'visibility_off' : 'visibility' }}</mat-icon>
       </button>
     </mat-form-field>
   </form>
