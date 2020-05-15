@@ -33,8 +33,7 @@ export class MenuSidenavComponent implements OnInit, OnDestroy {
     private img: ImagensService,
     private msg: MensagemService,
     private dialog: MatDialog,
-    private media: MediaObserver,
-    public progressService: ProgressBarService
+    private media: MediaObserver
   ) { }
 
   ngOnInit() {

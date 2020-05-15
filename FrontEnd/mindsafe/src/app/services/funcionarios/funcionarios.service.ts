@@ -18,7 +18,8 @@ export class FuncionariosService {
   ) { }
 
   listarUsuario() {
-    return this.http.get<Funcionario>(`${this.apiUrl}/${1}`).pipe(take(1));
+    const funcionario: Funcionario = JSON.parse(window.sessionStorage.getItem('login-mindsafe'));
+    return this.http.get<Funcionario>(`${this.apiUrl}/${funcionario.idFuncionario}`).pipe(take(1));
   }
 
   listarTodos() {

@@ -1,1 +1,36 @@
-<p>dashboard works!</p>
+<div id="container" fxLayout="column" fxLayoutGap="20px">
+  <div id="container-microarea" fxFlex>
+    <h2>Microárea Designada</h2>
+
+    <div id="imagem-fundo" [ngStyle.xs]="{ 'height': '250px' }" [ngStyle.sm]="{ 'height': '300px' }">
+      <div id="informacoes-microarea" [ngStyle.xs]="{
+        'width': '100%',
+        'height': '100%',
+        'border-radius': '5px'
+      }">
+        <div id="informacoes" [ngStyle.xs]="{ 'margin-right': '50px' }">
+          <h2 [ngStyle.xs]="{ 'font-size': '14pt' }" [ngStyle.sm]="{ 'font-size': '16pt' }">
+            Microárea {{ informacoesMicroarea.microArea.numero }} - {{ informacoesMicroarea.microArea.bairro.nome }}
+          </h2>
+
+          <p [ngStyle.xs]="{ 'font-size': '12pt' }" [ngStyle.sm]="{ 'font-size': '14pt' }">
+            {{ informacoesMicroarea.totPacientes | async }}
+          </p>
+        </div>
+
+        <a mat-fab color="primary" [routerLink]="['visitas']" [ngStyle.xs]="{
+          'margin': '20px'
+        }">
+          <mat-icon>location_on</mat-icon>
+        </a>
+      </div>
+
+      <p class="overlay">
+        Photo by
+        <a href="https://unsplash.com/@terminath0r?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="blank">Thor Alvis</a>
+        on
+        <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="blank">Unsplash</a>
+      </p>
+    </div>
+  </div>
+</div>

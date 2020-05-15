@@ -1,3 +1,77 @@
-p {
-  padding: 300px;
+h2 {
+  font-weight: 500;
+  color: #565656;
+}
+
+#container {
+  margin: 100px 56px 10px;
+}
+
+#imagem-fundo {
+  border-radius: 5px;
+  height: 400px;
+  width: 100%;
+  background-image: url('../../../assets/imagens/map.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  transition: all 1s;
+}
+
+#informacoes-microarea {
+  border-radius: 5px 0px 10px 0px;
+  width: 70%;
+  height: 45%;
+  background-color: rgba(0, 0, 0, 0.5);
+  transition: all 1s;
+}
+
+#informacoes {
+  margin: 10px;
+  position: relative;
+  float: left;
+  max-width: 250px;
+  transition: all 1s;
+  color: white;
+}
+
+#informacoes p {
+  font-weight: 400;
+  font-size: 14pt;
+  transition: all 1s;
+}
+
+#informacoes h2 {
+  color: white;
+  font-weight: 500;
+  font-size: 18pt;
+  transition: all 1s;
+}
+
+#informacoes-microarea a {
+  transition: all 1s;
+  margin: 10px;
+  position: relative;
+  float: right;
+}
+
+.overlay {
+  text-shadow: 1px 1px 10px rgba(0, 0, 0);
+  padding: 2px;
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: white;
+  opacity: 0;
+  text-align: center;
+  transition: all 1s;
+}
+
+.overlay a {
+  font-weight: 500;
+  text-decoration: none;
+  color: #cccccc;
+}
+
+#imagem-fundo:hover .overlay {
+  opacity: 1;
 }
