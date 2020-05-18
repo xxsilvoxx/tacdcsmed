@@ -157,6 +157,23 @@ export class VisitasComponent implements OnInit {
     );
   }
 
+  // Ordena a lista de visitas pegando como
+  // base a data da visita, ordenando de forma
+  // decrescente.
+  ordenarPorDataDecrescente(a: any, b: any) {
+    a = a.visita.dataVisita as Date;
+    b = b.visita.dataVisita as Date;
+    return a > b ? -1 : (a < b ? 1 : 0);
+  }
+
+  // Ordena a lista de visitas de forma
+  // crescente.
+  ordernarPorDataCrescente(a: any, b: any) {
+    a = a.visita.dataVisita as Date;
+    b = b.visita.dataVisita as Date;
+    return a > b ? 1 : (a < b ? -1 : 0);
+  }
+
   separarListagens(registro: any) {
     // Verificação para saber se a visita está concluída, pendente
     // ou atrasada para separar cada objeto da interação para sua

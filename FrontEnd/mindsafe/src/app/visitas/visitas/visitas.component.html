@@ -15,7 +15,7 @@
     <h2>Visitas Concluídas</h2>
 
     <mat-list id="visitas-concluidas">
-      <mat-list-item *ngFor="let element of visitasConcluidas">
+      <mat-list-item *ngFor="let element of visitasConcluidas.sort(ordenarPorDataDecrescente)">
         <mat-icon class="material-icons" [ngStyle]="{'color': element.risco}" style="margin-right: 10px;">lens
         </mat-icon>
 
@@ -50,7 +50,7 @@
 
     <mat-list>
       <div id="visitas-pendentes">
-        <mat-list-item *ngFor="let element of visitasPendentes[0].visitas">
+        <mat-list-item *ngFor="let element of visitasPendentes[0].visitas.sort(ordernarPorDataCrescente)">
           <mat-icon class="material-icons" [ngStyle]="{'color': element.risco}" style="margin-right: 10px;">lens
           </mat-icon>
 
@@ -82,7 +82,7 @@
       <h1 mat-subheader>Visitas Atrasadas</h1>
 
       <div id="visitas-atrasadas">
-        <mat-list-item *ngFor="let element of visitasPendentes[1].visitas">
+        <mat-list-item *ngFor="let element of visitasPendentes[1].visitas.sort(ordernarPorDataCrescente)">
           <mat-icon class="material-icons" [ngStyle]="{'color': element.risco}" style="margin-right: 10px;">lens
           </mat-icon>
 

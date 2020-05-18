@@ -120,7 +120,6 @@ export class FormVisitasComponent implements OnInit {
    * no formulário.
    */
   preencherCampos(visita: Visita) {
-    console.log(visita);
     this.formVisitas.setValue({
       idVisita: visita.idVisita,
       pessoa: visita.pessoa,
@@ -316,7 +315,8 @@ export class FormVisitasComponent implements OnInit {
   alterarVisita() {
 
     const dataVisita: Date = this.formVisitas.get('dataVisita').value;
-    this.formVisitas.get('dataVisita').setValue(dataVisita);
+    const horaVisita = `${dataVisita.getHours().toString()}:${dataVisita.getMinutes().toString()}`;
+    this.formVisitas.get('dataVisita').setValue(dateToTimestamp(dataVisita, horaVisita));
 
     // Recebe a data selecionada no formulário e
     // o horário da proxima visita, chama o método
