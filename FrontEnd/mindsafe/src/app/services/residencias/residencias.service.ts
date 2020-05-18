@@ -5,6 +5,7 @@ import { take } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { Residencia } from '../../models/residencia.model';
 import { Observable } from 'rxjs';
+import { Familia } from '../../models/familia.model';
 
 @Injectable({
   providedIn: 'root'
@@ -31,5 +32,9 @@ export class ResidenciasService {
 
   remover(residencia: Residencia) {
     return this.http.delete<Residencia>(`${this.apiUrl}/${residencia.idResidencia}`);
+  }
+
+  retornarResidenciaPorFamilia(familia: Familia) {
+    return this.http.get<Residencia>(`${this.apiUrl}/familia/${familia.idFamilia}`).pipe(take(1));
   }
 }
