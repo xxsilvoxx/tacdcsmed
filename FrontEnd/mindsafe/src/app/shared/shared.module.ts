@@ -14,6 +14,7 @@ import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 import { PacienteInfoModalComponent } from './paciente-info-modal/paciente-info-modal.component';
 import { MensagemComponent } from './mensagem/mensagem/mensagem.component';
 import { ResidenciasInfoModalComponent } from 'src/app/shared/residencias-info-modal/residencias-info-modal.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { ResidenciasInfoModalComponent } from 'src/app/shared/residencias-info-m
     FlexLayoutModule,
     MatIconModule,
     MatListModule,
+    MatTooltipModule,
     MatDividerModule,
     MatSnackBarModule,
     HttpClientModule

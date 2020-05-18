@@ -1,12 +1,10 @@
-import { Familia } from './familia.model'
-import { MicroArea } from './microArea.model'
-import { Bairro } from './bairro.model';
+import { Familia } from './familia.model';
+import { MicroArea } from './microArea.model';
 
 export class Residencia{
     idResidencia: number;
     familia: Familia;
     microArea: MicroArea;
-    bairro: Bairro;
     cep: string;
     logradouro: string;
     numero: number;

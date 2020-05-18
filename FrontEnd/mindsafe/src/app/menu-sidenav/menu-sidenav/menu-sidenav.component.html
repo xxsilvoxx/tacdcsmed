@@ -9,16 +9,21 @@
     </div>
   </a>
 </mat-toolbar>
-<mat-sidenav-container>
 
+<mat-sidenav-container>
   <mat-sidenav ngClass.xs="sidenav-xs" ngClass.sm="sidenav-sm" ngClass.md="sidenav-md" ngClass.lg="sidenav-lg"
     class="sidenav" mode="over" [fixedBottomGap]="'0'" [fixedTopGap]="displayFixedTopGap" [fixedInViewport]="'true'" #snav>
     <div class="informacoes-funcionario">
       <mat-card>
         <mat-card-header>
           <img mat-card-avatar [src]="imgUsuario"/>
-          <mat-card-title>{{ funcionario !== null ? funcionario?.nome : 'Informações não retornadas' }}</mat-card-title>
-          <mat-card-subtitle>{{ funcionario !== null ? funcionario.funcao?.nome : '' }}</mat-card-subtitle>
+          <mat-card-title>
+            {{ funcionario !== null ? funcionario?.nome : 'Informações não retornadas' }}
+          </mat-card-title>
+
+          <mat-card-subtitle>
+            {{ funcionario !== null ? funcionario.funcao?.nome : '' }}
+          </mat-card-subtitle>
         </mat-card-header>
 
         <mat-card-content>
@@ -32,6 +37,7 @@
         </mat-card-actions>
       </mat-card>
     </div>
+
     <div class="menu">
       <p id="menu-title">MENU</p>
       <div class="divisor-white"></div>
@@ -48,7 +54,6 @@
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <mat-progress-bar style="position: fixed;" mode="indeterminate" *ngIf="progressService.visibility | async"></mat-progress-bar>
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 

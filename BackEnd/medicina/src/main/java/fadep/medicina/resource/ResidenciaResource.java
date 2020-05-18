@@ -45,4 +45,9 @@ public class ResidenciaResource {
         return residenciaService.remover(codigo);
     }
 
+    @GetMapping("/familia/{codigo}")
+    public ResponseEntity<Residencia> retornarResidenciaDaFamilia(@PathVariable("codigo") Long idFamilia) {
+        Residencia residencia = residenciaRepository.retornarResidenciaPorFamilia(idFamilia);
+        return (residencia != null) ? (ResponseEntity.ok(residencia)) : (ResponseEntity.notFound().build());
+    }
 }

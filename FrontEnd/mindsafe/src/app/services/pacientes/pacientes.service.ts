@@ -45,4 +45,8 @@ export class PacientesService {
   retornarPacientesNaoVisitados() {
     return this.http.get<Paciente[]>(`${this.apiUrl}/visitas/pendentes`).pipe(take(1));
   }
+
+  retornarPacientesComConsulta() {
+    return this.http.get<Paciente[]>(`${this.apiUrl}/consultas`).pipe(take(1));
+  }
 }
