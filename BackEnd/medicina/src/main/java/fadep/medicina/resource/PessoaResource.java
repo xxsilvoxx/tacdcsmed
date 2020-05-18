@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.Calendar;
 import java.util.List;
 
 @RestController
@@ -59,6 +60,15 @@ public class PessoaResource {
     @ResponseBody
     public Boolean validarCpfCnpj(@RequestParam(name="cpfCnpj") String cpfCnpj) {
         return pessoaService.retornarValidadeCpfCnpj(cpfCnpj);
+    }
+
+    @GetMapping("/consultas")
+    public List<Pessoa> retornarPacientesComConsulta() {
+        Calendar calendar = Calendar.getInstance();
+        Calendar umaSemana = Calendar.getInstance();
+        umaSemana.add(umaSemana.DATE, 7);
+        return pessoaRepository.retornarPacientesComConsultas(
+                calendar.getTime(), umaSemana.getTime());
     }
 
 }

@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import fadep.medicina.model.Pessoa;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public interface PessoaRepository extends JpaRepository<Pessoa, Long>{
@@ -30,5 +32,14 @@ public interface PessoaRepository extends JpaRepository<Pessoa, Long>{
     @Query("SELECT v.pessoa FROM Visita v")
     public List<Pessoa> retornarPacientesVisitados();
 
+    /**
+     * Retorna a lista de pacientes que tem
+     * consultas marcadas, ordenando por ordem
+     * crescente.
+     */
+    @Query("SELECT v.pessoa FROM Visita v " +
+            "WHERE v.comparecerUbs = 1 AND (v.dataCompare >= ?1 AND v.dataCompare <= ?2) " +
+            "ORDER BY v.dataCompare")
+    public List<Pessoa> retornarPacientesComConsultas(Date dataAtual, Date umaSemana);
 
 }

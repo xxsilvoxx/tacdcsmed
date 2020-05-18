@@ -14,4 +14,12 @@ public interface ResidenciaRepository extends JpaRepository<Residencia, Long> {
     @Query("SELECT COUNT(p.idPessoa) FROM Pessoa p, Familia f WHERE p.familia = f AND p.idPessoa = ?1")
     public Integer retornaTotalFamiliares(Integer idPessoa);
 
+    /**
+     * Retorna o endereço da pessoa, passando o código da família
+     * por parâmetro, para comparar qual residência pertence a
+     * família.
+     */
+    @Query("SELECT r FROM Residencia r WHERE r.familia.idFamilia = ?1")
+    public Residencia retornarResidenciaPorFamilia(Long idFamilia);
+
 }
