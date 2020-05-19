@@ -1,12 +1,21 @@
 <h1 mat-dialog-title>Cadastrar Família</h1>
 
 <mat-dialog-content>
-  <mat-form-field>
-    <input matInput type="text">
-  </mat-form-field>
+  <form [formGroup]="formFamilia">
+    <mat-form-field>
+      <input matInput type="text" placeholder="Nome da Família" formControlName="nome" #nome>
+      <mat-hint align="end">
+        {{ nome.value?.length}} / 250
+      </mat-hint>
+      <mat-error>
+        {{ retornarValidacoes(formFamilia.get('nome'), 'Nome')}}
+      </mat-error>
+    </mat-form-field>
+  </form>
+
 </mat-dialog-content>
 
-<mat-dialog-actions align="center" fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px">
+<mat-dialog-actions align="center" fxLayout="column" fxLayoutGap="10px">
   <button mat-raised-button color='warn' matDialogClose fxFlex>
     CANCELAR
     <mat-icon class="material-icons">
@@ -14,7 +23,7 @@
     </mat-icon>
   </button><br>
 
-  <button mat-raised-button color='primary' fxFlex>
+  <button mat-raised-button (click)="cadastrar()" [disabled]="formFamilia.invalid" color='primary' fxFlex>
     CONFIRMAR
     <mat-icon class="material-icons">
 

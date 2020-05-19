@@ -26,11 +26,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatOption, MatOptionModule } from '@angular/material/core';
+import { AlterarFamiliaModalComponent } from './alterar-familia-modal/alterar-familia-modal.component';
+import { DadosFamiliaModalComponent } from './dados-familia-modal/dados-familia-modal.component';
 
 @NgModule({
   declarations: [
     FamiliasComponent,
-    FamiliasFormComponent
+    FamiliasFormComponent,
+    AlterarFamiliaModalComponent,
+    DadosFamiliaModalComponent
 
   ],
   imports: [
@@ -57,10 +61,13 @@ import { MatOption, MatOptionModule } from '@angular/material/core';
     TextMaskModule,
     MatChipsModule,
     FormsModule,
+    SharedModule,
     ReactiveFormsModule
   ],
   entryComponents: [
-    FamiliasFormComponent
+    FamiliasFormComponent,
+    AlterarFamiliaModalComponent,
+    DadosFamiliaModalComponent,
   ]
 })
 export class FamiliasModule { }

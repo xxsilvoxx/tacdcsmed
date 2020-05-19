@@ -1,0 +1,32 @@
+<div style="display: flex; flex-direction: row;">
+  <h1 mat-dialog-title>Informações da Família</h1>
+  <span style="flex: 1 1 auto;"></span>
+  <button matTooltip="Fechar a janela" mat-icon-button matDialogClose>
+    <i class="material-icons" style="color: #565656;">close</i>
+  </button>
+</div>
+
+<mat-dialog-content>
+  <div class="dados-imagem-fundo" ngClass.xs="dados-xs">
+   <div class="overlay" ngClass.xs="over-xs">
+    Photo by
+    <a href="https://unsplash.com/@annaelise?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+    target="blank">Anna Pritchard</a> on
+    <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+    target="blank">Unsplash</a>
+   </div>
+  </div>
+
+  <div class="conteudo">
+    <p class="nome-familia">
+      <mat-icon>group</mat-icon>
+      {{familia.nome}}
+    </p>
+    <p class="responsavel-familia">
+      <mat-icon>person</mat-icon>
+      {{responsavel?.nome ? responsavel?.nome : "Sem Responsável"}}
+    </p>
+  </div>
+
+</mat-dialog-content>
+

@@ -1,0 +1,69 @@
+.dados-imagem-fundo {
+  background-image: url('../../../assets/imagens/dados-familia.jpg');
+  padding-top: 1px;
+    height: 250px;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    margin-bottom: 20px;
+}
+
+.overlay {
+  bottom: 0;
+  background: rgb(0, 0, 0);
+  background: #0000007e;
+  color: #f1f1f1;
+  transition: .5s ease;
+  opacity:0;
+  color: white;
+  font-size: 20px;
+  padding: 20px;
+  text-align: center;
+}
+
+.overlay a {
+  text-decoration: none;
+  color: #969696;
+}
+
+.dados-imagem-fundo:hover .overlay {
+  opacity: 1;
+}
+
+.titulo {
+  position: relative;
+  margin-top: 148px;
+  font-size: 30pt;
+  margin-left: 30px;
+  font-weight: bold;
+  color: black;
+  text-shadow: 1px 1px 10px #000000;
+}
+
+.over-xs {
+  font-size: 15px;
+}
+
+.dados-xs {
+  height: 200px;
+}
+
+.nome-familia{
+  position: relative;
+  float: left;
+  font-weight: 600;
+  margin-right: 100px;
+}
+
+.responsavel-familia{
+  position: relative;
+  float: right;
+  font-weight: 600;
+  word-wrap: break-word;
+  width: 200px;
+}
+
+.conteudo{
+  width: auto;
+}
+
