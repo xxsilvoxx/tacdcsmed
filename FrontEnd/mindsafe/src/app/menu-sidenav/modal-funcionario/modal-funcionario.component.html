@@ -69,7 +69,7 @@
           <span>{{ login?.value.length }} / 250</span>
         </mat-hint>
         <mat-error>
-          <span>{{ retornarValidacoes('login', 'Login') }}</span>
+          <span>{{ retornarValidacoes(formFuncionario.get('login'), 'Login') }}</span>
         </mat-error>
       </mat-form-field>
 
@@ -88,7 +88,7 @@
           </mat-option>
         </mat-select>
         <mat-error>
-          <span>{{ retornarValidacoes('funcao', 'Função') }}</span>
+          <span>{{ retornarValidacoes(formFuncionario.get('funcao'), 'Função') }}</span>
         </mat-error>
       </mat-form-field>
 
@@ -101,7 +101,7 @@
       <mat-form-field fxFlex>
         <input matInput type="number" formControlName="codEquipe" placeholder="Código da equipe">
         <mat-error>
-          <span>{{ retornarValidacoes('codEquipe', 'Código da equipe') }}</span>
+          <span>{{ retornarValidacoes(formFuncionario.get('codEquipe'), 'Código da equipe') }}</span>
         </mat-error>
       </mat-form-field>
 
@@ -118,7 +118,7 @@
           </mat-option>
         </mat-select>
         <mat-error>
-          <span>{{ retornarValidacoes('ubs', 'UBS') }}</span>
+          <span>{{ retornarValidacoes(formFuncionario.get('ubs'), 'UBS') }}</span>
         </mat-error>
       </mat-form-field>
 
@@ -143,7 +143,7 @@
           </mat-optgroup>
         </mat-select>
         <mat-error>
-          <span>{{ retornarValidacoes('microArea', 'Microárea') }}</span>
+          <span>{{ retornarValidacoes(formFuncionario.get('microArea'), 'Microárea') }}</span>
         </mat-error>
       </mat-form-field>
 
@@ -171,7 +171,7 @@
               <span>{{ senha?.value.length }} / 10</span>
             </mat-hint>
             <mat-error>
-              {{ retornarValidacoes('senha', 'Senha') }}
+              {{ retornarValidacoes(formFuncionario.get('senha'), 'Senha') }}
             </mat-error>
             <button mat-icon-button matSuffix (click)="mudarVisibilidadeSenha()">
               <mat-icon>{{ esconderSenha ? 'visibility' : 'visibility_off' }}</mat-icon>
@@ -179,7 +179,7 @@
           </mat-form-field>
 
           <mat-form-field>
-            <input matInput [type]="esconderSenha ? 'text' : 'password'" [formControl]="formConfirmarSenha" placeholder="Confirmar Senha" #confirmarSenha>
+            <input matInput [type]="esconderSenha ? 'text' : 'password'" [formControl]="confirmarSenhaControl" placeholder="Confirmar Senha" #confirmarSenha>
             <mat-hint align="end">
               <span>{{ confirmarSenha?.value.length }} / 10</span>
             </mat-hint>
@@ -187,16 +187,16 @@
               <mat-icon>{{ esconderSenha ? 'visibility' : 'visibility_off' }}</mat-icon>
             </button>
             <mat-error>
-              {{ retornarValidacoes('confirmarSenha', 'confirmar') }}
+              {{ retornarValidacoes(confirmarSenhaControl, 'confirmar') }}
             </mat-error>
           </mat-form-field>
 
           <mat-action-row>
-            <button (click)="cancelarAlteracaoSenha()" [disabled]="formConfirmarSenha.value === '' || formFuncionario.get('senha').value === ''" mat-icon-button matTooltip="Cancelar alteração">
+            <button (click)="cancelarAlteracaoSenha()" [disabled]="confirmarSenhaControl.value === '' || formFuncionario.get('senha').value === ''" mat-icon-button matTooltip="Cancelar alteração">
               <i class="material-icons">thumb_down</i>
             </button>
 
-            <button (click)="alterar('Senha')" [disabled]="formConfirmarSenha.invalid || formFuncionario.get('senha').invalid || (formFuncionario.get('senha').value === '' && formConfirmarSenha.value === '')" mat-icon-button matTooltip="Confirmar alteração">
+            <button (click)="alterar('Senha')" [disabled]="confirmarSenhaControl.invalid || formFuncionario.get('senha').invalid" mat-icon-button matTooltip="Confirmar alteração">
               <i class="material-icons">thumb_up</i>
             </button>
           </mat-action-row>

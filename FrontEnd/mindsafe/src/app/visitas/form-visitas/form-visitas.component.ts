@@ -206,7 +206,7 @@ export class FormVisitasComponent implements OnInit {
 
   // Busca o primeiro funcionário cadastrado.
   buscarFuncionario() {
-    this.funcionariosService.listarUsuario().subscribe(
+    this.funcionariosService.buscarUsuario().subscribe(
       res => this.formVisitas.get('funcionario').setValue(res),
       error => error
     );
