@@ -101,15 +101,13 @@ export class ModalFuncionarioComponent implements OnInit {
         validators: [ Validators.required ]
       }],
       email: [null, {
-        validators: [Validators.email, Validators.required],
-        asyncValidators: [emailDisponivelValidator(this.service)]
+        validators: [Validators.email, Validators.required]
       }],
       nome: [null, {
         validators: [Validators.maxLength(250), Validators.required]
       }],
       login: [null, {
-        validators: [Validators.maxLength(250), Validators.required],
-        asyncValidators: [loginDisponivelValidator(this.service)]
+        validators: [Validators.maxLength(250), Validators.required]
       }],
       senha: [null, {
         validators: [Validators.maxLength(10), Validators.required]
@@ -143,6 +141,19 @@ export class ModalFuncionarioComponent implements OnInit {
 
   retornarValidacoes(campo: FormControl, label: string) {
     return this.validation.getErrorMessage(campo, label);
+  }
+
+  atribuirValidadorAsync(campo: string) {
+    const control = this.formFuncionario.get(campo);
+    if (campo === 'login') {
+      control.setAsyncValidators(
+        loginDisponivelValidator(this.service)
+      );
+    } else if (campo === 'email') {
+      control.setAsyncValidators(
+        emailDisponivelValidator(this.service)
+      );
+    }
   }
 
   // Validação de senha, faz validação de senha e confirmação da senha

@@ -48,7 +48,7 @@
 
     <div class="input-button">
       <mat-form-field fxFlex>
-        <input formControlName="email" matInput placeholder="E-mail" #email>
+        <input formControlName="email" (click)="atribuirValidadorAsync('email')" matInput placeholder="E-mail" #email>
         <mat-hint align="end">
           <span>{{ email?.value.length }} / 250</span>
         </mat-hint>
@@ -64,7 +64,7 @@
 
     <div class="input-button">
       <mat-form-field fxFlex>
-        <input formControlName="login" matInput placeholder="Login" #login>
+        <input formControlName="login" (click)="atribuirValidadorAsync('login')" matInput placeholder="Login" #login>
         <mat-hint align="end">
           <span>{{ login?.value.length }} / 250</span>
         </mat-hint>
