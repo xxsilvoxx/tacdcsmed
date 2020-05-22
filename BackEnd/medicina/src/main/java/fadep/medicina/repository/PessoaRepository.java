@@ -12,6 +12,14 @@ import java.util.List;
 public interface PessoaRepository extends JpaRepository<Pessoa, Long>{
 
     /**
+     * Retorna uma listagem com os pacientes que estão presentes
+     * na microárea em que o funcionário está trabalhando.
+     */
+    @Query("SELECT p FROM Pessoa p, Familia f, Residencia r " +
+            "WHERE p.familia = f AND r.familia = f AND r.microArea.idMicroArea = ?1")
+    public List<Pessoa> retornarPacientesPorMicroarea(Long idMicroArea);
+
+    /**
      * Método para verificar no banco se o CPF ou CNPJ passado no formulário web
      * já está cadastrado ou não, validando para retornar uma msg para o usuário.
      */

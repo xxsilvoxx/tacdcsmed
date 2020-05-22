@@ -36,6 +36,16 @@ public class VisitaResource {
         return visitaRepository.findAll();
     }
 
+    @GetMapping("/microarea/{codigo}")
+    public List<Visita> listarVisitasPorMicroarea(@PathVariable("codigo") Long idMicroArea) {
+        return visitaRepository.retornarVisitasPorMicroarea(idMicroArea);
+    }
+
+    @GetMapping("funcionario/{codigo}")
+    public List<Visita> listarVisitasPorFuncionario(@PathVariable("codigo") Long idFuncionario) {
+        return visitaRepository.retornarVisitasPorFuncionario(idFuncionario);
+    }
+
     @PostMapping
     public ResponseEntity<Visita> cadastrar(@Valid @RequestBody Visita visita, HttpServletResponse response) {
         Visita visitaSalvo = visitaRepository.save(visita);

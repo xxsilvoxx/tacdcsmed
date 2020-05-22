@@ -5,12 +5,20 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import fadep.medicina.model.Residencia;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
+
 public interface ResidenciaRepository extends JpaRepository<Residencia, Long> {
 
-    /*
-    * Retorna a quantidade de pessoas que existem naquela família
-    * */
+    /**
+     * Retorna uma lista com as residências cadastradas na
+     * microarea em que o funcionário está atuando.
+     */
+    @Query("SELECT r FROM Residencia r WHERE r.microArea.idMicroArea = ?1")
+    public List<Residencia> retornarResidenciasPorMicroarea(Long idMicroArea);
 
+    /**
+     * Retorna a quantidade de pessoas que existem naquela família
+     */
     @Query("SELECT COUNT(p.idPessoa) FROM Pessoa p, Familia f WHERE p.familia = f AND p.idPessoa = ?1")
     public Integer retornaTotalFamiliares(Integer idPessoa);
 

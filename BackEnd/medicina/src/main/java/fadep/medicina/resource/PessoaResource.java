@@ -28,6 +28,11 @@ public class PessoaResource {
         return pessoaRepository.findAll();
     }
 
+    @GetMapping("/microarea/{codigo}")
+    public List<Pessoa> listarPacientesPorMicroarea(@PathVariable("codigo") Long idMicroArea) {
+        return pessoaRepository.retornarPacientesPorMicroarea(idMicroArea);
+    }
+
     @PostMapping
     public ResponseEntity<Pessoa> cadastrar(@Valid @RequestBody Pessoa pessoa, HttpServletResponse response) {
        Pessoa pessoaSalva = pessoaRepository.save(pessoa);

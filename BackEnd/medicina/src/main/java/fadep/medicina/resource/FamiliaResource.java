@@ -27,6 +27,11 @@ public class FamiliaResource {
         return familiaRepository.findAll();
     }
 
+    @GetMapping("/microarea/{codigo}")
+    public List<Familia> listarFamiliasPorMicroarea(@PathVariable("codigo") Long idMicroArea) {
+        return familiaRepository.retornarFamiliasPorMicroarea(idMicroArea);
+    }
+
     @PostMapping
     public ResponseEntity<Familia> cadastrar(@Valid @RequestBody Familia familia, HttpServletResponse response) {
         Familia familiaSalva = familiaRepository.save(familia);
