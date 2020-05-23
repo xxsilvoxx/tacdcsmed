@@ -4,19 +4,12 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name="pessoa")
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = "cpf_cnpj", name="pessoa"))
 public class Pessoa {
 	
 	@Id
@@ -30,9 +23,11 @@ public class Pessoa {
 	private Familia familia;
 	
 	@NotNull
+	@Size(min = 3, max = 250)
 	@Column(name="nome")
 	private String nome;
-	
+
+	@NotNull
 	@Column(name="responsavel_familiar")
 	private Boolean responsavelFamiliar;
 	
@@ -52,6 +47,7 @@ public class Pessoa {
 	private String sexo;
 	
 	@NotNull
+	@Size(max = 250)
 	@Column(name="nacionalidade")
 	private String nacionalidade;
 	
@@ -62,7 +58,8 @@ public class Pessoa {
 	@Size(max=20)
 	@Column(name="celular")
 	private String celular;
-	
+
+	@Size(max = 250)
 	@Column(name="email")
 	private String email;
 
@@ -178,10 +175,5 @@ public class Pessoa {
 			return false;
 		return true;
 	}
-
-//	public Pessoa get() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
 	
 }

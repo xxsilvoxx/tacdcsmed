@@ -31,21 +31,22 @@ public class Residencia {
 	private MicroArea microArea;
 
 	@NotNull
-	@Size(max=20)
+	@Size(min = 8, max=9)
 	@Column(name="cep")
 	private String cep;
 	
 	@NotNull
+	@Size(min = 3, max = 250)
 	@Column(name="logradouro")
 	private String logradouro;
 
-	@NotNull
 	@Column(name="numero")
 	private Integer numero;
 	
 	@Column(name="local_referencia")
 	private String localReferencia;
-	
+
+	@Size(max = 250)
 	@Column(name="cor")
 	private String cor;
 	

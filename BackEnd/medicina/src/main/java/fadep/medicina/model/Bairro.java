@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -21,13 +22,17 @@ public class Bairro {
 
 	@ManyToOne
 	@JoinColumn(name="id_ubs")
+	@NotNull
 	private Ubs ubs;
 	
 	@ManyToOne
 	@JoinColumn(name="id_cidade")
+	@NotNull
 	private Cidade cidade;
 	
 	@Column(name="nome")
+	@NotNull
+	@Size(max = 250)
 	private String nome;
 
 	public Long getIdBairro() {
