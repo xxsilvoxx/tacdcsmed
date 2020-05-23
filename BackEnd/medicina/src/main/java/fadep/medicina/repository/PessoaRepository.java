@@ -42,4 +42,6 @@ public interface PessoaRepository extends JpaRepository<Pessoa, Long>{
             "ORDER BY v.dataCompare")
     public List<Pessoa> retornarPacientesComConsultas(Date dataAtual, Date umaSemana);
 
+    @Query("SELECT p FROM Pessoa p WHERE p.familia.idFamilia = ?1")
+    public List<Pessoa> retornarMembrosFamilia(Long idFamilia);
 }

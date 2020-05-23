@@ -19,8 +19,8 @@ export class FamiliasService {
     return this.http.post<Familia>(this.apiUrl, familia).pipe(take(1));
   }
 
-  alterar(familia: Familia, codigo: number) {
-    return this.http.put<Familia>(`${this.apiUrl}/${codigo}`, familia);
+  alterar(familia: Familia) {
+    return this.http.put<Familia>(`${this.apiUrl}/${familia.idFamilia}`, familia).pipe(take(1));
   }
 
   listarTodas() {
@@ -28,6 +28,6 @@ export class FamiliasService {
   }
 
   remover(familia: Familia) {
-    return this.http.delete<Familia>(`${this.apiUrl}/${familia.idFamilia}`);
+    return this.http.delete<Familia>(`${this.apiUrl}/${familia.idFamilia}`).pipe(take(1));
   }
 }

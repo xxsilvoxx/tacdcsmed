@@ -1,3 +1,4 @@
+import { Familia } from 'src/app/models/familia.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { take } from 'rxjs/operators';
@@ -5,7 +6,6 @@ import { take } from 'rxjs/operators';
 import { environment } from './../../../environments/environment';
 import { Paciente } from '../../models/paciente.model';
 import { Observable } from 'rxjs';
-import { Familia } from '../../models/familia.model';
 
 @Injectable({
   providedIn: 'root'
@@ -48,5 +48,9 @@ export class PacientesService {
 
   retornarPacientesComConsulta() {
     return this.http.get<Paciente[]>(`${this.apiUrl}/consultas`).pipe(take(1));
+  }
+
+  retornarMembrosFamilia(familia: Familia) {
+    return this.http.get<Paciente[]>(`${this.apiUrl}/familia/${familia.idFamilia}`).pipe(take(1));
   }
 }

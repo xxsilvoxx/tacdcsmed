@@ -3,6 +3,8 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**
 !**/src/test/**
+
+### Passando o gitignore ###
 /src/main/resources/application.properties
 
 ### STS ###
@@ -30,3 +32,9 @@ build/
 
 ### VS Code ###
 .vscode/
+/.gitignore
+/.mvn/
+/mvnw
+/mvnw.cmd
+/out/
+/src/

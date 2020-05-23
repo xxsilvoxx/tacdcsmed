@@ -87,7 +87,6 @@ export class FamiliasComponent implements OnInit {
   }
 
   masterToggle() {
-    console.log(this.selection.selected);
     if (this.dataSource.data) {
       this.isAllSelected()
         ? this.selection.clear()
@@ -158,6 +157,7 @@ export class FamiliasComponent implements OnInit {
   }
 
   listarTodos() {
+    this.familiasComResponsavel = [];
     this.service
       .listarTodas()
       .pipe(
@@ -208,8 +208,8 @@ export class FamiliasComponent implements OnInit {
 
   abrirJanelaDados() {
     const dialogRef = this.dialog.open(DadosFamiliaModalComponent, {
-      width: "500px",
-      height: "500px",
+      width: "600px",
+      height: "560px",
       data: {
         dados: this.selection.selected[0],
       }
@@ -230,7 +230,6 @@ export class FamiliasComponent implements OnInit {
       res => {
         this.selection.clear();
         this.familiasComResponsavel = [];
-        this.familias = [];
         this.listarTodos();
       }
     );
@@ -277,7 +276,6 @@ export class FamiliasComponent implements OnInit {
    * Método responsável por aplicar o filtro específico de arrays no javascript
    */
   applyFilter(value: string, coluna?) {
-    console.log(`${value} / ${coluna}`);
     let filtrado: any[] = [];
 
     this.familiasComResponsavel.map((p) => {
@@ -298,7 +296,6 @@ export class FamiliasComponent implements OnInit {
           filtrado.push(p);
         }
       } else if (coluna == "responsavelFamiliar") {
-        console.log(p.responsavel);
 
         if (p.responsavel != null){
           if (p.responsavel.nome.trim().toString().toLowerCase().indexOf(value.trim().toLowerCase()) >= 0) {
@@ -308,9 +305,7 @@ export class FamiliasComponent implements OnInit {
 
       }
     });
-    console.log(filtrado);
     this.dataSource = new MatTableDataSource<any>(filtrado);
-    console.log(this.dataSource);
     this.dataSource.paginator = this.paginator;
     // this.dataSource.filter = value;
     // filtrado.forEach(v => filtrado.pop());

@@ -70,5 +70,11 @@ public class PessoaResource {
         return pessoaRepository.retornarPacientesComConsultas(
                 calendar.getTime(), umaSemana.getTime());
     }
+    
+    @GetMapping("/familia/{codigo}")
+    public List<Pessoa> retornarMembrosFamilia(@PathVariable("codigo") Long idFamilia){
+    	return pessoaRepository.retornarMembrosFamilia(idFamilia);	
+    }
+    
 
 }

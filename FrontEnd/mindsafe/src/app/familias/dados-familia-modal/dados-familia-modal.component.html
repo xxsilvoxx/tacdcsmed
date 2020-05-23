@@ -8,25 +8,60 @@
 
 <mat-dialog-content>
   <div class="dados-imagem-fundo" ngClass.xs="dados-xs">
-   <div class="overlay" ngClass.xs="over-xs">
-    Photo by
-    <a href="https://unsplash.com/@annaelise?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
-    target="blank">Anna Pritchard</a> on
-    <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
-    target="blank">Unsplash</a>
-   </div>
+    <div class="overlay" ngClass.xs="over-xs">
+      Photo by
+      <a
+        href="https://unsplash.com/@annaelise?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+        target="blank"
+        >Anna Pritchard</a
+      >
+      on
+      <a
+        href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+        target="blank"
+        >Unsplash</a
+      >
+    </div>
   </div>
 
   <div class="conteudo">
-    <p class="nome-familia">
-      <mat-icon>group</mat-icon>
-      {{familia.nome}}
-    </p>
-    <p class="responsavel-familia">
+    <span class="nome-familia">
+      <mat-icon medium>group</mat-icon>
+      {{ familia.nome }}
+    </span>
+    <span class="responsavel-familia">
       <mat-icon>person</mat-icon>
-      {{responsavel?.nome ? responsavel?.nome : "Sem Responsável"}}
-    </p>
+      {{ responsavel?.nome ? responsavel?.nome : "Sem Responsável" }}
+    </span>
   </div>
 
-</mat-dialog-content>
+  <div class="lista-dados">
+    <mat-list>
+      <mat-list-item *ngFor="let element of listaMembros">
+        <div class="icone-inicio">
+          <mat-icon [ngStyle]="{ color: atribuirRisco(element.somatorio) }">
+            lens
+          </mat-icon>
+        </div>
 
+        <div class="paciente-detalhe">
+          <span matLine class="paciente-nome">
+            {{ element.nome }}
+          </span>
+          <span matLine class="paciente-descricao">
+            {{
+              element.totMedicamentos
+                ? "consome " + element.totMedicamentos + " medicamentos,"
+                : "Sem medicamentos,"
+            }}
+            {{
+              element.totRiscos
+                ? element.totRiscos + " causas associadas"
+                : "Sem causas associadas"
+            }}
+          </span>
+        </div>
+      </mat-list-item>
+    </mat-list>
+  </div>
+</mat-dialog-content>

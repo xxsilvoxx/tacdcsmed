@@ -33,7 +33,6 @@ export class AlterarFamiliaModalComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.data);
     this.criarFormulario();
     this.preencherFormulario(this.data.dados);
     this.listarMembrosFamilia();
@@ -70,7 +69,7 @@ export class AlterarFamiliaModalComponent implements OnInit {
   }
 
   listarMembrosFamilia() {
-    this.pacienteService.retornarMembros(this.formFamilia.value).pipe(
+    this.pacienteService.retornarMembrosFamilia(this.formFamilia.value).pipe(
       tap(value => {
         value.forEach(pessoa => {
           if (this.responsavelFamiliarControl.value) {
@@ -113,8 +112,6 @@ export class AlterarFamiliaModalComponent implements OnInit {
         this.mensagem.exibirMensagem("Erro ao alterar", "error");
       }
     );
-    console.log("retornado: ", this.responsavelRetornado);
-    console.log("controle: ", this.responsavelFamiliarControl.value)
   }
 
 }

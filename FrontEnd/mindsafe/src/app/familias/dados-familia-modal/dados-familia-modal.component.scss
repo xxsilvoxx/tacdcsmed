@@ -1,7 +1,7 @@
 .dados-imagem-fundo {
   background-image: url('../../../assets/imagens/dados-familia.jpg');
   padding-top: 1px;
-    height: 250px;
+    height: 240px;
     width: 100%;
     background-size: cover;
     background-position: center;
@@ -52,7 +52,8 @@
   position: relative;
   float: left;
   font-weight: 600;
-  margin-right: 100px;
+  margin-right: 150px;
+  font-size: x-large;
 }
 
 .responsavel-familia{
@@ -61,9 +62,54 @@
   font-weight: 600;
   word-wrap: break-word;
   width: 200px;
+  font-size: x-large;
 }
 
 .conteudo{
   width: auto;
+  display: inline-block;
 }
 
+.lista-dados{
+  width: 100%;
+  margin: 5px;
+}
+
+mat-list{
+  width: 100%;
+  position: relative;
+  max-height: 105px;
+  overflow-y: auto;
+}
+
+.nome-familia mat-icon{
+  font-size: Xx-large;
+  padding-right: 10px;
+}
+
+.responsavel-familia mat-icon{
+  font-size: Xx-large;
+  padding-right: 10px;
+}
+
+.icone-inicio{
+  position: relative;
+  float: left;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.paciente-detalhe{
+  position: relative;
+  float: right;
+
+}
+
+.paciente-nome{
+  font-size: large;
+  font-weight: 500;
+}
+
+.paciente-descricao{
+  font-size: Xx-small;
+}
