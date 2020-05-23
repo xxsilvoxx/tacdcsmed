@@ -1,11 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 import { MatDialogRef } from '@angular/material/dialog';
 
 import { FuncionariosService } from '../../../services/funcionarios/funcionarios.service';
-import { emailDisponivelValidator, loginDisponivelValidator, validarNumeroMinimo } from '../../../shared/mensagem-validation/form-validations';
+import {
+  emailDisponivelValidator,
+  loginDisponivelValidator,
+  validarNumeroMinimo
+} from '../../../shared/mensagem-validation/form-validations';
 import { MensagemValidationService } from '../../../shared/mensagem-validation/mensagem-validation.service';
 import { Ubs } from '../../../models/ubs.model';
 import { MicroArea } from '../../../models/microArea.model';
@@ -14,7 +19,6 @@ import { UbsService } from '../../../services/ubs/ubs.service';
 import { FuncoesService } from '../../../services/funcoes/funcoes.service';
 import { MicroAreasService } from '../../../services/microAreas/microArea.service';
 import { MensagemService } from '../../../shared/mensagem/mensagem.service';
-import { tap, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-cadastrar-funcionario',

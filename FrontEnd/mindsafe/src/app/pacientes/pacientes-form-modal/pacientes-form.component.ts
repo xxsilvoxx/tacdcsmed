@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Observable, EMPTY, Subject } from 'rxjs';
-import { tap, switchMap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatChipInputEvent } from '@angular/material/chips';
@@ -169,7 +169,11 @@ export class PacientesFormComponent implements OnInit {
       idPessoa: [null],
       responsavelFamiliar: [false, Validators.required],
       familia: ['', Validators.required],
-      nome: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]],
+      nome: ['', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(255)
+      ]],
       cpfCnpj: ['', {
         validators: [
           Validators.required,

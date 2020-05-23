@@ -1,17 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { MicroArea } from '../../../models/microArea.model';
 import { Observable, EMPTY } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+
+import { MatDialogRef } from '@angular/material/dialog';
+
+import { MicroArea } from '../../../models/microArea.model';
 import { Bairro } from '../../../models/bairro.model';
 import { BairrosService } from '../../../services/bairros/bairros.service';
-import { microareaDisponivelValidator, validarNumeroMinimo } from '../../../shared/mensagem-validation/form-validations';
+import { validarNumeroMinimo } from '../../../shared/mensagem-validation/form-validations';
 import { MicroAreasService } from '../../../services/microAreas/microArea.service';
 import { MensagemValidationService } from '../../../shared/mensagem-validation/mensagem-validation.service';
 import { MensagemService } from '../../../shared/mensagem/mensagem.service';
-import { MatDialogRef } from '@angular/material/dialog';
 import { Ubs } from '../../../models/ubs.model';
 import { UbsService } from '../../../services/ubs/ubs.service';
-import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-cadastrar-microarea',
@@ -81,8 +83,7 @@ export class CadastrarMicroareaComponent implements OnInit {
   criarFormulario() {
     this.formMicroarea = this.builder.group({
       numero: [null, {
-        validators: [ Validators.required, validarNumeroMinimo.bind(this) ],
-        /* asyncValidators: [ microareaDisponivelValidator(this.microareasService) ] */
+        validators: [ Validators.required, validarNumeroMinimo.bind(this) ]
       }],
       bairro: [null, {
         validators: [ Validators.required ]

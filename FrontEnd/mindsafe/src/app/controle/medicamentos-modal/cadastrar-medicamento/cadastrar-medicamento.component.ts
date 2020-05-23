@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
 import { FormControl, Validators } from '@angular/forms';
+
+import { MatDialogRef } from '@angular/material/dialog';
+
 import { MensagemValidationService } from '../../../shared/mensagem-validation/mensagem-validation.service';
 import { MensagemService } from '../../../shared/mensagem/mensagem.service';
 import { MedicamentosService } from '../../../services/medicamentos/medicamentos.service';
@@ -29,8 +31,7 @@ export class CadastrarMedicamentoComponent implements OnInit {
     private service: MedicamentosService
   ) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   retornarValidacoes() {
     return this.valdiation.getErrorMessage(this.controlNome, 'Nome');

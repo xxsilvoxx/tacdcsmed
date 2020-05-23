@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
+import { MatDialogRef } from '@angular/material/dialog';
+
 import { validarNumeroMinimo, causaDisponivelValidator } from '../../../shared/mensagem-validation/form-validations';
 import { CausasService } from '../../../services/causas/causas.service';
 import { MensagemService } from '../../../shared/mensagem/mensagem.service';
-import { MatDialogRef } from '@angular/material/dialog';
 import { MensagemValidationService } from '../../../shared/mensagem-validation/mensagem-validation.service';
 
 @Component({
