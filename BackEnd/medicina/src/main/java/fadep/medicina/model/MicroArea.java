@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="micro_area")
@@ -17,11 +18,13 @@ public class MicroArea {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_micro_area")
 	private Long idMicroArea;
-	
+
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name="id_bairro")
 	private Bairro bairro;
-	
+
+	@NotNull
 	private Integer numero;
 
 	public Long getIdMicroArea() {

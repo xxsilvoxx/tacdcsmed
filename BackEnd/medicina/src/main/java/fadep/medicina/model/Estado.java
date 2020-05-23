@@ -1,14 +1,11 @@
 package fadep.medicina.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
-@Table(name="estado")
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = "nome", name = "estado"))
 public class Estado {
 	
 	@Id
@@ -17,6 +14,8 @@ public class Estado {
 	private Long idEstado;
 	
 	@Column(name="nome")
+	@NotNull
+	@Size(max = 250)
 	private String nome;
 
 	public Long getIdEstado() {

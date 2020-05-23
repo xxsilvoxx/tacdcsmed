@@ -1,6 +1,7 @@
 package fadep.medicina.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Objects;
 
@@ -16,10 +17,12 @@ public class Imagem {
     @Column(name="caminho")
     private String caminho;
 
-    @Size(max=250)
+    @NotNull
+    @Size(max=10)
     @Column(name="tipo")
     private String tipo;
 
+    @NotNull
     @Column(name="tamanho")
     private Long tamanho;
 

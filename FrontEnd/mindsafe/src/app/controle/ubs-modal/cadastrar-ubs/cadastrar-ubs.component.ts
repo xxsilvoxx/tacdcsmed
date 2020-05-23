@@ -112,6 +112,7 @@ export class CadastrarUbsComponent implements OnInit {
               bairro.cidade.estado = estado;
               this.bairros.push(bairro);
             } else {
+
               // Caso não traga nenhum bairro junto com o cep
               // o que é comum com cidades que possuem um único cep
               // é inserido um registro na lista de bairros com '.'
@@ -121,6 +122,7 @@ export class CadastrarUbsComponent implements OnInit {
               this.bairros.push(bairro);
             }
           }
+
           // O patchValue foi a melhor opção porque
           // ele modifica somente os campos que eu passo
           // enquanto que o setValue é obrigatório passar
@@ -143,8 +145,6 @@ export class CadastrarUbsComponent implements OnInit {
   validarPropriedadesExistentes(bairroRetornado: Bairro) {
     const cidade = this.cidades.filter(c => c.nome === bairroRetornado.cidade.nome);
     const estado = this.estados.filter(e => e.nome === bairroRetornado.cidade.estado.nome);
-    console.log(cidade);
-    console.log(estado);
     if (cidade.length > 0) {
       bairroRetornado.cidade = cidade[0];
     }
@@ -253,6 +253,7 @@ export class CadastrarUbsComponent implements OnInit {
         },
         err => this.msg.exibirMensagem('Erro ao cadastrar a UBS', 'error')
       );
+
       // Caso a cidade não esteja cadastrada
     } else if (presente[0].cidade.idCidade === undefined) {
       this.cidadesService.cadastrar(presente[0].cidade).pipe(
@@ -271,6 +272,7 @@ export class CadastrarUbsComponent implements OnInit {
         },
         err => this.msg.exibirMensagem('Erro ao cadastrar a UBS', 'error')
       );
+
       // Caso o bairro não esteja cadastrado
     } else if (presente[0].idBairro === undefined) {
       this.bairrosService.cadastrar(presente[0]).pipe(
@@ -284,6 +286,7 @@ export class CadastrarUbsComponent implements OnInit {
         },
         err => this.msg.exibirMensagem('Erro ao cadastrar a UBS', 'error')
       );
+
       // Caso todas as informações estejam OK
       // ele cai no else onde cadastra apenas a UBS
     } else {

@@ -6,7 +6,6 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { funcaoDisponivelValidator } from '../../../shared/mensagem-validation/form-validations';
 import { MensagemValidationService } from '../../../shared/mensagem-validation/mensagem-validation.service';
 import { FuncoesService } from '../../../services/funcoes/funcoes.service';
-import { Funcao } from '../../../models/funcao.model';
 import { MensagemService } from '../../../shared/mensagem/mensagem.service';
 
 @Component({

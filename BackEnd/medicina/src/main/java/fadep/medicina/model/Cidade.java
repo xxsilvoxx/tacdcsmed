@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="cidade")
@@ -19,10 +21,13 @@ public class Cidade {
 	private Long idCidade;
 	
 	@ManyToOne
+	@NotNull
 	@JoinColumn(name="id_estado")
 	private Estado estado;
 	
 	@Column(name="nome")
+	@NotNull
+	@Size(max = 250)
 	private String nome;
 
 	public Long getIdCidade() {

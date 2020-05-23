@@ -28,7 +28,8 @@ public class MedicamentoPessoa {
 	@ManyToOne
 	@JoinColumn(name="id_medicamento")
 	private Medicamento medicamento;
-	
+
+	@NotNull
 	@Column(name = "horarios")
 	private String horarios;
 

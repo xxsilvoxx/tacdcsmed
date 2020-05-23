@@ -6,7 +6,7 @@ import javax.validation.constraints.Size;
 import java.util.Objects;
 
 @Entity
-@Table(name="funcionario")
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"login", "email"}, name="funcionario"))
 public class Funcionario {
 	
 	@Id
@@ -37,14 +37,19 @@ public class Funcionario {
 	@Size(min=10, max=100)
 	@Column(name="email")
 	private String email;
-	
+
+	@Size(min = 3, max = 250)
+	@NotNull
 	@Column(name="nome")
 	private String nome;
 	
 	@Size(max=50)
+	@NotNull
 	@Column(name="login")
 	private String login;
-	
+
+	@Size(max = 10)
+	@NotNull
 	@Column(name="senha")
 	private String senha;
 	
