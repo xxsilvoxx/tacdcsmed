@@ -1,13 +1,14 @@
-import { loginDisponivelValidator } from './../../shared/mensagem-validation/form-validations';
-import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { EMPTY, Observable } from 'rxjs';
+import { Component, OnInit, Inject } from '@angular/core';
+import { EMPTY } from 'rxjs';
+import { switchMap, tap } from 'rxjs/operators';
 
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+
+import { loginDisponivelValidator } from './../../shared/mensagem-validation/form-validations';
 import { FuncionariosService } from '../../services/funcionarios/funcionarios.service';
 import { Funcionario } from '../../models/funcionario.model';
 import { ImagensService } from '../../services/imagens/imagens.service';
 import { MensagemService } from '../../shared/mensagem/mensagem.service';
-import { switchMap, tap } from 'rxjs/operators';
 import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { MensagemValidationService } from '../../shared/mensagem-validation/mensagem-validation.service';
 import { Funcao } from '../../models/funcao.model';
@@ -31,7 +32,7 @@ export class ModalFuncionarioComponent implements OnInit {
   // Variável que armazena a senha atual do usuário
   // mas será utilizada pra comparar com a senha alterada.
   formFuncionario: FormGroup;
-  formConfirmarSenha: FormControl;
+  confirmarSenhaControl: FormControl;
 
   funcoes: Funcao[];
   microAreas: MicroArea[];
@@ -65,7 +66,6 @@ export class ModalFuncionarioComponent implements OnInit {
   imgUpload: File = null;
 
   constructor(
-    private modalRef: MatDialogRef<ModalFuncionarioComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private service: FuncionariosService,
     private ubsService: UbsService,
@@ -82,7 +82,7 @@ export class ModalFuncionarioComponent implements OnInit {
     this.listarFuncoes();
     this.listarMicroareas();
     this.listarUbs();
-    this.preencherFormulario(this.data.funcionario);
+    this.preencherFormulario(this.data.funcionario as Funcionario);
   }
 
   criarFormulario() {
@@ -101,15 +101,13 @@ export class ModalFuncionarioComponent implements OnInit {
         validators: [ Validators.required ]
       }],
       email: [null, {
-        validators: [Validators.email, Validators.required],
-        asyncValidators: [emailDisponivelValidator(this.service)]
+        validators: [Validators.email, Validators.required]
       }],
       nome: [null, {
         validators: [Validators.maxLength(250), Validators.required]
       }],
       login: [null, {
-        validators: [Validators.maxLength(250), Validators.required],
-        asyncValidators: [loginDisponivelValidator(this.service)]
+        validators: [Validators.maxLength(250), Validators.required]
       }],
       senha: [null, {
         validators: [Validators.maxLength(10), Validators.required]
@@ -134,15 +132,28 @@ export class ModalFuncionarioComponent implements OnInit {
       codEquipe: funcionario.codEquipe
     });
     this.carregarImg(funcionario);
-    this.formConfirmarSenha = new FormControl(funcionario.senha, this.compararSenha.bind(this));
+    this.confirmarSenhaControl = this.builder.control(funcionario.senha, [
+      Validators.required,
+      this.compararSenha.bind(this)
+    ]);
     this.senhaSalva = funcionario.senha;
   }
 
-  retornarValidacoes(campo: string, label: string) {
-    const campoInput = campo === 'confirmarSenha'
-      ? this.formConfirmarSenha
-      : this.formFuncionario.get(campo);
-    return this.validation.getErrorMessage(campoInput as FormControl, label);
+  retornarValidacoes(campo: FormControl, label: string) {
+    return this.validation.getErrorMessage(campo, label);
+  }
+
+  atribuirValidadorAsync(campo: string) {
+    const control = this.formFuncionario.get(campo);
+    if (campo === 'login') {
+      control.setAsyncValidators(
+        loginDisponivelValidator(this.service)
+      );
+    } else if (campo === 'email') {
+      control.setAsyncValidators(
+        emailDisponivelValidator(this.service)
+      );
+    }
   }
 
   // Validação de senha, faz validação de senha e confirmação da senha
@@ -177,8 +188,8 @@ export class ModalFuncionarioComponent implements OnInit {
 
   retornarTamanhoInvalido(file: File) {
     if (file.size > 1048576 ) {
-      return (this.mostrarErroArquivo = true);
       this.imgUpload = null;
+      return (this.mostrarErroArquivo = true);
     } else {
       this.imgUpload = file;
       return (this.mostrarErroArquivo = false);
@@ -191,11 +202,13 @@ export class ModalFuncionarioComponent implements OnInit {
         tap(v => v !== null
           ? this.imgUsuario = '../../../assets/imagens/user.png'
           : EMPTY),
-        switchMap(v => v !== null ? this.service.listarUsuario() : EMPTY)
+        switchMap(v => v !== null ? this.service.buscarUsuario() : EMPTY)
       ).subscribe(
         res => {
-          this.preencherFormulario(res);
-          if (this.formFuncionario.get('imagem').value !== null) {
+          this.msg.exibirMensagem('Imagem carregada com sucesso', 'done');
+          this.service.alterarObjetoSalvo(res);
+          this.formFuncionario.get('imagem').setValue(res.imagem);
+          if (res.imagem !== null) {
             this.imgUsuario = this.img.buscarImg(this.formFuncionario.value);
             this.imgUpload = null;
           }
@@ -215,6 +228,7 @@ export class ModalFuncionarioComponent implements OnInit {
       success => {
         this.msg.exibirMensagem('Imagem removida com sucesso', 'done');
         this.formFuncionario.get('imagem').setValue(null);
+        this.service.alterarObjetoSalvo(this.formFuncionario.value);
       },
       err => this.msg.exibirMensagem('Erro ao remover a imagem', 'error')
     );
@@ -231,7 +245,7 @@ export class ModalFuncionarioComponent implements OnInit {
 
   cancelarAlteracaoSenha() {
     this.formFuncionario.get('senha').setValue(this.senhaSalva);
-    this.formConfirmarSenha.setValue(this.senhaSalva);
+    this.confirmarSenhaControl.setValue(this.senhaSalva);
   }
 
   listarMicroareas() {

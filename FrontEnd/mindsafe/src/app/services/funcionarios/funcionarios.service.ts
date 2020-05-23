@@ -17,8 +17,20 @@ export class FuncionariosService {
     private http: HttpClient
   ) { }
 
-  listarUsuario() {
-    const funcionario: Funcionario = JSON.parse(window.sessionStorage.getItem('login-mindsafe'));
+  /**
+   * Métodos para manipular o objeto do funcionário salvo no storage do navegador.
+   */
+  buscarFuncionarioSalvo() {
+    return JSON.parse(window.sessionStorage.getItem('login-mindsafe'));
+  }
+
+  alterarObjetoSalvo(funcionario: Funcionario) {
+    window.sessionStorage.removeItem('login-mindsafe');
+    window.sessionStorage.setItem('login-mindsafe', JSON.stringify(funcionario));
+  }
+
+  buscarUsuario() {
+    const funcionario: Funcionario = this.buscarFuncionarioSalvo();
     return this.http.get<Funcionario>(`${this.apiUrl}/${funcionario.idFuncionario}`).pipe(take(1));
   }
 
@@ -27,6 +39,7 @@ export class FuncionariosService {
   }
 
   alterar(funcionario: Funcionario) {
+    this.alterarObjetoSalvo(funcionario);
     return this.http.put<Funcionario>(`${this.apiUrl}/${funcionario.idFuncionario}`, funcionario).pipe(take(1));
   }
 

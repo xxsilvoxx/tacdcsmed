@@ -27,6 +27,11 @@ public class ResidenciaResource {
         return residenciaRepository.findAll();
     }
 
+    @GetMapping("/microarea/{codigo}")
+    public List<Residencia> listarResidenciasPorMicroArea(@PathVariable("codigo") Long idMicroArea) {
+        return residenciaRepository.retornarResidenciasPorMicroarea(idMicroArea);
+    }
+
     @PostMapping
     public ResponseEntity<Residencia> cadastrar(@Valid @RequestBody Residencia residencia, HttpServletResponse response) {
         Residencia residenciaSalva = residenciaRepository.save(residencia);

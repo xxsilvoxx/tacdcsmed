@@ -1,16 +1,16 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
+
 import { MatDialog } from '@angular/material/dialog';
+import { MediaObserver } from '@angular/flex-layout';
 
 import { Funcionario } from '../../models/funcionario.model';
 import { FuncionariosService } from '../../services/funcionarios/funcionarios.service';
 import { MensagemService } from '../../shared/mensagem/mensagem.service';
 import { ImagensService } from '../../services/imagens/imagens.service';
 import { ModalFuncionarioComponent } from '../modal-funcionario/modal-funcionario.component';
-import { MediaObserver } from '@angular/flex-layout';
-import { Subscription } from 'rxjs';
-import { filter } from 'rxjs/operators';
-import { ProgressBarService } from '../../shared/progress-bar/progress-bar.service';
 
 @Component({
   selector: 'app-menu-sidenav',
@@ -22,7 +22,8 @@ export class MenuSidenavComponent implements OnInit, OnDestroy {
   funcionario: Funcionario = new Funcionario();
 
   mostrarMenu = false;
-  imgUsuario = '../../../assets/imagens/user.png';
+  usuarioSemImg = '../../../assets/imagens/user.png';
+  imgUsuario = '';
 
   displayFixedTopGap = 64;
   subscriptions: Subscription[] = [];
@@ -37,7 +38,7 @@ export class MenuSidenavComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.buscarInformacoes();
+    this.imgUsuario = this.buscarInformacoes();
     this.alterarDisplayXs();
     this.alterarDisplaySm();
   }
@@ -50,14 +51,17 @@ export class MenuSidenavComponent implements OnInit, OnDestroy {
 
     // Agora o código busca do storage da sessão se o usuário está
     // salvo, permitindo navegar entre as páginas.
-    this.funcionario = JSON.parse(window.sessionStorage.getItem('login-mindsafe'));
+    let imagem = this.usuarioSemImg;
+    this.funcionario = this.service.buscarFuncionarioSalvo();
     if (this.funcionario !== null) {
       if (this.funcionario.imagem !== null) {
-        this.imgUsuario = this.img.buscarImg(this.funcionario);
+        imagem = this.img.buscarImg(this.funcionario);
       }
     } else {
       this.msg.exibirMensagem('Erro ao carregar suas informacoes', 'error');
     }
+    return imagem;
+
   }
 
   alterarDisplayXs() {
@@ -95,8 +99,7 @@ export class MenuSidenavComponent implements OnInit, OnDestroy {
 
     dialogRef.afterClosed().subscribe(
       res => {
-        this.buscarInformacoes();
-        this.imgUsuario = '../../../assets/imagens/user.png';
+        this.imgUsuario = this.buscarInformacoes();
       }
     );
   }

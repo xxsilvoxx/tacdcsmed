@@ -1,9 +1,10 @@
-import { environment } from './../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { take } from 'rxjs/operators';
+
+import { environment } from './../../../environments/environment';
 import { Funcionario } from '../../models/funcionario.model';
 import { Imagem } from '../../models/imagem.model';
-import { take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
