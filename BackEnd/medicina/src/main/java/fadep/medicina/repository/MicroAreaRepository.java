@@ -11,8 +11,8 @@ public interface MicroAreaRepository extends JpaRepository<MicroArea, Long> {
     /**
      * Retorna uma contagem de registros que possuem aquele número na microárea
      */
-    @Query("SELECT COUNT(m.idMicroArea) FROM MicroArea m WHERE m.numero = ?1")
-    public Integer retornarMicroareaDisponivel(int numero);
+    @Query("SELECT COUNT(m) FROM MicroArea m WHERE m.numero = ?1 AND m.bairro.idBairro = ?2")
+    public Integer retornarMicroareaDisponivel(int numero, Long idBairro);
 
     /**
      * Faz um join com 4 tabelas para retornar o total de pacientes
