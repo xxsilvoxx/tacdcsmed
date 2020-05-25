@@ -13,8 +13,16 @@
             Microárea {{ informacoesMicroarea.microArea.numero }} - {{ informacoesMicroarea.microArea.bairro.nome }}
           </h2>
 
-          <p [ngStyle.xs]="{ 'font-size': '12pt' }" [ngStyle.sm]="{ 'font-size': '14pt' }">
+          <p [ngStyle.xs]="{ 'font-size': '10pt' }" [ngStyle.sm]="{ 'font-size': '14pt' }">
             {{ informacoesMicroarea.totPacientes | async }}
+          </p>
+
+          <p [ngStyle.xs]="{ 'font-size': '10pt' }" [ngStyle.sm]="{ 'font-size': '12pt' }">
+            {{ visitasPendentes === 0 ? 'Nenhuma visita pendente' : (visitasPendentes + ' visitas pendentes') }}
+          </p>
+
+          <p [ngStyle.xs]="{ 'font-size': '10pt' }" [ngStyle.sm]="{ 'font-size': '12pt' }">
+            {{ visitasAtrasadas === 0 ? 'Nenhuma visita atrasada' : (visitasAtrasadas + ' visitas atrasadas') }}
           </p>
         </div>
 

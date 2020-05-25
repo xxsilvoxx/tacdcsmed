@@ -10,6 +10,9 @@ import { MicroArea } from '../../models/microArea.model';
 import { Funcionario } from '../../models/funcionario.model';
 import { PacientesService } from '../../services/pacientes/pacientes.service';
 import { ResidenciasService } from '../../services/residencias/residencias.service';
+import { Visita } from '../../models/visita.model';
+import { VisitaService } from '../../services/visitas/visita.service';
+import { FuncionariosService } from '../../services/funcionarios/funcionarios.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -25,19 +28,41 @@ export class DashboardComponent implements OnInit {
     totPacientes: null as Observable<string>
   };
 
+  visitasPendentes: number;
+  visitasAtrasadas: number;
+
+
   pacienteInfo: any[] = [];
 
   constructor(
     private pacientesService: PacientesService,
     private residenciasService: ResidenciasService,
+    private visitasService: VisitaService,
+    private funcionarioService: FuncionariosService,
     private dialog: MatDialog
-  ) {
-    this.funcionario = JSON.parse(window.sessionStorage.getItem('login-mindsafe'));
-  }
+  ) {}
 
   ngOnInit() {
+    this.funcionario = this.funcionarioService.buscarFuncionarioSalvo();
     this.exibirInformacoesMicroarea();
+    this.exibirVisitasPendentes();
     this.listarPacientes();
+  }
+
+  /**
+   * Retorna a o total de visitas que tem status como PENDENTE,
+   * e o total de visitas com status de ATRASADA.
+   */
+  exibirVisitasPendentes() {
+    this.visitasService.listarVisitas().pipe(
+      tap(visitas => {
+        this.visitasPendentes = visitas.filter(res => res.status === 'PENDENTE').length;
+        this.visitasAtrasadas = visitas.filter(res => res.status === 'ATRASADA').length;
+      })
+    ).subscribe(
+      success => success,
+      err => err
+    );
   }
 
   /**
@@ -57,10 +82,10 @@ export class DashboardComponent implements OnInit {
         map(pacientes => pacientes.length),
         map(
           total => total === 0
-          ? 'Todos os pacientes já foram visitados'
+          ? 'Nenhum paciente novo na microárea'
           : (total === 1
-              ? 'Somente 1 paciente à ser vistado'
-              : `${total} à serem visitados`
+              ? 'Existe 1 paciente que ainda não foi visitado nenhuma vez'
+              : `${total} à serem visitados pela primeira vez`
             )
         )
       );
