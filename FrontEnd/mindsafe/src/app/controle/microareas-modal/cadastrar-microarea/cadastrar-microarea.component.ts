@@ -5,14 +5,14 @@ import { switchMap } from 'rxjs/operators';
 
 import { MatDialogRef } from '@angular/material/dialog';
 
+import { validarNumeroMinimo, microareaDisponivelValidator } from '../../../shared/mensagem-validation/form-validations';
 import { MicroArea } from '../../../models/microArea.model';
 import { Bairro } from '../../../models/bairro.model';
-import { BairrosService } from '../../../services/bairros/bairros.service';
-import { validarNumeroMinimo } from '../../../shared/mensagem-validation/form-validations';
-import { MicroAreasService } from '../../../services/microAreas/microArea.service';
+import { Ubs } from '../../../models/ubs.model';
 import { MensagemValidationService } from '../../../shared/mensagem-validation/mensagem-validation.service';
 import { MensagemService } from '../../../shared/mensagem/mensagem.service';
-import { Ubs } from '../../../models/ubs.model';
+import { MicroAreasService } from '../../../services/microAreas/microArea.service';
+import { BairrosService } from '../../../services/bairros/bairros.service';
 import { UbsService } from '../../../services/ubs/ubs.service';
 
 @Component({
@@ -69,6 +69,7 @@ export class CadastrarMicroareaComponent implements OnInit {
    */
   desabilitarSelecaoUbs(bairro: Bairro) {
     if (bairro.ubs !== null) {
+      this.controlUbs.setValue(bairro.ubs);
       this.bairroPossuiUbs = true;
       this.disabledCampoUbs = true;
     } else {
@@ -83,15 +84,17 @@ export class CadastrarMicroareaComponent implements OnInit {
   criarFormulario() {
     this.formMicroarea = this.builder.group({
       numero: [null, {
-        validators: [ Validators.required, validarNumeroMinimo.bind(this) ]
+        validators: [ Validators.required, validarNumeroMinimo.bind(this) ],
+        asyncValidators: [ microareaDisponivelValidator(this.microareasService, 'bairro') ]
       }],
       bairro: [null, {
-        validators: [ Validators.required ]
+        validators: [ Validators.required ],
+        asyncValidators: [ microareaDisponivelValidator(this.microareasService, 'numero') ]
       }]
     });
 
     this.controlUbs = this.builder.control(null, {
-      validators: [Validators.required]
+      validators: [ Validators.required ]
     });
   }
 
@@ -125,6 +128,11 @@ export class CadastrarMicroareaComponent implements OnInit {
           : EMPTY
         )
       ).subscribe(
+        res => this.msg.exibirMensagem('Microárea cadastrada com sucesso', 'done'),
+        err => this.msg.exibirMensagem('Erro ao cadastrar a microárea', 'error')
+      );
+    } else {
+      this.microareasService.cadastrarMicroarea(microarea).subscribe(
         res => this.msg.exibirMensagem('Microárea cadastrada com sucesso', 'done'),
         err => this.msg.exibirMensagem('Erro ao cadastrar a microárea', 'error')
       );

@@ -20,7 +20,7 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-slide-toggle matTooltip="Alterar a UBS deste bairro" *ngIf="bairroPossuiUbs" [(ngModel)]="alterarUbs" [ngModelOptions]="{standalone: true}" (change)="onAlterarCampoUbs()" color="primary" fxFlex>
+    <mat-slide-toggle matTooltip="Alterar a UBS deste bairro" *ngIf="bairroPossuiUbs" [(ngModel)]="alterarUbs" [ngModelOptions]="{ standalone: true }" (change)="onAlterarCampoUbs()" color="primary" fxFlex>
       Alterar a UBS
     </mat-slide-toggle>
 

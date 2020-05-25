@@ -1,19 +1,18 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormBuilder } from '@angular/forms';
+import { tap, switchMap } from 'rxjs/operators';
+import { EMPTY } from 'rxjs';
+
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+
 import { MicroAreasService } from '../../../services/microAreas/microArea.service';
 import { MicroArea } from '../../../models/microArea.model';
 import { MensagemService } from '../../../shared/mensagem/mensagem.service';
-import { tap, switchMap } from 'rxjs/operators';
-import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { microareaDisponivelValidator, validarNumeroMinimo } from '../../../shared/mensagem-validation/form-validations';
+import { validarNumeroMinimo } from '../../../shared/mensagem-validation/form-validations';
 import { MensagemValidationService } from '../../../shared/mensagem-validation/mensagem-validation.service';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { element } from 'protractor';
-import { ConfirmModalComponent } from '../../../shared/confirm-modal/confirm-modal.component';
-import { EMPTY, Observable } from 'rxjs';
 import { Bairro } from '../../../models/bairro.model';
 import { BairrosService } from '../../../services/bairros/bairros.service';
-import { Ubs } from '../../../models/ubs.model';
-import { UbsService } from '../../../services/ubs/ubs.service';
+import { ConfirmModalComponent } from '../../../shared/confirm-modal/confirm-modal.component';
 
 @Component({
   selector: 'app-vizualizar-microareas',
@@ -65,6 +64,7 @@ export class VizualizarMicroareasComponent implements OnInit {
                     funcionarioResponsavel: funcionario
                   };
                   this.microareasTot.push(obj);
+                  this.microareasTot.sort(this.ordernar);
                 })
               ).subscribe(
                 success => success,
@@ -86,6 +86,13 @@ export class VizualizarMicroareasComponent implements OnInit {
       },
       err => this.msg.exibirMensagem('Erro ao retornar microáreas', 'error')
     );
+  }
+
+  ordernar(a: any, b: any) {
+    console.log('teste');
+    a = a.microarea.get('bairro').value;
+    b = b.microarea.get('bairro').value;
+    return a > b ? 1 : (a < b ? -1 : 0);
   }
 
   listarBairros() {

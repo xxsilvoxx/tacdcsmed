@@ -5,6 +5,7 @@ import { take } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { MicroArea } from '../../models/microArea.model';
 import { Funcionario } from '../../models/funcionario.model';
+import { Bairro } from '../../models/bairro.model';
 
 @Injectable({
   providedIn: 'root'
@@ -41,7 +42,7 @@ export class MicroAreasService {
     return this.http.get<Funcionario>(`${this.apiUrl}/${microarea.idMicroArea}/responsavel`).pipe(take(1));
   }
 
-  validarNumeroMicroareaDisponivel(numero: number) {
-    return this.http.get<boolean>(`${this.apiUrl}/validar/${numero}`).pipe(take(1));
+  validarNumeroMicroareaDisponivel(numero: number, bairro: Bairro) {
+    return this.http.get<boolean>(`${this.apiUrl}/validar/bairro/${bairro.idBairro}?numero=${numero}`).pipe(take(1));
   }
 }

@@ -1,5 +1,5 @@
 import { FormControl } from '@angular/forms';
-import { EMPTY, of } from 'rxjs';
+import { EMPTY } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { FuncionariosService } from '../../services/funcionarios/funcionarios.service';
@@ -9,6 +9,7 @@ import { MicroAreasService } from '../../services/microAreas/microArea.service';
 import { CausasService } from '../../services/causas/causas.service';
 import { FuncoesService } from '../../services/funcoes/funcoes.service';
 import { UbsService } from '../../services/ubs/ubs.service';
+import { Bairro } from '../../models/bairro.model';
 
 /* --------------------------------------------------------------------------------------- */
 
@@ -58,13 +59,24 @@ export const medicamentoDisponivelValidator = (service: MedicamentosService) => 
   };
 };
 
-export const microareaDisponivelValidator = (service: MicroAreasService) => {
+export const microareaDisponivelValidator = (service: MicroAreasService, campo: string) => {
   return (input: FormControl) => {
-    return input.value ? service.validarNumeroMicroareaDisponivel(input.value).pipe(
-      map(res => {
-        return res ? null : { microareaInvalida: true };
-      })
-    ) : EMPTY;
+    let bairro: FormControl;
+    let numero: FormControl;
+    if (campo === 'bairro') {
+      bairro = input.root.get(campo) as FormControl;
+      numero = input;
+    } else if (campo === 'numero') {
+      bairro = input;
+      numero = input.root.get(campo) as FormControl;
+    }
+    return (numero.value && bairro.value)
+      ? service.validarNumeroMicroareaDisponivel(numero.value, bairro.value).pipe(
+        map(res => {
+          return res ? null : { microareaInvalida: true };
+        })
+      )
+      : EMPTY;
   };
 };
 
