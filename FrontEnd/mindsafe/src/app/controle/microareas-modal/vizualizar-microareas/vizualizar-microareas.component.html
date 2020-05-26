@@ -18,16 +18,19 @@
     <mat-list-item *ngFor="let element of microareasTot">
       <div [formGroup]="element.microarea" fxLayout="row" fxLayoutGap="10px" style="width: 300px; margin-right: 20px;">
         <mat-form-field fxFlex="40%">
-          <input matInput type="number" (click)="atribuirValidadorAssincrono(element.microarea.get('numero'))" formControlName="numero" #numero>
+          <input matInput type="number" (click)="atribuirValidadorAssincrono(element.microarea.get('numero'), 'bairro')" formControlName="numero" #numero>
           <mat-error>
             {{ retornarValidacoes(element.microarea.get('numero'), 'Número') }}
           </mat-error>
         </mat-form-field>
 
         <mat-form-field fxFlex>
-          <mat-select formControlName="bairro">
-            <mat-option *ngFor="let bairro of bairros" [value]="bairro.nome">{{ bairro.nome }}</mat-option>
+          <mat-select formControlName="bairro" (click)="atribuirValidadorAssincrono(element.microarea.get('bairro'), 'numero')" [ngModel]="element.microarea.get('bairro').value">
+            <mat-option *ngFor="let bairro of bairros" [value]="bairro">{{ bairro.nome }}</mat-option>
           </mat-select>
+          <mat-error>
+            {{ retornarValidacoes(element.microarea.get('bairro'), 'Bairro') }}
+          </mat-error>
         </mat-form-field>
       </div>
 
