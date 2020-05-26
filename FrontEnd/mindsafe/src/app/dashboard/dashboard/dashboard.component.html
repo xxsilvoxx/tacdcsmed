@@ -8,7 +8,7 @@
         'height': '100%',
         'border-radius': '5px'
       }">
-        <div id="informacoes">
+        <div id="informacoes" [ngStyle.lg]="{ 'max-width': '500px' }">
           <h2 [ngStyle.xs]="{ 'font-size': '14pt' }" [ngStyle.sm]="{ 'font-size': '16pt' }">
             Microárea {{ informacoesMicroarea.microArea.numero }} - {{ informacoesMicroarea.microArea.bairro.nome }}
           </h2>
