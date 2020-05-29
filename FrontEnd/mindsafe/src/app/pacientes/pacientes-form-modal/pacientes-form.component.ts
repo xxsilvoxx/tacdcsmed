@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Observable, EMPTY, Subject } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { tap, switchMap } from 'rxjs/operators';
 
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatChipInputEvent } from '@angular/material/chips';
@@ -26,7 +26,6 @@ import { CausaPessoa } from '../../models/causaPessoa.model';
 import { cpfCnpjDisponivelValidator } from '../../shared/mensagem-validation/form-validations';
 import { mascaras } from '../../shared/form-masks/form-masks';
 import { converterPraDate } from '../../shared/date-format/date-format';
-
 
 @Component({
   selector: 'app-pacientes-form',
@@ -60,6 +59,7 @@ export class PacientesFormComponent implements OnInit {
    * Variável responsável apenas por habiliar ou não o botão de editar.
    */
   isEditar = false;
+  medicamentoInvalido = true;
 
   /**
    * Variável utilizada como mascara para selecionar se o paciente é pessoa Física ou
@@ -74,7 +74,7 @@ export class PacientesFormComponent implements OnInit {
   disabledResponsavelFamiliar = false;
 
   /**
-   * Mascaras para os campos do formulário, apenas a declaração.
+   * Mascaras para os campos do formulário.
    */
   maskCpf = mascaras.maskCpf;
   maskCnpj = mascaras.maskCnpj;
@@ -131,13 +131,6 @@ export class PacientesFormComponent implements OnInit {
    */
   selectedCausas: Causa[];
   selectedFamilia: Familia = new Familia();
-  /**
-   * Armazena globalmente os medicamentos e riscos do paciente
-   * são utilizadas as listas para depois comparar com o que foi alterado
-   * e assim fazer um PUT, POST ou DELETE
-   */
-  medicamentosDoServer: MedicamentoPessoa[] = [];
-  causasDoServer: CausaPessoa[] = [];
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -156,12 +149,12 @@ export class PacientesFormComponent implements OnInit {
 
   ngOnInit() {
     this.paciente = this.data.paciente;
+    this.listarMedicamentos();
     this.criarFormularios();
     this.verificarView(this.paciente);
     this.listarCausas(this.paciente);
     this.listarFamilias();
     this.listarPaises();
-    this.listarMedicamentos();
   }
 
   criarFormularios() {
@@ -229,22 +222,6 @@ export class PacientesFormComponent implements OnInit {
         },
         err => this.msg.exibirMensagem('Erro ao retornar medicamentos', 'error')
       );
-
-      // Busca os medicamentos pra comparativo
-      this.medicamentoPessoaService.retornarMedicamentos(paciente).subscribe(
-        medicamentoPessoa => {
-          this.medicamentosDoServer = medicamentoPessoa;
-        },
-        err => this.msg.exibirMensagem('Erro ao retornar medicamentos', 'error')
-      );
-
-      // Busca as causas pra comparativo
-      this.causaPessoaService.listarCausas(paciente).subscribe(
-        causaPessoa => {
-          this.causasDoServer = causaPessoa;
-        },
-        err => this.msg.exibirMensagem('Erro ao retornar riscos', 'error')
-      );
     }
   }
 
@@ -257,7 +234,12 @@ export class PacientesFormComponent implements OnInit {
       // Altera os dados do paciente.
       this.converteDataSemGMT();
       this.pacientesService.alterar(this.formPaciente.value).pipe(
-        tap(paciente => {
+        switchMap(paciente => paciente
+          ? this.medicamentoPessoaService.retornarMedicamentos(paciente)
+          : EMPTY
+        ),
+
+        tap(medicamentosDoServer => {
 
           // Valida se a lista de medicamentosAdicionados está vazia
           // removendo todas os medicamentos do paciente.
@@ -265,7 +247,7 @@ export class PacientesFormComponent implements OnInit {
 
             // Itera todos os medicamentos salvos para o paciente
             // e remove todos.
-            for (const medicamentoPessoa of this.medicamentosDoServer) {
+            for (const medicamentoPessoa of medicamentosDoServer) {
               this.medicamentoPessoaService.remover(medicamentoPessoa).subscribe(
                 success => success,
                 err => this.msg.exibirMensagem('Erro ao remover o medicamento', 'error')
@@ -298,7 +280,7 @@ export class PacientesFormComponent implements OnInit {
 
                 // Filtra para o registro que possui o mesmo id na lista
                 // que armazena os registros originais.
-                const registro = this.medicamentosDoServer.filter(value => value.idMedPessoa === medicamentoPessoa.idMedPessoa);
+                const registro = medicamentosDoServer.filter(value => value.idMedPessoa === medicamentoPessoa.idMedPessoa);
 
                 // Valida se dos registros que já estavam antes
                 // tem os mesmos horários, e mesmo medicamento.
@@ -318,11 +300,11 @@ export class PacientesFormComponent implements OnInit {
             // Seleciona apenas os elementos que não estão mais na lista
             // de medicamentos adicionados
             // tslint:disable-next-line: max-line-length
-            registrosRemovidos = this.medicamentosDoServer.filter(value => !(this.medicamentosAdicionados.map(registro => registro.idMedPessoa).includes(value.idMedPessoa)));
+            registrosRemovidos = medicamentosDoServer.filter(value => !(this.medicamentosAdicionados.map(registro => registro.idMedPessoa).includes(value.idMedPessoa)));
 
             // Adiciona todos os novos medicamentos.
             registrosNovos.forEach(registro => {
-              registro.pessoa = paciente;
+              registro.pessoa = this.paciente;
               this.medicamentoPessoaService.cadastrar(registro).subscribe(
                 success => success,
                 err => this.msg.exibirMensagem('Erro ao adicionar o medicamento', 'error')
@@ -349,13 +331,19 @@ export class PacientesFormComponent implements OnInit {
             });
           }
         }),
-        tap(paciente => {
+
+        switchMap(medicamentosPessoa => medicamentosPessoa
+          ? this.causaPessoaService.listarCausas(this.paciente)
+          : EMPTY
+        ),
+
+        tap(causasDoServer => {
 
           // Verifica se a lista de causas foi modificada
           // e selecionados todos os riscos para serem
           // removidos.
           if (this.selectedCausas.length === 0) {
-            this.causasDoServer.forEach(registro => {
+            causasDoServer.forEach(registro => {
               this.causaPessoaService.removerCausa(registro).subscribe(
                 success => success,
                 err => this.msg.exibirMensagem('Erro ao remover o risco', 'error')
@@ -370,7 +358,7 @@ export class PacientesFormComponent implements OnInit {
 
             for (const causa of this.selectedCausas) {
 
-              const causasPessoas = this.causasDoServer.filter(value => value.causa.idCausa === causa.idCausa);
+              const causasPessoas = causasDoServer.filter(value => value.causa.idCausa === causa.idCausa);
 
               // Verica se o registro possui id de identificação
               // caso não possua, considera-o como novo registro
@@ -378,20 +366,20 @@ export class PacientesFormComponent implements OnInit {
 
                 // Valida se a causa passada da iteração, estava presente
                 // já na lista.
-                if (this.causasDoServer.map(valor => valor.idCausaPessoa).includes(causasPessoas[0].idCausaPessoa)) {
+                if (causasDoServer.map(valor => valor.idCausaPessoa).includes(causasPessoas[0].idCausaPessoa)) {
                   causasMantidas.push(causasPessoas[0]);
                 }
 
               } else {
                 const causaPessoa = new CausaPessoa();
                 causaPessoa.causa = causa;
-                causaPessoa.pessoa = paciente;
+                causaPessoa.pessoa = this.paciente;
                 causasNovas.push(causaPessoa);
               }
             }
 
             // tslint:disable-next-line: max-line-length
-            causasRemovidas = this.causasDoServer.filter(value => !(this.selectedCausas.map(registro => registro.idCausa).includes(value.causa.idCausa)));
+            causasRemovidas = causasDoServer.filter(value => !(this.selectedCausas.map(registro => registro.idCausa).includes(value.causa.idCausa)));
 
             causasNovas.forEach(registro => {
               this.causaPessoaService.cadastrar(registro).subscribe(
@@ -408,6 +396,7 @@ export class PacientesFormComponent implements OnInit {
             });
           }
         }),
+
         tap(paciente => this.modalRef.close(paciente))
       ).subscribe(
         res => this.msg.exibirMensagem('Paciente alterado com sucesso', 'check_circle_outline'),
@@ -466,6 +455,25 @@ export class PacientesFormComponent implements OnInit {
   }
 
   /**
+   * Verifica se o medicamento selecionado já está presente
+   * na lista de medicamentos do paciente, e desabilita
+   * o botão de adicionar.
+   */
+  verficiarMedicamentoAdicionar(medicamento: Medicamento) {
+    if (this.isEditar) {
+      this.medicamentoInvalido = true;
+    } else if (this.medicamentosAdicionados
+      .map(res => res.medicamento.idMedicamento)
+      .indexOf(medicamento.idMedicamento) >= 0) {
+      this.medicamentoInvalido = true;
+    } else if (this.medicamentoSelecionado === null) {
+      this.medicamentoInvalido = true;
+    } else {
+      this.medicamentoInvalido = false;
+    }
+  }
+
+  /**
    * Lista provisória dos medicamentos adicionados para o paciente
    * podendo ser modificado antes de enviar para o servidor.
    */
@@ -473,11 +481,12 @@ export class PacientesFormComponent implements OnInit {
     const obj = new MedicamentoPessoa();
     obj.horarios = this.horarios.map(v => v.hora).join(', ');
     obj.medicamento = this.medicamentoSelecionado;
-    if (this.medicamentosAdicionados.indexOf(obj) === -1) {
+    if (this.medicamentosAdicionados.map(res => res.medicamento.idMedicamento).indexOf(obj.medicamento.idMedicamento) === -1) {
       this.medicamentosAdicionados.push(obj);
       this.medicamentoSelecionado = null;
       this.horarios = [];
     }
+    this.medicamentoInvalido = true;
   }
 
   /**
@@ -495,13 +504,13 @@ export class PacientesFormComponent implements OnInit {
     this.medicamentoSelecionado = null;
   }
 
-  selecionarMedicamentoDaLista(medicamento: MedicamentoPessoa) {
-    const index = this.medicamentosAdicionados.indexOf(medicamento);
+  selecionarMedicamentoDaLista(medicamentoPessoa: MedicamentoPessoa) {
+    const index = this.medicamentosAdicionados.map(res => res.idMedPessoa).indexOf(medicamentoPessoa.idMedPessoa);
     if (index >= 0) {
-      this.registroEditar = medicamento;
+      this.registroEditar = medicamentoPessoa;
       this.isEditar = true;
-      this.horarios = medicamento.horarios.split(',').map(v => new Horario(v.trim()));
-      this.medicamentoSelecionado = medicamento.medicamento;
+      this.horarios = medicamentoPessoa.horarios.split(',').map(v => new Horario(v.trim()));
+      this.medicamentoSelecionado = this.medicamentosAdicionados[index].medicamento;
     }
   }
 
@@ -520,6 +529,7 @@ export class PacientesFormComponent implements OnInit {
     this.isEditar = false;
     this.medicamentoSelecionado = null;
     this.horarios = [];
+    this.medicamentoInvalido = true;
   }
 
   /**

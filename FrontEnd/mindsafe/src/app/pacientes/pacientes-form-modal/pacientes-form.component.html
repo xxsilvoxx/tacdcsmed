@@ -151,6 +151,7 @@
                 <mat-panel-title>
                   Medicação
                 </mat-panel-title>
+
                 <mat-panel-description>
                   Adicionar Medicamentos
                 </mat-panel-description>
@@ -158,8 +159,8 @@
 
               <div fxLayout="column" fxLayoutGap="15px">
                 <mat-form-field fxFlex>
-                  <mat-select [(ngModel)]="medicamentoSelecionado" [ngModelOptions]="{standalone: true}"
-                    placeholder="Medicamento">
+                  <mat-select [(ngModel)]="medicamentoSelecionado" (valueChange)="verficiarMedicamentoAdicionar(medicamento.value)" [ngModelOptions]="{standalone: true}"
+                    placeholder="Medicamento" #medicamento>
                     <mat-option *ngFor="let medicamento of medicamentos$ | async" [value]="medicamento">
                       {{ medicamento.nome }}
                     </mat-option>
@@ -185,13 +186,14 @@
                   </p>
 
                   <button class="alinhamento-direita"
-                    [disabled]="medicamentoSelecionado == null || horarios?.length == 0 || isEditar == true"
-                    (click)="adicionarMedicamentoNaLista()" color="primary" mat-mini-fab>
+                    [disabled]="medicamentoInvalido"
+                    (click)="adicionarMedicamentoNaLista()" color="primary" matTooltip="Adicionar medicamento para o paciente" mat-mini-fab>
                     <mat-icon class="material-icons">add</mat-icon>
                   </button>
+
                   <button class="alinhamento-direita" (click)="editarMedicamentoDaLista()"
                     [disabled]="registroEditar == null || isEditar == false" color="primary" mat-mini-fab>
-                    <mat-icon class="material-icons">edit</mat-icon>
+                    <mat-icon class="material-icons" matTooltip="Editar Informações do medicamento">edit</mat-icon>
                   </button>
                 </div>
 
@@ -200,10 +202,12 @@
                     <mat-list-item *ngFor="let medicamento of medicamentosAdicionados">
                       <span matLine>{{ medicamento.medicamento.nome }}</span>
                       <span matLine>{{ medicamento.horarios }}</span>
-                      <button mat-icon-button (click)="selecionarMedicamentoDaLista(medicamento)">
+
+                      <button mat-icon-button (click)="selecionarMedicamentoDaLista(medicamento)" matTooltip="Editar medicação do paciente">
                         <mat-icon class="material-icons" matListIcon>edit</mat-icon>
                       </button>
-                      <button mat-icon-button (click)="removerMedicamentoDaLista(medicamento.medicamento)">
+
+                      <button mat-icon-button (click)="removerMedicamentoDaLista(medicamento.medicamento)" matTooltip="Remover medicamento do paciente">
                         <mat-icon class="material-icons" matListIcon>delete</mat-icon>
                       </button>
                     </mat-list-item>
