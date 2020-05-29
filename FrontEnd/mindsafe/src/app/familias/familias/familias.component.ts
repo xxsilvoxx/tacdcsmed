@@ -1,19 +1,21 @@
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Subscription, EMPTY } from 'rxjs';
+import { filter, switchMap, tap } from 'rxjs/operators';
+
+import { SelectionModel } from '@angular/cdk/collections';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatDialog } from '@angular/material/dialog';
+import { MediaObserver } from '@angular/flex-layout';
+import { MatTableDataSource } from '@angular/material/table';
+
 import { DadosFamiliaModalComponent } from './../dados-familia-modal/dados-familia-modal.component';
 import { ConfirmModalComponent } from './../../shared/confirm-modal/confirm-modal.component';
 import { AlterarFamiliaModalComponent } from './../alterar-familia-modal/alterar-familia-modal.component';
-import { FamiliasFormComponent } from "./../familias-form-modal/familias-form-modal.component";
-import { PacientesService } from "./../../services/pacientes/pacientes.service";
-import { FamiliasService } from "./../../services/familias/familias.service";
-import { Component, OnInit, ViewChild, AfterViewInit } from "@angular/core";
-import { Familia } from "src/app/models/familia.model";
-import { MatTableDataSource } from "@angular/material/table";
-import { SelectionModel } from "@angular/cdk/collections";
-import { Subscription, Observable, EMPTY } from "rxjs";
-import { MatPaginator } from "@angular/material/paginator";
-import { MatDialog, MatDialogRef } from "@angular/material/dialog";
-import { MediaObserver } from "@angular/flex-layout";
-import { MensagemService } from "src/app/shared/mensagem/mensagem.service";
-import { filter, switchMap, tap } from "rxjs/operators";
+import { FamiliasFormComponent } from './../familias-form-modal/familias-form-modal.component';
+import { PacientesService } from './../../services/pacientes/pacientes.service';
+import { FamiliasService } from './../../services/familias/familias.service';
+import { Familia } from 'src/app/models/familia.model';
+import { MensagemService } from 'src/app/shared/mensagem/mensagem.service';
 
 interface FiltroFamilia {
   nome: string;
@@ -22,23 +24,23 @@ interface FiltroFamilia {
 }
 
 @Component({
-  selector: "app-familias",
-  templateUrl: "./familias.component.html",
-  styleUrls: ["./familias.component.scss"],
+  selector: 'app-familias',
+  templateUrl: './familias.component.html',
+  styleUrls: ['./familias.component.scss'],
 })
-export class FamiliasComponent implements OnInit {
+export class FamiliasComponent implements OnInit, OnDestroy {
   familias: Familia[];
   familiasComResponsavel: any[] = [];
 
-  displayedColumns = ["idFamilia", "nome", "responsavelFamiliar", "select"];
+  displayedColumns = ['idFamilia', 'nome', 'responsavelFamiliar', 'select'];
 
   filtroPesquisa: FiltroFamilia[] = [
-    { nome: "Código", valor: "idFamilia", tipo: "number" },
-    { nome: "Nome", valor: "nome", tipo: "text" },
-    { nome: "Responsável", valor: "responsavelFamiliar", tipo: "text" }
+    { nome: 'Código', valor: 'idFamilia', tipo: 'number' },
+    { nome: 'Nome', valor: 'nome', tipo: 'text' },
+    { nome: 'Responsável', valor: 'responsavelFamiliar', tipo: 'text' }
   ];
 
-  tipoCampo = "text";
+  tipoCampo = 'text';
 
   dataSource: MatTableDataSource<any>;
   selection = new SelectionModel<any>(true, []);
@@ -97,9 +99,9 @@ export class FamiliasComponent implements OnInit {
   checkboxLabel(row?: any): string {
     if (this.dataSource.data) {
       if (!row) {
-        return `${this.isAllSelected() ? "select" : "deselect"} all`;
+        return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
       }
-      return `${this.selection.isSelected(row) ? "deselect" : "select"} row ${
+      return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${
         row.familia.idFamilia + 1
       }`;
     }
@@ -110,9 +112,9 @@ export class FamiliasComponent implements OnInit {
   alterarDisplayColunasXs() {
     const subsXs = this.media
       .asObservable()
-      .pipe(filter(() => this.media.isActive("xs")))
+      .pipe(filter(() => this.media.isActive('xs')))
       .subscribe((res) => {
-        const columns = ["idFamilia", "nome", "select"];
+        const columns = ['idFamilia', 'nome', 'select'];
         this.displayedColumns = columns;
       });
 
@@ -122,9 +124,9 @@ export class FamiliasComponent implements OnInit {
   alterarDisplayColunasSm() {
     const subsSm = this.media
       .asObservable()
-      .pipe(filter(() => this.media.isActive("sm")))
+      .pipe(filter(() => this.media.isActive('sm')))
       .subscribe((res) => {
-        const columns = ["idFamilia", "nome", "select"];
+        const columns = ['idFamilia', 'nome', 'select'];
         this.displayedColumns = columns;
       });
 
@@ -134,9 +136,9 @@ export class FamiliasComponent implements OnInit {
   alterarDisplayColunasMd() {
     const subsMd = this.media
       .asObservable()
-      .pipe(filter(() => this.media.isActive("md")))
+      .pipe(filter(() => this.media.isActive('md')))
       .subscribe((res) => {
-        const columns = ["idFamilia", "nome", "responsavelFamiliar", "select"];
+        const columns = ['idFamilia', 'nome', 'responsavelFamiliar', 'select'];
         this.displayedColumns = columns;
       });
 
@@ -146,14 +148,20 @@ export class FamiliasComponent implements OnInit {
   alterarDisplayColunasLg() {
     const subsLg = this.media
       .asObservable()
-      .pipe(filter(() => this.media.isActive("lg")))
+      .pipe(filter(() => this.media.isActive('lg')))
       .subscribe((res) => {
-        const columns = ["idFamilia", "nome", "responsavelFamiliar", "select"];
+        const columns = ['idFamilia', 'nome', 'responsavelFamiliar', 'select'];
         this.displayedColumns = columns;
 
       });
 
     this.subscriptions.push(subsLg);
+  }
+
+  ordenarPorId(a: any, b: any) {
+    a = a.familia.idFamilia;
+    b = b.familia.idFamilia;
+    return a - b;
   }
 
   listarTodos() {
@@ -167,12 +175,12 @@ export class FamiliasComponent implements OnInit {
               .retornarResponsavelFamiliar(familia)
               .pipe(
                 tap((responsavel) => {
-                  let obj = {
-                    familia: familia,
-                    responsavel: responsavel,
+                  const obj = {
+                    familia,
+                    responsavel,
                   };
                   this.familiasComResponsavel.push(obj);
-                  this.dataSource.data = this.familiasComResponsavel.sort();
+                  this.dataSource.data = this.familiasComResponsavel.sort(this.ordenarPorId);
                 })
               )
               .subscribe(
@@ -192,8 +200,8 @@ export class FamiliasComponent implements OnInit {
 
   abrirJanelaCadastro() {
     const dialogRef = this.dialog.open(FamiliasFormComponent, {
-      width: "350px",
-      height: "300px",
+      width: '350px',
+      height: '300px',
     });
 
     dialogRef.afterClosed().subscribe(
@@ -208,19 +216,19 @@ export class FamiliasComponent implements OnInit {
 
   abrirJanelaDados() {
     const dialogRef = this.dialog.open(DadosFamiliaModalComponent, {
-      width: "600px",
-      height: "560px",
+      width: '600px',
+      height: '560px',
       data: {
         dados: this.selection.selected[0],
       }
-    })
+    });
   }
 
 
   abrirJanelaAlterar() {
     const dialogRef = this.dialog.open(AlterarFamiliaModalComponent, {
-      width: "350px",
-      height: "350px",
+      width: '350px',
+      height: '350px',
       data: {
         dados: this.selection.selected[0],
       }
@@ -237,10 +245,10 @@ export class FamiliasComponent implements OnInit {
 
   removerFamilias() {
     const dados = this.selection.selected;
-    let texto = "Tem certeza que deseja remover está família ?";
+    const texto = 'Tem certeza que deseja remover está família ?';
 
     if (dados.length > 1) {
-      this.msg.exibirMensagem("Não é possível remover mais de uma família", "info");
+      this.msg.exibirMensagem('Não é possível remover mais de uma família', 'info');
 
     } else {
       const dialogRef = this.dialog.open(ConfirmModalComponent, {
@@ -248,20 +256,20 @@ export class FamiliasComponent implements OnInit {
         width: '400px',
         data: {
           titulo: 'Remover Família',
-          texto: texto
+          texto
         }
       });
       dialogRef.afterClosed().pipe(
         switchMap(remover => remover ? this.service.remover(dados[0].familia) : EMPTY)
       ).subscribe(
         res => {
-          this.msg.exibirMensagem("Família removida com sucesso!", "done");
+          this.msg.exibirMensagem('Família removida com sucesso!', 'done');
           this.selection.clear();
           this.familiasComResponsavel = [];
           this.listarTodos();
         },
         err => {
-          this.msg.exibirMensagem("Erro ao remover à família", "error")
+          this.msg.exibirMensagem('Erro ao remover à família', 'error');
         }
       );
     }
@@ -276,15 +284,15 @@ export class FamiliasComponent implements OnInit {
    * Método responsável por aplicar o filtro específico de arrays no javascript
    */
   applyFilter(value: string, coluna?) {
-    let filtrado: any[] = [];
+    const filtrado: any[] = [];
 
     this.familiasComResponsavel.map((p) => {
 
-      if (coluna == "idFamilia") {
-        if (p.familia.idFamilia== Number(value)) {
+      if (coluna === 'idFamilia') {
+        if (p.familia.idFamilia === Number(value)) {
           filtrado.push(p);
         }
-      } else if (coluna == "nome") {
+      } else if (coluna === 'nome') {
         // tslint:disable-next-line: max-line-length
         if (
           p.familia.nome
@@ -295,9 +303,9 @@ export class FamiliasComponent implements OnInit {
           /* Pode estar ocorrendo um erro ao validar alguns caracteres */
           filtrado.push(p);
         }
-      } else if (coluna == "responsavelFamiliar") {
+      } else if (coluna === 'responsavelFamiliar') {
 
-        if (p.responsavel != null){
+        if (p.responsavel != null) {
           if (p.responsavel.nome.trim().toString().toLowerCase().indexOf(value.trim().toLowerCase()) >= 0) {
             filtrado.push(p);
           }
@@ -307,7 +315,5 @@ export class FamiliasComponent implements OnInit {
     });
     this.dataSource = new MatTableDataSource<any>(filtrado);
     this.dataSource.paginator = this.paginator;
-    // this.dataSource.filter = value;
-    // filtrado.forEach(v => filtrado.pop());
   }
 }
