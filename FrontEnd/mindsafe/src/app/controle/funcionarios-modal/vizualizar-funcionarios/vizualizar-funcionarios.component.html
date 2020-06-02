@@ -14,7 +14,7 @@
         <img matListAvatar [src]="funcionario.imagem !== null ? buscarImagem(funcionario) : imgDefault">
         <span matLine style="font-weight: 500; margin-right: 10px;">{{ funcionario.nome }}</span>
         <span matLine style="font-weight: 400; margin-right: 10px;">
-          {{ funcionario.funcao.nome }} | {{ funcionario.email }}
+          {{ funcionario.funcao.nome }} | Equipe {{ funcionario.codEquipe }}
         </span>
 
         <span class="espaco"></span>
