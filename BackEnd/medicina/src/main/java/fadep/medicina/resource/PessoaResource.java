@@ -80,6 +80,5 @@ public class PessoaResource {
     public List<Pessoa> retornarMembrosFamilia(@PathVariable("codigo") Long idFamilia){
     	return pessoaRepository.retornarMembrosFamilia(idFamilia);	
     }
-    
 
 }
