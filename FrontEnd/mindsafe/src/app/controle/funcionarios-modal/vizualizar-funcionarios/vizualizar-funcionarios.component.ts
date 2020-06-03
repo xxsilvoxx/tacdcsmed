@@ -17,8 +17,6 @@ import { ConfirmModalComponent } from '../../../shared/confirm-modal/confirm-mod
 })
 export class VizualizarFuncionariosComponent implements OnInit {
 
-  imgDefault = '../../../../assets/imagens/user.png';
-
   grupoLista: any[] = [];
 
   constructor(

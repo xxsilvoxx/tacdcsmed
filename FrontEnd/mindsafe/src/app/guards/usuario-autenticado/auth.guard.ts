@@ -38,7 +38,7 @@ export class AuthGuard implements CanActivate, CanLoad {
    * sessão, permite navegar entre as páginas.
    */
   verificarUsuarioLogado() {
-    const logado: Funcionario = JSON.parse(window.sessionStorage.getItem('login-mindsafe'));
+    const logado = this.service.buscarFuncionarioSalvo() as Funcionario;
     if (logado !== null) {
       return true;
     }

@@ -12,13 +12,17 @@ import { Imagem } from '../../models/imagem.model';
 export class ImagensService {
 
   readonly apiUrl = `${environment.url}imagens/funcionario`;
+  readonly usuarioSemImg = '../../../assets/imagens/user.png';
 
   constructor(
     private http: HttpClient
   ) { }
 
   buscarImg(funcionario: Funcionario) {
-    return `${this.apiUrl}/${funcionario.idFuncionario}`;
+    if (funcionario.imagem !== null) {
+      return `${this.apiUrl}/${funcionario.idFuncionario}`;
+    }
+    return this.usuarioSemImg;
   }
 
   adicionarImg(imagem: File, funcionario: Funcionario) {

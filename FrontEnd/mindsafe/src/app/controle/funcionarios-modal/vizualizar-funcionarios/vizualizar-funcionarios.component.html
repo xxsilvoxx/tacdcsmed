@@ -11,7 +11,7 @@
     <div *ngFor="let grupo of grupoLista">
       <span matSubheader>Funcionários do(a) {{ grupo.nome }}</span>
       <mat-list-item *ngFor="let funcionario of grupo.registros">
-        <img matListAvatar [src]="funcionario.imagem !== null ? buscarImagem(funcionario) : imgDefault">
+        <img matListAvatar [src]="buscarImagem(funcionario)">
         <span matLine style="font-weight: 500; margin-right: 10px;">{{ funcionario.nome }}</span>
         <span matLine style="font-weight: 400; margin-right: 10px;">
           {{ funcionario.funcao.nome }} | Equipe {{ funcionario.codEquipe }}

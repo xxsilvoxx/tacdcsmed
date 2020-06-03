@@ -22,8 +22,8 @@ export class MenuSidenavComponent implements OnInit, OnDestroy {
   funcionario: Funcionario = new Funcionario();
 
   mostrarMenu = false;
-  usuarioSemImg = '../../../assets/imagens/user.png';
-  imgUsuario = '';
+
+  imgUsuario = null;
 
   displayFixedTopGap = 64;
   subscriptions: Subscription[] = [];
@@ -38,7 +38,7 @@ export class MenuSidenavComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.imgUsuario = this.buscarInformacoes();
+    this.buscarInformacoes();
     this.alterarDisplayXs();
     this.alterarDisplaySm();
   }
@@ -51,17 +51,12 @@ export class MenuSidenavComponent implements OnInit, OnDestroy {
 
     // Agora o código busca do storage da sessão se o usuário está
     // salvo, permitindo navegar entre as páginas.
-    let imagem = this.usuarioSemImg;
     this.funcionario = this.service.buscarFuncionarioSalvo();
     if (this.funcionario !== null) {
-      if (this.funcionario.imagem !== null) {
-        imagem = this.img.buscarImg(this.funcionario);
-      }
+      this.imgUsuario = this.img.buscarImg(this.funcionario);
     } else {
       this.msg.exibirMensagem('Erro ao carregar suas informacoes', 'error');
     }
-    return imagem;
-
   }
 
   alterarDisplayXs() {
@@ -98,8 +93,12 @@ export class MenuSidenavComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe(
-      res => {
-        this.imgUsuario = this.buscarInformacoes();
+      (res: boolean) => {
+        if (res) {
+          window.location.reload();
+        } else {
+          this.buscarInformacoes();
+        }
       }
     );
   }

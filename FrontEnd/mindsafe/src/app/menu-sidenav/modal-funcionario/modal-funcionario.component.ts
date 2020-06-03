@@ -1,15 +1,15 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { EMPTY } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
+import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
 
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 import { loginDisponivelValidator } from './../../shared/mensagem-validation/form-validations';
 import { FuncionariosService } from '../../services/funcionarios/funcionarios.service';
 import { Funcionario } from '../../models/funcionario.model';
 import { ImagensService } from '../../services/imagens/imagens.service';
 import { MensagemService } from '../../shared/mensagem/mensagem.service';
-import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { MensagemValidationService } from '../../shared/mensagem-validation/mensagem-validation.service';
 import { Funcao } from '../../models/funcao.model';
 import { emailDisponivelValidator, validarNumeroMinimo } from '../../shared/mensagem-validation/form-validations';
@@ -28,6 +28,7 @@ export class ModalFuncionarioComponent implements OnInit {
 
   esconderSenha = false;
   mostrarErroArquivo = false;
+  mudouImg = false;
 
   // Variável que armazena a senha atual do usuário
   // mas será utilizada pra comparar com a senha alterada.
@@ -60,13 +61,14 @@ export class ModalFuncionarioComponent implements OnInit {
   // de alterar.
   senhaSalva: string;
 
-  imgUsuario = '../../../assets/imagens/user.png';
+  imgUser = null;
 
   // variável que armazena a imagem selecionada para fazer upload.
   imgUpload: File = null;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
+    private dialogRef: MatDialogRef<ModalFuncionarioComponent>,
     private service: FuncionariosService,
     private ubsService: UbsService,
     private microAreaService: MicroAreasService,
@@ -82,7 +84,7 @@ export class ModalFuncionarioComponent implements OnInit {
     this.listarFuncoes();
     this.listarMicroareas();
     this.listarUbs();
-    this.preencherFormulario(this.data.funcionario as Funcionario);
+    this.preencherFormulario(this.data.funcionario);
   }
 
   criarFormulario() {
@@ -131,7 +133,7 @@ export class ModalFuncionarioComponent implements OnInit {
       senha: funcionario.senha,
       codEquipe: funcionario.codEquipe
     });
-    this.carregarImg(funcionario);
+    this.imgUser = this.carregarImg(funcionario);
     this.confirmarSenhaControl = this.builder.control(funcionario.senha, [
       Validators.required,
       this.compararSenha.bind(this)
@@ -173,9 +175,7 @@ export class ModalFuncionarioComponent implements OnInit {
    * Carrega a imagem do usuário caso ele possua.
    */
   carregarImg(funcionario: Funcionario) {
-    if (funcionario.imagem !== null) {
-      this.imgUsuario = this.img.buscarImg(funcionario);
-    }
+    return this.img.buscarImg(funcionario);
   }
 
   /**
@@ -198,9 +198,14 @@ export class ModalFuncionarioComponent implements OnInit {
 
   onUpload() {
     if (this.imgUpload && this.imgUpload.size > 0 && this.imgUpload.size <= 1048576) {
-      this.img.adicionarImg(this.imgUpload, this.formFuncionario.value).pipe(
-        tap(v => v !== null
-          ? this.imgUsuario = '../../../assets/imagens/user.png'
+      this.img.removerImg(this.formFuncionario.value).pipe(
+        tap(v => (
+          this.formFuncionario.get('imagem').setValue(null),
+          this.service.alterarObjetoSalvo(this.formFuncionario.value),
+          this.imgUser = this.carregarImg(this.formFuncionario.value)
+        )),
+        switchMap(v => v === null
+          ? this.img.adicionarImg(this.imgUpload, this.formFuncionario.value)
           : EMPTY),
         switchMap(v => v !== null ? this.service.buscarUsuario() : EMPTY)
       ).subscribe(
@@ -208,26 +213,32 @@ export class ModalFuncionarioComponent implements OnInit {
           this.msg.exibirMensagem('Imagem carregada com sucesso', 'done');
           this.service.alterarObjetoSalvo(res);
           this.formFuncionario.get('imagem').setValue(res.imagem);
-          if (res.imagem !== null) {
-            this.imgUsuario = this.img.buscarImg(this.formFuncionario.value);
-            this.imgUpload = null;
-          }
+          this.imgUser = this.carregarImg(res);
+          this.mudouImg = true;
+          this.imgUpload = null;
         },
         err => this.msg.exibirMensagem('Erro ao fazer upload', 'error')
       );
     }
   }
 
+  onClose() {
+    this.dialogRef.close(this.mudouImg);
+  }
+
   onRemoveImg() {
     this.img.removerImg(this.formFuncionario.value).pipe(
       tap(v => v === null
-        ? this.imgUsuario = '../../../assets/imagens/user.png'
+        ? (
+            this.formFuncionario.get('imagem').setValue(null),
+            this.imgUser = this.carregarImg(this.formFuncionario.value)
+          )
         : EMPTY
       )
     ).subscribe(
       success => {
         this.msg.exibirMensagem('Imagem removida com sucesso', 'done');
-        this.formFuncionario.get('imagem').setValue(null);
+        this.imgUpload = null;
         this.service.alterarObjetoSalvo(this.formFuncionario.value);
       },
       err => this.msg.exibirMensagem('Erro ao remover a imagem', 'error')
