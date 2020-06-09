@@ -37,4 +37,9 @@ export class ResidenciasService {
   retornarResidenciaPorFamilia(familia: Familia) {
     return this.http.get<Residencia>(`${this.apiUrl}/familia/${familia.idFamilia}`).pipe(take(1));
   }
+
+  retornaTotalFamiliares(familia: Familia) {
+    return this.http.get<number>(`${this.apiUrl}/familia/total/${familia.idFamilia}`).pipe(take(1));
+  }
+
 }

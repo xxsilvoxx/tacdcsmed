@@ -55,4 +55,10 @@ public class ResidenciaResource {
         Residencia residencia = residenciaRepository.retornarResidenciaPorFamilia(idFamilia);
         return (residencia != null) ? (ResponseEntity.ok(residencia)) : (ResponseEntity.notFound().build());
     }
+
+    @GetMapping("/familia/total/{codigo}")
+    public ResponseEntity<Integer> retornaTotalFamiliares(@PathVariable("codigo") Long idFamilia) {
+        Integer totalFamiliares = residenciaRepository.retornaTotalFamiliares(idFamilia);
+        return (totalFamiliares != null) ? (ResponseEntity.ok(totalFamiliares)) : (ResponseEntity.notFound().build());
+    }
 }

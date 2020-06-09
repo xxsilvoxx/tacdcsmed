@@ -2,6 +2,8 @@ import { ResidenciasService } from './../../services/residencias/residencias.ser
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MensagemService } from '../mensagem/mensagem.service';
+import { Residencia } from 'src/app/models/residencia.model';
+
 
 
 @Component({
@@ -19,12 +21,12 @@ export class ResidenciasInfoModalComponent implements OnInit {
     private modalRef: MatDialogRef<ResidenciasInfoModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private residenciasService: ResidenciasService,
-    private msgService: MensagemService
   ) { }
 
   ngOnInit() {
     this.retornaResidencias();
     this.retornaFamilia();
+    this.retornaTotalFamiliares();
   }
 
   // retorna informações da residencia
@@ -65,8 +67,8 @@ export class ResidenciasInfoModalComponent implements OnInit {
     }
   }
 
-  retornaComponentesFamilia() {
-
+  retornaTotalFamiliares() {
+    this.residenciasService.retornaTotalFamiliares(this.data.residencia.familia.idFamilia);
   }
   onClose() {
     this.modalRef.close();

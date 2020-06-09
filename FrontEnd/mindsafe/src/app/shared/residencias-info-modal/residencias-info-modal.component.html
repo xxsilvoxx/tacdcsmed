@@ -19,72 +19,13 @@
       {{ data.residencia.familia.nome}}
     </h2>
     <h3>
-      <p><mat-icon id="maticon" style="color:black;">face</mat-icon>2 Integrantes</p>
+      <p><mat-icon id="maticon" style="color:black;">face</mat-icon>{{ retornaTotalFamiliares() }}</p>
+    </h3>
+    <h3>
+      <p><mat-icon id="maticon" style="color:black;">color_lens</mat-icon>{{ data.residencia.cor}}</p>
     </h3>
 </div>
 <div class="info-residencia">
   <p> <mat-icon id="maticon" style="color: black;">room</mat-icon> {{ residencia.join(' - ') }}</p>
 </div>
 
-
-<!-- <div class="cabecalho">
-  <h1 mat-dialog-title>Informações do Paciente</h1>
-  <button ngClass.xs="button-xs" mat-icon-button (click)="onClose()">
-    <mat-icon class="material-icons" style="color: #565656;">close</mat-icon>
-  </button>
-</div>
-<mat-dialog-content>
-  <div [ngClass]="{
-    'bg-situacao-paciente': true,
-    'sem-risco': risco <= 5,
-    'risco-baixo': risco >= 6,
-    'risco-medio': risco >= 11,
-    'risco-grave': risco >= 16
-  }">
-    <p class="risco-texto-overlay">{{ retornarDescricaoRisco() }}</p>
-  </div>
-  <div ngClass.xs="logo-xs" class="logo {{ data.paciente.sexo == 'M'  ? 'homem' : 'mulher' }}"></div>
-  <h2 ngClass.xs="nome-usuarios-xs" class="nome-usuario">{{ data.paciente.nome }}</h2>
-  <p ngClass.xs="contatos-usuario-xs" class="contatos-usuario">{{ contatos.join(' | ') }}</p>
-
-  <div ngClass.xs="causas-xs" class="causas">
-    <h2 class="titulo-descricao">Causas Marcadas</h2>
-    <div class="box-padrao">
-      <mat-list>
-          <mat-list-item mat-line *ngFor="let element of causas$ | async">
-              {{ element.causa.nome }}
-          </mat-list-item>
-          <div *ngIf="risco != 0">
-            <mat-divider></mat-divider>
-            <mat-list-item>
-              <strong>Somando: {{ risco }}</strong>
-            </mat-list-item>
-          </div>
-      </mat-list>
-    </div>
-  </div>
-
-  <div ngClass.xs="medicamentos-xs" class="medicamentos">
-    <h2 class="titulo-descricao">Medicamentos</h2>
-    <div class="box-padrao">
-      <mat-list>
-        <mat-list-item mat-line *ngFor="let element of medicamentos$ | async">
-          {{ element.medicamento.nome }} - {{ element.horarios }}
-        </mat-list-item>
-      </mat-list>
-    </div>
-  </div>
-
-  <div class="agendamentos">
-    <h2 class="titulo-descricao">Agendamentos</h2>
-    <div class="box-padrao">
-      <mat-list>
-        <mat-list-item ngClass.xs="mat-list-item-xs" mat-line *ngFor="let element of agendamentos$ | async">
-          {{ element.desCompare }} - {{ element.dataCompare | date:'medium' }}
-        </mat-list-item>
-      </mat-list>
-    </div>
-  </div>
-
-
-</mat-dialog-content> -->
