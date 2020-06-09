@@ -3,14 +3,14 @@
 <mat-dialog-content [ngStyle.xs]="{'margin-bottom': '0px'}">
   <div [formGroup]="formMicroarea" fxLayout="column" fxLayoutGap="10px">
     <mat-form-field fxFlex>
-      <input matInput type="number" formControlName="numero" placeholder="Número da microárea">
+      <input matInput type="number" formControlName="numero" placeholder="Número da microárea" (click)="atribuirValidador(formMicroarea.get('numero'), 'bairro')">
       <mat-error>
         {{ retornarValidacoes(formMicroarea.get('numero'), 'Número') }}
       </mat-error>
     </mat-form-field>
 
     <mat-form-field fxFlex>
-      <mat-select placeholder="Selecionar Bairro" (valueChange)="desabilitarSelecaoUbs(bairro.value)" formControlName="bairro" #bairro>
+      <mat-select placeholder="Selecionar Bairro" (valueChange)="desabilitarSelecaoUbs(bairro.value)" formControlName="bairro" #bairro (click)="atribuirValidador(formMicroarea.get('bairro'), 'numero')">
         <mat-option *ngFor="let bairro of bairros$ | async" [value]="bairro">
           {{ bairro.nome }}
         </mat-option>

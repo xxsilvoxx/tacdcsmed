@@ -193,7 +193,7 @@ export class CadastrarUbsComponent implements OnInit {
    * Método que aplica o filtro na minha lista de bairros já cadastrados
    */
   private _filtro(valor: string) {
-    let filterValue;
+    let filterValue: string;
     // A validação é apenas pra não dar erro quando o campo estiver vazio
     if (valor) {
       filterValue = valor.toLowerCase();
@@ -240,11 +240,14 @@ export class CadastrarUbsComponent implements OnInit {
         ),
         switchMap(
           c => c
-            ? (presente[0].cidade = c, this.bairrosService.cadastrar(presente[0]))
+            ? (presente[0].cidade = c, this.service.cadastrar(ubs))
             : EMPTY
         ),
         switchMap(
-          b => b ? this.service.cadastrar(ubs) : EMPTY
+          // tslint:disable-next-line: no-shadowed-variable
+          ubs => ubs
+            ? (presente[0].ubs = ubs, this.bairrosService.cadastrar(presente[0]))
+            : EMPTY
         )
       ).subscribe(
         res => {
@@ -259,11 +262,14 @@ export class CadastrarUbsComponent implements OnInit {
       this.cidadesService.cadastrar(presente[0].cidade).pipe(
         switchMap(
           c => c
-            ? (presente[0].cidade = c, this.bairrosService.cadastrar(presente[0]))
+            ? (presente[0].cidade = c, this.service.cadastrar(ubs))
             : EMPTY
         ),
         switchMap(
-          b => b ? this.service.cadastrar(ubs) : EMPTY
+          // tslint:disable-next-line: no-shadowed-variable
+          ubs => ubs
+            ? (presente[0].ubs = ubs, this.bairrosService.cadastrar(presente[0]))
+            : EMPTY
         )
       ).subscribe(
         res => {
@@ -275,9 +281,12 @@ export class CadastrarUbsComponent implements OnInit {
 
       // Caso o bairro não esteja cadastrado
     } else if (presente[0].idBairro === undefined) {
-      this.bairrosService.cadastrar(presente[0]).pipe(
+      this.service.cadastrar(ubs).pipe(
         switchMap(
-          b => b ? this.service.cadastrar(ubs) : EMPTY
+          // tslint:disable-next-line: no-shadowed-variable
+          ubs => ubs
+            ? (presente[0].ubs = ubs, this.bairrosService.cadastrar(presente[0]))
+            : EMPTY
         )
       ).subscribe(
         res => {
