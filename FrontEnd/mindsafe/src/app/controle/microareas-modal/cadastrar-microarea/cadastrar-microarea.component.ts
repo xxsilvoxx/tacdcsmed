@@ -84,12 +84,10 @@ export class CadastrarMicroareaComponent implements OnInit {
   criarFormulario() {
     this.formMicroarea = this.builder.group({
       numero: [null, {
-        validators: [ Validators.required, validarNumeroMinimo.bind(this) ],
-        asyncValidators: [ microareaDisponivelValidator(this.microareasService, 'bairro') ]
+        validators: [ Validators.required, validarNumeroMinimo.bind(this) ]
       }],
       bairro: [null, {
-        validators: [ Validators.required ],
-        asyncValidators: [ microareaDisponivelValidator(this.microareasService, 'numero') ]
+        validators: [ Validators.required ]
       }]
     });
 
@@ -104,6 +102,10 @@ export class CadastrarMicroareaComponent implements OnInit {
 
   listarUbs() {
     this.ubs$ = this.ubsService.listar();
+  }
+
+  atribuirValidador(control: FormControl, outroCampo: string) {
+    control.setAsyncValidators(microareaDisponivelValidator(this.microareasService, outroCampo));
   }
 
   cadastrar() {

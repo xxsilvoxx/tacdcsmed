@@ -9,7 +9,6 @@ import { MicroAreasService } from '../../services/microAreas/microArea.service';
 import { CausasService } from '../../services/causas/causas.service';
 import { FuncoesService } from '../../services/funcoes/funcoes.service';
 import { UbsService } from '../../services/ubs/ubs.service';
-import { Bairro } from '../../models/bairro.model';
 
 /* --------------------------------------------------------------------------------------- */
 
@@ -70,7 +69,8 @@ export const microareaDisponivelValidator = (service: MicroAreasService, campo: 
       bairro = input;
       numero = input.root.get(campo) as FormControl;
     }
-    return (numero.value && bairro.value)
+
+    return (numero.value !== null && bairro.value !== null)
       ? service.validarNumeroMicroareaDisponivel(numero.value, bairro.value).pipe(
         map(res => {
           return res ? null : { microareaInvalida: true };
