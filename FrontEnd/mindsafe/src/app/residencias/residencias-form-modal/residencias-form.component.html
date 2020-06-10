@@ -1,393 +1,107 @@
-<div class="cabecalho">
-  <h3>Cadastrar</h3>
-</div>
 
+<h1 matDialogTitle>Cadastrar</h1>
 
-<form [formGroup]="formResidencia">
-  <div fxLayout="row" fxLayoutGap="10px" >
-    <mat-form-field fxFlex>
-      <mat-select  placeholder="Família" formControlName="familia" >
-        <mat-option *ngFor="let familia of familias" [value]="familia">{{ familia.nome }}</mat-option>
-      </mat-select>
-    </mat-form-field>
+<mat-dialog-content>
+  <form [formGroup]="formResidencia">
+    <div fxLayout="row" fxLayoutGap="10px">
+      <mat-form-field fxFlex>
+        <mat-select placeholder="Família" formControlName="familia">
+          <mat-option *ngFor="let familia of familias" [value]="familia">{{ familia.nome }}</mat-option>
+        </mat-select>
+      </mat-form-field>
 
-    <mat-form-field fxFlex>
-      <mat-select  placeholder="Microárea" formControlName="microArea">
-        <mat-option *ngFor="let microArea of microAreas" [value]="microArea">{{ microArea.idMicroArea }}</mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
+      <mat-form-field fxFlex>
+        <mat-select placeholder="Microárea" formControlName="microArea">
+          <mat-option *ngFor="let microArea of microAreas" [value]="microArea">{{ microArea.idMicroArea }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
 
-  <div fxLayout="row" fxLayoutGap="10px">
-    <mat-form-field fxFlex>
-      <input matInput placeholder="CEP" formControlName="cep" #cep [textMask]="{mask: maskCep, guide: false}">
-      <mat-hint align="end">{{ cep.value?.length }} / 10</mat-hint>
-      <mat-error>
-        {{ retornarValidacoes('cep', formResidencia.get('cep')) }}
-      </mat-error>
-    </mat-form-field>
+    <div fxLayout="row" fxLayoutGap="10px">
+      <mat-form-field fxFlex>
+        <input matInput placeholder="CEP" formControlName="cep" #cep [textMask]="{mask: maskCep, guide: false}">
+        <mat-hint align="end">{{ cep.value?.length }} / 10</mat-hint>
+        <mat-error>
+          {{ retornarValidacoes('cep', formResidencia.get('cep')) }}
+        </mat-error>
+      </mat-form-field>
 
-    <mat-form-field fxFlex>
-      <!-- <mat-select placeholder="Bairro" formControlName="microArea">
-        <mat-option *ngFor="let microArea of microAreas" [value]="microArea">{{ microArea.bairro.nome }}</mat-option>
-      </mat-select> -->
-      <!-- formResidencia.get('microArea')?.value.bairro.nome -->
-      <input matInput placeholder="Bairro" [value] = "formResidencia.get('microArea').value.bairro != null ? formResidencia.get('microArea').value.bairro.nome : ''" readonly>
-    </mat-form-field>
+      <mat-form-field fxFlex>
+        <!-- <mat-select placeholder="Bairro" formControlName="microArea">
+          <mat-option *ngFor="let microArea of microAreas" [value]="microArea">{{ microArea.bairro.nome }}</mat-option>
+        </mat-select> -->
+        <!-- formResidencia.get('microArea')?.value.bairro.nome -->
+        <input matInput placeholder="Bairro" [value] = "formResidencia.get('microArea').value.bairro != null ? formResidencia.get('microArea').value.bairro.nome : ''" readonly>
+      </mat-form-field>
 
-    <!-- Campo Bairro ainda não implementado juntamente com o ViaCep -->
+      <!-- Campo Bairro ainda não implementado juntamente com o ViaCep -->
 
-    <!-- <mat-form-field fxFlex>
-      <input matInput placeholder="Bairro" formControlName="bairro" #cep>
-      <mat-hint>{{ bairro.value?.length }} / 250</mat-hint>
-      <mat-error>
-        {{ retornarValidacoes('bairro', formResidencia.get('bairro')) }}
-      </mat-error>
-    </mat-form-field> -->
-  </div>
+      <!-- <mat-form-field fxFlex>
+        <input matInput placeholder="Bairro" formControlName="bairro" #cep>
+        <mat-hint>{{ bairro.value?.length }} / 250</mat-hint>
+        <mat-error>
+          {{ retornarValidacoes('bairro', formResidencia.get('bairro')) }}
+        </mat-error>
+      </mat-form-field> -->
+    </div>
 
-  <div fxLayout="row" fxLayoutGap="10px">
-    <mat-form-field fxFlex>
-      <input matInput placeholder="Logradouro" formControlName="logradouro" #logradouro>
-      <mat-hint align="end">{{ logradouro.value?.length }} / 250</mat-hint>
-      <mat-error>
-        {{ retornarValidacoes('logradouro', formResidencia.get('logradouro')) }}
-      </mat-error>
-    </mat-form-field>
-  </div>
+    <div fxLayout="row" fxLayoutGap="10px">
+      <mat-form-field fxFlex>
+        <input matInput placeholder="Logradouro" formControlName="logradouro" #logradouro>
+        <mat-hint align="end">{{ logradouro.value?.length }} / 250</mat-hint>
+        <mat-error>
+          {{ retornarValidacoes('logradouro', formResidencia.get('logradouro')) }}
+        </mat-error>
+      </mat-form-field>
+    </div>
 
-  <div fxLayout="row" fxLayoutGap="10px">
-    <mat-form-field fxFlex>
-      <input matInput placeholder="Número" formControlName="numero" #numero>
-      <mat-error>
-        {{ retornarValidacoes('numero', formResidencia.get('numero')) }}
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field fxFlex>
-      <input matInput placeholder="Cor Da Casa" formControlName="cor" #cor>
-      <mat-error>
-        {{ retornarValidacoes('cor', formResidencia.get('cor')) }}
-      </mat-error>
-    </mat-form-field>
-  </div>
+    <div fxLayout="row" fxLayoutGap="10px">
+      <mat-form-field fxFlex>
+        <input matInput placeholder="Número" formControlName="numero" #numero>
+        <mat-error>
+          {{ retornarValidacoes('numero', formResidencia.get('numero')) }}
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field fxFlex>
+        <input type="color" matInput placeholder="Cor Da Casa" formControlName="cor" #cor>
+        <mat-error>
+          {{ retornarValidacoes('cor', formResidencia.get('cor')) }}
+        </mat-error>
+      </mat-form-field>
+    </div>
 
-  <div fxLayout="row" fxLayoutGap="10px">
-    <mat-form-field fxFlex>
-      <input matInput placeholder="Referencia" formControlName="localReferencia" #localReferencia>
-      <mat-hint align="end">{{ localReferencia.value?.length }} / 250</mat-hint>
-      <mat-error>
-        {{ retornarValidacoes('localReferencia', formResidencia.get('localReferencia')) }}
-      </mat-error>
-    </mat-form-field>
-  </div>
+    <div fxLayout="row" fxLayoutGap="10px">
+      <mat-form-field fxFlex>
+        <input matInput placeholder="Referencia" formControlName="localReferencia" #localReferencia>
+        <mat-hint align="end">{{ localReferencia.value?.length }} / 250</mat-hint>
+        <mat-error>
+          {{ retornarValidacoes('localReferencia', formResidencia.get('localReferencia')) }}
+        </mat-error>
+      </mat-form-field>
+    </div>
 
-  <div fxLayout="row" fxLayoutGap="10px">
-    <mat-form-field fxFlex>
-      <input matInput placeholder="Complemento" formControlName="complemento" #complemento>
-      <mat-hint align="end">{{ complemento.value?.length }} / 250</mat-hint>
-      <mat-error>
-        {{ retornarValidacoes('complemento', formResidencia.get('complemento')) }}
-      </mat-error>
-    </mat-form-field>
-  </div>
-</form>
+    <div fxLayout="row" fxLayoutGap="10px">
+      <mat-form-field fxFlex>
+        <input matInput placeholder="Complemento" formControlName="complemento" #complemento>
+        <mat-hint align="end">{{ complemento.value?.length }} / 250</mat-hint>
+        <mat-error>
+          {{ retornarValidacoes('complemento', formResidencia.get('complemento')) }}
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </form>
+</mat-dialog-content>
 
-
-<div fxLayout="row" fxLayoutGap="10px" mat-dialog-actions>
+<mat-dialog-actions [attr.align]="start" fxLayout="row" fxLayoutGap="10px">
   <button fxFlex mat-raised-button color="warn" (click)="onDecline()">
-    Cancelar <mat-icon class="material-icons">cancel</mat-icon>
+    CANCELAR <mat-icon class="material-icons">cancel</mat-icon>
   </button>
 
   <button fxFlex mat-raised-button color="primary" (click)="onConfirm()" [disabled] = "formResidencia.invalid">
-    Cadastrar <mat-icon class="material-icons">send</mat-icon>
+    CADASTRAR <mat-icon class="material-icons">send</mat-icon>
   </button>
-</div>
+</mat-dialog-actions>
 
-
-
-
-
-
-
-
-<!-- exemplos -->
-
-
-<!-- <mat-dialog-content> -->
-    <!-- Step Inicial -->
-      <!-- <mat-step [stepControl]="formResidencia">
-        <form [formGroup]="formResidencia">
-          <ng-template matStepLabel>Cadastrar</ng-template>
-
-          <div fxLayout="row" fxLayout.xs="column">
-            <mat-form-field fxFlex.lg="70%">
-              <mat-select [(ngModel)]='residencia.familia.nome' >
-                <mat-option *ngFor="let residencia of residencias" [value]="residencia">{{ residencia.familia.nome }}</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div> -->
-
-          <!-- <div fxLayout="row" fxLayoutGap="10px">
-            <mat-form-field fxFlex>
-              <input matInput placeholder="Nome Completo" formControlName="nome" #nome>
-              <mat-hint align="end">{{ nome.value?.length }} / 255</mat-hint>
-              <mat-error>
-                {{ retornarValidacoes('nome', formPaciente.get('nome')) }}
-              </mat-error>
-            </mat-form-field>
-          </div>
-
-          <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px">
-            <mat-form-field fxFlex>
-              <input [textMask]="{
-                mask: tipoPessoa == 'cpf' ? maskCpf : maskCnpj,
-                guide: false
-              }" matInput [placeholder]="tipoPessoa.toUpperCase()" formControlName="cpfCnpj">
-              <mat-error>
-                {{ retornarValidacoes(tipoPessoa.toUpperCase(), formPaciente.get('cpfCnpj')) }}
-              </mat-error>
-            </mat-form-field>
-
-            <mat-form-field fxFlex>
-              <mat-select placeholder="Tipo de Pessoa" [(ngModel)]="tipoPessoa" [ngModelOptions]="{standalone: true}" (valueChange)="alterarTipoPessoa(valor.value)" #valor>
-                <mat-option value="cpf">Física - CPF</mat-option>
-                <mat-option value="cnpj">Jurídica - CNPJ</mat-option>
-              </mat-select>
-            </mat-form-field>
-
-            <mat-form-field fxFlex>
-              <mat-select formControlName="nacionalidade" placeholder="Nacionalidade">
-                <mat-option *ngFor="let pais of paises$ | async" [value]="pais.sigla">{{ pais.nomePais }}</mat-option>
-              </mat-select>
-              <mat-error>
-                {{ retornarValidacoes('nacionalidade', formPaciente.get('nacionalidade')) }}
-              </mat-error>
-            </mat-form-field>
-          </div>
-
-          <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px">
-            <mat-form-field fxFlex>
-              <mat-select placeholder="Sexo" formControlName="sexo">
-                <mat-option value="M">Masculino</mat-option>
-                <mat-option value="F">Feminino</mat-option>
-              </mat-select>
-              <mat-error>
-                {{ retornarValidacoes('sexo', formPaciente.get('sexo')) }}
-              </mat-error>
-            </mat-form-field>
-
-            <mat-form-field fxFlex>
-              <input readonly matInput [matDatepicker]="picker" placeholder="Data de Nascimento"
-                formControlName="dataNascimento">
-              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
-              <mat-error>
-                {{ retornarValidacoes('data de nascimento', formPaciente.get('dataNascimento')) }}
-              </mat-error>
-            </mat-form-field>
-          </div>-->
-        <!-- </form>
-      </mat-step> -->
-      <!-- Fim Step Inicial -->
-
-      <!-- Step Secudário
-      <mat-step [stepControl]="formPaciente">
-        <form [formGroup]="formPaciente">
-          <ng-template matStepLabel>Informações Complementares</ng-template>
-
-          <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutGap="10px">
-            <mat-form-field fxFlex>
-              <input matInput formControlName="celular" type="tel" placeholder="Celular" [textMask]="{
-                mask: maskCel,
-                guide: false
-              }">
-            </mat-form-field>
-
-            <mat-form-field fxFlex>
-              <input matInput formControlName="telefone" type="tel" placeholder="Telefone" [textMask]="{
-                mask: maskTel,
-                guide: false
-              }">
-            </mat-form-field>
-
-            <mat-form-field fxFlex>
-              <input matInput formControlName="email" type="email" placeholder="E-mail" #email>
-              <mat-hint align="end">{{ email.value?.length }} / 255</mat-hint>
-              <mat-error>
-                {{ retornarValidacoes('e-mail', formPaciente.get('email')) }}
-              </mat-error>
-            </mat-form-field>
-          </div>
-
-          <div fxLayout="column" fxLayoutGap="10px">
-            <mat-form-field fxFlex>
-              <mat-select placeholder="Selecionar Riscos" [formControl]="formControlCausas" multiple [(ngModel)]="selectedCausas">
-                <mat-option *ngFor="let causa of causas" [value]="causa">
-                  {{ causa.nome }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-
-            <mat-accordion fxFlex>
-              <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    Medicação
-                  </mat-panel-title>
-                  <mat-panel-description>
-                    Adicionar Medicamentos
-                  </mat-panel-description>
-                </mat-expansion-panel-header>
-
-                <div fxLayout="column" fxLayoutGap="10px">
-                  <mat-form-field fxFlex>
-                    <mat-select [(ngModel)]="medicamentoSelecionado" [ngModelOptions]="{standalone: true}"
-                      placeholder="Medicamento">
-                      <mat-option *ngFor="let medicamento of medicamentos$ | async" [value]="medicamento">
-                        {{ medicamento.nome }}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-
-                  <mat-form-field fxFlex>
-                    <mat-chip-list #chipList>
-                      <mat-chip *ngFor="let horario of horarios" selectable="true" removable="true"
-                        (removed)="remove(horario)">
-                        {{ horario.hora }}
-                        <mat-icon matChipRemove>cancel</mat-icon>
-                      </mat-chip>
-                      <input [textMask]="{mask: maskHora, guide: false}" placeholder="Escolher horários"
-                        [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                        matChipInputAddOnBlur="true" (matChipInputTokenEnd)="add($event)">
-                    </mat-chip-list>
-                  </mat-form-field>
-
-                  <div fxFlex>
-                    <p>
-                      Medicamentos Adicionados: <strong>{{ medicamentosAdicionados?.length }}</strong>
-                    </p>
-
-                    <button class="alinhamento-direita"
-                      [disabled]="medicamentoSelecionado == null || horarios?.length == 0 || isEditar == true"
-                      (click)="adicionarMedicamentoNaLista()" color="primary" mat-mini-fab>
-                      <mat-icon class="material-icons">add</mat-icon>
-                    </button>
-                    <button class="alinhamento-direita" (click)="editarMedicamentoDaLista()"
-                      [disabled]="registroEditar == null || isEditar == false" color="primary" mat-mini-fab>
-                      <mat-icon class="material-icons">edit</mat-icon>
-                    </button>
-                  </div>
-
-                  <mat-card fxFlex>
-                    <mat-list style="height: 120px; overflow-y: auto; overflow-x: auto;">
-                      <mat-list-item *ngFor="let medicamento of medicamentosAdicionados">
-                        <span matLine>{{ medicamento.medicamento.nome }}</span>
-                        <span matLine>{{ medicamento.horarios }}</span>
-                        <button mat-icon-button (click)="selecionarMedicamentoDaLista(medicamento)">
-                          <mat-icon class="material-icons" matListIcon>edit</mat-icon>
-                        </button>
-                        <button mat-icon-button (click)="removerMedicamentoDaLista(medicamento.medicamento)">
-                          <mat-icon class="material-icons" matListIcon>delete</mat-icon>
-                        </button>
-                      </mat-list-item>
-                    </mat-list>
-                  </mat-card>
-                </div>
-              </mat-expansion-panel>
-            </mat-accordion>
-          </div>
-
-          <div>
-            <button mat-button matStepperNext>Próximo</button>
-          </div>
-        </form>
-      </mat-step>
-      Fim Step Secudário
-
-      Step Terciário
-      <mat-step [stepControl]="formPaciente">
-        <form [formGroup]="formPaciente">
-          <ng-template matStepLabel>Finalizar</ng-template>
-
-          <div fxLayout="row" fxLayoutGap="10px">
-            <mat-card fxFlex>
-              <mat-card-header class="card-header">
-                <mat-card-title class="material-icons">person</mat-card-title>
-              </mat-card-header>
-              <mat-card-content class="card-content">
-                <div class="esquerda">
-                  <p><strong>Nome:</strong> {{ formPaciente.get('nome').value }}</p>
-
-                  <p><strong>Família:</strong> {{ formPaciente.get('familia').value.nome }}</p>
-
-                  <p><strong>Responsável Familiar:</strong> {{ formPaciente.get('responsavelFamiliar').value == false ? 'Não' : 'Sim' }}</p>
-
-                  <p><strong>CPF/CNPJ:</strong> {{ formPaciente.get('cpfCnpj').value }}</p>
-
-                  <p><strong>Sexo:</strong> {{ formPaciente.get('sexo').value == 'M' ? 'Masculino' : 'Feminino' }}</p>
-
-                  <p><strong>Nacionalidade:</strong> {{ formPaciente.get('nacionalidade').value }}</p>
-
-                  <p><strong>Data de Nascimento:</strong> {{ formPaciente.get('dataNascimento').value | date }}</p>
-                </div>
-
-                <div ngClass.xs="esquerda" class="direita">
-                  <p *ngIf="formPaciente.get('celular').value != ''"><strong>Celular:</strong>
-                    {{ formPaciente.get('celular').value }}</p>
-
-                  <p *ngIf="formPaciente.get('telefone').value != ''"><strong>Telefone:</strong>
-                    {{ formPaciente.get('telefone').value }}</p>
-
-                  <p *ngIf="formPaciente.get('email').value != ''"><strong>E-mail:</strong>
-                    {{ formPaciente.get('email').value }}</p>
-                </div>
-
-                <mat-divider inset></mat-divider>
-
-                <mat-card class="card-info">
-                  <mat-card-title>
-                    Medicamentos
-                  </mat-card-title>
-                  <mat-card-content>
-                    <mat-list class="list">
-                      <mat-list-item *ngFor="let item of medicamentosAdicionados">
-                        <span matLine>{{ item.medicamento.nome }}</span>
-                        <span matLine><strong>Horários:</strong> {{ item.horarios }}</span>
-                      </mat-list-item>
-                    </mat-list>
-                  </mat-card-content>
-                </mat-card>
-
-                <mat-card class="card-info">
-                  <mat-card-title>
-                    Causas
-                  </mat-card-title>
-                  <mat-card-content>
-                    <mat-list class="list">
-                      <mat-list-item *ngFor="let item of selectedCausas">
-                        <span matLine>{{ item.nome }}</span>
-                        <span matLine><strong>Risco:</strong> {{ item.risco }}</span>
-                      </mat-list-item>
-                    </mat-list>
-                  </mat-card-content>
-                </mat-card>
-              </mat-card-content>
-            </mat-card>
-          </div>
-
-          <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" style="margin-top: 20px;">
-            <button mat-raised-button color="warn" (click)="onClose()" fxFlex>
-              Cancelar
-              <mat-icon class="material-icons">cancel</mat-icon>
-            </button>
-            <button mat-raised-button color="primary" (click)="onConfirm()" [disabled]="formPaciente.invalid" fxFlex>
-              {{ txtBotao }}
-              <mat-icon class="material-icons">{{ paciente ? 'edit' : 'person_add' }}</mat-icon>
-            </button>
-          </div>
-        </form>
-      </mat-step>
-      Fim Step Terciário -->
-    <!-- </mat-horizontal-stepper> -->
-
-<!-- </mat-dialog-content> -->
+<!-- <div class="cabecalho">
+  <h3>Cadastrar</h3>
+</div> -->

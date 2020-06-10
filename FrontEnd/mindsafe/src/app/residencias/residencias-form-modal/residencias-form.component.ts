@@ -67,7 +67,6 @@ export class ResidenciasFormComponent implements OnInit {
     this.residencia = this.data.residencia;
     this.criarFormularios();
     this.verificarView(this.residencia);
-    this.criarMascaras();
     this.listarFamilias();
     this.listarMicroAreas();
   }
@@ -98,9 +97,6 @@ export class ResidenciasFormComponent implements OnInit {
   // Ele é chamado quando o botão de de confirmação na última etapa do
   // cadastro, é pressioando.
   onConfirm() {
-    //verificar no console do navegadorr como está indo o JSON
-    console.log(this.formResidencia.value);
-
     if (this.residencia) {
       // Altera os dados da residencia
       this.residenciasService.alterar(this.formResidencia.value, this.residencia.idResidencia).subscribe(
@@ -127,9 +123,7 @@ export class ResidenciasFormComponent implements OnInit {
   }
 
   retornarValidacoes(label: string, campo: FormControl) {
-    if (campo.touched || campo.dirty) {
-      return this.msgValidation.getErrorMessage(campo, label);
-    }
+    return this.msgValidation.getErrorMessage(campo, label);
   }
 
   criarFormularios() {
@@ -144,18 +138,6 @@ export class ResidenciasFormComponent implements OnInit {
       complemento: ['']
     });
   }
-
-  criarMascaras() {
-    this.maskCep = [/[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, '-', /[0-9]/, /[0-9]/, /[0-9]/];
-  }
-  // criarMascaras() {
-  //   this.maskCpf = [/[0-9]/, /[0-9]/, /[0-9]/, '.', /[0-9]/, /[0-9]/, /[0-9]/, '.', /[0-9]/, /[0-9]/, /[0-9]/, '-', /[0-9]/, /[0-9]/];
-  //   // tslint:disable-next-line: max-line-length
-  //   this.maskCnpj = [/[0-9]/, /[0-9]/, '.', /[0-9]/, /[0-9]/, /[0-9]/, '.', /[0-9]/, /[0-9]/, /[0-9]/, '/', /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, '-', /[0-9]/, /[0-9]/];
-  //   this.maskCel = ['(', /[0-9]/, /[0-9]/, ')', /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, '-', /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/];
-  //   this.maskTel = ['(', /[0-9]/, /[0-9]/, ')', /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, '-', /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/];
-  //   this.maskHora = [/[0-2]/, /[0-9]/, ':', /[0-5]/, /[0-9]/];
-  // }
 
   listarFamilias() {
     this.familiasService.listarTodas().pipe(
@@ -172,7 +154,7 @@ export class ResidenciasFormComponent implements OnInit {
       })
     ).subscribe(
       res => {
-        if (res.length == 0) {
+        if (res.length === 0) {
           this.msg.exibirMensagem('A lista de famílias está vazia', 'info');
         }
         this.familias = res;
@@ -196,7 +178,7 @@ export class ResidenciasFormComponent implements OnInit {
       })
     ).subscribe(
       res => {
-        if (res.length == 0) {
+        if (res.length === 0) {
           this.msg.exibirMensagem('A lista de Microáreas está vazia', 'info');
         }
         this.microAreas = res;

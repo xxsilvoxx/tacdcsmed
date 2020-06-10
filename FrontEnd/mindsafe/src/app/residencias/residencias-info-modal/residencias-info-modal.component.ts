@@ -1,10 +1,9 @@
-import { ResidenciasService } from './../../services/residencias/residencias.service';
 import { Component, OnInit, Inject } from '@angular/core';
+
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MensagemService } from '../mensagem/mensagem.service';
-import { Residencia } from 'src/app/models/residencia.model';
 
-
+import { MensagemService } from './../../shared/mensagem/mensagem.service';
+import { ResidenciasService } from './../../services/residencias/residencias.service';
 
 @Component({
   selector: 'app-residencias-info-modal',
@@ -12,7 +11,6 @@ import { Residencia } from 'src/app/models/residencia.model';
   styleUrls: ['./residencias-info-modal.component.scss']
 })
 export class ResidenciasInfoModalComponent implements OnInit {
-
 
   familia = [];
   residencia = [];
@@ -70,6 +68,7 @@ export class ResidenciasInfoModalComponent implements OnInit {
   retornaTotalFamiliares() {
     this.residenciasService.retornaTotalFamiliares(this.data.residencia.familia.idFamilia);
   }
+
   onClose() {
     this.modalRef.close();
   }

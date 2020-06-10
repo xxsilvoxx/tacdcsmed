@@ -1,20 +1,21 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Subscription, EMPTY, Observable } from 'rxjs';
+import { filter, switchMap } from 'rxjs/operators';
+
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog } from '@angular/material/dialog';
 import { MediaObserver } from '@angular/flex-layout';
-import { Subscription, EMPTY, Observable } from 'rxjs';
-import { filter, tap, switchMap, map } from 'rxjs/operators';
 
 import { ConfirmModalComponent } from '../../shared/confirm-modal/confirm-modal.component';
 import { ResidenciasService } from '../../services/residencias/residencias.service';
 import { Residencia } from './../../models/residencia.model';
-// import { ResidenciaInfoModalComponent } from '../../shared/residencia-info-modal/residencia-info-modal.component';
 import { MensagemService } from '../../shared/mensagem/mensagem.service';
 import { ResidenciasFormComponent } from '../residencias-form-modal/residencias-form.component';
 import { ResidenciasAlterarComponent } from '../residencias-alterar-modal/residencias-alterar.component';
-import { ResidenciasInfoModalComponent } from 'src/app/shared/residencias-info-modal/residencias-info-modal.component';
+import { ResidenciasInfoModalComponent } from '../residencias-info-modal/residencias-info-modal.component';
+import { mascaras } from '../../shared/form-masks/form-masks';
 
 export interface FiltroResidencia {
   nome: string;
@@ -26,11 +27,9 @@ export interface FiltroResidencia {
   templateUrl: './residencias.component.html',
   styleUrls: ['./residencias.component.scss']
 })
-
-
 export class ResidenciasComponent implements OnInit, OnDestroy {
 
-  maskCep = [];
+  maskCep = mascaras.maskCep;
 
   residencias: Residencia[] = [];
 
@@ -43,14 +42,6 @@ export class ResidenciasComponent implements OnInit, OnDestroy {
     { nome: 'Família', valor: 'familia' },
     { nome: 'Logradouro', valor: 'logradouro' },
     { nome: 'Bairro', valor: 'bairro' },
-
-    //não necessário nesta tela, serve para mostrar os filtros no select da tela
-    // { nome: 'Micro Area', valor: 'microArea' },
-    // { nome: 'CEP', valor: 'cep' },
-    // { nome: 'Numero', valor: 'numero' },
-    // { nome: 'Local de Referencia', valor: 'localReferencia' },
-    // { nome: 'Cor', valor: 'cor' },
-    // { nome: 'Complemento', valor: 'complemento' },
   ];
 
   dataSource: MatTableDataSource<Residencia>;
@@ -79,10 +70,7 @@ export class ResidenciasComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscriptions.forEach(
-      subs => {
-        console.log('MediaQuery Destruído');
-        subs.unsubscribe();
-      }
+      subs => subs.unsubscribe()
     );
   }
 
@@ -186,28 +174,28 @@ export class ResidenciasComponent implements OnInit, OnDestroy {
     });
   }
 
-   onVerificarAcao(acao: string) {
-    if (acao.toUpperCase() == 'ADD' || acao.toUpperCase() == 'ALTERAR') {
+  onVerificarAcao(acao: string) {
+    if (acao.toUpperCase() === 'ADD' || acao.toUpperCase() === 'ALTERAR') {
       this.onFormResidencia(acao.toLowerCase());
-    } else if (acao.toUpperCase() == 'UPDATE' && this.selection.selected.length > 1) {
+    } else if (acao.toUpperCase() === 'UPDATE' && this.selection.selected.length > 1) {
       this.onAlterarResidencias();
     }
   }
 
-   onFormResidencia(value: string) {
-    const residencia = value == 'alterar' ? this.selection.selected[0] : null;
+  onFormResidencia(value: string) {
+    const residencia = value === 'alterar' ? this.selection.selected[0] : null;
     if (value) {
       const dialogRef = this.dialog.open(ResidenciasFormComponent, {
         height: '550px',
         width: '900px',
         data: {
-          residencia: residencia
+          residencia
         }
       });
     }
   }
 
-   onAlterarResidencias() {
+  onAlterarResidencias() {
     const dialogRef = this.dialog.open(ResidenciasAlterarComponent, {
       height: '550px',
       width: '900px',
@@ -215,6 +203,10 @@ export class ResidenciasComponent implements OnInit, OnDestroy {
         residencia: this.selection.selected
       }
     });
+
+    dialogRef.afterClosed().subscribe(
+      res => this.selection.clear()
+    );
   }
 
   onDelete() {
@@ -228,7 +220,7 @@ export class ResidenciasComponent implements OnInit, OnDestroy {
       width: '400px',
       data: {
         titulo: 'Remover Residencia',
-        texto: texto
+        texto
       }
     });
     this.onDeleteVerify(dialogRef.afterClosed(), residencias);
@@ -241,8 +233,6 @@ export class ResidenciasComponent implements OnInit, OnDestroy {
    *
    * É feito um switchMap dentro do método para trocar para o retorno do service que remove
    * o residencia
-   *
-   * ESTÁ FUNCIONANDO
    */
   onDeleteVerify(subs: Observable<boolean>, residencias: Residencia[]) {
     residencias.forEach(
@@ -275,36 +265,32 @@ export class ResidenciasComponent implements OnInit, OnDestroy {
    * Método responsável por aplicar o filtro específico de arrays no javascript
    */
   applyFilter(value: string, coluna?) {
-    console.log(`${value} / ${coluna}`);
-    let filtrado: Residencia[] = [];
+    const filtrado: Residencia[] = [];
     this.residencias.map(
       p => {
-        if (coluna == 'idResidencia') {
-          if (p.idResidencia == Number(value)) {
+        if (coluna === 'idResidencia') {
+          if (p.idResidencia === Number(value)) {
             filtrado.push(p);
           }
-        } else if (coluna == 'familia') {
+        } else if (coluna === 'familia') {
           // tslint:disable-next-line: max-line-length
           if (p.familia.nome.trim().toLowerCase().indexOf(value.trim().toLowerCase()) >= 0) {
             /* Pode estar ocorrendo um erro ao validar alguns caracteres */
             filtrado.push(p);
           }
-        } else if (coluna == 'logradouro') {
+        } else if (coluna === 'logradouro') {
           if (p.logradouro.trim().toString().toLowerCase().indexOf(value) >= 0) {
             filtrado.push(p);
           }
-        } else if (coluna == 'bairro') {
+        } else if (coluna === 'bairro') {
           if (p.microArea.bairro.nome.trim().toString().toLowerCase().indexOf(value.trim().toLowerCase()) >= 0) {
-          filtrado.push(p);
-         }
+            filtrado.push(p);
+          }
         }
       }
     );
-    console.log(filtrado);
+
     this.dataSource = new MatTableDataSource<Residencia>(filtrado);
-    console.log(this.dataSource);
     this.dataSource.paginator = this.paginator;
-    // this.dataSource.filter = value;
-    // filtrado.forEach(v => filtrado.pop());
   }
 }
