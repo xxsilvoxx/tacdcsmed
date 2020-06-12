@@ -1,8 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { FormBuilder, FormGroup, Validators, FormControl, ValidationErrors, FormsModule } from '@angular/forms';
-import { Observable, EMPTY, Subject } from 'rxjs';
-import { tap, map } from 'rxjs/operators';
+
 import { Familia } from 'src/app/models/familia.model';
 import { FamiliasService } from '../../services/familias/familias.service';
 import { MensagemService } from '../../shared/mensagem/mensagem.service';
@@ -11,7 +13,8 @@ import { MensagemValidationService } from '../../shared/mensagem-validation/mens
 import { ResidenciasService } from '../../services/residencias/residencias.service';
 import { MicroArea } from 'src/app/models/microArea.model';
 import { MicroAreasService } from 'src/app/services/microAreas/microArea.service';
-
+import { mascaras } from '../../shared/form-masks/form-masks';
+import { validarNumeroMinimo } from '../../shared/mensagem-validation/form-validations';
 
 @Component({
   selector: 'app-residencias-form',
@@ -20,17 +23,17 @@ import { MicroAreasService } from 'src/app/services/microAreas/microArea.service
 })
 export class ResidenciasFormComponent implements OnInit {
 
-  maskCep = [];
+  maskCep = mascaras.maskCep;
   isEditar = false;
 
   /**
    * Variáveis para o layout, usadas pra mostrar se é Alteração ou Adição (padrão).
    */
   tituloModal = 'Adicionar Residencia';
-  txtBotao = 'Cadastrar';
+  txtBotao = 'CADASTRAR';
 
   /**
-   * Caso passado por parâmetro o residencia, valida para alterar seus dados.
+   * Caso passado por parâmetro a residencia, valida para alterar seus dados.
    */
   residencia: Residencia = new Residencia();
 
@@ -39,18 +42,8 @@ export class ResidenciasFormComponent implements OnInit {
    */
   formResidencia: FormGroup;
 
-
-  /**
-   * Observables que recebem listagens do servidor, para serem executados de forma
-   * assíncrona.
-   */
-  familias$: Observable<Familia[]>;
-  microArea$: Observable<MicroArea[]>;
-
-
   familias: Familia[];
   microAreas: MicroArea[];
-
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -78,7 +71,7 @@ export class ResidenciasFormComponent implements OnInit {
   verificarView(residencia?: Residencia) {
     if (residencia) {
       this.tituloModal = 'Alterar Residencia';
-      this.txtBotao = 'Alterar';
+      this.txtBotao = 'ALTERAR';
       this.formResidencia.setValue({
         familia: residencia.familia,
         microArea: residencia.microArea,
@@ -130,9 +123,9 @@ export class ResidenciasFormComponent implements OnInit {
     this.formResidencia = this.builder.group({
       familia: ['', Validators.required],
       microArea: ['', Validators.required],
-      cep: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(10)]],
+      cep: ['', [Validators.required, Validators.minLength(9), Validators.maxLength(9)]],
       logradouro: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]],
-      numero: ['', Validators.required],
+      numero: [null, validarNumeroMinimo.bind(this) ],
       cor: [''],
       localReferencia: [''],
       complemento: ['']

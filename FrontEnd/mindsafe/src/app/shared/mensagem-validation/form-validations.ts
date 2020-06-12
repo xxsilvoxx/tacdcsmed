@@ -120,8 +120,10 @@ export const ubsDisponivelValidator = (service: UbsService) => {
  * maior que 0.
  */
 export const validarNumeroMinimo = (control: FormControl) => {
-  if (control.value <= 0) {
-    return { numeroInvalido: true };
+  if (control.value !== null) {
+    if (control.value <= 0) {
+      return { numeroInvalido: true };
+    }
   }
   return null;
 };

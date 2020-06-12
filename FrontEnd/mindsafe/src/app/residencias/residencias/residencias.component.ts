@@ -20,6 +20,7 @@ import { mascaras } from '../../shared/form-masks/form-masks';
 export interface FiltroResidencia {
   nome: string;
   valor: string;
+  tipo: string;
 }
 
 @Component({
@@ -38,11 +39,13 @@ export class ResidenciasComponent implements OnInit, OnDestroy {
 
   // Filtro específico pra cada classe que ele estará sendo trabalhado
   filtroPesquisa: FiltroResidencia[] = [
-    { nome: 'Código', valor: 'idResidencia' },
-    { nome: 'Família', valor: 'familia' },
-    { nome: 'Logradouro', valor: 'logradouro' },
-    { nome: 'Bairro', valor: 'bairro' },
+    { nome: 'Código', valor: 'idResidencia', tipo: 'number' },
+    { nome: 'Família', valor: 'familia', tipo: 'string' },
+    { nome: 'Logradouro', valor: 'logradouro', tipo: 'string' },
+    { nome: 'Bairro', valor: 'bairro', tipo: 'string' },
   ];
+
+  tipoCampo = 'string';
 
   dataSource: MatTableDataSource<Residencia>;
   selection = new SelectionModel<Residencia>(true, []);
@@ -72,6 +75,10 @@ export class ResidenciasComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(
       subs => subs.unsubscribe()
     );
+  }
+
+  mudarTipoCampo(filtro) {
+    this.tipoCampo = filtro.value.tipo;
   }
 
   /**
@@ -279,11 +286,12 @@ export class ResidenciasComponent implements OnInit, OnDestroy {
             filtrado.push(p);
           }
         } else if (coluna === 'logradouro') {
-          if (p.logradouro.trim().toString().toLowerCase().indexOf(value) >= 0) {
+          console.log(value);
+          if (p.logradouro.trim().toLowerCase().indexOf(value.trim().toLowerCase()) >= 0) {
             filtrado.push(p);
           }
         } else if (coluna === 'bairro') {
-          if (p.microArea.bairro.nome.trim().toString().toLowerCase().indexOf(value.trim().toLowerCase()) >= 0) {
+          if (p.microArea.bairro.nome.trim().toLowerCase().indexOf(value.trim().toLowerCase()) >= 0) {
             filtrado.push(p);
           }
         }

@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { MensagemService } from './../../shared/mensagem/mensagem.service';
 import { ResidenciasService } from './../../services/residencias/residencias.service';
+import { Familia } from '../../models/familia.model';
 
 @Component({
   selector: 'app-residencias-info-modal',
@@ -12,7 +13,7 @@ import { ResidenciasService } from './../../services/residencias/residencias.ser
 })
 export class ResidenciasInfoModalComponent implements OnInit {
 
-  familia = [];
+  familia = new Familia();
   residencia = [];
 
   constructor(
@@ -22,16 +23,12 @@ export class ResidenciasInfoModalComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.familia = this.data.residencia.familia;
     this.retornaResidencias();
-    this.retornaFamilia();
-    this.retornaTotalFamiliares();
   }
 
   // retorna informações da residencia
   retornaResidencias() {
-    if (this.data.residencia.idResidencia) {
-      this.residencia.push(`${this.data.residencia.idResidencia}`);
-    }
     if (this.data.residencia.logradouro) {
       this.residencia.push(`${this.data.residencia.logradouro}`);
     }
@@ -58,15 +55,8 @@ export class ResidenciasInfoModalComponent implements OnInit {
     }
   }
 
-  retornaFamilia() {
-    // Retorna nome da familia
-    if (this.data.residencia.familia.nome) {
-      this.familia.push(`${this.data.residencia.familia.nome}`);
-    }
-  }
-
-  retornaTotalFamiliares() {
-    this.residenciasService.retornaTotalFamiliares(this.data.residencia.familia.idFamilia);
+  retornarTotalFamiliares() {
+    return this.residenciasService.retornaTotalFamiliares(this.familia);
   }
 
   onClose() {

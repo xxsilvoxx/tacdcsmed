@@ -47,7 +47,11 @@
 
     <mat-list>
       <h2 matSubheader id="descricao-lista" [ngStyle.xs]="{ 'font-size': '12pt' }">
-        Pacientes que precisam comparecer na UBS
+         {{
+           pacienteInfo.length === 0
+            ? 'Nenhuma consulta recente !!'
+            : 'Pacientes que precisam comparecer na UBS'
+          }}
       </h2>
 
       <mat-list-item *ngFor="let element of pacienteInfo">
