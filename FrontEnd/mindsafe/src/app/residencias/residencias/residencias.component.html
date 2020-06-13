@@ -55,52 +55,39 @@
 
       <ng-container matColumnDef="idResidencia">
         <th mat-header-cell *matHeaderCellDef> Código </th>
-        <td mat-cell *matCellDef="let residencia"> {{residencia.idResidencia}} </td>
+        <td mat-cell *matCellDef="let residencia"> {{ residencia.idResidencia }} </td>
       </ng-container>
 
       <ng-container matColumnDef="familia">
         <th mat-header-cell *matHeaderCellDef> Família </th>
-        <td mat-cell *matCellDef="let residencia"> {{residencia.familia.nome}} </td>
+        <td mat-cell *matCellDef="let residencia"> {{ residencia.familia.nome }} </td>
       </ng-container>
 
       <ng-container matColumnDef="microArea">
         <th mat-header-cell *matHeaderCellDef> Micro Area </th>
-        <td mat-cell *matCellDef="let residencia"> {{residencia.microArea.numero}} </td>
+        <td mat-cell *matCellDef="let residencia"> {{ residencia.microArea.numero }} </td>
       </ng-container>
 
       <ng-container matColumnDef="bairro">
         <th mat-header-cell *matHeaderCellDef> Bairro </th>
-        <td mat-cell *matCellDef="let residencia"> {{residencia.microArea.bairro.nome}} </td>
+        <td mat-cell *matCellDef="let residencia"> {{ residencia.microArea.bairro.nome }} </td>
       </ng-container>
 
       <ng-container matColumnDef="cep">
         <th mat-header-cell *matHeaderCellDef> CEP </th>
-        <td mat-cell *matCellDef="let residencia"> {{residencia.cep}} </td>
+        <td mat-cell *matCellDef="let residencia"> {{ residencia.cep }} </td>
       </ng-container>
 
       <ng-container matColumnDef="logradouro">
         <th mat-header-cell *matHeaderCellDef> Logradouro </th>
-        <td mat-cell *matCellDef="let residencia"> {{residencia.logradouro}} </td>
+        <td mat-cell *matCellDef="let residencia"> {{ residencia.logradouro }} </td>
       </ng-container>
 
       <ng-container matColumnDef="numero">
-        <th mat-header-cell *matHeaderCellDef> Numero </th>
-        <td mat-cell *matCellDef="let residencia"> {{residencia.numero}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="localReferencia">
-        <th mat-header-cell *matHeaderCellDef> Local Referencia </th>
-        <td mat-cell *matCellDef="let residencia"> {{residencia.localReferencia}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="cor">
-        <th mat-header-cell *matHeaderCellDef> Cor </th>
-        <td mat-cell *matCellDef="let residencia"> {{residencia.cor}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="complemento">
-        <th mat-header-cell *matHeaderCellDef> Complemento </th>
-        <td mat-cell *matCellDef="let residencia"> {{residencia.complemento}} </td>
+        <th mat-header-cell *matHeaderCellDef> Número </th>
+        <td mat-cell *matCellDef="let residencia">
+          {{ residencia.numero ? residencia.numero : 'SN' }}
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="select">

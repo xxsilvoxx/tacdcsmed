@@ -16,4 +16,10 @@ public interface FamiliaRepository extends JpaRepository<Familia, Long> {
     @Query("SELECT f FROM Residencia r, Familia f WHERE r.familia = f AND r.microArea.idMicroArea = ?1")
 	public List<Familia> retornarFamiliasPorMicroarea(Long idMicroarea);
 
+    /**
+     * Retorna as famílias que possuem residência
+     */
+    @Query("SELECT DISTINCT r.familia FROM Residencia r")
+    public List<Familia> retornarFamiliasComResidencia();
+
 }

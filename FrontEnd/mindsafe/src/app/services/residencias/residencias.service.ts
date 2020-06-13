@@ -4,7 +4,6 @@ import { take } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
 import { Residencia } from '../../models/residencia.model';
-import { Observable } from 'rxjs';
 import { Familia } from '../../models/familia.model';
 
 @Injectable({
@@ -26,8 +25,8 @@ export class ResidenciasService {
     return this.http.post<Residencia>(this.apiUrl, paciente).pipe(take(1));
   }
 
-  alterar(residencia: Residencia, codigo: number) {
-    return this.http.put<Residencia>(`${this.apiUrl}/${codigo}`, residencia);
+  alterar(residencia: Residencia) {
+    return this.http.put<Residencia>(`${this.apiUrl}/${residencia.idResidencia}`, residencia);
   }
 
   remover(residencia: Residencia) {
@@ -38,7 +37,7 @@ export class ResidenciasService {
     return this.http.get<Residencia>(`${this.apiUrl}/familia/${familia.idFamilia}`).pipe(take(1));
   }
 
-  retornaTotalFamiliares(familia: Familia) {
+  retornarTotalFamiliares(familia: Familia) {
     return this.http.get<number>(`${this.apiUrl}/familia/total/${familia.idFamilia}`).pipe(take(1));
   }
 

@@ -10,10 +10,6 @@
   <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0.5%" fxLayoutAlign="center center" ngClass.xs="espaco-lateral">
 
     <div fxFlex="75%" fxFlex.md="65%" fxFlex.sm="60%" fxFlex.xs="50%">
-
-      <!-- <mat-form-field>
-        <input matInput placeholder="Filtro" [type]="tipoCampo" (focus)="disabledFilter()" #filtroTexto>
-      </mat-form-field> -->
       <mat-form-field >
         <input matInput placeholder="Filtro" [type]="tipoCampo" (focus)="disabledFilter()" #filtroTexto>
       </mat-form-field>
@@ -26,49 +22,31 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-
     </div>
 
     <div fxFlex="20%" fxFlex.md="25%" fxFlex.sm="35%">
       <mat-card>
-        <!-- <button mat-icon-button (click)="applyFilter(filtroTexto.value, filtroTipo.value.valor)" [disabled]="(filtroTexto.value == '' || filtroTipo.value == null)">
-          <mat-icon class="material-icons">search</mat-icon>
-        </button> -->
         <button mat-icon-button (click)="applyFilter(filtroTexto.value, filtroTipo.value.valor)" [disabled]="(filtroTexto.value == '' || filtroTipo.value == null)">
           <mat-icon class="material-icons">search</mat-icon>
         </button>
+
         <button mat-icon-button (click)="abrirJanelaAlterar('alterar')" [disabled]="selection.selected.length != 1">
           <mat-icon class="material-icons">edit</mat-icon>
         </button>
 
-        <!-- <button mat-icon-button (click)="abrirJanelaAlterar()" [disabled]="selection.selected.length > 0 >
-          <mat-icon class="material-icons">edit</mat-icon>
-        </button> -->
-        <!-- <button mat-icon-button (click)="onDelete()" [disabled]="selection.selected.length == 0">
-          <mat-icon class="material-icons">delete</mat-icon>
-        </button> -->
         <button mat-icon-button (click)="removerFamilias()" [disabled]="selection.selected.length != 1">
           <mat-icon class="material-icons">delete</mat-icon>
         </button>
-        <!-- <button mat-icon-button (click)="onInfoPaciente()" [disabled]="selection.selected.length != 1">
-          <mat-icon class="material-icons">perm_media</mat-icon>
-        </button> -->
+
         <button mat-icon-button (click)="abrirJanelaDados()" [disabled]="selection.selected.length != 1">
           <mat-icon class="material-icons">perm_media</mat-icon>
         </button>
-        <!-- <button mat-icon-button (click)="abrirJanelaDados()" [disabled]="selection.selected.length != 0">
-          <mat-icon>
-          class="material-icons">perm_media</mat-icon>
-        </button> -->
-        <!-- <button mat-icon-button (click)="onVerificarAcao('add')" [disabled]="selection.selected.length > 0">
-          <mat-icon class="material-icons">add</mat-icon>
-        </button> -->
+
         <button mat-icon-button (click)="abrirJanelaCadastro()" [disabled]="selection.selected.length > 0">
           <mat-icon class="material-icons">add</mat-icon>
         </button>
       </mat-card>
     </div>
-
   </div>
 
   <div class="mat-elevation-z8" class="espaco-lateral">

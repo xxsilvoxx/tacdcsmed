@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Observable, EMPTY } from 'rxjs';
+import { tap, switchMap } from 'rxjs/operators';
 
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
@@ -73,6 +73,7 @@ export class ResidenciasFormComponent implements OnInit {
       this.tituloModal = 'Alterar Residencia';
       this.txtBotao = 'ALTERAR';
       this.formResidencia.setValue({
+        idResidencia: residencia.idResidencia,
         familia: residencia.familia,
         microArea: residencia.microArea,
         cep: residencia.cep,
@@ -92,7 +93,10 @@ export class ResidenciasFormComponent implements OnInit {
   onConfirm() {
     if (this.residencia) {
       // Altera os dados da residencia
-      this.residenciasService.alterar(this.formResidencia.value, this.residencia.idResidencia).subscribe(
+      this.residenciasService.alterar(this.formResidencia.value).subscribe(
+
+        // Inserir código que permita fazer um troca
+        // troca de residências entre famílias envolvidas
         residencia => {
           this.msg.exibirMensagem('Residencia alterada com sucesso', 'done');
           this.modalRef.close(residencia);
@@ -121,6 +125,7 @@ export class ResidenciasFormComponent implements OnInit {
 
   criarFormularios() {
     this.formResidencia = this.builder.group({
+      idResidencia: [null],
       familia: ['', Validators.required],
       microArea: ['', Validators.required],
       cep: ['', [Validators.required, Validators.minLength(9), Validators.maxLength(9)]],
@@ -132,8 +137,24 @@ export class ResidenciasFormComponent implements OnInit {
     });
   }
 
+  ordenarNumeroMicroareas(a: any, b: any) {
+    a = a.numero;
+    b = b.numero;
+    return a - b;
+  }
+
+  ordenarPorNome(a: any, b: any) {
+    a = a.bairro.nome;
+    b = b.bairro.nome;
+    return a > b ? -1 : 1;
+  }
+
   listarFamilias() {
     this.familiasService.listarTodas().pipe(
+      switchMap(familias => this.residencia === null
+        ? this.familiasService.listarFamiliasSemResidencia()
+        : this.familiasService.listarTodas()
+      ),
       tap(v => {
         if (this.residencia) {
           v.forEach(
@@ -175,6 +196,7 @@ export class ResidenciasFormComponent implements OnInit {
           this.msg.exibirMensagem('A lista de Microáreas está vazia', 'info');
         }
         this.microAreas = res;
+        this.microAreas.sort(this.ordenarNumeroMicroareas).sort(this.ordenarPorNome);
       },
       err => this.msg.exibirMensagem('Erro ao carregar as Microáreas', 'error')
     );

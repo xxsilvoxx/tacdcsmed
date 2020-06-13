@@ -45,6 +45,11 @@ public class FamiliaResource {
         return familiaService.atualizar(familia, codigo);
     }
 
+    @GetMapping("/residencia/pendentes")
+    public List<Familia> retornarFamiliasSemResidencia() {
+        return familiaService.retornarFamiliasSemResidencia();
+    }
+
     @DeleteMapping("/{codigo}")
     public ResponseEntity<Familia> remover(@PathVariable("codigo") Long codigo) {
         return familiaService.remover(codigo);

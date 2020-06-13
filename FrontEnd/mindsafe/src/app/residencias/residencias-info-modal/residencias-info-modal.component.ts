@@ -2,9 +2,10 @@ import { Component, OnInit, Inject } from '@angular/core';
 
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-import { MensagemService } from './../../shared/mensagem/mensagem.service';
 import { ResidenciasService } from './../../services/residencias/residencias.service';
-import { Familia } from '../../models/familia.model';
+import { Residencia } from '../../models/residencia.model';
+import { Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-residencias-info-modal',
@@ -13,8 +14,10 @@ import { Familia } from '../../models/familia.model';
 })
 export class ResidenciasInfoModalComponent implements OnInit {
 
-  familia = new Familia();
-  residencia = [];
+  residencia = new Residencia();
+  totMembros$: Observable<number>;
+
+  endereco = [];
 
   constructor(
     private modalRef: MatDialogRef<ResidenciasInfoModalComponent>,
@@ -23,40 +26,43 @@ export class ResidenciasInfoModalComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.familia = this.data.residencia.familia;
+    this.residencia = this.data.residencia;
     this.retornaResidencias();
+    this.retornarTotalFamiliares();
   }
 
   // retorna informações da residencia
   retornaResidencias() {
     if (this.data.residencia.logradouro) {
-      this.residencia.push(`${this.data.residencia.logradouro}`);
+      this.endereco.push(`${this.data.residencia.logradouro}`);
     }
     if (this.data.residencia.numero) {
-      this.residencia.push(`Número: ${this.data.residencia.numero}`);
+      this.endereco.push(`Número: ${this.data.residencia.numero}`);
+    } else {
+      this.endereco.push('SN');
     }
     if (this.data.residencia.microArea.bairro.nome) {
-      this.residencia.push(`${this.data.residencia.microArea.bairro.nome}`);
+      this.endereco.push(`${this.data.residencia.microArea.bairro.nome}`);
     }
     if (this.data.residencia.microArea.bairro.cidade.nome) {
-      this.residencia.push(`${this.data.residencia.microArea.bairro.cidade.nome}`);
+      this.endereco.push(`${this.data.residencia.microArea.bairro.cidade.nome}`);
     }
     if (this.data.residencia.microArea.bairro.cidade.estado.nome) {
-      this.residencia.push(`${this.data.residencia.microArea.bairro.cidade.estado.nome}`);
+      this.endereco.push(`${this.data.residencia.microArea.bairro.cidade.estado.nome}`);
     }
     if (this.data.residencia.cep) {
-      this.residencia.push(`CEP: ${this.data.residencia.cep}`);
+      this.endereco.push(`CEP: ${this.data.residencia.cep}`);
     }
     if (this.data.residencia.localReferencia) {
-      this.residencia.push(`${this.data.residencia.localReferencia}`);
+      this.endereco.push(`${this.data.residencia.localReferencia}`);
     }
     if (this.data.residencia.complemento) {
-      this.residencia.push(`${this.data.residencia.complemento}`);
+      this.endereco.push(`${this.data.residencia.complemento}`);
     }
   }
 
   retornarTotalFamiliares() {
-    return this.residenciasService.retornaTotalFamiliares(this.familia);
+    this.totMembros$ = this.residenciasService .retornarTotalFamiliares(this.residencia.familia);
   }
 
   onClose() {

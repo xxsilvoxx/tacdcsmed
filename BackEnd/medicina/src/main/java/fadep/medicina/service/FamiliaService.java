@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Service
 public class FamiliaService {
@@ -38,6 +41,20 @@ public class FamiliaService {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    public List<Familia> retornarFamiliasSemResidencia() {
+        List<Familia> familiasSemResidencia = new ArrayList<Familia>();
+        List<Familia> familias = familiaRepository.findAll();
+        List<Familia> familiasComResidencia = familiaRepository.retornarFamiliasComResidencia();
+        for (Familia familia: familias) {
+            if (!(familiasComResidencia.contains(familia))) {
+                if (!(familiasSemResidencia.contains(familia))) {
+                    familiasSemResidencia.add(familia);
+                }
+            }
+        }
+        return  familiasSemResidencia;
     }
 
     public Familia buscarPorCodigo(Long codigo) {

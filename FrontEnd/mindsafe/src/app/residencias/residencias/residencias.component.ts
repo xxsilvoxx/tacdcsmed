@@ -35,7 +35,7 @@ export class ResidenciasComponent implements OnInit, OnDestroy {
   residencias: Residencia[] = [];
 
   // Colunas que serão renderizadas na data table do angular material
-  displayedColumns = ['idResidencia', 'familia', 'logradouro', 'bairro', 'select'];
+  displayedColumns = ['idResidencia', 'familia', 'logradouro', 'bairro', 'numero', 'select'];
 
   // Filtro específico pra cada classe que ele estará sendo trabalhado
   filtroPesquisa: FiltroResidencia[] = [
@@ -150,7 +150,7 @@ export class ResidenciasComponent implements OnInit, OnDestroy {
       filter(() => this.media.isActive('lg'))
     ).subscribe(
       res => {
-        const columns = ['idResidencia', 'familia', 'logradouro', 'bairro', 'select'];
+        const columns = ['idResidencia', 'familia', 'logradouro', 'bairro', 'numero', 'select'];
         this.displayedColumns = columns;
       }
     );
@@ -179,6 +179,10 @@ export class ResidenciasComponent implements OnInit, OnDestroy {
         residencia: this.selection.selected[0]
       }
     });
+
+    dialogRef.afterClosed().subscribe(
+      res => this.selection.clear()
+    );
   }
 
   onVerificarAcao(acao: string) {
@@ -199,6 +203,13 @@ export class ResidenciasComponent implements OnInit, OnDestroy {
           residencia
         }
       });
+
+      dialogRef.afterClosed().subscribe(
+        res => {
+          this.selection.clear();
+          this.listarTodos();
+        }
+      );
     }
   }
 
@@ -212,7 +223,10 @@ export class ResidenciasComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe(
-      res => this.selection.clear()
+      res => {
+        this.selection.clear();
+        this.listarTodos();
+      }
     );
   }
 
@@ -250,7 +264,6 @@ export class ResidenciasComponent implements OnInit, OnDestroy {
           success => {
             this.msg.exibirMensagem('Removido Com Sucesso', 'done');
             this.listarTodos();
-            this.selection.clear();
           },
           err => {
             this.msg.exibirMensagem('Erro ao remover', 'error');
@@ -258,6 +271,7 @@ export class ResidenciasComponent implements OnInit, OnDestroy {
         );
       }
     );
+    this.selection.clear();
   }
 
   /**

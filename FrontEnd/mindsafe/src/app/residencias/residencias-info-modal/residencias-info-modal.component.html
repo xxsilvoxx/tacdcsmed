@@ -17,38 +17,31 @@
     </div>
   </div>
 
-  <div fxLayout="row" fxLayoutGap="15px">
-    <div fxLayout="column" fxFlex style="border: 1px solid black;">
-      <p>
+  <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="15px">
+    <div fxLayout="column" fxFlex>
+      <div fxFlex>
         <mat-icon>group</mat-icon>
-        <span>{{ familia.nome }}</span>
-      </p>
+        <span [ngStyle]="{ 'font-size': '16pt', 'font-weight': '500' }">
+          {{ residencia.familia.nome }}
+        </span>
+      </div>
+
+      <div fxFlex>
+        <mat-icon>face</mat-icon>
+        <span>{{ totMembros$ | async }} integrantes</span>
+      </div>
+
+      <div fxFlex>
+        <mat-icon>palette</mat-icon>
+        <span>{{ residencia.cor }}</span>
+      </div>
     </div>
 
-    <div fxLayout="column" fxFlex style="border: 1px solid red;">
-
+    <div fxLayout="column" fxFlex>
+      <div fxFlex>
+        <mat-icon>room</mat-icon>
+        <span>{{ endereco.join(' - ') }}</span>
+      </div>
     </div>
   </div>
-
-  <!-- <div class="info-familia">
-    <h2>
-      <mat-icon id="maticon" style="color:black;">group</mat-icon>
-      {{ data.residencia.familia.nome }}
-    </h2>
-    <h3>
-      <p>
-        <mat-icon id="maticon" style="color:black;">face</mat-icon>{{ retornarTotalFamiliares() | async }}
-      </p>
-    </h3>
-    <h3>
-      <p>
-        <mat-icon id="maticon" style="color:black;">color_lens</mat-icon>{{ data.residencia.cor }}
-      </p>
-    </h3>
-  </div>
-  <div class="info-residencia">
-    <p>
-      <mat-icon id="maticon" style="color: black;">room</mat-icon> {{ residencia.join(' - ') }}
-    </p>
-  </div> -->
 </mat-dialog-content>

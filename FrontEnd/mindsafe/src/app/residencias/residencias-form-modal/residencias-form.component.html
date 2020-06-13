@@ -16,8 +16,8 @@
       <mat-form-field fxFlex>
         <mat-select placeholder="Microárea" formControlName="microArea">
           <mat-option *ngFor="let microArea of microAreas" [value]="microArea">
-            <span [ngStyle]="{ 'float': 'left' }">{{ microArea.idMicroArea }}</span>
-            <span [ngStyle]="{ 'float': 'right' }">{{ microArea.bairro.nome }}</span>
+            <span [ngStyle]="{ 'float': 'left' }">Microárea {{ microArea.numero }}</span>
+            <span [ngStyle]="{ 'float': 'right' }"> {{ microArea.bairro.nome }}</span>
           </mat-option>
         </mat-select>
         <mat-error>

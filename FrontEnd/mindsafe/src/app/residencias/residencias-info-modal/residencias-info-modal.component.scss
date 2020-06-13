@@ -1,14 +1,10 @@
-.cabecalho {
-  position: relative;
-  margin: auto;
-}
-
 .imagem-residencia {
   padding-top: 1px;
-  height: 300px;
+  height: 260px;
   width: 100%;
   background-image: url('../../../assets/imagens/residencias-info.jpg');
   background-size: cover;
+  background-position: center;
   background-position-y: 100%;
   margin-bottom: 20px;
 }
@@ -35,43 +31,16 @@
   color: #969696;
 }
 
-.info-familia {
-  float: left;
-  width: 50%;
-  position: relative;
+span {
+  font-size: 14pt;
+  font-weight: 400;
+  margin-bottom: 5px;
+  transition: 1s all;
 }
 
-.info-familia h2, h3 {
-  position: relative;
-  margin-top: 5%;
-  margin-left: 7%;
-  margin-bottom: -6%;
-}
-
-.info-residencia {
-  margin-top: 1.0%;
-  width: 50%;
-  float: right;
-
-}
-
-#maticon {
-  margin-right: 6%;
+mat-icon {
+  margin: 0px 10px 10px 0px;
   padding: 0.5%;
   vertical-align: -20%;
   font-size: 2em;
 }
-
-.button-xs {
-  margin-right: -20px;
-  margin-top: -65px;
-}
-
-.box-padrao {
-  box-shadow: 1px 1px 6px #00000091;
-  margin: 5px 0 5px 0;
-  height: 145px;
-  border-radius: 5px;
-  overflow-y: auto;
-}
-

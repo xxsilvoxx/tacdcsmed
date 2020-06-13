@@ -30,4 +30,9 @@ export class FamiliasService {
   remover(familia: Familia) {
     return this.http.delete<Familia>(`${this.apiUrl}/${familia.idFamilia}`).pipe(take(1));
   }
+
+  listarFamiliasSemResidencia() {
+    // http://localhost:8083/familias/residencia/pendentes
+    return this.http.get<Familia[]>(`${this.apiUrl}/residencia/pendentes`).pipe(take(1));
+  }
 }
