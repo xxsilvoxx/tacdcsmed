@@ -5,7 +5,7 @@
   <form [formGroup]="formResidencia">
     <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px">
       <mat-form-field fxFlex>
-        <mat-select placeholder="Família" formControlName="familia">
+        <mat-select placeholder="Família" formControlName="familia" [disabled]="residencia?.familia !== null">
           <mat-option *ngFor="let familia of familias" [value]="familia">{{ familia.nome }}</mat-option>
         </mat-select>
         <mat-error>
@@ -28,7 +28,7 @@
 
     <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px">
       <mat-form-field fxFlex>
-        <input matInput placeholder="CEP" formControlName="cep" #cep [textMask]="{ mask: maskCep, guide: false }">
+        <input matInput placeholder="CEP" formControlName="cep" [textMask]="{ mask: maskCep, guide: false }" (blur)="consultarViaCep(formResidencia.get('cep').value)" #cep>
         <mat-hint align="end">{{ cep.value?.length }} / 9</mat-hint>
         <mat-error>
           {{ retornarValidacoes('cep', formResidencia.get('cep')) }}

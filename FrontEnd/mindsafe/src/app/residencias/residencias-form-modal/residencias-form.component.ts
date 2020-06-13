@@ -15,6 +15,8 @@ import { MicroArea } from 'src/app/models/microArea.model';
 import { MicroAreasService } from 'src/app/services/microAreas/microArea.service';
 import { mascaras } from '../../shared/form-masks/form-masks';
 import { validarNumeroMinimo } from '../../shared/mensagem-validation/form-validations';
+import { ViacepService } from '../../shared/viacep/viacep.service';
+import { Endereco } from '../../shared/viacep/endereco.model';
 
 @Component({
   selector: 'app-residencias-form',
@@ -53,6 +55,7 @@ export class ResidenciasFormComponent implements OnInit {
     private familiasService: FamiliasService,
     private microAreasService: MicroAreasService,
     private msgValidation: MensagemValidationService,
+    private viacep: ViacepService,
     private msg: MensagemService
   ) { }
 
@@ -94,9 +97,6 @@ export class ResidenciasFormComponent implements OnInit {
     if (this.residencia) {
       // Altera os dados da residencia
       this.residenciasService.alterar(this.formResidencia.value).subscribe(
-
-        // Inserir código que permita fazer um troca
-        // troca de residências entre famílias envolvidas
         residencia => {
           this.msg.exibirMensagem('Residencia alterada com sucesso', 'done');
           this.modalRef.close(residencia);
@@ -113,6 +113,38 @@ export class ResidenciasFormComponent implements OnInit {
         err => this.msg.exibirMensagem('Erro ao cadastrar a residencia', 'error')
       );
     }
+  }
+
+  /**
+   * Método que consulta a API do viacep, retornando
+   * os valores de endereço para o cadastro/alteração
+   * de residências, dando agilidade no serviço das
+   * ACS
+   */
+  consultarViaCep(cep: string) {
+    this.viacep.buscarPorCep(cep).pipe(
+      tap(endereco => this.preencherDadosDeEndereco(endereco))
+    ).subscribe(
+      success => success,
+      err => this.msg.exibirMensagem('Erro ao buscar dados pelo cep', 'error')
+    );
+  }
+
+  /**
+   * Método responsável por fazer o patch dos
+   * campos de endereço no formulário de residência
+   * com os valores vindos pelo viacep
+   */
+  preencherDadosDeEndereco(endereco: Endereco) {
+    this.formResidencia.patchValue({
+      microArea: endereco.bairro !== ''
+        ? this.microAreas.filter(microArea =>
+        microArea.bairro.nome.toLowerCase() === endereco.bairro.toLowerCase()
+      )[0]
+        : '',
+      logradouro: endereco.logradouro,
+      complemento: endereco.complemento
+    });
   }
 
   onDecline() {
