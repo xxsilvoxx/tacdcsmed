@@ -186,10 +186,10 @@ export class ResidenciasComponent implements OnInit, OnDestroy {
   }
 
   onVerificarAcao(acao: string) {
-    if (acao.toUpperCase() === 'ADD' || acao.toUpperCase() === 'ALTERAR') {
-      this.onFormResidencia(acao.toLowerCase());
-    } else if (acao.toUpperCase() === 'UPDATE' && this.selection.selected.length > 1) {
+    if (acao.toUpperCase() === 'ALTERAR' && this.selection.selected.length > 1) {
       this.onAlterarResidencias();
+    } else if (acao.toUpperCase() === 'ADD' || acao.toUpperCase() === 'ALTERAR') {
+      this.onFormResidencia(acao.toLowerCase());
     }
   }
 

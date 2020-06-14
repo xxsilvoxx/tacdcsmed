@@ -3,9 +3,9 @@ mat-card-content {
 }
 
 mat-card-content h2 {
-    font-size: 20pt;
-    font-weight: 600;
-    color: #b1b1b1;
+  font-size: 20pt;
+  font-weight: 600;
+  color: #b1b1b1;
 }
 
 .bg-visitas {
@@ -115,6 +115,7 @@ h2 {
 
 #float-button {
   position: fixed;
+  z-index: 1000;
   right: 15px;
   bottom: 15px;
   box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.4);
