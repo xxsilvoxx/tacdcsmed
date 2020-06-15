@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { Observable, EMPTY } from 'rxjs';
+import { map, tap, switchMap } from 'rxjs/operators';
 
 import { MatDialog } from '@angular/material/dialog';
 
@@ -10,9 +10,9 @@ import { MicroArea } from '../../models/microArea.model';
 import { Funcionario } from '../../models/funcionario.model';
 import { PacientesService } from '../../services/pacientes/pacientes.service';
 import { ResidenciasService } from '../../services/residencias/residencias.service';
-import { Visita } from '../../models/visita.model';
 import { VisitaService } from '../../services/visitas/visita.service';
 import { FuncionariosService } from '../../services/funcionarios/funcionarios.service';
+import { MensagemService } from '../../shared/mensagem/mensagem.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -31,7 +31,6 @@ export class DashboardComponent implements OnInit {
   visitasPendentes: number;
   visitasAtrasadas: number;
 
-
   pacienteInfo: any[] = [];
 
   constructor(
@@ -39,6 +38,7 @@ export class DashboardComponent implements OnInit {
     private residenciasService: ResidenciasService,
     private visitasService: VisitaService,
     private funcionarioService: FuncionariosService,
+    private msg: MensagemService,
     private dialog: MatDialog
   ) {}
 
@@ -55,6 +55,21 @@ export class DashboardComponent implements OnInit {
    */
   exibirVisitasPendentes() {
     this.visitasService.listarVisitas().pipe(
+      tap(visitas => visitas.forEach(
+        visita => {
+          const hoje = new Date();
+          const dataVisita = new Date(visita.dataVisita);
+
+          if (dataVisita < hoje && visita.status !== 'CONCLUIDA') {
+            visita.status = 'ATRASADA';
+          }
+          this.visitasService.atualizarVisita(visita).subscribe(
+            success => success,
+            err => this.msg.exibirMensagem('Erro ao atualizar status das visitas', 'error')
+          );
+        }
+      )),
+      switchMap(visitas => visitas ? this.visitasService.listarVisitas() : EMPTY),
       tap(visitas => {
         this.visitasPendentes = visitas.filter(res => res.status === 'PENDENTE').length;
         this.visitasAtrasadas = visitas.filter(res => res.status === 'ATRASADA').length;
@@ -85,7 +100,7 @@ export class DashboardComponent implements OnInit {
           ? 'Nenhum paciente novo na microárea'
           : (total === 1
               ? 'Existe 1 paciente que ainda não foi visitado nenhuma vez'
-              : `${total} à serem visitados pela primeira vez`
+              : `${total} pacientes à serem visitados pela primeira vez`
             )
         )
       );
