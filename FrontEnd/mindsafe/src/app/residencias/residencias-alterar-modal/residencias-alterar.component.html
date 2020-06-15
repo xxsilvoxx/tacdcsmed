@@ -1,7 +1,50 @@
 <h1 matDialogTitle>Alterar Residências</h1>
 
-<mat-dialog-content>
-  Dialog content
+<mat-dialog-content fxLayout="column" fxLayoutGap="15px">
+  <mat-card fxFlex>
+    <mat-card-header>
+      <mat-card-title>
+        Residências que serão modificadas <mat-icon>house</mat-icon>
+      </mat-card-title>
+      <mat-card-subtitle>
+        !!Cuidado, todos os registros receberão os mesmos valores alterados
+      </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <mat-list [ngStyle.xs]="{ 'max-height': '150px' }" >
+        <mat-list-item *ngFor="let residencia of residencias">
+          <span matLine>
+            <strong>Propriedade</strong> {{ residencia.idResidencia }}
+          </span>
+
+          <span matLine>
+            <strong>Residente</strong> Família {{ residencia.familia.nome }}
+          </span>
+
+          <span matLine>
+            <strong>Microárea</strong> {{ residencia.microArea.numero }} - {{ residencia.microArea.bairro.nome }}
+          </span>
+
+          <span matLine>
+            <strong>Endereco</strong> {{ retornarEndereco(residencia) }}
+          </span>
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-form-field>
+    <mat-select placeholder="Microárea" [formControl]="microaAreaControl" fxFlex>
+      <mat-option *ngFor="let microarea of microareas$ | async" [value]="microarea">
+        <span [ngStyle]="{ 'float': 'left' }">Microárea {{ microarea.numero }}</span>
+        <span [ngStyle]="{ 'float': 'right' }"> {{ microarea.bairro.nome }} </span>
+      </mat-option>
+    </mat-select>
+    <mat-error>
+      {{ retornarValidacoes() }}
+    </mat-error>
+  </mat-form-field>
 </mat-dialog-content>
 
 <mat-dialog-actions fxLayout="row" fxLayout.xs="column" fxLayoutGap="15px">
@@ -9,7 +52,7 @@
     CANCELAR <mat-icon>cancel</mat-icon>
   </button><br>
 
-  <button mat-raised-button color="primary" fxFlex>
+  <button mat-raised-button color="primary" (click)="alterarRegistros()" [disabled]="microaAreaControl.invalid" fxFlex>
     ALTERAR <mat-icon>edit</mat-icon>
   </button>
 </mat-dialog-actions>

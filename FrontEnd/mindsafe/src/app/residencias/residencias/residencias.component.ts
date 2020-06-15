@@ -218,7 +218,7 @@ export class ResidenciasComponent implements OnInit, OnDestroy {
       height: '550px',
       width: '900px',
       data: {
-        residencia: this.selection.selected
+        residencias: this.selection.selected
       }
     });
 

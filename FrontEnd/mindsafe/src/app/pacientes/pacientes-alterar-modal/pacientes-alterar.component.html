@@ -1,4 +1,5 @@
 <h1 mat-dialog-title>Alterar Pacientes</h1>
+
 <div mat-dialog-content>
   <mat-card>
     <mat-card-header>
@@ -6,6 +7,7 @@
         Pacientes que serão modificados
         <mat-icon class="material-icons" style="margin: 10px 10px;">group</mat-icon>
       </mat-card-title>
+
       <mat-card-subtitle>
         !!Cuidado, todos os registros receberão os mesmos valores alterados
       </mat-card-subtitle>
@@ -18,14 +20,17 @@
             <strong>Paciente</strong>
             {{ paciente.nome }}
           </span>
+
           <span matLine>
             <strong>Sexo</strong>
             {{ paciente.sexo === 'M' ? 'Masculino' : 'Feminino' }}
           </span>
+
           <span matLine>
             <strong>{{ paciente.cpfCnpj.length === 14 ? 'CPF' : 'CNPJ' }}</strong>
             {{ paciente.cpfCnpj }}
           </span>
+
           <span matLine>
             <strong>Nacionalidade</strong>
             {{ paciente.nacionalidade }}
