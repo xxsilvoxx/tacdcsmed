@@ -1,11 +1,20 @@
+* {
+  transition: 1s all;
+}
+
+mat-dialog-content {
+  max-height: 450px;
+  overflow-y: auto;
+}
+
 .dados-imagem-fundo {
-  background-image: url('../../../assets/imagens/dados-familia.jpg');
+  background-image: url("../../../assets/imagens/dados-familia.jpg");
   padding-top: 1px;
-    height: 240px;
-    width: 100%;
-    background-size: cover;
-    background-position: center;
-    margin-bottom: 20px;
+  height: 240px;
+  width: 100%;
+  background-size: cover;
+  background-position-y: 10%;
+  margin-bottom: 10px;
 }
 
 .overlay {
@@ -13,8 +22,8 @@
   background: rgb(0, 0, 0);
   background: #0000007e;
   color: #f1f1f1;
-  transition: .5s ease;
-  opacity:0;
+  transition: 0.5s ease;
+  opacity: 0;
   color: white;
   font-size: 20px;
   padding: 20px;
@@ -30,86 +39,56 @@
   opacity: 1;
 }
 
-.titulo {
-  position: relative;
-  margin-top: 148px;
-  font-size: 30pt;
-  margin-left: 30px;
-  font-weight: bold;
-  color: black;
-  text-shadow: 1px 1px 10px #000000;
-}
-
-.over-xs {
-  font-size: 15px;
-}
-
-.dados-xs {
-  height: 200px;
-}
-
-.nome-familia{
-  position: relative;
-  float: left;
-  font-weight: 600;
-  margin-right: 150px;
-  font-size: x-large;
-}
-
-.responsavel-familia{
-  position: relative;
-  float: right;
+.info-principal {
   font-weight: 600;
   word-wrap: break-word;
-  width: 200px;
-  font-size: x-large;
+  font-size: 18pt;
 }
 
-.conteudo{
+.info-principal mat-icon {
+  float: left;
+}
+
+.info-principal span {
+  display: inline;
+}
+
+.conteudo {
   width: auto;
   display: inline-block;
 }
 
-.lista-dados{
+.lista-dados {
   width: 100%;
-  margin: 5px;
+  height: auto;
 }
 
-mat-list{
+mat-list {
   width: 100%;
-  position: relative;
-  max-height: 105px;
+  max-height: 160px;
   overflow-y: auto;
+  margin-bottom: 20px;
 }
 
-.nome-familia mat-icon{
+mat-icon {
   font-size: Xx-large;
-  padding-right: 10px;
+  margin-right: 15px;
 }
 
-.responsavel-familia mat-icon{
-  font-size: Xx-large;
-  padding-right: 10px;
-}
-
-.icone-inicio{
-  position: relative;
-  float: left;
+.icone-inicio {
   display: inline-block;
   margin-right: 10px;
 }
 
-.paciente-detalhe{
-  position: relative;
+.paciente-detalhe {
   float: right;
-
 }
 
-.paciente-nome{
+.paciente-nome {
   font-size: large;
   font-weight: 500;
 }
 
-.paciente-descricao{
+.paciente-descricao {
   font-size: Xx-small;
 }

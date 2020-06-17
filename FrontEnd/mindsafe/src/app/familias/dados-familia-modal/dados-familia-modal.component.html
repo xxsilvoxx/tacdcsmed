@@ -6,62 +6,59 @@
   </button>
 </div>
 
-<mat-dialog-content>
-  <div class="dados-imagem-fundo" ngClass.xs="dados-xs">
-    <div class="overlay" ngClass.xs="over-xs">
+<mat-dialog-content [ngStyle.xs]="{ 'height': '400px' }">
+  <div class="dados-imagem-fundo" [ngStyle.xs]="{ 'height': '180px' }">
+    <div class="overlay" [ngStyle.xs]="{ 'font-size': '12pt' }">
       Photo by
-      <a
-        href="https://unsplash.com/@annaelise?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
-        target="blank"
-        >Anna Pritchard</a
-      >
+      <a href="https://unsplash.com/@annaelise?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="blank">
+        Anna Pritchard
+      </a>
       on
-      <a
-        href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
-        target="blank"
-        >Unsplash</a
-      >
+      <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="blank">
+        Unsplash
+      </a>
     </div>
   </div>
 
-  <div class="conteudo">
-    <span class="nome-familia">
-      <mat-icon medium>group</mat-icon>
-      {{ familia.nome }}
-    </span>
-    <span class="responsavel-familia">
-      <mat-icon>person</mat-icon>
-      {{ responsavel?.nome ? responsavel?.nome : "Sem Responsável" }}
-    </span>
-  </div>
+  <div fxLayout="column" fxLayoutGap="10px">
+    <div class="conteudo" fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" fxFlex>
+      <div class="info-principal" fxFlex>
+        <mat-icon medium>group</mat-icon>
+        <span [ngStyle.xs]="{ 'font-size': '14pt' }">{{ familia.nome }}</span>
+      </div>
 
-  <div class="lista-dados">
-    <mat-list>
-      <mat-list-item *ngFor="let element of listaMembros">
-        <div class="icone-inicio">
-          <mat-icon [ngStyle]="{ color: atribuirRisco(element.somatorio) }">
-            lens
-          </mat-icon>
-        </div>
+      <div class="info-principal" fxFlex>
+        <mat-icon>person</mat-icon>
+        <span [ngStyle.xs]="{ 'font-size': '13pt' }">{{ responsavel?.nome ? responsavel?.nome : "Sem Responsável" }}</span>
+      </div>
+    </div>
 
-        <div class="paciente-detalhe">
-          <span matLine class="paciente-nome">
-            {{ element.nome }}
-          </span>
-          <span matLine class="paciente-descricao">
-            {{
-              element.totMedicamentos
-                ? "consome " + element.totMedicamentos + " medicamentos,"
-                : "Sem medicamentos,"
-            }}
-            {{
-              element.totRiscos
-                ? element.totRiscos + " causas associadas"
-                : "Sem causas associadas"
-            }}
-          </span>
-        </div>
-      </mat-list-item>
-    </mat-list>
+    <div class="lista-dados" fxFlex>
+      <mat-list fxFlex>
+        <mat-list-item *ngFor="let element of listaMembros">
+          <div class="icone-inicio">
+            <mat-icon [ngStyle]="{ color: atribuirRisco(element.somatorio) }">lens</mat-icon>
+          </div>
+
+          <div class="paciente-detalhe">
+            <span matLine class="paciente-nome" [ngStyle.xs]="{ 'font-size': '12pt' }">
+              {{ element.nome }}
+            </span>
+            <span matLine class="paciente-descricao" [ngStyle.xs]="{ 'font-size': '10pt' }">
+              {{
+                element.totMedicamentos
+                  ? "consome " + element.totMedicamentos + " medicamentos,"
+                  : "Sem medicamentos,"
+              }}
+              {{
+                element.totRiscos
+                  ? element.totRiscos + " causas associadas"
+                  : "Sem causas associadas"
+              }}
+            </span>
+          </div>
+        </mat-list-item>
+      </mat-list>
+    </div>
   </div>
 </mat-dialog-content>

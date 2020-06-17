@@ -10,11 +10,6 @@
     </mat-form-field>
 
     <mat-form-field fxFlex>
-      <!-- <mat-select placeholder="Selecionar Bairro" (valueChange)="desabilitarSelecaoUbs(bairro.value)" formControlName="bairro" #bairro (click)="atribuirValidador(formMicroarea.get('bairro'), 'numero')">
-        <mat-option *ngFor="let bairro of bairros$ | async" [value]="bairro">
-          {{ bairro.nome }}
-        </mat-option>
-      </mat-select> -->
       <input matInput placeholder="Bairro" (change)="desabilitarSelecaoUbs(bairro.value)" formControlName="bairro" #bairro (click)="atribuirValidador(formMicroarea.get('bairro'), 'numero')" [matAutocomplete]="listBairros">
       <mat-autocomplete #listBairros="matAutocomplete">
         <mat-option *ngFor="let bairro of bairros$ | async" [value]="bairro.nome">

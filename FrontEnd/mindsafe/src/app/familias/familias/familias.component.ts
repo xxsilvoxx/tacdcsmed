@@ -55,7 +55,7 @@ export class FamiliasComponent implements OnInit, OnDestroy {
     private pacienteService: PacientesService,
     private msg: MensagemService,
     private dialog: MatDialog
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.listarTodos();
@@ -103,7 +103,7 @@ export class FamiliasComponent implements OnInit, OnDestroy {
       }
       return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${
         row.familia.idFamilia + 1
-      }`;
+        }`;
     }
   }
 
@@ -216,8 +216,8 @@ export class FamiliasComponent implements OnInit, OnDestroy {
 
   abrirJanelaDados() {
     const dialogRef = this.dialog.open(DadosFamiliaModalComponent, {
-      width: '600px',
-      height: '560px',
+      width: '700px',
+      height: '550px',
       data: {
         dados: this.selection.selected[0],
       }
