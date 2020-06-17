@@ -16,6 +16,8 @@ import { PacientesService } from './../../services/pacientes/pacientes.service';
 import { FamiliasService } from './../../services/familias/familias.service';
 import { Familia } from 'src/app/models/familia.model';
 import { MensagemService } from 'src/app/shared/mensagem/mensagem.service';
+import { FuncionariosService } from '../../services/funcionarios/funcionarios.service';
+import { Funcionario } from '../../models/funcionario.model';
 
 interface FiltroFamilia {
   nome: string;
@@ -29,8 +31,10 @@ interface FiltroFamilia {
   styleUrls: ['./familias.component.scss'],
 })
 export class FamiliasComponent implements OnInit, OnDestroy {
+
   familias: Familia[];
   familiasComResponsavel: any[] = [];
+  funcionario: Funcionario;
 
   displayedColumns = ['idFamilia', 'nome', 'responsavelFamiliar', 'select'];
 
@@ -53,11 +57,13 @@ export class FamiliasComponent implements OnInit, OnDestroy {
     private media: MediaObserver,
     private service: FamiliasService,
     private pacienteService: PacientesService,
+    private funcionarioService: FuncionariosService,
     private msg: MensagemService,
     private dialog: MatDialog
   ) { }
 
   ngOnInit() {
+    this.funcionario = this.funcionarioService.buscarFuncionarioSalvo();
     this.listarTodos();
     this.alterarDisplayColunasXs();
     this.alterarDisplayColunasSm();
@@ -166,36 +172,30 @@ export class FamiliasComponent implements OnInit, OnDestroy {
 
   listarTodos() {
     this.familiasComResponsavel = [];
-    this.service
-      .listarTodas()
-      .pipe(
-        tap((familias) =>
-          familias.forEach((familia) => {
-            this.pacienteService
-              .retornarResponsavelFamiliar(familia)
-              .pipe(
-                tap((responsavel) => {
-                  const obj = {
-                    familia,
-                    responsavel,
-                  };
-                  this.familiasComResponsavel.push(obj);
-                  this.dataSource.data = this.familiasComResponsavel.sort(this.ordenarPorId);
-                })
-              )
-              .subscribe(
-                (success) => success,
-                (err) => err
-              );
-          })
-        )
+    this.service.listarPorMicroarea(this.funcionario.microArea).pipe(
+      tap((familias) =>
+        familias.forEach((familia) => {
+          this.pacienteService.retornarResponsavelFamiliar(familia).pipe(
+            tap((responsavel) => {
+              const obj = {
+                familia,
+                responsavel,
+              };
+              this.familiasComResponsavel.push(obj);
+              this.dataSource.data = this.familiasComResponsavel.sort(this.ordenarPorId);
+            })
+          ).subscribe(
+            success => success,
+            err => err
+          );
+        })
       )
-      .subscribe(
-        (res) => {
-          this.familias = res;
-        },
-        (err) => err
-      );
+    ).subscribe(
+      res => {
+        this.familias = res;
+      },
+      err => this.msg.exibirMensagem('Erro ao listar as famílias', 'error')
+    );
   }
 
   abrirJanelaCadastro() {

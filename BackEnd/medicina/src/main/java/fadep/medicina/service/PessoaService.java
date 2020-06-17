@@ -72,10 +72,10 @@ public class PessoaService {
         return (registro > 0) ? (false) : (true);
     }
 
-    public List<Pessoa> retornarPacientesNaoVisitadas() {
+    public List<Pessoa> retornarPacientesNaoVisitadas(Long idMicroArea) {
         List<Pessoa> pessoas = new ArrayList<Pessoa>();
-        List<Pessoa> todas = pessoaRepository.findAll();
-        List<Pessoa> pessoasVisitadas = pessoaRepository.retornarPacientesVisitados();
+        List<Pessoa> todas = pessoaRepository.retornarPacientesPorMicroarea(idMicroArea);
+        List<Pessoa> pessoasVisitadas = pessoaRepository.retornarPacientesVisitados(idMicroArea);
         for (Pessoa pessoa: todas) {
             if (!(pessoasVisitadas.contains(pessoa))) {
                 if (!(pessoas.contains(pessoa))) {

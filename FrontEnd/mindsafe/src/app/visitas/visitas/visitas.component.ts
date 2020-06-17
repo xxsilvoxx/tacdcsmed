@@ -8,9 +8,10 @@ import { Visita } from './../../models/visita.model';
 import { FormVisitasComponent } from './../form-visitas/form-visitas.component';
 import { VisitaService } from './../../services/visitas/visita.service';
 import { CausasService } from '../../services/causas/causas.service';
-import { converterPraDate } from '../../shared/date-format/date-format';
 import { Paciente } from '../../models/paciente.model';
 import { EMPTY } from 'rxjs';
+import { Funcionario } from '../../models/funcionario.model';
+import { FuncionariosService } from '../../services/funcionarios/funcionarios.service';
 
 @Component({
   selector: 'app-visitas',
@@ -22,6 +23,9 @@ export class VisitasComponent implements OnInit {
   // Listas referentes as visitas concluídas, pendentes ou atrasadas
   visitas: Visita[];
   visitasConcluidas: any[] = [];
+
+  funcionario: Funcionario;
+
   // A lista de pendentes tem dois subtipos que são
   // pendentes e atrasados
   visitasPendentes = [
@@ -55,12 +59,14 @@ export class VisitasComponent implements OnInit {
 
   constructor(
     private visitaService: VisitaService,
+    private funcionarioService: FuncionariosService,
     private dialog: MatDialog,
     private msg: MensagemService,
     private causasService: CausasService
   ) { }
 
   ngOnInit() {
+    this.funcionario = this.funcionarioService.buscarFuncionarioSalvo();
     this.listarVisitas();
   }
 
@@ -81,7 +87,7 @@ export class VisitasComponent implements OnInit {
     this.visitasPendentes.forEach(v => {
       v.visitas = [];
     });
-    this.visitaService.listarVisitas().pipe(
+    this.visitaService.listarVisitasPorMicroarea(this.funcionario.microArea).pipe(
 
       // Tap utilizado para atualizar a lista, antes mesmo de ela ser renderizada,
       // jogando visitas pendentes que já expiraram para atrasadas.

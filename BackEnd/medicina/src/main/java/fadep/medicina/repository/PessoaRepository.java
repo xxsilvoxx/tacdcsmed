@@ -37,8 +37,10 @@ public interface PessoaRepository extends JpaRepository<Pessoa, Long>{
     /**
      * Retorna pacientes que possuem visitas
      */
-    @Query("SELECT DISTINCT v.pessoa FROM Visita v")
-    public List<Pessoa> retornarPacientesVisitados();
+    @Query("SELECT DISTINCT (v.pessoa) FROM Visita v, Familia f, Residencia r " +
+            "WHERE v.pessoa.familia = f AND r.familia = f " +
+            "AND r.microArea.idMicroArea = ?1")
+    public List<Pessoa> retornarPacientesVisitados(Long idMicroArea);
 
     /**
      * Retorna a lista de pacientes que tem

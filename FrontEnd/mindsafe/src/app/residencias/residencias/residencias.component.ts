@@ -16,6 +16,8 @@ import { ResidenciasFormComponent } from '../residencias-form-modal/residencias-
 import { ResidenciasAlterarComponent } from '../residencias-alterar-modal/residencias-alterar.component';
 import { ResidenciasInfoModalComponent } from '../residencias-info-modal/residencias-info-modal.component';
 import { mascaras } from '../../shared/form-masks/form-masks';
+import { Funcionario } from '../../models/funcionario.model';
+import { FuncionariosService } from '../../services/funcionarios/funcionarios.service';
 
 export interface FiltroResidencia {
   nome: string;
@@ -33,6 +35,7 @@ export class ResidenciasComponent implements OnInit, OnDestroy {
   maskCep = mascaras.maskCep;
 
   residencias: Residencia[] = [];
+  funcionario: Funcionario;
 
   // Colunas que serão renderizadas na data table do angular material
   displayedColumns = ['idResidencia', 'familia', 'logradouro', 'bairro', 'numero', 'select'];
@@ -58,10 +61,12 @@ export class ResidenciasComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private media: MediaObserver,
     private service: ResidenciasService,
+    private funcionarioService: FuncionariosService,
     private msg: MensagemService
   ) { }
 
   ngOnInit() {
+    this.funcionario = this.funcionarioService.buscarFuncionarioSalvo();
     this.listarTodos();
     this.alterarDisplayColunasXs();
     this.alterarDisplayColunasSm();
@@ -159,7 +164,7 @@ export class ResidenciasComponent implements OnInit, OnDestroy {
   }
 
   listarTodos() {
-    this.service.listar().subscribe(
+    this.service.listarPorMicroarea(this.funcionario.microArea).subscribe(
       res => {
         this.residencias = res;
         this.dataSource = new MatTableDataSource<Residencia>(this.residencias);

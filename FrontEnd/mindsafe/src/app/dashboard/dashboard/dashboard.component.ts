@@ -54,7 +54,7 @@ export class DashboardComponent implements OnInit {
    * e o total de visitas com status de ATRASADA.
    */
   exibirVisitasPendentes() {
-    this.visitasService.listarVisitas().pipe(
+    this.visitasService.listarVisitasPorMicroarea(this.funcionario.microArea).pipe(
       tap(visitas => visitas.forEach(
         visita => {
           const hoje = new Date();
@@ -88,9 +88,10 @@ export class DashboardComponent implements OnInit {
    * visitados.
    */
   exibirInformacoesMicroarea() {
-    this.informacoesMicroarea.microArea = this.funcionario.microArea;
+    const microArea = this.funcionario.microArea;
+    this.informacoesMicroarea.microArea = microArea;
     this.informacoesMicroarea.totPacientes = this.pacientesService
-      .retornarPacientesNaoVisitados().pipe(
+      .retornarPacientesNaoVisitados(microArea).pipe(
 
         // Retorna um map em strig para ser exibido
         // na tela para o usuário.

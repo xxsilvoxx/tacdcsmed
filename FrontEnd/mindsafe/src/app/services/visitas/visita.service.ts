@@ -5,6 +5,7 @@ import { take } from 'rxjs/operators';
 import { environment } from './../../../environments/environment';
 import { Visita } from '../../models/visita.model';
 import { Paciente } from '../../models/paciente.model';
+import { MicroArea } from 'src/app/models/microArea.model';
 
 
 @Injectable({
@@ -12,14 +13,16 @@ import { Paciente } from '../../models/paciente.model';
 })
 export class VisitaService {
 
-  readonly apiUrl = `${environment.url}visitas`;
+  private readonly apiUrl = `${environment.url}visitas`;
 
-  constructor(
-    private http: HttpClient
-  ) {}
+  constructor(private http: HttpClient) {}
 
   listarVisitas() {
     return this.http.get<Visita[]>(this.apiUrl).pipe(take(1));
+  }
+
+  listarVisitasPorMicroarea(microArea: MicroArea) {
+    return this.http.get<Visita[]>(`${this.apiUrl}/microarea/${microArea.idMicroArea}`).pipe(take(1));
   }
 
   cadastrarVisita(visita: Visita) {

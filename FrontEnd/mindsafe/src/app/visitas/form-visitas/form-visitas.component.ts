@@ -14,6 +14,7 @@ import { MensagemValidationService } from '../../shared/mensagem-validation/mens
 import { VisitaService } from '../../services/visitas/visita.service';
 import { MensagemService } from '../../shared/mensagem/mensagem.service';
 import { dateToTimestamp, converterPraDate, converterPraHora } from '../../shared/date-format/date-format';
+import { Funcionario } from '../../models/funcionario.model';
 
 @Component({
   selector: 'app-form-visitas',
@@ -21,6 +22,8 @@ import { dateToTimestamp, converterPraDate, converterPraHora } from '../../share
   styleUrls: ['./form-visitas.component.scss']
 })
 export class FormVisitasComponent implements OnInit {
+
+  funcionario: Funcionario;
 
   // Armazena a referência do ícone que será utilizado:
   // Se for pra cadastrar -> Send
@@ -69,6 +72,7 @@ export class FormVisitasComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.funcionario = this.funcionariosService.buscarFuncionarioSalvo();
     this.criarFormulario();
     // Verifica se o atributo data tem um valor setado por padrão.
     if (this.data) {
@@ -191,7 +195,7 @@ export class FormVisitasComponent implements OnInit {
       switchMap(
         visitas => visitas.length === 0
         ? this.pacientesService.listar()
-        : this.pacientesService.retornarPacientesNaoVisitados()
+        : this.pacientesService.retornarPacientesNaoVisitados(this.funcionario.microArea)
       )
     ).subscribe(
       res => {

@@ -14,6 +14,8 @@ import { PacienteInfoModalComponent } from '../../shared/paciente-info-modal/pac
 import { MensagemService } from '../../shared/mensagem/mensagem.service';
 import { PacientesFormComponent } from '../pacientes-form-modal/pacientes-form.component';
 import { PacientesAlterarComponent } from '../pacientes-alterar-modal/pacientes-alterar.component';
+import { Funcionario } from '../../models/funcionario.model';
+import { FuncionariosService } from '../../services/funcionarios/funcionarios.service';
 
 export interface FiltroPaciente {
   nome: string;
@@ -31,6 +33,7 @@ export interface FiltroPaciente {
 export class PacientesComponent implements OnInit, OnDestroy {
 
   pacientes: Paciente[] = [];
+  funcionario: Funcionario;
 
   // Colunas que serão renderizadas na data table do angular material
   displayedColumns = ['idPessoa', 'nome', 'familia', 'cpfCnpj', 'responsavelFamiliar', 'dataNascimento', 'sexo', 'select'];
@@ -61,10 +64,12 @@ export class PacientesComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private media: MediaObserver,
     private service: PacientesService,
+    private funcionarioService: FuncionariosService,
     private msg: MensagemService
   ) { }
 
   ngOnInit() {
+    this.funcionario = this.funcionarioService.buscarFuncionarioSalvo();
     this.listarTodos();
     this.alterarDisplayColunasXs();
     this.alterarDisplayColunasSm();
@@ -163,7 +168,7 @@ export class PacientesComponent implements OnInit, OnDestroy {
   }
 
   listarTodos() {
-    this.service.listar().subscribe(
+    this.service.listarPorMicroarea(this.funcionario.microArea).subscribe(
       res => {
         this.pacientes = res;
         this.dataSource = new MatTableDataSource<Paciente>(this.pacientes);

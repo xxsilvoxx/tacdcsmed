@@ -5,6 +5,7 @@ import { take } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { Residencia } from '../../models/residencia.model';
 import { Familia } from '../../models/familia.model';
+import { MicroArea } from '../../models/microArea.model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,12 +14,14 @@ export class ResidenciasService {
 
   private readonly apiUrl = `${environment.url}residencias`;
 
-  constructor(
-    private http: HttpClient
-  ) { }
+  constructor(private http: HttpClient) { }
 
   listar() {
     return this.http.get<Residencia[]>(this.apiUrl).pipe(take(1));
+  }
+
+  listarPorMicroarea(microArea: MicroArea) {
+    return this.http.get<Residencia[]>(`${this.apiUrl}/microarea/${microArea.idMicroArea}`).pipe(take(1));
   }
 
   cadastrar(paciente: Residencia) {
@@ -26,11 +29,11 @@ export class ResidenciasService {
   }
 
   alterar(residencia: Residencia) {
-    return this.http.put<Residencia>(`${this.apiUrl}/${residencia.idResidencia}`, residencia);
+    return this.http.put<Residencia>(`${this.apiUrl}/${residencia.idResidencia}`, residencia).pipe(take(1));
   }
 
   remover(residencia: Residencia) {
-    return this.http.delete<Residencia>(`${this.apiUrl}/${residencia.idResidencia}`);
+    return this.http.delete<Residencia>(`${this.apiUrl}/${residencia.idResidencia}`).pipe(take(1));
   }
 
   retornarResidenciaPorFamilia(familia: Familia) {

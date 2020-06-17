@@ -5,7 +5,7 @@ import { take } from 'rxjs/operators';
 
 import { environment } from './../../../environments/environment';
 import { Paciente } from '../../models/paciente.model';
-import { Observable } from 'rxjs';
+import { MicroArea } from '../../models/microArea.model';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +30,10 @@ export class PacientesService {
     return this.http.get<Paciente[]>(this.apiUrl).pipe(take(1));
   }
 
+  listarPorMicroarea(microArea: MicroArea) {
+    return this.http.get<Paciente[]>(`${this.apiUrl}/microarea/${microArea.idMicroArea}`).pipe(take(1));
+  }
+
   remover(paciente: Paciente) {
     return this.http.delete<Paciente>(`${this.apiUrl}/${paciente.idPessoa}`);
   }
@@ -42,8 +46,8 @@ export class PacientesService {
     return this.http.get<Paciente>(`${this.apiUrl}/familia/${familia.idFamilia}/responsavel`).pipe(take(1));
   }
 
-  retornarPacientesNaoVisitados() {
-    return this.http.get<Paciente[]>(`${this.apiUrl}/visitas/pendentes`).pipe(take(1));
+  retornarPacientesNaoVisitados(microArea: MicroArea) {
+    return this.http.get<Paciente[]>(`${this.apiUrl}/visitas/microarea/${microArea.idMicroArea}/pendentes`).pipe(take(1));
   }
 
   retornarPacientesComConsulta() {

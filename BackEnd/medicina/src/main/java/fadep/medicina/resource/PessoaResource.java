@@ -56,9 +56,9 @@ public class PessoaResource {
         return pessoaService.retornarResponsavelFamiliar(codFamilia);
     }
 
-    @GetMapping("/visitas/pendentes")
-    public List<Pessoa> retornarPacientesNaoVisitados() {
-        return pessoaService.retornarPacientesNaoVisitadas();
+    @GetMapping("/visitas/microarea/{codigo}/pendentes")
+    public List<Pessoa> retornarPacientesNaoVisitados(@PathVariable("codigo") Long idMicroArea) {
+        return pessoaService.retornarPacientesNaoVisitadas(idMicroArea);
     }
 
     @GetMapping("/validar")

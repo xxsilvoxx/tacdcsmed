@@ -1,8 +1,10 @@
-import { environment } from './../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Familia } from '../../models/familia.model';
 import { take } from 'rxjs/operators';
+
+import { environment } from './../../../environments/environment';
+import { Familia } from '../../models/familia.model';
+import { MicroArea } from '../../models/microArea.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +13,7 @@ export class FamiliasService {
 
   private readonly apiUrl = `${environment.url}familias`;
 
-  constructor(
-    private http: HttpClient
-  ) { }
+  constructor(private http: HttpClient) { }
 
   cadastrar(familia: Familia) {
     return this.http.post<Familia>(this.apiUrl, familia).pipe(take(1));
@@ -21,6 +21,10 @@ export class FamiliasService {
 
   alterar(familia: Familia) {
     return this.http.put<Familia>(`${this.apiUrl}/${familia.idFamilia}`, familia).pipe(take(1));
+  }
+
+  listarPorMicroarea(microArea: MicroArea) {
+    return this.http.get<Familia[]>(`${this.apiUrl}/microarea/${microArea.idMicroArea}`).pipe(take(1));
   }
 
   listarTodas() {
@@ -32,7 +36,6 @@ export class FamiliasService {
   }
 
   listarFamiliasSemResidencia() {
-    // http://localhost:8083/familias/residencia/pendentes
     return this.http.get<Familia[]>(`${this.apiUrl}/residencia/pendentes`).pipe(take(1));
   }
 }
