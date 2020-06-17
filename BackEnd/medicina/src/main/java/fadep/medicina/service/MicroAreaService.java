@@ -42,8 +42,8 @@ public class MicroAreaService {
         }
     }
 
-    public ResponseEntity<Boolean> retornarMicroareaValida(int numero, Long idBairro) {
-        Integer registros = microAreaRepository.retornarMicroareaDisponivel(numero, idBairro);
+    public ResponseEntity<Boolean> retornarMicroareaValida(int numero, String nomeBairro) {
+        Integer registros = microAreaRepository.retornarMicroareaDisponivel(numero, nomeBairro);
         return (registros > 0) ? (ResponseEntity.ok(false)) : (ResponseEntity.ok(true));
     }
 

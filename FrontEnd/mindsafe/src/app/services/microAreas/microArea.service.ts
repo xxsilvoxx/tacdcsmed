@@ -42,7 +42,7 @@ export class MicroAreasService {
     return this.http.get<Funcionario>(`${this.apiUrl}/${microarea.idMicroArea}/responsavel`).pipe(take(1));
   }
 
-  validarNumeroMicroareaDisponivel(numero: number, bairro: Bairro) {
-    return this.http.get<boolean>(`${this.apiUrl}/validar/bairro/${bairro.idBairro}?numero=${numero}`).pipe(take(1));
+  validarNumeroMicroareaDisponivel(numero: number, bairro: string) {
+    return this.http.get<boolean>(`${this.apiUrl}/validar/bairro?numero=${numero}&bairro=${bairro}`).pipe(take(1));
   }
 }

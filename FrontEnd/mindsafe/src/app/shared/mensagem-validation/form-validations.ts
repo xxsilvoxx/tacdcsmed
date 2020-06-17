@@ -70,7 +70,7 @@ export const microareaDisponivelValidator = (service: MicroAreasService, campo: 
       numero = input.root.get(campo) as FormControl;
     }
 
-    return (numero.value !== null && bairro.value !== null)
+    return (numero.value !== null && (bairro.value !== null && bairro.value !== undefined))
       ? service.validarNumeroMicroareaDisponivel(numero.value, bairro.value).pipe(
         map(res => {
           return res ? null : { microareaInvalida: true };

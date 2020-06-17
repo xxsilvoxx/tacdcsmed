@@ -102,9 +102,9 @@ export class VizualizarMicroareasComponent implements OnInit {
   // Ordena a lista de microáreas pelo id
   // em forma crescente
   ordernarPorBairro(a: any, b: any) {
-    a = a.microarea.get('bairro').value.idBairro;
-    b = b.microarea.get('bairro').value.idBairro;
-    return a - b;
+    a = a.microarea.get('bairro').value.nome;
+    b = b.microarea.get('bairro').value.nome;
+    return a > b ? 1 : -1;
   }
 
   // Orderna a lista de microáreas pelo
@@ -112,7 +112,7 @@ export class VizualizarMicroareasComponent implements OnInit {
   ordenarPorNumeroMicroarea(a: any, b: any) {
     a = a.microarea.get('numero').value;
     b = b.microarea.get('numero').value;
-    return a - b;
+    return b - a;
   }
 
   listarBairros() {
