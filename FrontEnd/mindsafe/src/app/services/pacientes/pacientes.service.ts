@@ -50,8 +50,8 @@ export class PacientesService {
     return this.http.get<Paciente[]>(`${this.apiUrl}/visitas/microarea/${microArea.idMicroArea}/pendentes`).pipe(take(1));
   }
 
-  retornarPacientesComConsulta() {
-    return this.http.get<Paciente[]>(`${this.apiUrl}/consultas`).pipe(take(1));
+  retornarPacientesComConsulta(microArea: MicroArea) {
+    return this.http.get<Paciente[]>(`${this.apiUrl}/microarea/${microArea.idMicroArea}/consultas`).pipe(take(1));
   }
 
   retornarMembrosFamilia(familia: Familia) {

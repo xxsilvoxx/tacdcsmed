@@ -69,7 +69,10 @@ export class DashboardComponent implements OnInit {
           );
         }
       )),
-      switchMap(visitas => visitas ? this.visitasService.listarVisitas() : EMPTY),
+      switchMap(visitas => visitas
+        ? this.visitasService.listarVisitasPorMicroarea(this.funcionario.microArea)
+        : EMPTY
+      ),
       tap(visitas => {
         this.visitasPendentes = visitas.filter(res => res.status === 'PENDENTE').length;
         this.visitasAtrasadas = visitas.filter(res => res.status === 'ATRASADA').length;
@@ -90,8 +93,7 @@ export class DashboardComponent implements OnInit {
   exibirInformacoesMicroarea() {
     const microArea = this.funcionario.microArea;
     this.informacoesMicroarea.microArea = microArea;
-    this.informacoesMicroarea.totPacientes = this.pacientesService
-      .retornarPacientesNaoVisitados(microArea).pipe(
+    this.informacoesMicroarea.totPacientes = this.pacientesService.retornarPacientesNaoVisitados(microArea).pipe(
 
         // Retorna um map em strig para ser exibido
         // na tela para o usuário.
@@ -127,7 +129,7 @@ export class DashboardComponent implements OnInit {
    * compara o código da família, com o que está no servidor.
    */
   listarPacientes() {
-    this.pacientesService.retornarPacientesComConsulta().pipe(
+    this.pacientesService.retornarPacientesComConsulta(this.funcionario.microArea).pipe(
       tap(pacientes => pacientes.forEach(
         paciente => {
           this.residenciasService.retornarResidenciaPorFamilia(paciente.familia).pipe(

@@ -49,7 +49,9 @@
     <h2>Visitas Pendentes</h2>
 
     <mat-list>
-      <div id="visitas-pendentes">
+      <div id="visitas-pendentes" [ngStyle]="{
+        'max-height': visitasPendentes[1].visitas.length === 0 ? '290px' : '120px'
+      }">
         <mat-list-item *ngFor="let element of visitasPendentes[0].visitas.sort(ordernarPorDataCrescente)">
           <mat-icon class="material-icons" [ngStyle]="{'color': element.risco}" style="margin-right: 10px;">lens
           </mat-icon>
@@ -79,36 +81,38 @@
         </mat-list-item>
       </div>
 
-      <h1 mat-subheader>Visitas Atrasadas</h1>
+      <div *ngIf="visitasPendentes[1].visitas.length > 0">
+        <h1 mat-subheader>Visitas Atrasadas</h1>
 
-      <div id="visitas-atrasadas">
-        <mat-list-item *ngFor="let element of visitasPendentes[1].visitas.sort(ordernarPorDataCrescente)">
-          <mat-icon class="material-icons" [ngStyle]="{'color': element.risco}" style="margin-right: 10px;">lens
-          </mat-icon>
+        <div id="visitas-atrasadas">
+          <mat-list-item *ngFor="let element of visitasPendentes[1].visitas.sort(ordernarPorDataCrescente)">
+            <mat-icon class="material-icons" [ngStyle]="{'color': element.risco}" style="margin-right: 10px;">lens
+            </mat-icon>
 
-          <span style="margin-right: 20px; width: 200px;">{{ element.visita.pessoa.nome }}</span>
+            <span style="margin-right: 20px; width: 200px;">{{ element.visita.pessoa.nome }}</span>
 
-          <span class="espaco"></span>
-          <span style="margin-right: 20px;">{{ element.visita.dataVisita | date:'short' }}</span>
+            <span class="espaco"></span>
+            <span style="margin-right: 20px;">{{ element.visita.dataVisita | date:'short' }}</span>
 
-          <span class="espaco"></span>
-          <div [ngStyle]="{'color': element.visita.status.cor}">
-            <mat-icon class="material-icons">{{ element.visita.status.icone }}</mat-icon>
-            <span [ngStyle]="{
-              'margin-right': '10px',
-              'position': 'relative',
-              'top': '-5px',
-              'font-size': '13pt'
-            }">
-            {{ element.visita.status.mensagem }}
-            </span>
-          </div>
+            <span class="espaco"></span>
+            <div [ngStyle]="{'color': element.visita.status.cor}">
+              <mat-icon class="material-icons">{{ element.visita.status.icone }}</mat-icon>
+              <span [ngStyle]="{
+                'margin-right': '10px',
+                'position': 'relative',
+                'top': '-5px',
+                'font-size': '13pt'
+              }">
+              {{ element.visita.status.mensagem }}
+              </span>
+            </div>
 
-          <span class="espaco"></span>
-          <button mat-icon-button (click)="openModal(element.visita)">
-            <mat-icon class="material-icons">description</mat-icon>
-          </button>
-        </mat-list-item>
+            <span class="espaco"></span>
+            <button mat-icon-button (click)="openModal(element.visita)">
+              <mat-icon class="material-icons">description</mat-icon>
+            </button>
+          </mat-list-item>
+        </div>
       </div>
     </mat-list>
   </div>

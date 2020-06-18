@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { Observable, EMPTY } from 'rxjs';
+import { EMPTY } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -13,7 +13,7 @@ import { Visita } from '../../models/visita.model';
 import { MensagemValidationService } from '../../shared/mensagem-validation/mensagem-validation.service';
 import { VisitaService } from '../../services/visitas/visita.service';
 import { MensagemService } from '../../shared/mensagem/mensagem.service';
-import { dateToTimestamp, converterPraDate, converterPraHora } from '../../shared/date-format/date-format';
+import { dateToTimestamp, converterPraHora } from '../../shared/date-format/date-format';
 import { Funcionario } from '../../models/funcionario.model';
 
 @Component({

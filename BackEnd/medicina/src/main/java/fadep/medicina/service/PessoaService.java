@@ -47,10 +47,7 @@ public class PessoaService {
          * Nas versões atuais do spring ele pede um objeto Optional para buscar informações, como o findById,
          * que é muito similar ao findOne().
          * Por isso é passado primeiro Pessoa como Optional, e depois convertido para a Classe Pessoa.
-         */ 	
-    	/**
-    	 * novo retorno de pessoas, se for diferente de nulo;
-    	 */
+         */
         Pessoa pessoa = pessoaRepository.findOne(codigo);
         if ( pessoa != null) {
         	return pessoa;

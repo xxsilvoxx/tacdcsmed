@@ -67,13 +67,13 @@ public class PessoaResource {
         return pessoaService.retornarValidadeCpfCnpj(cpfCnpj);
     }
 
-    @GetMapping("/consultas")
-    public List<Pessoa> retornarPacientesComConsulta() {
+    @GetMapping("/microarea/{codigo}/consultas")
+    public List<Pessoa> retornarPacientesComConsulta(@PathVariable("codigo") Long idMicroArea) {
         Calendar calendar = Calendar.getInstance();
         Calendar umaSemana = Calendar.getInstance();
         umaSemana.add(umaSemana.DATE, 7);
         return pessoaRepository.retornarPacientesComConsultas(
-                calendar.getTime(), umaSemana.getTime());
+                calendar.getTime(), umaSemana.getTime(), idMicroArea);
     }
     
     @GetMapping("/familia/{codigo}")

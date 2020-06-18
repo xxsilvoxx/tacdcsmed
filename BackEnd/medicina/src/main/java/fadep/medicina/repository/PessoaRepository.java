@@ -47,10 +47,11 @@ public interface PessoaRepository extends JpaRepository<Pessoa, Long>{
      * consultas marcadas, ordenando por ordem
      * crescente.
      */
-    @Query("SELECT v.pessoa FROM Visita v " +
-            "WHERE v.comparecerUbs = 1 AND (v.dataCompare >= ?1 AND v.dataCompare <= ?2) " +
+    @Query("SELECT v.pessoa FROM Visita v, Familia f, Residencia r " +
+            "WHERE v.pessoa.familia = f AND r.familia = f AND r.microArea.idMicroArea = ?3 " +
+            "AND v.comparecerUbs = 1 AND (v.dataCompare >= ?1 AND v.dataCompare <= ?2) " +
             "ORDER BY v.dataCompare")
-    public List<Pessoa> retornarPacientesComConsultas(Date dataAtual, Date umaSemana);
+    public List<Pessoa> retornarPacientesComConsultas(Date dataAtual, Date umaSemana, Long idMicroArea);
 
     @Query("SELECT p FROM Pessoa p WHERE p.familia.idFamilia = ?1")
     public List<Pessoa> retornarMembrosFamilia(Long idFamilia);
