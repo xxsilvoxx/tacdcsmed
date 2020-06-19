@@ -57,12 +57,13 @@ public class FamiliaService {
         return  familiasSemResidencia;
     }
 
+    public Boolean familiaDisponivel(String nomeFamilia) {
+        Integer registros = familiaRepository.retornarFamiliaDisponivel(nomeFamilia);
+        return registros == 0;
+    }
+
     public Familia buscarPorCodigo(Long codigo) {
-    	Familia familia = familiaRepository.findOne(codigo);
-    	if (familia != null) {
-            return familia;
-        }
-        return null;
+        return familiaRepository.findOne(codigo);
     }
 
 }

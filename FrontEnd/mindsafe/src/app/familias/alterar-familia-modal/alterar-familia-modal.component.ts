@@ -1,14 +1,17 @@
+import { Component, OnInit, Inject } from '@angular/core';
 import { EMPTY } from 'rxjs';
 import { tap, switchMap } from 'rxjs/operators';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+
 import { Paciente } from './../../models/paciente.model';
 import { PacientesService } from './../../services/pacientes/pacientes.service';
 import { MensagemService } from 'src/app/shared/mensagem/mensagem.service';
 import { MensagemValidationService } from './../../shared/mensagem-validation/mensagem-validation.service';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FamiliasService } from './../../services/familias/familias.service';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { FamiliasFormComponent } from './../familias-form-modal/familias-form-modal.component';
-import { Component, OnInit, Inject } from '@angular/core';
+import { familiaDisponivelValidator } from '../../shared/mensagem-validation/form-validations';
 
 @Component({
   selector: 'app-alterar-familia-modal',
@@ -20,7 +23,7 @@ export class AlterarFamiliaModalComponent implements OnInit {
   formFamilia: FormGroup;
   responsavelFamiliarControl: FormControl;
   responsavelRetornado: Paciente;
-  membros = [] as Paciente[];
+  membros: Paciente[] = [];
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -46,12 +49,13 @@ export class AlterarFamiliaModalComponent implements OnInit {
           Validators.required,
           Validators.minLength(3),
           Validators.maxLength(250)
-        ]
+        ],
+        asyncValidators: [ familiaDisponivelValidator(this.familiasService) ]
       }]
     });
 
     this.responsavelFamiliarControl = this.builder.control(null, {
-      validators: [Validators.required]
+      validators: [ Validators.required ]
     });
   }
 

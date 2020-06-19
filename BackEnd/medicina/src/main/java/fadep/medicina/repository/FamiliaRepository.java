@@ -22,4 +22,10 @@ public interface FamiliaRepository extends JpaRepository<Familia, Long> {
     @Query("SELECT DISTINCT r.familia FROM Residencia r")
     public List<Familia> retornarFamiliasComResidencia();
 
+    /**
+     * Retorna se existem registros com aquele nome de família
+     */
+    @Query("SELECT COUNT(f) FROM Familia f WHERE f.nome = ?1")
+    public Integer retornarFamiliaDisponivel(String nome);
+
 }

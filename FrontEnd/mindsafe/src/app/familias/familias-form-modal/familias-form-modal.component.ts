@@ -1,9 +1,12 @@
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+
+import { MatDialogRef } from '@angular/material/dialog';
+
 import { MensagemValidationService } from './../../shared/mensagem-validation/mensagem-validation.service';
 import { MensagemService } from 'src/app/shared/mensagem/mensagem.service';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FamiliasService } from './../../services/familias/familias.service';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { familiaDisponivelValidator } from '../../shared/mensagem-validation/form-validations';
 
 @Component({
   selector: 'app-familias-form-modal',
@@ -34,7 +37,8 @@ export class FamiliasFormComponent implements OnInit {
           Validators.required,
           Validators.minLength(3),
           Validators.maxLength(250)
-        ]
+        ],
+        asyncValidators: [ familiaDisponivelValidator(this.familiasService) ]
       }]
     });
   }

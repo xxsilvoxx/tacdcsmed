@@ -38,4 +38,8 @@ export class FamiliasService {
   listarFamiliasSemResidencia() {
     return this.http.get<Familia[]>(`${this.apiUrl}/residencia/pendentes`).pipe(take(1));
   }
+
+  familiaDisponivel(familia: string) {
+    return this.http.get<boolean>(`${this.apiUrl}/validar?nome=${familia}`).pipe(take(1));
+  }
 }

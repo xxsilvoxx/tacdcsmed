@@ -9,6 +9,7 @@ import { MicroAreasService } from '../../services/microAreas/microArea.service';
 import { CausasService } from '../../services/causas/causas.service';
 import { FuncoesService } from '../../services/funcoes/funcoes.service';
 import { UbsService } from '../../services/ubs/ubs.service';
+import { FamiliasService } from '../../services/familias/familias.service';
 
 /* --------------------------------------------------------------------------------------- */
 
@@ -109,6 +110,19 @@ export const ubsDisponivelValidator = (service: UbsService) => {
     ) : EMPTY;
   };
 };
+
+export const familiaDisponivelValidator = (service: FamiliasService) => {
+  return (input: FormControl) => {
+    return input.value.length >= 3 ? service.familiaDisponivel(input.value).pipe(
+      map(
+        res => {
+          return res ? null : { familiaInvalida: true };
+        }
+      )
+    ) : EMPTY;
+  };
+};
+
 /* --------------------------------------------------------------------------------------- */
 
 // # Validações sincronas

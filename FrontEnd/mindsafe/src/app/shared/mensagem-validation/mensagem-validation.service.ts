@@ -22,6 +22,7 @@ export class MensagemValidationService {
       'medicamentoInvalido': 'Este medicamento já está cadastrado',
       'microareaInvalida': 'Esta microárea já está cadastrada',
       'numeroInvalido': `${label} deve ser positivo`,
+      'familiaInvalida': 'Esta família já está cadastrada',
       'causaInvalida': 'Este risco já está cadastrado',
       'funcaoInvalida': 'Esta função já está cadastrada',
       'ubsInvalida': 'Esta UBS já está cadastrada'

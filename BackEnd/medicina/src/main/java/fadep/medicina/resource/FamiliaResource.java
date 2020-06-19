@@ -1,5 +1,6 @@
 package fadep.medicina.resource;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import fadep.medicina.model.Familia;
 import fadep.medicina.repository.FamiliaRepository;
 import fadep.medicina.service.FamiliaService;
@@ -48,6 +49,11 @@ public class FamiliaResource {
     @GetMapping("/residencia/pendentes")
     public List<Familia> retornarFamiliasSemResidencia() {
         return familiaService.retornarFamiliasSemResidencia();
+    }
+
+    @GetMapping("/validar")
+    public Boolean validarFamiliaDisponivel(@RequestParam("nome") String nomeFamilia) {
+        return familiaService.familiaDisponivel(nomeFamilia);
     }
 
     @DeleteMapping("/{codigo}")
