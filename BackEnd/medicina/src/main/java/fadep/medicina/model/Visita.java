@@ -6,14 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.sql.Timestamp;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -58,7 +51,8 @@ public class Visita {
 	private Visita proximaVisita;
 
 	@Column(name = "status")
-	private String status;
+	@Enumerated(EnumType.STRING)
+	private StatusVisita status;
 
 	public Long getIdVisita() {
 		return idVisita;
@@ -132,14 +126,14 @@ public class Visita {
 		this.proximaVisita = proximaVisita;
 	}
 
-	public String getStatus() {
+	public StatusVisita getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(StatusVisita status) {
 		this.status = status;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

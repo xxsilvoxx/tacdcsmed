@@ -55,7 +55,7 @@ export class DashboardComponent implements OnInit {
    */
   exibirVisitasPendentes() {
     this.visitasService.listarVisitasPorMicroarea(this.funcionario.microArea).pipe(
-      tap(visitas => visitas.forEach(
+      /* tap(visitas => visitas.forEach(
         visita => {
           const hoje = new Date();
           const dataVisita = new Date(visita.dataVisita);
@@ -68,7 +68,7 @@ export class DashboardComponent implements OnInit {
             err => this.msg.exibirMensagem('Erro ao atualizar status das visitas', 'error')
           );
         }
-      )),
+      )), */
       switchMap(visitas => visitas
         ? this.visitasService.listarVisitasPorMicroarea(this.funcionario.microArea)
         : EMPTY

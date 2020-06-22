@@ -374,7 +374,6 @@ export class FormVisitasComponent implements OnInit {
 
       // Adiciona a próxima visita, e retorna o objeto
       // para alterar a visita atual.
-
       this.visitasService.cadastrarVisita(proximaVisita).pipe(
         switchMap(visita => visita.idVisita !== null
           ? (

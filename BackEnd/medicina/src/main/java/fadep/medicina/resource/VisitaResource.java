@@ -38,6 +38,7 @@ public class VisitaResource {
 
     @GetMapping("/microarea/{codigo}")
     public List<Visita> listarVisitasPorMicroarea(@PathVariable("codigo") Long idMicroArea) {
+        visitaService.atualizarStatusVisitas(idMicroArea);
         return visitaRepository.retornarVisitasPorMicroarea(idMicroArea);
     }
 
@@ -48,10 +49,7 @@ public class VisitaResource {
 
     @PostMapping
     public ResponseEntity<Visita> cadastrar(@Valid @RequestBody Visita visita, HttpServletResponse response) {
-        Visita visitaSalvo = visitaRepository.save(visita);
-        return (visitaSalvo != null)
-                ?(ResponseEntity.status(HttpStatus.CREATED).body(visitaSalvo))
-                :(ResponseEntity.badRequest().build());
+        return visitaService.adicionarVisita(visita);
     }
 
     @PutMapping("/{codigo}")

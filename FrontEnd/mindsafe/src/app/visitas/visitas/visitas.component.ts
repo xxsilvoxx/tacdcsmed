@@ -91,7 +91,7 @@ export class VisitasComponent implements OnInit {
 
       // Tap utilizado para atualizar a lista, antes mesmo de ela ser renderizada,
       // jogando visitas pendentes que já expiraram para atrasadas.
-      tap(visitas => visitas.forEach(
+      /* tap(visitas => visitas.forEach(
         visita => {
           const dataVisita = new Date(visita.dataVisita);
           const dataAtual = new Date();
@@ -107,7 +107,7 @@ export class VisitasComponent implements OnInit {
             }
           }
         }
-      )),
+      )), */
 
       // Tap utilizado para separar todos os pacientes que
       // possuem visitas, assim evitando de fazer chamadas
@@ -130,7 +130,7 @@ export class VisitasComponent implements OnInit {
 
               // Lista todas as visitas para assim atribuir
               // cada visita em sua respectiva lista.
-              this.visitaService.listarVisitas().subscribe(
+              this.visitaService.listarVisitasPorMicroarea(this.funcionario.microArea).subscribe(
                 // tslint:disable-next-line: no-shadowed-variable
                 visitas => visitas.forEach(
                   visita => {
