@@ -2,6 +2,7 @@ package fadep.medicina.service;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import fadep.medicina.model.StatusVisita;
@@ -73,17 +74,20 @@ public class VisitaService {
 	 * Sempre que for chamado o findAll de visitas, ele executa antes a atualização
 	 * das viistas que já estão trasadas.
 	 */
-	public void atualizarStatusVisitas(Long idMicroArea) {
+	public List<Visita> atualizarStatusVisitas(Long idMicroArea) {
 		List<Visita> todas = visitaRepository.retornarVisitasPorMicroarea(idMicroArea);
+		List<Visita> retornoValidado = new ArrayList<Visita>();
 		for (Visita visita: todas) {
-			Calendar hoje = Calendar.getInstance();
+			Date hoje = Calendar.getInstance().getTime();
 			if (hoje.after(visita.getDataVisita()) && !visita.getStatus().equals(StatusVisita.CONCLUIDA)) {
 				if (visita.getStatus().equals(StatusVisita.PENDENTE)) {
 					visita.setStatus(StatusVisita.ATRASADA);
 					visitaRepository.save(visita);
 				}
 			}
+			retornoValidado.add(visita);
 		}
+		return retornoValidado;
 	}
 
 	public List<Visita> listarAgendamentos(Long codPaciente) {

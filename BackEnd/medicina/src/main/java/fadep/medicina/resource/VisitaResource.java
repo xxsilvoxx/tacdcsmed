@@ -38,8 +38,8 @@ public class VisitaResource {
 
     @GetMapping("/microarea/{codigo}")
     public List<Visita> listarVisitasPorMicroarea(@PathVariable("codigo") Long idMicroArea) {
-        visitaService.atualizarStatusVisitas(idMicroArea);
-        return visitaRepository.retornarVisitasPorMicroarea(idMicroArea);
+        return visitaService.atualizarStatusVisitas(idMicroArea);
+//        return visitaRepository.retornarVisitasPorMicroarea(idMicroArea);
     }
 
     @GetMapping("funcionario/{codigo}")
