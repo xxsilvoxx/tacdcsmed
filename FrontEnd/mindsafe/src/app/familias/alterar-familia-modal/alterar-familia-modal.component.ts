@@ -49,8 +49,7 @@ export class AlterarFamiliaModalComponent implements OnInit {
           Validators.required,
           Validators.minLength(3),
           Validators.maxLength(250)
-        ],
-        asyncValidators: [ familiaDisponivelValidator(this.familiasService) ]
+        ]
       }]
     });
 
@@ -72,50 +71,66 @@ export class AlterarFamiliaModalComponent implements OnInit {
     return this.validation.getErrorMessage(control, label);
   }
 
+  atribuirValidacao(control: FormControl) {
+    control.setAsyncValidators(familiaDisponivelValidator(this.familiasService));
+  }
+
   listarMembrosFamilia() {
     this.pacienteService.retornarMembrosFamilia(this.formFamilia.value).pipe(
+      tap(value => value.length === 0
+        ? this.mensagem.exibirMensagem('A lista de membros está vazia', 'info')
+        : EMPTY
+      ),
       tap(value => {
         value.forEach(pessoa => {
           if (this.responsavelFamiliarControl.value) {
-            if (pessoa.idPessoa == this.responsavelFamiliarControl.value.idPessoa) {
+            if (pessoa.idPessoa === this.responsavelFamiliarControl.value.idPessoa) {
               this.responsavelFamiliarControl.setValue(pessoa);
             }
           }
-
-        })
+        });
       })
     ).subscribe(
       res => this.membros = res,
-      err => this.mensagem.exibirMensagem("Erro ao retornar lista", "error")
-    )
+      err => this.mensagem.exibirMensagem('Erro ao retornar lista', 'error')
+    );
   }
 
-  alterar(){
-    this.familiasService.alterar(this.formFamilia.value).pipe(
-      tap(familia => {
-        const retornado = this.membros.filter(value => value.idPessoa === this.responsavelRetornado.idPessoa);
-
-        if (this.responsavelFamiliarControl.value.idPessoa != this.responsavelRetornado.idPessoa) {
-          this.responsavelFamiliarControl.value.responsavelFamiliar = true;
-          this.responsavelRetornado.responsavelFamiliar = false;
-          this.pacienteService.alterar(this.responsavelRetornado).pipe(
-            switchMap(responsavel => responsavel ? this.pacienteService.alterar(this.responsavelFamiliarControl.value) : EMPTY)
-          ).subscribe(
-            success => success,
-            err => this.mensagem.exibirMensagem("Erro ao alterar responsável", "error")
-          );
+  alterar() {
+    if (this.membros.length > 0) {
+      this.familiasService.alterar(this.formFamilia.value).pipe(
+        tap(familia => {
+          if (this.responsavelFamiliarControl.value.idPessoa !== this.responsavelRetornado.idPessoa) {
+            this.responsavelFamiliarControl.value.responsavelFamiliar = true;
+            this.responsavelRetornado.responsavelFamiliar = false;
+            this.pacienteService.alterar(this.responsavelRetornado).pipe(
+              switchMap(responsavel => responsavel ? this.pacienteService.alterar(this.responsavelFamiliarControl.value) : EMPTY)
+            ).subscribe(
+              success => success,
+              err => this.mensagem.exibirMensagem('Erro ao alterar responsável', 'error')
+            );
+          }
+        })
+      ).subscribe(
+        res => {
+          this.mensagem.exibirMensagem('Família alterada com sucesso', 'done');
+          this.dialogRef.close(res);
+        },
+        err => {
+          this.mensagem.exibirMensagem('Erro ao alterar a família', 'error');
         }
-      })
-
-    ).subscribe(
-      res => {
-        this.mensagem.exibirMensagem("Alterado com sucesso", "done");
-        this.dialogRef.close(res);
-      },
-      err => {
-        this.mensagem.exibirMensagem("Erro ao alterar", "error");
-      }
-    );
+      );
+    } else {
+      this.familiasService.alterar(this.formFamilia.value).subscribe(
+        res => {
+          this.mensagem.exibirMensagem('Família alterada com sucesso', 'done');
+          this.dialogRef.close(res);
+        },
+        err => {
+          this.mensagem.exibirMensagem('Erro ao alterar a família', 'error');
+        }
+      );
+    }
   }
 
 }

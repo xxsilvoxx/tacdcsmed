@@ -28,12 +28,12 @@
 
       <div fxFlex>
         <mat-icon>face</mat-icon>
-        <span>{{ totMembros$ | async }} integrantes</span>
+        <span>{{ totMembros$ | async }}</span>
       </div>
 
       <div fxFlex>
         <mat-icon>palette</mat-icon>
-        <span>{{ residencia.cor }}</span>
+        <span>{{ residencia.cor ? residencia.cor : 'Sem atribuição' }}</span>
       </div>
     </div>
 

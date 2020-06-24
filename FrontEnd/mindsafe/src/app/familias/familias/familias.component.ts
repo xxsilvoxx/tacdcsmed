@@ -200,8 +200,8 @@ export class FamiliasComponent implements OnInit, OnDestroy {
 
   abrirJanelaCadastro() {
     const dialogRef = this.dialog.open(FamiliasFormComponent, {
-      width: '350px',
-      height: '300px',
+      width: '500px',
+      height: '280px',
     });
 
     dialogRef.afterClosed().subscribe(
@@ -227,7 +227,7 @@ export class FamiliasComponent implements OnInit, OnDestroy {
 
   abrirJanelaAlterar() {
     const dialogRef = this.dialog.open(AlterarFamiliaModalComponent, {
-      width: '350px',
+      width: '500px',
       height: '350px',
       data: {
         dados: this.selection.selected[0],

@@ -15,7 +15,7 @@
 
 </mat-dialog-content>
 
-<mat-dialog-actions align="center" fxLayout="column" fxLayoutGap="10px">
+<mat-dialog-actions fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" [ngStyle]="{ 'margin-top': '15px' }" [ngStyle.xs]="{ 'margin-top': '0px' }">
   <button mat-raised-button color='warn' matDialogClose fxFlex>
     CANCELAR
     <mat-icon class="material-icons">
@@ -26,7 +26,6 @@
   <button mat-raised-button (click)="cadastrar()" [disabled]="formFamilia.invalid" color='primary' fxFlex>
     CONFIRMAR
     <mat-icon class="material-icons">
-
       send
     </mat-icon>
   </button>

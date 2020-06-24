@@ -50,11 +50,11 @@ export class FamiliasFormComponent implements OnInit {
   cadastrar() {
     this.familiasService.cadastrar(this.formFamilia.value).subscribe(
       res => {
-        this.mensagem.exibirMensagem('Cadastrado com sucesso', 'done');
+        this.mensagem.exibirMensagem('Família cadastrada com sucesso', 'done');
         this.dialogRef.close(res);
       },
       err => {
-        this.mensagem.exibirMensagem('Erro ao cadastrar', 'error');
+        this.mensagem.exibirMensagem('Erro ao cadastrar a família', 'error');
       }
     );
   }

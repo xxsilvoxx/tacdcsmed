@@ -1,44 +1,38 @@
 <h1 mat-dialog-title>Alterar Família</h1>
 
 <mat-dialog-content>
-    <form [formGroup]="formFamilia">
-        <mat-form-field>
-          <mat-label>Nome da Família</mat-label>
-          <input matInput type="text"
-          placeholder="Nome da Família" formControlName="nome" #nome>
-          <mat-hint align="end">
-            {{ nome.value?.length}} / 250
-          </mat-hint>
-          <mat-error>
-            {{ retornarValidacoes(formFamilia.get('nome'), 'Família')}}
-          </mat-error>
-        </mat-form-field>
+  <form [formGroup]="formFamilia">
+    <mat-form-field>
+      <mat-label>Nome da Família</mat-label>
+      <input matInput type="text" placeholder="Nome da Família" (click)="atribuirValidacao(formFamilia.get('nome'))" formControlName="nome" #nome>
+      <mat-hint align="end">
+        {{ nome.value?.length}} / 250
+      </mat-hint>
+      <mat-error>
+        {{ retornarValidacoes(formFamilia.get('nome'), 'Família')}}
+      </mat-error>
+    </mat-form-field>
 
-        <mat-form-field>
-          <mat-label>Responsável Familiar</mat-label>
-          <mat-select [formControl]="responsavelFamiliarControl" [(ngModel)]="responsavelFamiliarControl.value">
-
-            <mat-option *ngFor="let pessoa of membros" [value]="pessoa">
-              {{pessoa.nome}}
-
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-
-    </form>
+    <mat-form-field>
+      <mat-label>Responsável Familiar</mat-label>
+      <mat-select [formControl]="responsavelFamiliarControl" [(ngModel)]="responsavelFamiliarControl.value">
+        <mat-option *ngFor="let pessoa of membros" [value]="pessoa">
+          {{pessoa.nome}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
 </mat-dialog-content>
 
-<mat-dialog-actions align="center" fxLayout="column" fxLayoutGap="10px">
-  <button mat-raised-button color='warn'
-  matDialogClose fxFlex>
+<mat-dialog-actions fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" [ngStyle]="{ 'margin-top': '20px' }" [ngStyle.xs]="{ 'margin-top': '5px' }">
+  <button mat-raised-button color='warn' matDialogClose fxFlex>
     CANCELAR
     <mat-icon class="material-icons">
       cancel
     </mat-icon>
   </button><br>
 
-  <button mat-raised-button [disabled]="formFamilia.invalid" (click)="alterar()" color='primary'
-  fxFlex>
+  <button mat-raised-button [disabled]="formFamilia.invalid" (click)="alterar()" color='primary' fxFlex>
     COMFIRMAR
     <mat-icon class="material-icons">
       send

@@ -1,11 +1,11 @@
 import { Component, OnInit, Inject } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { ResidenciasService } from './../../services/residencias/residencias.service';
 import { Residencia } from '../../models/residencia.model';
-import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-residencias-info-modal',
@@ -15,7 +15,7 @@ import { switchMap } from 'rxjs/operators';
 export class ResidenciasInfoModalComponent implements OnInit {
 
   residencia = new Residencia();
-  totMembros$: Observable<number>;
+  totMembros$: Observable<string>;
 
   endereco = [];
 
@@ -62,7 +62,12 @@ export class ResidenciasInfoModalComponent implements OnInit {
   }
 
   retornarTotalFamiliares() {
-    this.totMembros$ = this.residenciasService .retornarTotalFamiliares(this.residencia.familia);
+    this.totMembros$ = this.residenciasService.retornarTotalFamiliares(this.residencia.familia).pipe(
+      map(membros => membros === 0
+        ? 'Nenhum integrante'
+        : (membros > 1 ? `${membros} integrantes` : 'Apenas 1 integrante')
+      )
+    );
   }
 
   onClose() {
