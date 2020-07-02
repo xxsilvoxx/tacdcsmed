@@ -1,5 +1,0 @@
-Todas as inserções que fizermos é importante mantermos aqui salvas para que todos nós nos mantenhamos atualizados quanto ao banco de dados
-
-Salvar o backup no repositório seguindo o um padrão:
-
-ex.: descrição_breve_do_backup-2019-11-23.sql
